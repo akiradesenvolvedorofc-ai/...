@@ -1,590 +1,765 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiraFlix Player</title>
-
-    <!-- Video.js -->
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/videojs-hotkeys@0.2.28/videojs.hotkeys.min.js"></script>
-
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background: radial-gradient(circle at top left, #1a1a2e, #0f0f1a);
-            color: #fff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* ================= PLAYER ================= */
-        .player-wrapper {
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            margin-bottom: 2rem;
-            background: #000;
-        }
-
-        .video-js {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 24px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .video-js .vjs-control-bar {
-            background: rgba(20, 20, 30, 0.6) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            height: 50px;
-            align-items: center;
-        }
-
-        .video-js .vjs-big-play-button {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            line-height: 76px;
-            font-size: 32px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        .video-js .vjs-big-play-button:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-            border-color: #f59e0b;
-        }
-
-        .video-js .vjs-play-progress {
-            background: linear-gradient(90deg, #f59e0b, #f97316) !important;
-        }
-        .video-js .vjs-load-progress {
-            background: rgba(255, 255, 255, 0.2) !important;
-        }
-        .video-js .vjs-progress-holder {
-            height: 6px !important;
-            border-radius: 4px;
-            margin: 0 10px;
-        }
-
-        .video-js .vjs-control:hover .vjs-icon-placeholder {
-            color: #f59e0b;
-        }
-
-        .video-js .vjs-menu-content {
-            background: rgba(20, 20, 30, 0.95) !important;
-            backdrop-filter: blur(20px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .video-js .vjs-menu li:hover {
-            background: rgba(245, 158, 11, 0.2) !important;
-        }
-
-        .vjs-text-track-cue {
-            background: rgba(0, 0, 0, 0.75) !important;
-            border-radius: 8px;
-            padding: 4px 12px;
-            font-size: 1.05rem !important;
-        }
-
-        /* ================= INFO DO FILME ================= */
-        .movie-info {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            display: none;
-        }
-        .movie-info.active { display: block; }
-        .movie-info h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(90deg, #f59e0b, #f97316);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        .movie-info .meta { color: #a1a1aa; font-size: 0.9rem; }
-
-        /* ================= ADMIN PANEL ================= */
-        .admin {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 2rem;
-        }
-        .admin h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #f59e0b, #f97316);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .admin p.subtitle {
-            color: #a1a1aa;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: #a1a1aa;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s;
-            outline: none;
-            font-family: inherit;
-        }
-        .form-group input:focus {
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
-        }
-        .form-group input::placeholder { color: #52525b; }
-        .form-group small {
-            display: block;
-            color: #52525b;
-            font-size: 0.75rem;
-            margin-top: 0.3rem;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: linear-gradient(90deg, #f59e0b, #f97316);
-            color: #000;
-            font-weight: 700;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            flex: 1;
-            min-width: 180px;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-        }
-        .btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: none;
-        }
-
-        .resultado {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            display: none;
-        }
-        .resultado.active { display: block; }
-        .resultado h3 {
-            font-size: 1.1rem;
-            color: #f59e0b;
-            margin-bottom: 0.8rem;
-        }
-        .resultado label {
-            display: block;
-            font-size: 0.75rem;
-            color: #a1a1aa;
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
-            margin-top: 1rem;
-        }
-        .resultado label:first-of-type { margin-top: 0; }
-        .code-box {
-            background: #000;
-            padding: 0.9rem;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: #f59e0b;
-            word-break: break-all;
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            max-height: 200px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-        .copy-btn {
-            background: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 0.5rem;
-            transition: all 0.2s;
-        }
-        .copy-btn:hover { background: rgba(245, 158, 11, 0.25); }
-
-        /* Notificação */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #10b981;
-            color: #000;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: transform 0.3s;
-            z-index: 9999;
-        }
-        .toast.show { transform: translateX(-50%) translateY(0); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Player</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;user-select:none;-webkit-user-select:none}
+#player{position:fixed;inset:0;background:#000;overflow:hidden}
+#video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;transition:transform .25s ease}
+#overlay{position:absolute;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:4vw;z-index:5;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(6px)}
+#overlay.show{opacity:1;pointer-events:auto}
+.overlay-content{display:flex;gap:26px;max-width:1100px;width:100%;align-items:flex-start}
+.poster-wrap{flex:0 0 auto;width:170px;border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6);background:#1a1a1a}
+.poster-wrap img{display:block;width:100%;height:auto}
+.meta{flex:1;min-width:0;padding-top:6px}
+.meta h1{margin:0 0 14px;font-size:clamp(22px,3.2vw,40px);font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;font-size:13px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-weight:600;color:#e6e6e6}
+.badge.star{color:#ffd166}
+.badge.age{background:#b91c1c;border-color:#b91c1c;color:#fff}
+.genres{font-size:13.5px;font-weight:700;color:#cfcfcf;margin-bottom:12px}
+.overview{font-size:14px;line-height:1.55;color:#b8b8b8;max-height:26vh;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+#tapToPlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:20;cursor:pointer}
+#tapToPlay.show{display:flex}
+#tapToPlay .btn{background:#e53935;border-radius:50%;width:90px;height:90px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(229,57,53,.25),0 0 60px rgba(229,57,53,.5);animation:pulse 1.6s infinite;font-size:40px}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+#buffering{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:12;display:none}
+#buffering.show{display:block}
+#buffering .ring{width:60px;height:60px;border:4px solid rgba(255,255,255,.15);border-top-color:#e53935;border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#controls{position:absolute;inset:0;z-index:3;opacity:0;pointer-events:none;transition:opacity .25s}
+#controls.visible{opacity:1}
+#controls.visible .top-bar,#controls.visible .center-controls,#controls.visible .bottom-bar,#controls.visible .menu{pointer-events:auto}
+.top-bar{position:absolute;top:0;right:0;padding:14px 18px;display:flex;gap:4px}
+.icon-btn{background:transparent;border:0;border-radius:8px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:.15s;padding:0}
+.icon-btn:hover{background:rgba(255,255,255,.12)}
+.icon-btn svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor}
+.icon-btn.gear svg{width:26px;height:26px}
+.icon-wrap{display:inline-flex}
+.icon-wrap.hidden{display:none!important}
+.center-controls{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:40px}
+.circle-btn{position:relative;width:60px;height:60px;border-radius:50%;background:rgba(60,45,30,.5);border:0;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;padding:0;transition:.15s;backdrop-filter:blur(6px)}
+.circle-btn:hover{background:rgba(80,60,40,.75);transform:scale(1.06)}
+.circle-btn.big{width:78px;height:78px;background:rgba(229,57,53,.55)}
+.circle-btn.big:hover{background:rgba(229,57,53,.8)}
+.circle-btn svg{width:26px;height:26px;stroke-width:2.2;fill:none;stroke:currentColor}
+.circle-btn.big svg{width:34px;height:34px;stroke-width:2.5}
+.circle-btn .num{position:absolute;bottom:9px;font-size:9px;font-weight:800}
+.circle-btn.big .num{bottom:11px;font-size:10px}
+.bottom-bar{position:absolute;left:0;right:0;bottom:0;padding:0 18px 14px;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 100%)}
+.bottom-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:6px;gap:8px}
+.time{color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.right-controls{display:flex;align-items:center;gap:2px}
+.right-controls .icon-btn{width:38px;height:38px}
+.progress-wrap{position:relative;height:20px;display:flex;align-items:center;cursor:pointer}
+.progress-bg{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;transition:height .15s}
+.progress-wrap:hover .progress-bg{height:6px;margin-top:-3px}
+.progress-buffer{position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.35)}
+.progress-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#e53935,#ff5252);border-radius:3px}
+.progress-handle{position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:50%;transform:translate(-50%,-50%);left:0;box-shadow:0 0 0 3px rgba(229,57,53,.4)}
+.progress-tooltip{position:absolute;bottom:22px;background:rgba(0,0,0,.9);padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;pointer-events:none;transform:translateX(-50%);opacity:0;white-space:nowrap;transition:.15s}
+.progress-wrap:hover .progress-tooltip{opacity:1}
+.menu{position:absolute;background:rgba(20,20,20,.97);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:6px 0;min-width:220px;display:none;z-index:30;box-shadow:0 12px 40px rgba(0,0,0,.75);max-height:70vh;overflow-y:auto;backdrop-filter:blur(20px);top:60px;right:18px}
+.menu.show{display:block;animation:menuIn .18s ease-out}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.menu .item{padding:11px 16px;font-size:13.5px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;white-space:nowrap;transition:.12s}
+.menu .item:hover{background:rgba(255,255,255,.08)}
+.menu .item.active{color:#e53935;font-weight:700}
+.menu .item.disabled{opacity:.35;pointer-events:none}
+.menu .item span.val{color:#999;font-size:12px;margin-left:auto}
+.menu .sep{height:1px;background:rgba(255,255,255,.08);margin:4px 0}
+.menu-title{padding:8px 16px 4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#666}
+.menu-episodes{left:18px;right:auto;min-width:300px;top:60px}
+.vol-wrap{display:flex;align-items:center}
+.vol-slider{-webkit-appearance:none;width:0;height:4px;background:rgba(255,255,255,.3);border-radius:2px;outline:none;transition:width .2s;cursor:pointer;margin-left:4px}
+.vol-wrap:hover .vol-slider,.vol-slider:focus{width:80px}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:#fff;border-radius:50%;cursor:pointer}
+.toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:8;max-width:80%;text-align:center;backdrop-filter:blur(10px)}
+.toast.show{opacity:1}
+.seek-feedback{position:absolute;top:50%;background:rgba(0,0,0,.7);padding:14px 22px;border-radius:14px;font-size:17px;font-weight:800;opacity:0;pointer-events:none;transition:opacity .2s;z-index:6;backdrop-filter:blur(6px);transform:translateY(-50%)}
+.seek-feedback.left{left:12%}
+.seek-feedback.right{right:12%}
+.seek-feedback.show{opacity:1}
+#errorBox{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#000;z-index:100;padding:20px;text-align:center;flex-direction:column;gap:16px}
+#errorBox.show{display:flex}
+#errorBox h2{color:#e53935;font-size:1.5rem}
+@media(max-width:640px){
+  .overlay-content{flex-direction:column;align-items:center;text-align:center;gap:16px}
+  .poster-wrap{width:130px}.meta h1{font-size:20px}
+  .overview{-webkit-line-clamp:4;font-size:12.5px}
+  .badges{justify-content:center;font-size:11.5px}
+  .center-controls{gap:20px}.circle-btn{width:52px;height:52px}
+  .circle-btn.big{width:66px;height:66px}
+  .circle-btn svg{width:22px;height:22px}
+  .circle-btn.big svg{width:28px;height:28px}
+  .right-controls .icon-btn{width:34px;height:34px}
+  .menu{right:8px;left:auto;max-width:calc(100vw - 16px);top:50px}
+  .menu-episodes{left:8px;right:auto}
+  .progress-tooltip{display:none}
+  .vol-wrap:hover .vol-slider{width:0}
+}
+</style>
 </head>
 <body>
-    <div class="container">
+<div id="player">
+  <video id="video" playsinline preload="metadata"></video>
 
-        <!-- PLAYER -->
-        <div class="player-wrapper">
-            <video
-                id="kira-player"
-                class="video-js vjs-big-play-centered"
-                controls
-                preload="auto"
-                playsinline
-            ></video>
+  <div id="overlay">
+    <div class="overlay-content">
+      <div class="poster-wrap"><img id="posterImg" alt=""></div>
+      <div class="meta">
+        <h1 id="titleEl">Carregando...</h1>
+        <div class="badges">
+          <span class="badge star" id="badgeRating" style="display:none"></span>
+          <span class="badge" id="badgeYear" style="display:none"></span>
+          <span class="badge age" id="badgeAge" style="display:none"></span>
         </div>
+        <div class="genres" id="genresEl"></div>
+        <div class="overview" id="overviewEl"></div>
+      </div>
+    </div>
+  </div>
 
-        <!-- INFO DO FILME -->
-        <div class="movie-info" id="movie-info">
-            <h1 id="movie-title">—</h1>
-            <p class="meta">ID TMDB: <span id="movie-id">—</span></p>
-        </div>
+  <div id="tapToPlay"><div class="btn">▶</div></div>
+  <div id="buffering"><div class="ring"></div></div>
 
-        <!-- PAINEL ADMINISTRATIVO -->
-        <div class="admin" id="admin-panel">
-            <h2>⚙️ Painel de Configuração</h2>
-            <p class="subtitle">Adicione ou edite filmes/séries. Cada filme é salvo localmente e gera uma entrada JSON para o catálogo público.</p>
-
-            <div class="form-group">
-                <label>ID do TMDB</label>
-                <input type="text" id="tmdb-id" placeholder="Ex: 969681">
-                <small>Encontre o ID na URL do TMDB: themoviedb.org/movie/<strong>969681</strong></small>
-            </div>
-
-            <div class="form-group">
-                <label>Título do Filme/Série</label>
-                <input type="text" id="titulo" placeholder="Ex: Spider-Man: Brand New Day">
-            </div>
-
-            <div class="form-group">
-                <label>URL da Fonte de Vídeo</label>
-                <input type="text" id="fonte" placeholder="https://exemplo.com/filme.mp4">
-                <small>Pode ser MP4 direto, HLS (.m3u8) ou um endpoint de streaming.</small>
-            </div>
-
-            <div class="form-group">
-                <label>URL da Legenda (Opcional)</label>
-                <input type="text" id="legenda" placeholder="https://exemplo.com/legenda.vtt">
-                <small>Formato .vtt (WebVTT) recomendado. O player adiciona automaticamente.</small>
-            </div>
-
-            <div class="form-group">
-                <label>URL do Pôster (Opcional)</label>
-                <input type="text" id="poster" placeholder="https://exemplo.com/poster.jpg">
-            </div>
-
-            <div class="btn-row">
-                <button class="btn" onclick="gerar()">🚀 Gerar e Salvar</button>
-                <button class="btn secondary" onclick="carregarPreview()">▶️ Preview no Player</button>
-                <button class="btn secondary" onclick="exportarTudo()">📥 Exportar Catálogo</button>
-            </div>
-
-            <div class="resultado" id="resultado">
-                <h3>✅ Configuração gerada!</h3>
-
-                <label>URL pública do filme:</label>
-                <div class="code-box" id="url-publica">—</div>
-                <button class="copy-btn" onclick="copiar('url-publica')">📋 Copiar URL</button>
-
-                <label>Entrada JSON para colar no catálogo:</label>
-                <div class="code-box" id="json-entry">—</div>
-                <button class="copy-btn" onclick="copiar('json-entry')">📋 Copiar JSON</button>
-
-                <label>Código iframe para incorporar:</label>
-                <div class="code-box" id="iframe-code">—</div>
-                <button class="copy-btn" onclick="copiar('iframe-code')">📋 Copiar iframe</button>
-            </div>
-        </div>
+  <div id="controls">
+    <div class="top-bar">
+      <button class="icon-btn" id="btnEpisodes" style="display:none" title="Episódios">☰</button>
+      <button class="icon-btn" id="btnShare" title="Compartilhar">🔗</button>
+      <button class="icon-btn gear" id="btnSettings" title="Configurações">⚙</button>
     </div>
 
-    <div class="toast" id="toast">✅ Copiado!</div>
+    <div class="center-controls">
+      <button class="circle-btn" id="btnBack"><span style="font-size:20px">↺</span><span class="num">10</span></button>
+      <button class="circle-btn big" id="btnPlay">
+        <span class="icon-wrap" id="iconPlay">▶</span>
+        <span class="icon-wrap hidden" id="iconPause">❚❚</span>
+      </button>
+      <button class="circle-btn" id="btnFwd"><span style="font-size:20px">↻</span><span class="num">10</span></button>
+    </div>
 
-    <script>
-        /* ============================================================
-           CATÁLOGO — Aqui ficam TODOS os filmes que você já cadastrou.
-           Você pode editar este objeto manualmente ou colar novas 
-           entradas usando o painel administrativo abaixo.
-           ============================================================ */
-        const CATALOGO = {
-            "969681": {
-                titulo: "Spider-Man: Brand New Day",
-                fonte: "https://mgeb.space/mp4.php?url=https://es.cuevana4br.com/pt/detail/movie/iswnnqdfuZdhcRaFZNeuO-Spider-Man-Brand-New-Day",
-                legenda: "",
-                poster: ""
-            }
-        };
+    <div class="bottom-bar">
+      <div class="bottom-row">
+        <div class="time" id="timeLabel">0:00 / 0:00</div>
+        <div class="right-controls">
+          <button class="icon-btn" id="btnCC" title="Legendas">CC</button>
+          <button class="icon-btn" id="btnQuality" title="Qualidade">HD</button>
+          <button class="icon-btn" id="btnCast" title="TV">📺</button>
+          <button class="icon-btn" id="btnPiP" title="PiP">⧉</button>
+          <div class="vol-wrap">
+            <button class="icon-btn" id="btnMute">
+              <span class="icon-wrap" id="iconVol">🔊</span>
+              <span class="icon-wrap hidden" id="iconMuted">🔇</span>
+            </button>
+            <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="1">
+          </div>
+          <button class="icon-btn" id="btnFs">
+            <span class="icon-wrap" id="iconFsOn">⛶</span>
+            <span class="icon-wrap hidden" id="iconFsOff">⤫</span>
+          </button>
+        </div>
+      </div>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bg">
+          <div class="progress-buffer" id="progressBuffer"></div>
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-handle" id="progressHandle"></div>
+        <div class="progress-tooltip" id="progressTooltip">0:00</div>
+      </div>
+    </div>
+  </div>
 
-        /* ============================================================
-           INICIALIZAÇÃO DO PLAYER (Video.js)
-           ============================================================ */
-        let player;
+  <div class="menu" id="settingsMenu">
+    <div class="menu-title">Velocidade</div>
+    <div class="item" data-speed="0.5">0.5x</div>
+    <div class="item" data-speed="0.75">0.75x</div>
+    <div class="item active" data-speed="1">1x</div>
+    <div class="item" data-speed="1.25">1.25x</div>
+    <div class="item" data-speed="1.5">1.5x</div>
+    <div class="item" data-speed="2">2x</div>
+    <div class="sep"></div>
+    <div class="item" id="setLoop">Repetir <span class="val">Não</span></div>
+  </div>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            player = videojs('kira-player', {
-                fluid: true,
-                responsive: true,
-                playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-                controlBar: {
-                    children: [
-                        'playToggle',
-                        'volumePanel',
-                        'currentTimeDisplay',
-                        'progressControl',
-                        'durationDisplay',
-                        'pictureInPictureToggle',
-                        'subsCapsButton',
-                        'playbackRateMenuButton',
-                        'fullscreenToggle'
-                    ]
-                },
-                html5: {
-                    vhs: { overrideNative: true }
-                }
-            });
+  <div class="menu" id="qualityMenu">
+    <div class="menu-title">Qualidade</div>
+    <div id="qualityList"></div>
+  </div>
 
-            player.hotkeys({
-                volumeStep: 0.1,
-                seekStep: 5,
-                enableModifiersForNumbers: false
-            });
+  <div class="menu" id="subsMenu">
+    <div class="menu-title">Legendas</div>
+    <div class="item active" data-sub="off">Desativadas</div>
+    <div id="subsList"></div>
+    <div class="sep"></div>
+    <div class="item" id="uploadSub">📁 Carregar .vtt<input type="file" accept=".vtt" id="subFile" style="display:none"></div>
+  </div>
 
-            // Verificar se a URL tem ?id= (vindo do 404.html)
-            const urlParams = new URLSearchParams(window.location.search);
-            const idFromUrl = urlParams.get('id');
+  <div class="menu menu-episodes" id="episodesMenu">
+    <div class="menu-title">Episódios</div>
+    <select id="seasonSelect" style="width:calc(100% - 32px);margin:4px 16px 8px;padding:8px 12px;background:#111;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:6px;font-size:.85rem"></select>
+    <div id="episodeList"></div>
+  </div>
 
-            if (idFromUrl) {
-                carregarFilme(idFromUrl);
-            } else {
-                // Se não tem ID, mostra o painel e um player vazio
-                document.getElementById('admin-panel').style.display = 'block';
-            }
-        });
+  <div class="menu" id="shareMenu">
+    <div class="menu-title">Compartilhar</div>
+    <div class="item" id="shareNative">📱 Compartilhar</div>
+    <div class="item" id="shareCopy">🔗 Copiar link</div>
+    <div class="item" id="shareWhatsapp">💬 WhatsApp</div>
+    <div class="item" id="shareTelegram">✈️ Telegram</div>
+  </div>
 
-        /* ============================================================
-           CARREGAR FILME POR ID
-           ============================================================ */
-        function carregarFilme(id) {
-            // Buscar primeiro no catálogo embutido
-            let filme = CATALOGO[id];
+  <div class="seek-feedback left" id="seekLeft">-10s</div>
+  <div class="seek-feedback right" id="seekRight">+10s</div>
+  <div class="toast" id="toast"></div>
 
-            // Se não estiver, tentar no localStorage
-            if (!filme) {
-                const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
-                filme = salvos[id];
-            }
+  <div id="errorBox">
+    <h2>⚠ Conteúdo não encontrado</h2>
+    <p style="color:#a1a1aa">O ID solicitado não está no catálogo.</p>
+    <a href="/admin.html" style="color:#e53935;font-weight:700">Ir para o admin</a>
+  </div>
+</div>
 
-            if (!filme) {
-                player.src({ src: '', type: 'video/mp4' });
-                document.getElementById('movie-info').classList.remove('active');
-                document.getElementById('admin-panel').style.display = 'block';
-                console.warn('Filme não encontrado no catálogo:', id);
-                return;
-            }
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const video = $("video"), player = $("player"), overlay = $("overlay"), tapToPlay = $("tapToPlay");
+  const controls = $("controls"), btnPlay = $("btnPlay"), iconPlay = $("iconPlay"), iconPause = $("iconPause");
+  const btnBack = $("btnBack"), btnFwd = $("btnFwd"), btnFs = $("btnFs");
+  const iconFsOn = $("iconFsOn"), iconFsOff = $("iconFsOff");
+  const btnPiP = $("btnPiP"), btnCast = $("btnCast"), btnCC = $("btnCC"), btnQuality = $("btnQuality");
+  const btnSettings = $("btnSettings"), btnShare = $("btnShare"), btnMute = $("btnMute"), btnEpisodes = $("btnEpisodes");
+  const iconVol = $("iconVol"), iconMuted = $("iconMuted"), volSlider = $("volSlider");
+  const settingsMenu = $("settingsMenu"), qualityMenu = $("qualityMenu"), subsMenu = $("subsMenu"), episodesMenu = $("episodesMenu"), shareMenu = $("shareMenu");
+  const qualityList = $("qualityList"), subsList = $("subsList"), episodeList = $("episodeList"), seasonSelect = $("seasonSelect");
+  const progressWrap = $("progressWrap"), progressFill = $("progressFill"), progressBuffer = $("progressBuffer");
+  const progressHandle = $("progressHandle"), progressTooltip = $("progressTooltip");
+  const timeLabel = $("timeLabel"), seekLeft = $("seekLeft"), seekRight = $("seekRight"), toastEl = $("toast");
+  const buffering = $("buffering"), errorBox = $("errorBox");
+  const STORAGE_RESUME_PREFIX = "kiraflix_resume_";
 
-            // Mostrar info do filme
-            document.getElementById('movie-info').classList.add('active');
-            document.getElementById('movie-title').textContent = filme.titulo || 'Sem título';
-            document.getElementById('movie-id').textContent = id;
+  let content = null, contentId = null, contentType = null;
+  let currentSeason = 0, currentEpisode = 0;
+  let hls = null, hlsLevels = [], currentLevelIdx = -1;
+  let subtitleTracks = [], uploadedVttUrl = null;
 
-            // Carregar fonte no player
-            player.src({
-                src: filme.fonte,
-                type: filme.fonte.includes('.m3u8') ? 'application/x-mpegURL' : 'video/mp4'
-            });
+  // ===== UTILS =====
+  function showToast(msg, dur) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toastEl.classList.remove("show"), dur || 2200);
+  }
+  function fmt(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = Math.floor(s%60);
+    if (h > 0) return h + ":" + String(m).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+    return m + ":" + String(sec).padStart(2,"0");
+  }
+  const allMenus = [settingsMenu, qualityMenu, subsMenu, episodesMenu, shareMenu];
+  function openMenu(menu) {
+    allMenus.forEach(m => { if (m && m !== menu) m.classList.remove("show"); });
+    if (menu) menu.classList.toggle("show");
+  }
+  function closeAllMenus() { allMenus.forEach(m => m && m.classList.remove("show")); }
+  function isMenuOpen() { return allMenus.some(m => m && m.classList.contains("show")); }
 
-            if (filme.poster) player.poster(filme.poster);
+  // ===== CARREGAR CATÁLOGO =====
+  async function init() {
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    const type = params.get("type");
+    if (!id || !type) return showError();
+    contentId = id; contentType = type;
 
-            // Adicionar legendas (remove antigas primeiro)
-            const tracks = player.remoteTextTracks();
-            for (let i = tracks.length - 1; i >= 0; i--) {
-                player.removeRemoteTextTrack(tracks[i]);
-            }
-            if (filme.legenda) {
-                player.addRemoteTextTrack({
-                    kind: 'subtitles',
-                    src: filme.legenda,
-                    srclang: 'pt',
-                    label: 'Português',
-                    default: true
-                }, false);
-            }
+    try {
+      const res = await fetch("/catalog.json?t=" + Date.now());
+      if (!res.ok) throw new Error("Catálogo não encontrado");
+      const catalog = await res.json();
+      const bucket = type === "movie" ? catalog.movies : catalog.series;
+      content = bucket?.[id];
+      if (!content) throw new Error("Conteúdo não está no catálogo");
 
-            // Esconde o painel admin para o usuário final
-            document.getElementById('admin-panel').style.display = 'none';
+      fillInfo(content);
 
-            // Atualiza o título da página
-            document.title = (filme.titulo || 'KiraFlix') + ' - KiraFlix';
-        }
+      if (type === "movie") {
+        loadVideo(content.source, content.subtitles || {});
+      } else {
+        setupSeries();
+      }
 
-        /* ============================================================
-           PAINEL ADMINISTRATIVO — Gerar e salvar
-           ============================================================ */
-        function gerar() {
-            const id = document.getElementById('tmdb-id').value.trim();
-            const titulo = document.getElementById('titulo').value.trim();
-            const fonte = document.getElementById('fonte').value.trim();
-            const legenda = document.getElementById('legenda').value.trim();
-            const poster = document.getElementById('poster').value.trim();
+      tryResume(id);
+      setupKeyboard();
+    } catch (err) {
+      console.error(err);
+      showToast("Erro: " + err.message, 4000);
+      showError();
+    }
+  }
 
-            if (!id || !titulo || !fonte) {
-                alert('Preencha pelo menos: ID, Título e Fonte.');
-                return;
-            }
+  function showError() {
+    errorBox.classList.add("show");
+    document.title = "Não encontrado";
+  }
 
-            const filme = { titulo, fonte, legenda, poster };
+  function fillInfo(data) {
+    document.title = (data.title || "Player") + " — KiraFlix";
+    $("titleEl").textContent = data.title || "—";
+    $("overviewEl").textContent = data.overview || "";
+    if (data.poster) $("posterImg").src = data.poster;
+    if (data.backdrop) video.poster = data.backdrop;
+    else if (data.poster) video.poster = data.poster;
 
-            // Salvar no localStorage (para funcionar imediatamente)
-            const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
-            salvos[id] = filme;
-            localStorage.setItem('kiraflix_catalogo', JSON.stringify(salvos));
+    if (data.rating) { const b = $("badgeRating"); b.textContent = "★ " + data.rating.toFixed(1); b.style.display = ""; }
+    if (data.year) { const b = $("badgeYear"); b.textContent = data.year; b.style.display = ""; }
+    if (data.ageRating) { const b = $("badgeAge"); b.textContent = data.ageRating; b.style.display = ""; }
+    if (data.genres?.length) $("genresEl").textContent = data.genres.join(", ");
+  }
 
-            // Atualizar catálogo em memória
-            CATALOGO[id] = filme;
+  // ===== CARREGAR VÍDEO =====
+  function loadVideo(url, subtitles) {
+    if (!url) { showToast("⚠ Sem fonte de vídeo para este conteúdo", 4000); return; }
+    if (hls) { try { hls.destroy(); } catch(e){} hls = null; hlsLevels = []; }
+    video.removeAttribute("src");
+    video.load();
 
-            // Gerar URL pública
-            const baseUrl = window.location.origin;
-            const urlPublica = baseUrl + '/filme/' + id;
+    if (url.includes(".m3u8") && window.Hls && Hls.isSupported()) {
+      hls = new Hls({ enableWorker: true });
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, (_, d) => {
+        hlsLevels = (d.levels || []).slice();
+        buildQualityMenu();
+      });
+      hls.on(Hls.Events.LEVEL_SWITCHED, (_, d) => { currentLevelIdx = d.level; markActiveQuality(); });
+      hls.on(Hls.Events.ERROR, (_, d) => { console.warn("HLS:", d); if (d.fatal) showToast("⚠ Erro na transmissão", 4000); });
+    } else {
+      video.src = url;
+      video.load();
+    }
 
-            // Gerar entrada JSON
-            const jsonEntry = '        "' + id + '": ' + JSON.stringify(filme, null, 4).replace(/\n/g, '\n        ') + ',';
+    // Limpar legendas antigas
+    subtitleTracks.forEach(st => st.trackEl.remove());
+    subtitleTracks = [];
+    Object.entries(subtitles || {}).forEach(([lang, url]) => {
+      if (url) addSubtitleTrack(lang, lang === "pt" ? "Português" : lang === "en" ? "English" : lang, url);
+    });
+    buildSubsList();
+  }
 
-            // Gerar iframe
-            const iframeCode = '<iframe src="' + baseUrl + '/API.html?id=' + id + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
+  // ===== SÉRIE — SETUP =====
+  function setupSeries() {
+    btnEpisodes.style.display = "flex";
+    // Determinar episódio inicial (hash ou padrão)
+    const hash = location.hash.match(/t(\d+)e(\d+)/i);
+    if (hash) {
+      const targetSeason = parseInt(hash[1], 10);
+      const targetEp = parseInt(hash[2], 10);
+      const si = content.seasons.findIndex(s => s.number === targetSeason);
+      if (si >= 0) {
+        const ei = content.seasons[si].episodes.findIndex(e => e.number === targetEp);
+        if (ei >= 0) { currentSeason = si; currentEpisode = ei; }
+      }
+    }
+    buildSeasonSelect();
+    buildEpisodeList();
+    playCurrentEpisode();
+  }
 
-            // Exibir resultados
-            document.getElementById('url-publica').textContent = urlPublica;
-            document.getElementById('json-entry').textContent = jsonEntry;
-            document.getElementById('iframe-code').textContent = iframeCode;
-            document.getElementById('resultado').classList.add('active');
+  function buildSeasonSelect() {
+    seasonSelect.innerHTML = "";
+    content.seasons.forEach((s, i) => {
+      const opt = document.createElement("option");
+      opt.value = i; opt.textContent = s.label;
+      seasonSelect.appendChild(opt);
+    });
+    seasonSelect.value = currentSeason;
+    seasonSelect.onchange = () => {
+      currentSeason = parseInt(seasonSelect.value, 10);
+      currentEpisode = 0;
+      buildEpisodeList();
+      playCurrentEpisode();
+      closeAllMenus();
+    };
+  }
 
-            // Carrega preview automático
-            carregarPreview();
-        }
+  function buildEpisodeList() {
+    episodeList.innerHTML = "";
+    const s = content.seasons[currentSeason];
+    if (!s) return;
+    s.episodes.forEach((ep, i) => {
+      const item = document.createElement("div");
+      item.className = "item" + (i === currentEpisode ? " active" : "");
+      item.textContent = ep.title ? `${ep.label} — ${ep.title}` : ep.label;
+      item.onclick = () => {
+        currentEpisode = i;
+        playCurrentEpisode();
+        closeAllMenus();
+      };
+      episodeList.appendChild(item);
+    });
+  }
 
-        function carregarPreview() {
-            const fonte = document.getElementById('fonte').value.trim();
-            const legenda = document.getElementById('legenda').value.trim();
-            const poster = document.getElementById('poster').value.trim();
+  function playCurrentEpisode() {
+    const s = content.seasons[currentSeason];
+    if (!s) return;
+    const ep = s.episodes[currentEpisode];
+    if (!ep) return;
+    const sNum = s.number, eNum = ep.number;
+    history.replaceState(null, "", `#t${sNum}e${eNum}`);
+    loadVideo(ep.source, ep.subtitles || {});
+    buildEpisodeList();
+    // Reset resume para o episódio
+    const key = STORAGE_RESUME_PREFIX + contentId + "_" + sNum + "_" + eNum;
+    try {
+      const r = JSON.parse(localStorage.getItem(key) || "null");
+      if (r && r.time > 15 && r.dur && r.time / r.dur < 0.97) {
+        setTimeout(() => {
+          video.currentTime = r.time;
+          showToast("⏯ Retomando de " + fmt(r.time));
+        }, 500);
+      }
+    } catch(e){}
+  }
 
-            if (!fonte) {
-                alert('Informe a URL da fonte primeiro.');
-                return;
-            }
+  // ===== PLAY/PAUSE =====
+  function togglePlay() { if (video.paused) video.play().catch(()=>{}); else video.pause(); }
+  function syncIcons() {
+    if (video.paused) { iconPlay.classList.remove("hidden"); iconPause.classList.add("hidden"); }
+    else { iconPlay.classList.add("hidden"); iconPause.classList.remove("hidden"); }
+  }
+  btnPlay.onclick = e => { e.stopPropagation(); togglePlay(); };
+  video.addEventListener("play", syncIcons);
+  video.addEventListener("pause", syncIcons);
+  syncIcons();
 
-            player.src({
-                src: fonte,
-                type: fonte.includes('.m3u8') ? 'application/x-mpegURL' : 'video/mp4'
-            });
+  // ===== AUTOPLAY / OVERLAY =====
+  tapToPlay.onclick = () => { tapToPlay.classList.remove("show"); video.muted = false; video.play().catch(()=>{}); };
+  video.addEventListener("loadedmetadata", () => {
+    const p = video.play();
+    if (p?.catch) p.catch(() => tapToPlay.classList.add("show"));
+  });
+  video.addEventListener("waiting", () => buffering.classList.add("show"));
+  video.addEventListener("playing", () => buffering.classList.remove("show"));
+  video.addEventListener("canplay", () => buffering.classList.remove("show"));
+  video.addEventListener("pause", () => { if (!tapToPlay.classList.contains("show") && video.duration) overlay.classList.add("show"); });
+  video.addEventListener("play", () => overlay.classList.remove("show"));
+  overlay.onclick = () => { overlay.classList.remove("show"); video.play().catch(()=>{}); };
 
-            if (poster) player.poster(poster);
+  // ===== SEEK =====
+  function showFeedback(el, txt) {
+    el.textContent = txt;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove("show"), 500);
+  }
+  btnBack.onclick = e => { e.stopPropagation(); video.currentTime = Math.max(0, video.currentTime - 10); showFeedback(seekLeft, "-10s"); };
+  btnFwd.onclick = e => { e.stopPropagation(); video.currentTime += 10; showFeedback(seekRight, "+10s"); };
 
-            const tracks = player.remoteTextTracks();
-            for (let i = tracks.length - 1; i >= 0; i--) {
-                player.removeRemoteTextTrack(tracks[i]);
-            }
-            if (legenda) {
-                player.addRemoteTextTrack({
-                    kind: 'subtitles',
-                    src: legenda,
-                    srclang: 'pt',
-                    label: 'Português',
-                    default: true
-                }, false);
-            }
-        }
+  // ===== PROGRESSO =====
+  function updateProgress() {
+    const d = video.duration || 0, c = video.currentTime || 0;
+    const pct = d ? (c / d) * 100 : 0;
+    progressFill.style.width = pct + "%";
+    progressHandle.style.left = pct + "%";
+    timeLabel.textContent = fmt(c) + " / " + fmt(d);
+  }
+  video.addEventListener("timeupdate", updateProgress);
+  video.addEventListener("loadedmetadata", updateProgress);
+  video.addEventListener("durationchange", updateProgress);
+  video.addEventListener("progress", () => {
+    try { if (video.buffered.length) { const end = video.buffered.end(video.buffered.length - 1); progressBuffer.style.width = (end / (video.duration || 1)) * 100 + "%"; } } catch(e){}
+  });
 
-        function exportarTudo() {
-            const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
-            const completo = { ...CATALOGO, ...salvos };
-            const json = JSON.stringify(completo, null, 4);
+  let seeking = false;
+  function seekFromEvent(ev) {
+    const rect = progressWrap.getBoundingClientRect();
+    const x = (ev.touches ? ev.touches[0].clientX : ev.clientX) - rect.left;
+    const pct = Math.max(0, Math.min(1, x / rect.width));
+    if (video.duration) video.currentTime = pct * video.duration;
+  }
+  progressWrap.addEventListener("mousemove", ev => {
+    if (window.innerWidth <= 640) return;
+    const rect = progressWrap.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
+    progressTooltip.style.left = (pct * 100) + "%";
+    progressTooltip.textContent = fmt((video.duration || 0) * pct);
+  });
+  progressWrap.addEventListener("mousedown", e => { seeking = true; seekFromEvent(e); });
+  progressWrap.addEventListener("touchstart", e => { seeking = true; seekFromEvent(e); }, { passive: true });
+  document.addEventListener("mousemove", e => seeking && seekFromEvent(e));
+  document.addEventListener("touchmove", e => seeking && seekFromEvent(e), { passive: true });
+  document.addEventListener("mouseup", () => seeking = false);
+  document.addEventListener("touchend", () => seeking = false);
 
-            // Cria um arquivo para download
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'catalogo.json';
-            a.click();
-            URL.revokeObjectURL(url);
+  // ===== VOLUME =====
+  function updateVolUI() {
+    if (video.muted || video.volume === 0) { iconVol.classList.add("hidden"); iconMuted.classList.remove("hidden"); }
+    else { iconVol.classList.remove("hidden"); iconMuted.classList.add("hidden"); }
+    volSlider.value = video.muted ? 0 : video.volume;
+  }
+  btnMute.onclick = e => { e.stopPropagation(); video.muted = !video.muted; if (!video.muted && video.volume === 0) video.volume = 0.5; updateVolUI(); };
+  volSlider.oninput = e => { e.stopPropagation(); video.volume = parseFloat(volSlider.value); video.muted = video.volume === 0; updateVolUI(); };
+  video.addEventListener("volumechange", updateVolUI);
+  updateVolUI();
 
-            showToast('📥 Catálogo exportado!');
-        }
+  // ===== FULLSCREEN =====
+  async function enterFs() {
+    try {
+      if (player.requestFullscreen) await player.requestFullscreen();
+      else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      if (screen.orientation?.lock) await screen.orientation.lock("landscape").catch(()=>{});
+    } catch(e){}
+  }
+  async function exitFs() {
+    try {
+      if (screen.orientation?.unlock) screen.orientation.unlock();
+      if (document.exitFullscreen) await document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } catch(e){}
+  }
+  btnFs.onclick = e => {
+    e.stopPropagation();
+    if (!(document.fullscreenElement || document.webkitFullscreenElement)) enterFs(); else exitFs();
+  };
+  function syncFsIcons() {
+    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if (isFs) { iconFsOn.classList.add("hidden"); iconFsOff.classList.remove("hidden"); }
+    else { iconFsOn.classList.remove("hidden"); iconFsOff.classList.add("hidden"); }
+  }
+  document.addEventListener("fullscreenchange", syncFsIcons);
+  document.addEventListener("webkitfullscreenchange", syncFsIcons);
 
-        function copiar(elId) {
-            const texto = document.getElementById(elId).textContent;
-            navigator.clipboard.writeText(texto).then(() => {
-                showToast('✅ Copiado!');
-            });
-        }
+  // ===== PIP =====
+  if (document.pictureInPictureEnabled) {
+    btnPiP.onclick = e => {
+      e.stopPropagation();
+      if (document.pictureInPictureElement) document.exitPictureInPicture();
+      else video.requestPictureInPicture().catch(()=>{});
+    };
+  } else btnPiP.style.display = "none";
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-    </script>
+  // ===== CAST =====
+  btnCast.onclick = async e => {
+    e.stopPropagation();
+    if (video.remote?.prompt) { try { await video.remote.prompt(); return; } catch(e){} }
+    if (typeof video.webkitShowPlaybackTargetPicker === "function") { video.webkitShowPlaybackTargetPicker(); return; }
+    showToast("Navegador não suporta transmissão");
+  };
+
+  // ===== QUALIDADE =====
+  function labelHeight(h) {
+    if (!h) return "";
+    if (h >= 2000) return "4K"; if (h >= 1400) return "2K";
+    if (h >= 1000) return "1080p"; if (h >= 700) return "720p";
+    if (h >= 460) return "480p"; if (h >= 340) return "360p"; return h + "p";
+  }
+  function buildQualityMenu() {
+    qualityList.innerHTML = "";
+    if (hls && hlsLevels.length) {
+      const auto = document.createElement("div");
+      auto.className = "item" + (currentLevelIdx === -1 ? " active" : "");
+      auto.textContent = "Auto";
+      auto.onclick = () => { hls.currentLevel = -1; currentLevelIdx = -1; markActiveQuality(); closeAllMenus(); };
+      qualityList.appendChild(auto);
+      const sorted = hlsLevels.map((l, i) => ({ h: l.height || 0, i })).sort((a, b) => b.h - a.h);
+      sorted.forEach(l => {
+        const item = document.createElement("div");
+        item.className = "item" + (currentLevelIdx === l.i ? " active" : "");
+        item.textContent = labelHeight(l.h) || (l.i + "");
+        item.onclick = () => { hls.currentLevel = l.i; currentLevelIdx = l.i; markActiveQuality(); closeAllMenus(); };
+        qualityList.appendChild(item);
+      });
+    } else {
+      qualityList.innerHTML = '<div class="item active">Nativo <span class="val">' + (labelHeight(video.videoHeight) || "Detectando") + '</span></div>';
+    }
+  }
+  function markActiveQuality() {
+    qualityList.querySelectorAll(".item").forEach((el, i) => {
+      el.classList.toggle("active", i === (currentLevelIdx + 1));
+    });
+  }
+  btnQuality.onclick = e => { e.stopPropagation(); buildQualityMenu(); openMenu(qualityMenu); };
+
+  // ===== LEGENDAS =====
+  function addSubtitleTrack(lang, label, url) {
+    const t = document.createElement("track");
+    t.kind = "subtitles"; t.label = label; t.srclang = lang; t.src = url;
+    video.appendChild(t);
+    subtitleTracks.push({ lang, label, trackEl: t });
+  }
+  function buildSubsList() {
+    subsList.innerHTML = "";
+    subtitleTracks.forEach((st, i) => {
+      const d = document.createElement("div");
+      d.className = "item";
+      d.textContent = st.label;
+      d.onclick = () => {
+        video.textTracks && Array.from(video.textTracks).forEach(t => t.mode = "disabled");
+        st.trackEl.track.mode = "showing";
+        subsMenu.querySelectorAll(".item").forEach(el => el.classList.remove("active"));
+        d.classList.add("active");
+        closeAllMenus();
+        showToast("Legenda: " + st.label);
+      };
+      subsList.appendChild(d);
+    });
+  }
+  btnCC.onclick = e => { e.stopPropagation(); openMenu(subsMenu); };
+  subsMenu.addEventListener("click", e => {
+    const item = e.target.closest(".item");
+    if (!item) return;
+    if (item.id === "uploadSub") { $("subFile").click(); return; }
+    if (item.dataset.sub === "off") {
+      video.textTracks && Array.from(video.textTracks).forEach(t => t.mode = "disabled");
+      subsMenu.querySelectorAll(".item").forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
+      closeAllMenus();
+    }
+  });
+  $("subFile").addEventListener("change", e => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    if (uploadedVttUrl) URL.revokeObjectURL(uploadedVttUrl);
+    uploadedVttUrl = URL.createObjectURL(f);
+    addSubtitleTrack("custom", f.name, uploadedVttUrl);
+    buildSubsList();
+    showToast("Legenda: " + f.name);
+  });
+
+  // ===== SHARE =====
+  function shareUrl() { return location.origin + location.pathname + location.search + location.hash; }
+  btnShare.onclick = e => { e.stopPropagation(); openMenu(shareMenu); };
+  $("shareNative").onclick = async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title: document.title, url: shareUrl() }); return; } catch(e){}
+    }
+    copyClipboard();
+  };
+  $("shareCopy").onclick = copyClipboard;
+  $("shareWhatsapp").onclick = () => window.open("https://wa.me/?text=" + encodeURIComponent(document.title + " - " + shareUrl()), "_blank");
+  $("shareTelegram").onclick = () => window.open("https://t.me/share/url?url=" + encodeURIComponent(shareUrl()) + "&text=" + encodeURIComponent(document.title), "_blank");
+  async function copyClipboard() {
+    try { await navigator.clipboard.writeText(shareUrl()); showToast("Link copiado!"); }
+    catch(e){ showToast("Erro ao copiar"); }
+  }
+
+  // ===== SETTINGS =====
+  btnSettings.onclick = e => { e.stopPropagation(); openMenu(settingsMenu); };
+  settingsMenu.addEventListener("click", e => {
+    const item = e.target.closest(".item");
+    if (!item) return;
+    if (item.dataset.speed) {
+      video.playbackRate = parseFloat(item.dataset.speed);
+      settingsMenu.querySelectorAll("[data-speed]").forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
+      showToast("Velocidade: " + item.dataset.speed + "x");
+    }
+    if (item.id === "setLoop") {
+      video.loop = !video.loop;
+      item.querySelector(".val").textContent = video.loop ? "Sim" : "Não";
+    }
+  });
+
+  // ===== EPISÓDIOS MENU =====
+  btnEpisodes.onclick = e => { e.stopPropagation(); openMenu(episodesMenu); };
+
+  // ===== CLOSE MENUS ON OUTSIDE CLICK =====
+  document.addEventListener("click", e => {
+    if (e.target.closest(".menu")) return;
+    if (e.target.closest(".icon-btn")) return;
+    closeAllMenus();
+  });
+
+  // ===== CONTROLS VISIBILITY =====
+  let hideTimer = null;
+  function showControls() {
+    controls.classList.add("visible");
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!video.paused && !isMenuOpen()) controls.classList.remove("visible");
+    }, 3000);
+  }
+  player.addEventListener("mousemove", showControls);
+  player.addEventListener("touchstart", e => { if (!e.target.closest(".menu")) showControls(); }, { passive: true });
+  player.addEventListener("click", e => {
+    if (e.target.closest("#controls, #overlay, #tapToPlay, .menu")) return;
+    if (e.target === video || e.target === player) togglePlay();
+  });
+  video.addEventListener("play", showControls);
+  video.addEventListener("pause", showControls);
+
+  // ===== NEXT EPISODE (série) =====
+  video.addEventListener("ended", () => {
+    if (contentType !== "series") return;
+    const s = content.seasons[currentSeason];
+    if (!s) return;
+    if (currentEpisode < s.episodes.length - 1) {
+      showToast("Próximo episódio em 3s...", 2500);
+      setTimeout(() => { currentEpisode++; playCurrentEpisode(); }, 3000);
+    } else if (currentSeason < content.seasons.length - 1) {
+      showToast("Próxima temporada em 3s...", 2500);
+      setTimeout(() => { currentSeason++; currentEpisode = 0; buildSeasonSelect(); buildEpisodeList(); playCurrentEpisode(); }, 3000);
+    }
+  });
+
+  // ===== RESUME =====
+  function resumeKey() {
+    if (contentType === "series") {
+      const s = content.seasons[currentSeason];
+      const ep = s.episodes[currentEpisode];
+      return STORAGE_RESUME_PREFIX + contentId + "_" + s.number + "_" + ep.number;
+    }
+    return STORAGE_RESUME_PREFIX + contentId;
+  }
+  function saveResume() {
+    try {
+      if (!video.duration) return;
+      localStorage.setItem(resumeKey(), JSON.stringify({ time: video.currentTime, dur: video.duration, ts: Date.now() }));
+    } catch(e){}
+  }
+  function tryResume() {
+    if (contentType === "series") return; // já tratado em playCurrentEpisode
+    try {
+      const r = JSON.parse(localStorage.getItem(resumeKey()) || "null");
+      if (r && r.time > 15 && r.dur && r.time / r.dur < 0.97) {
+        setTimeout(() => { video.currentTime = r.time; showToast("⏯ Retomando de " + fmt(r.time)); }, 500);
+      }
+    } catch(e){}
+  }
+  setInterval(() => { if (!video.paused && video.currentTime > 15) saveResume(); }, 5000);
+  document.addEventListener("visibilitychange", () => { if (document.hidden && !video.paused) saveResume(); });
+  window.addEventListener("beforeunload", saveResume);
+
+  // ===== KEYBOARD =====
+  function setupKeyboard() {
+    document.addEventListener("keydown", e => {
+      if (e.target.tagName === "INPUT") return;
+      switch(e.key) {
+        case " ": case "k": e.preventDefault(); togglePlay(); break;
+        case "ArrowLeft": video.currentTime -= 10; showFeedback(seekLeft, "-10s"); break;
+        case "ArrowRight": video.currentTime += 10; showFeedback(seekRight, "+10s"); break;
+        case "ArrowUp": video.volume = Math.min(1, video.volume + 0.1); updateVolUI(); break;
+        case "ArrowDown": video.volume = Math.max(0, video.volume - 0.1); updateVolUI(); break;
+        case "m": video.muted = !video.muted; updateVolUI(); break;
+        case "f": btnFs.click(); break;
+        case "c": btnCC.click(); break;
+        case "p": if (document.pictureInPictureEnabled) btnPiP.click(); break;
+        case "Escape": closeAllMenus(); break;
+      }
+    });
+  }
+
+  // ===== START =====
+  init();
+})();
+</script>
 </body>
 </html>
