@@ -7,17 +7,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:radial-gradient(circle at top,#1a1a2e,#0a0a14);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;padding:20px}
-.wrap{max-width:1000px;margin:0 auto}
+.wrap{max-width:1100px;margin:0 auto}
 h1{font-size:2rem;background:linear-gradient(90deg,#e53935,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .sub{color:#71717a;font-size:.9rem;margin-bottom:24px}
 .card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px}
 .card h2{font-size:1rem;color:#e53935;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
 label{display:block;font-size:.75rem;color:#a1a1aa;margin-bottom:6px;text-transform:uppercase;font-weight:600}
 input,select,textarea{width:100%;padding:10px 14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;outline:none;font-family:inherit}
-input:focus,select:focus{border-color:#e53935}
+input:focus,select:focus,textarea:focus{border-color:#e53935}
 .row{display:flex;gap:10px;flex-wrap:wrap}
-.row>*{flex:1;min-width:200px}
-button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;transition:.2s}
+.row>*{flex:1;min-width:180px}
+button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;transition:.2s;white-space:nowrap}
 button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(229,57,53,.35)}
 button.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
 button.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
@@ -39,12 +39,17 @@ button:disabled{opacity:.5;pointer-events:none}
 .status{font-size:.75rem;padding:4px 8px;border-radius:6px;background:rgba(16,185,129,.15);color:#10b981;display:inline-block}
 .badge{background:rgba(229,57,53,.2);color:#e53935;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
 details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user-select:none}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-left:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-log{font-size:.8rem;color:#a1a1aa;margin-top:8px;max-height:120px;overflow-y:auto;background:rgba(0,0,0,.3);padding:8px;border-radius:8px;display:none}
+.progress-log.show{display:block}
+.edit-badge{background:rgba(59,130,246,.2);color:#60a5fa;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>⚙️ KiraFlix Admin</h1>
-  <p class="sub">Adicione filmes ou séries pelo ID do TMDB. As fontes de vídeo são inseridas manualmente.</p>
+  <p class="sub">Adicione filmes/séries pelo TMDB ou edite o catálogo existente.</p>
 
   <!-- GITHUB CONFIG -->
   <div class="card">
@@ -59,9 +64,9 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     <p style="font-size:.75rem;color:#52525b;margin-top:10px">Crie seu token em <b>github.com/settings/tokens</b> com escopo <b>repo</b>. Ele fica só no seu navegador.</p>
   </div>
 
-  <!-- BUSCAR TMDB -->
+  <!-- BUSCAR TMDB (criar novo) -->
   <div class="card">
-    <h2>🔍 Buscar conteúdo no TMDB</h2>
+    <h2>🆕 Adicionar novo conteúdo (via TMDB)</h2>
     <div class="row">
       <div><label>Tipo</label><select id="type"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
       <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" placeholder="ex: 969681"></div>
@@ -69,13 +74,50 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     </div>
   </div>
 
-  <!-- RESULTADO -->
+  <!-- RESULTADO / EDITOR -->
   <div class="card hidden" id="resultCard">
-    <h2>📝 Conteúdo carregado</h2>
+    <h2 id="resultTitle">📝 Conteúdo carregado</h2>
     <div class="preview" id="preview"></div>
+
+    <!-- Se for SÉRIE, mostra o auto-scrape -->
+    <div id="seriesTools" class="hidden">
+      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px">
+        <h2>🤖 Auto-Scrape (123flmsfree)</h2>
+        <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">Cole o link da primeira temporada/episódio. Ex: <code>https://ww1.123flmsfree.com/pt/detail/drama/...-Season-1/1</code></p>
+        <div class="row">
+          <div style="flex:2"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://ww1.123flmsfree.com/..."></div>
+          <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrape()" id="btnScrape">Iniciar</button></div>
+        </div>
+        <div class="row mt">
+          <div><label>Proxy CORS</label><select id="corsProxy">
+            <option value="https://api.allorigins.win/raw?url=">allorigins.win</option>
+            <option value="https://corsproxy.io/?">corsproxy.io</option>
+            <option value="https://api.codetabs.com/v1/proxy?quest=">codetabs.com</option>
+          </select></div>
+          <div><label>Prefixar links?</label><select id="prefixScrape"><option value="yes">Sim (mgeb.space)</option><option value="no">Não</option></select></div>
+        </div>
+        <div class="progress-log" id="scrapeLog"></div>
+      </div>
+    </div>
+
+    <!-- Episódios / Fontes -->
     <div id="episodesArea" class="mt"></div>
-    <button class="mt" onclick="saveToCatalog()">💾 Salvar no catálogo</button>
-    <button class="ghost mt" onclick="downloadCatalog()">📥 Baixar catalog.json</button>
+
+    <div class="row mt">
+      <button onclick="saveToCatalog()">💾 Salvar no catálogo</button>
+      <button class="ghost" onclick="downloadCatalog()">📥 Baixar catalog.json</button>
+      <button class="ghost" onclick="resetForm()">🗑️ Limpar</button>
+    </div>
+  </div>
+
+  <!-- EDITAR EXISTENTE -->
+  <div class="card">
+    <h2>✏️ Editar conteúdo existente</h2>
+    <div class="row">
+      <div><label>Tipo</label><select id="editType"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+      <div style="flex:2"><label>ID do TMDB (ou ID salvo)</label><input id="editId" placeholder="ex: 969681"></div>
+      <div style="flex:0;display:flex;align-items:flex-end"><button onclick="loadForEdit()">Carregar</button></div>
+    </div>
   </div>
 </div>
 
@@ -85,9 +127,12 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
 const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
 const HEADERS = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
 const LANG = "pt-BR";
+const PREFIX = "https://mgeb.space/mp4.php?url=";
 
-let current = null; // { type, id, tmdbData, seasons[] }
+let current = null;
 let catalog = { movies: {}, series: {} };
+let catalogSha = null;
+let isEditing = false;
 
 const $ = id => document.getElementById(id);
 function toast(msg, err) {
@@ -115,7 +160,7 @@ function loadGithubConfig() {
 }
 loadGithubConfig();
 
-// === BUSCAR TMDB ===
+// === BUSCAR TMDB (CRIAR NOVO) ===
 async function fetchContent() {
   const type = $("type").value;
   const id = $("tmdbId").value.trim();
@@ -126,7 +171,6 @@ async function fetchContent() {
     if (!res.ok) throw new Error("Não encontrado");
     const data = await res.json();
 
-    // Age rating
     let ageRating = "";
     try {
       const ep = type === "movie" ? `movie/${id}/release_dates` : `tv/${id}/content_ratings`;
@@ -148,9 +192,9 @@ async function fetchContent() {
     };
 
     if (type === "movie") {
-      current = { type: "movie", id, data: base, source: "" };
+      current = { type: "movie", id, data: base, source: "", subtitles: {} };
+      isEditing = false;
     } else {
-      // Buscar episódios de cada temporada
       const seasons = [];
       const seasonList = (data.seasons || []).filter(s => s.season_number > 0);
       toast(`Carregando ${seasonList.length} temporadas...`);
@@ -172,14 +216,58 @@ async function fetchContent() {
         });
       }
       current = { type: "series", id, data: base, seasons };
+      isEditing = false;
     }
 
     renderPreview();
     $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
     toast("✔ Conteúdo carregado");
   } catch (err) {
     console.error(err);
     toast("Erro ao buscar: " + err.message, true);
+  }
+}
+
+// === CARREGAR PARA EDIÇÃO ===
+async function loadForEdit() {
+  const type = $("editType").value;
+  const id = $("editId").value.trim();
+  if (!id) return toast("Informe o ID", true);
+
+  try {
+    // Tenta carregar do catalog.json do repo primeiro
+    await loadCatalog();
+    const bucket = type === "movie" ? catalog.movies : catalog.series;
+    const existing = bucket?.[id];
+
+    if (!existing) {
+      // Se não existir, busca no TMDB e cria um "esqueleto" para edição
+      toast("Conteúdo não encontrado no catálogo. Buscando no TMDB...");
+      $("type").value = type;
+      $("tmdbId").value = id;
+      await fetchContent();
+      isEditing = true;
+      $("resultTitle").innerHTML = '📝 Editando novo conteúdo <span class="edit-badge">MODO EDIÇÃO</span>';
+      return;
+    }
+
+    // Monta o objeto de edição a partir do que já está salvo
+    if (type === "movie") {
+      current = { type: "movie", id, data: { ...existing }, source: existing.source || "", subtitles: existing.subtitles || {} };
+    } else {
+      current = { type: "series", id, data: { ...existing }, seasons: existing.seasons || [] };
+    }
+    isEditing = true;
+
+    renderPreview();
+    $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
+    $("resultTitle").innerHTML = '📝 Editando conteúdo existente <span class="edit-badge">MODO EDIÇÃO</span>';
+    toast("✔ Conteúdo carregado para edição");
+  } catch (err) {
+    console.error(err);
+    toast("Erro ao carregar: " + err.message, true);
   }
 }
 
@@ -190,20 +278,24 @@ function renderPreview() {
     ${data.poster ? `<img src="${data.poster}" alt="">` : ""}
     <div class="preview-info">
       <h3>${data.title} <span class="badge">${type === "movie" ? "FILME" : "SÉRIE"}</span></h3>
-      <div class="meta">${data.year} • ⭐ ${data.rating.toFixed(1)} ${data.ageRating ? "• " + data.ageRating : ""} ${data.genres.length ? "• " + data.genres.join(", ") : ""}</div>
+      <div class="meta">${data.year} • ⭐ ${(data.rating || 0).toFixed(1)} ${data.ageRating ? "• " + data.ageRating : ""} ${data.genres?.length ? "• " + data.genres.join(", ") : ""}</div>
       <p>${data.overview || "Sem sinopse"}</p>
     </div>`;
 
   const area = $("episodesArea");
 
   if (type === "movie") {
+    const src = current.source || "";
+    const isPrefixed = src.startsWith(PREFIX);
+    const rawSrc = isPrefixed ? src.slice(PREFIX.length) : src;
     area.innerHTML = `
       <div class="ep"><h4>🎬 Fonte do filme</h4>
         <div class="sources">
-          <div><label>URL do vídeo (MP4 ou M3U8)</label><input id="movieSource" placeholder="https://..." value="${current.source}"></div>
+          <div><label>URL do vídeo (MP4 ou M3U8) — sem o prefixo mgeb</label>
+            <input id="movieSourceRaw" placeholder="https://..." value="${rawSrc}"></div>
           <div class="row">
-            <div><label>Legenda PT (.vtt)</label><input id="movieSubPt" placeholder="https://... (opcional)"></div>
-            <div><label>Legenda EN (.vtt)</label><input id="movieSubEn" placeholder="https://... (opcional)"></div>
+            <div><label>Legenda PT (.vtt)</label><input id="movieSubPt" placeholder="https://... (opcional)" value="${current.subtitles?.pt || ''}"></div>
+            <div><label>Legenda EN (.vtt)</label><input id="movieSubEn" placeholder="https://... (opcional)" value="${current.subtitles?.en || ''}"></div>
           </div>
         </div>
       </div>`;
@@ -212,12 +304,15 @@ function renderPreview() {
     current.seasons.forEach((s, si) => {
       html += `<details ${si === 0 ? "open" : ""}><summary><b>${s.label}</b> (${s.episodes.length} eps)</summary>`;
       s.episodes.forEach((ep, ei) => {
+        const src = ep.source || "";
+        const isPrefixed = src.startsWith(PREFIX);
+        const rawSrc = isPrefixed ? src.slice(PREFIX.length) : src;
         html += `
           <div class="ep">
-            <h4>${ep.label} — ${ep.title}</h4>
+            <h4>${ep.label} — ${ep.title || ""}</h4>
             <div class="sources">
-              <input id="src_${si}_${ei}" placeholder="URL do vídeo (MP4/M3U8)" value="${ep.source}">
-              <input id="sub_${si}_${ei}" placeholder="Legenda PT (opcional)">
+              <input id="src_${si}_${ei}" placeholder="URL do vídeo (MP4/M3U8) sem prefixo" value="${rawSrc}">
+              <input id="sub_${si}_${ei}" placeholder="Legenda PT (opcional)" value="${ep.subtitles?.pt || ''}">
             </div>
           </div>`;
       });
@@ -227,18 +322,145 @@ function renderPreview() {
   }
 }
 
-// === COLETAR SOURCES DO FORM ===
+// === AUTO-SCRAPE ===
+async function autoScrape() {
+  const input = $("scrapeUrl").value.trim();
+  if (!input) return toast("Cole o link da série", true);
+
+  const log = $("scrapeLog");
+  log.classList.add("show");
+  log.innerHTML = "";
+  const btn = $("btnScrape");
+  btn.disabled = true;
+  btn.innerHTML = 'Buscando...<span class="spinner"></span>';
+
+  try {
+    const proxy = $("corsProxy").value;
+    const shouldPrefix = $("prefixScrape").value === "yes";
+
+    // Extrai o slug base do link
+    // Exemplo: https://.../yF46UsNaVEOIW0nTvpLyr-Black-Clover-Season-1/1
+    const match = input.match(/\/([^\/]+-Season-\d+)\/(\d+)/i);
+    if (!match) throw new Error("Padrão de URL não reconhecido. Use o link de um episódio (ex: .../Season-1/1)");
+
+    const slugWithSeason = match[1]; // "yF46UsNaVEOIW0nTvpLyr-Black-Clover-Season-1"
+    const startEpisode = parseInt(match[2], 10);
+
+    // Extrai o slug base e a temporada inicial
+    const seasonMatch = slugWithSeason.match(/^(.*)-Season-(\d+)$/i);
+    if (!seasonMatch) throw new Error("Não foi possível extrair a temporada do slug.");
+    const baseSlug = seasonMatch[1]; // "yF46UsNaVEOIW0nTvpLyr-Black-Clover"
+    const startSeason = parseInt(seasonMatch[2], 10);
+
+    const baseUrl = input.replace(/\/[^\/]+-Season-\d+\/\d+.*$/, ""); // Remove a parte final
+    // baseUrl agora é "https://ww1.123flmsfree.com/pt/detail/drama"
+
+    // Precisamos encontrar todos os episódios de todas as temporadas.
+    // Estratégia: para cada temporada (começando em startSeason), tenta episódios de 1 até N.
+    const maxSeasons = 20; // limite de segurança
+    const maxEpisodes = 100; // limite de segurança
+
+    let foundAny = false;
+    let seasonNum = startSeason;
+
+    while (seasonNum < startSeason + maxSeasons) {
+      log.innerHTML += `<div>🔎 Verificando Temporada ${seasonNum}...</div>`;
+      let seasonHasEpisodes = false;
+
+      // Tenta episódio 1 até maxEpisodes
+      for (let epNum = 1; epNum <= maxEpisodes; epNum++) {
+        const pageUrl = `${baseUrl}/${baseSlug}-Season-${seasonNum}/${epNum}`;
+        try {
+          const res = await fetch(proxy + encodeURIComponent(pageUrl));
+          if (!res.ok) {
+            if (epNum === 1) {
+              // Se o episódio 1 não existe, a temporada não existe → quebra o loop de temporadas
+              log.innerHTML += `<div>❌ Temporada ${seasonNum} não encontrada. Fim.</div>`;
+              seasonNum = startSeason + maxSeasons; // força saída
+            } else {
+              log.innerHTML += `<div>✅ Temporada ${seasonNum}: ${epNum - 1} episódios encontrados.</div>`;
+            }
+            break; // sai do loop de episódios
+          }
+          const html = await res.text();
+
+          // Extrai a URL do vídeo do HTML. Padrões comuns: <iframe src="...">, <source src="...">, ou links .mp4/.m3u8
+          const videoMatch = html.match(/(?:src|href)=["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+          const videoUrl = videoMatch ? videoMatch[1] : "";
+
+          if (!videoUrl) {
+            log.innerHTML += `<div>⚠️ Ep ${epNum} encontrado, mas sem URL de vídeo.</div>`;
+          } else {
+            seasonHasEpisodes = true;
+            foundAny = true;
+            // Adiciona ao current.seasons
+            let seasonObj = current.seasons.find(s => s.number === seasonNum);
+            if (!seasonObj) {
+              seasonObj = { number: seasonNum, label: `Temporada ${seasonNum}`, episodes: [] };
+              current.seasons.push(seasonObj);
+            }
+            // Evita duplicatas
+            if (!seasonObj.episodes.find(e => e.number === epNum)) {
+              const finalUrl = shouldPrefix && !videoUrl.startsWith(PREFIX) ? PREFIX + videoUrl : videoUrl;
+              seasonObj.episodes.push({
+                number: epNum,
+                label: `Episódio ${epNum}`,
+                title: "",
+                source: finalUrl,
+                subtitles: {}
+              });
+              log.innerHTML += `<div>✔️ Ep ${epNum}: ${finalUrl.slice(0, 80)}...</div>`;
+            }
+          }
+        } catch (err) {
+          log.innerHTML += `<div>⚠️ Erro no ep ${epNum}: ${err.message}</div>`;
+          break;
+        }
+      }
+
+      if (!seasonHasEpisodes) {
+        // Se a temporada não teve nenhum episódio, para de procurar novas temporadas
+        break;
+      }
+      seasonNum++;
+    }
+
+    if (foundAny) {
+      // Ordena temporadas e episódios
+      current.seasons.sort((a, b) => a.number - b.number);
+      current.seasons.forEach(s => s.episodes.sort((a, b) => a.number - b.number));
+      renderPreview();
+      toast(`✔️ Scrape concluído! ${current.seasons.length} temporadas encontradas.`);
+      log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ Concluído! ${current.seasons.length} temporadas.</div>`;
+    } else {
+      toast("Nenhum episódio encontrado. Verifique o link ou o proxy.", true);
+      log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado.</div>`;
+    }
+  } catch (err) {
+    console.error(err);
+    toast("Erro no scrape: " + err.message, true);
+    log.innerHTML += `<div style="color:#ef4444">❌ ${err.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Iniciar';
+    log.scrollTop = log.scrollHeight;
+  }
+}
+
+// === COLETAR E SALVAR ===
 function collectCurrent() {
   if (current.type === "movie") {
-    current.source = $("movieSource").value.trim();
+    const raw = $("movieSourceRaw")?.value.trim() || "";
+    current.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
     current.subtitles = {
-      pt: $("movieSubPt").value.trim(),
-      en: $("movieSubEn").value.trim()
+      pt: $("movieSubPt")?.value.trim() || "",
+      en: $("movieSubEn")?.value.trim() || ""
     };
   } else {
     current.seasons.forEach((s, si) => {
       s.episodes.forEach((ep, ei) => {
-        ep.source = ($("src_" + si + "_" + ei)?.value || "").trim();
+        const raw = ($("src_" + si + "_" + ei)?.value || "").trim();
+        ep.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
         const sub = ($("sub_" + si + "_" + ei)?.value || "").trim();
         ep.subtitles = sub ? { pt: sub } : {};
       });
@@ -246,55 +468,60 @@ function collectCurrent() {
   }
 }
 
-// === SALVAR ===
 async function saveToCatalog() {
   if (!current) return;
   collectCurrent();
 
   try {
-    // Carrega catálogo atual do repo
-    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
-    if (cfg) {
-      try {
-        const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
-          headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
-        });
-        if (r.ok) {
-          const file = await r.json();
-          catalog = JSON.parse(atob(file.content.replace(/\n/g, "")));
-          catalog._sha = file.sha;
-        }
-      } catch(e) {}
-    }
+    await loadCatalog(); // carrega o catálogo atual
 
-    // Atualiza
     if (current.type === "movie") {
       catalog.movies[current.id] = { ...current.data, source: current.source, subtitles: current.subtitles };
     } else {
       catalog.series[current.id] = { ...current.data, seasons: current.seasons };
     }
 
-    const sha = catalog._sha;
+    const sha = catalogSha;
     delete catalog._sha;
 
-    // Salva no GitHub
+    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
     if (cfg) {
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(catalog, null, 2))));
-      const body = { message: `Add ${current.data.title}`, content };
+      const body = { message: `Update ${current.data.title}`, content };
       if (sha) body.sha = sha;
       const put = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
         method: "PUT",
         headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
-      if (!put.ok) throw new Error("Erro no GitHub: " + put.status);
-      toast("✔ Salvo no GitHub! Todos verão o conteúdo em ~1min");
+      if (!put.ok) {
+        const errBody = await put.text();
+        throw new Error(`GitHub ${put.status}: ${errBody}`);
+      }
+      toast("✔ Salvo no GitHub! Todos verão em ~1min");
     } else {
       downloadCatalog();
     }
   } catch (err) {
     console.error(err);
-    toast("Erro: " + err.message, true);
+    toast("Erro ao salvar: " + err.message, true);
+  }
+}
+
+async function loadCatalog() {
+  const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
+  if (!cfg) return; // sem GitHub configurado, catálogo vazio
+  try {
+    const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+    });
+    if (r.ok) {
+      const file = await r.json();
+      catalog = JSON.parse(atob(file.content.replace(/\n/g, "")));
+      catalogSha = file.sha;
+    }
+  } catch(e) {
+    console.warn("Erro ao carregar catálogo:", e);
   }
 }
 
@@ -309,6 +536,13 @@ function downloadCatalog() {
   a.download = "catalog.json";
   a.click();
   toast("📥 Baixado! Suba no repo substituindo catalog.json");
+}
+
+function resetForm() {
+  current = null;
+  isEditing = false;
+  $("resultCard").classList.add("hidden");
+  $("resultTitle").textContent = "📝 Conteúdo carregado";
 }
 </script>
 </body>
