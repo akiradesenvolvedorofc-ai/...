@@ -84,25 +84,29 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     <!-- Ferramentas para SÉRIE -->
     <div id="seriesTools" class="hidden">
       
-      <!-- NOVO GERADOR EM MASSA -->
+      <!-- NOVO GERADOR EM MASSA (INTELIGENTE + DETECÇÃO) -->
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px; border: 1px solid rgba(229,57,53,.3);">
-        <h2>⚡ Gerador em Massa (321moviesfree)</h2>
+        <h2>⚡ Gerador em Massa</h2>
         <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
-          Cole a URL modelo usando <code>{season}</code> e <code>{episode}</code>. Ex:<br>
-          <code>https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/{season}/{episode}</code>
+          Cole qualquer link de episódio no campo abaixo. O sistema detecta a temporada e o episódio, e monta a URL com as variáveis automaticamente.
         </p>
+        
         <div class="row">
-          <div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{season}/{episode}"></div>
+          <div style="flex:3"><label>Link de Exemplo (ex: Episódio 1 da Temporada 1)</label><input id="exampleUrl" placeholder="https://peliculaplay.com/.../The-Mentalist-Season-1/2"></div>
+          <div style="flex:0;display:flex;align-items:flex-end"><button class="ghost" onclick="detectarVariaveis()">🔍 Detectar Variáveis</button></div>
         </div>
+
         <div class="row mt">
-          <div><label>Qtd. de Temporadas</label><input id="bulkSeasons" type="number" value="1" min="1" max="50"></div>
-          <div><label>Episódios por Temp.</label><input id="bulkEpisodes" type="number" value="12" min="1" max="200"></div>
+          <div style="flex:2"><label>URL Template (preenchido automaticamente)</label><input id="bulkTemplate" placeholder="https://.../{season}/{episode}"></div>
+        </div>
+        
+        <div class="row mt">
           <div><label>Prefixar links?</label><select id="bulkPrefix"><option value="yes">Sim (mgeb)</option><option value="no">Não</option></select></div>
         </div>
-        <button class="mt" onclick="gerarEpisodiosEmMassa()">⚡ Gerar Temporadas e Episódios</button>
+        <button class="mt" onclick="gerarEpisodiosEmMassa()">⚡ Gerar com Episódios Reais</button>
       </div>
 
-      <!-- AUTO SCRAPE (mantido como opção secundária) -->
+      <!-- AUTO SCRAPE (opção secundária) -->
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px">
         <details>
           <summary style="font-size:1rem;color:#e53935;font-weight:700;text-transform:uppercase;">🤖 Auto-Scrape Automático (Avançado)</summary>
@@ -125,7 +129,7 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
       </div>
     </div>
 
-    <!-- Episódios / Fontes (onde aparece a lista gerada) -->
+    <!-- Episódios / Fontes -->
     <div id="episodesArea" class="mt"></div>
 
     <div class="row mt">
@@ -293,57 +297,78 @@ async function fetchContent() {
   }
 }
 
+// === DETECTAR VARIÁVEIS DO LINK ===
+function detectarVariaveis() {
+  let url = $("exampleUrl").value.trim();
+  if (!url) return toast("Cole um link de exemplo primeiro.", true);
+
+  // Remove o prefixo mgeb se tiver
+  if (url.includes("mgeb.space/mp4.php?url=")) {
+    url = url.split("mgeb.space/mp4.php?url=")[1];
+  }
+
+  let originalUrl = url;
+
+  // 1. Substitui Temporada (ex: Season-1, Temporada-1, Season_1)
+  const regexSeason = /((?:Season|Temporada)[-_ ]?)(\d+)/i;
+  if (regexSeason.test(url)) {
+    url = url.replace(regexSeason, '$1{season}');
+  } else {
+    // Fallback: tenta pegar o número após /tp/ ou /season/
+    const regexSeasonFallback = /\/(?:tp|season|temporada)\/(\d+)/i;
+    if (regexSeasonFallback.test(url)) {
+      url = url.replace(regexSeasonFallback, '/tp/{season}');
+    }
+  }
+
+  // 2. Substitui Episódio (pega o último número que está após uma barra, ex: /2 ou /2/)
+  const regexEp = /\/(\d+)(\/|$|\?)/;
+  if (regexEp.test(url)) {
+    url = url.replace(regexEp, '/{episode}$2');
+  }
+
+  if (url === originalUrl) {
+    toast("⚠️ Não consegui detectar o padrão. Ajuste o template manualmente.", true);
+  } else {
+    $("bulkTemplate").value = url;
+    toast("✔️ Variáveis detectadas com sucesso!");
+  }
+}
+
 // === GERADOR EM MASSA ===
 function gerarEpisodiosEmMassa() {
   if (!current || current.type !== "series") return;
   
   const template = $("bulkTemplate").value.trim();
-  const totalSeasons = parseInt($("bulkSeasons").value, 10);
-  const totalEps = parseInt($("bulkEpisodes").value, 10);
   const shouldPrefix = $("bulkPrefix").value === "yes";
 
   if (!template) return toast("Cole a URL Template.", true);
   if (!template.includes("{season}") || !template.includes("{episode}")) {
-    return toast("A URL precisa ter {season} e {episode} no lugar dos números.", true);
+    return toast("A URL precisa ter {season} e {episode}.", true);
   }
-  if (totalSeasons < 1 || totalEps < 1) return toast("Defina a quantidade de temporadas e episódios.", true);
 
-  current.seasons = [];
+  let totalEpisodios = 0;
 
-  for (let s = 1; s <= totalSeasons; s++) {
-    const seasonEps = [];
-    for (let e = 1; e <= totalEps; e++) {
-      // Substitui as tags pelos números
-      let url = template.replace(/{season}/g, s).replace(/{episode}/g, e);
+  current.seasons.forEach((season) => {
+    const seasonNum = season.number;
+    season.episodes.forEach((ep) => {
+      let url = template.replace(/{season}/g, seasonNum).replace(/{episode}/g, ep.number);
       
-      // Remove prefixo duplicado se o cara colou
       if (url.includes("mgeb.space/mp4.php?url=")) {
         url = url.split("mgeb.space/mp4.php?url=")[1];
       }
 
-      // Adiciona o prefixo se necessário
       if (shouldPrefix) {
         url = PREFIX + url;
       }
       
-      seasonEps.push({
-        number: e,
-        label: `Episódio ${e}`,
-        title: "",
-        source: url,
-        subtitles: {}
-      });
-    }
-    
-    current.seasons.push({
-      number: s,
-      label: `Temporada ${s}`,
-      episodes: seasonEps
+      ep.source = url;
+      totalEpisodios++;
     });
-  }
+  });
 
   renderPreview();
-  toast(`✔️ Gerados ${totalSeasons} temporadas com ${totalEps} eps cada!`);
+  toast(`✔️ Links gerados para ${current.seasons.length} temporadas (${totalEpisodios} episódios)!`);
 }
 
 // === GITHUB CATALOG ===
@@ -425,7 +450,7 @@ async function saveToCatalog() {
   }
 }
 
-// === AUTO-SCRAPE MANTIDO ===
+// === AUTO-SCRAPE (MANTIDO) ===
 async function autoScrape() {
   const input = $("scrapeUrl").value.trim();
   if (!input) return toast("Cole o link da série", true);
@@ -442,7 +467,7 @@ async function autoScrape() {
     const shouldPrefix = true;
 
     const match = input.match(/\/([^\/]+-Season-\d+)\/(\d+)/i);
-    if (!match) throw new Error("Padrão de URL não reconhecido. Use o link de um episódio (ex: .../Season-1/1)");
+    if (!match) throw new Error("Padrão de URL não reconhecido.");
 
     const slugWithSeason = match[1];
     const seasonMatch = slugWithSeason.match(/^(.*)-Season-(\d+)$/i);
@@ -514,24 +539,19 @@ async function autoScrape() {
       current.seasons.sort((a, b) => a.number - b.number);
       current.seasons.forEach(s => s.episodes.sort((a, b) => a.number - b.number));
       renderPreview();
-      toast(`✔️ Scrape concluído! ${current.seasons.length} temporadas encontradas.`);
-      log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ Concluído! ${current.seasons.length} temporadas.</div>`;
+      toast(`✔️ Scrape concluído! ${current.seasons.length} temporadas.`);
     } else {
-      toast("Nenhum episódio encontrado. Verifique o link ou o proxy.", true);
-      log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado.</div>`;
+      toast("Nenhum episódio encontrado.", true);
     }
   } catch (err) {
-    console.error(err);
     toast("Erro no scrape: " + err.message, true);
-    log.innerHTML += `<div style="color:#ef4444">❌ ${err.message}</div>`;
   } finally {
     btn.disabled = false;
     btn.innerHTML = 'Iniciar';
-    log.scrollTop = log.scrollHeight;
   }
 }
 
-// === RENDER PREVIEW E EDIÇÃO ===
+// === EDIÇÃO E OUTRAS FUNÇÕES ===
 async function loadForEdit() {
   const type = $("editType").value;
   const id = $("editId").value.trim();
@@ -544,7 +564,7 @@ async function loadForEdit() {
     const existing = bucket?.[id];
 
     if (!existing) {
-      toast("Conteúdo não encontrado no catálogo. Buscando no TMDB...");
+      toast("Conteúdo não encontrado. Buscando no TMDB...");
       $("type").value = type;
       $("tmdbId").value = id;
       await fetchContent();
