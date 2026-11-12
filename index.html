@@ -792,7 +792,7 @@ function buildNav() {
   const mc = $('#mchip'); if (mc) { mc.style.display = S.admin && S.maint.on ? '' : 'none'; mc.innerHTML = ic('construction') + t('maintAct'); }
   $('#nv').innerHTML = tabs.map(x => `<button data-t="${x[0]}" class="${S.tab === x[0] ? 'on' : ''}">${ic(x[1])}${esc(x[2])}</button>`).join('');
   $('#bAv').style.backgroundImage = S.prof ? `url("${S.prof.avatar}")` : '';
-  $('#ft').innerHTML = 'KiraFlix · TMDB';
+  $('#ft').innerHTML = 'KiraFlix © 2026 · Todos os direitos reservados';
 }
 $('#nv').addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(b.dataset.t); });
 addEventListener('scroll', () => $('#hd').classList.toggle('sc', scrollY > 30), { passive: true });
