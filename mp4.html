@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KiraFlix Player</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080808;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:18px 20px;color:#e50914;
+ font-size:24px;font-weight:bold;
+}
+main{padding:12px}
+.player{
+ width:100%;aspect-ratio:16/9;
+ background:#000;border-radius:10px;
+ overflow:hidden;
+}
+iframe{
+ width:100%;height:100%;
+ border:0;background:#000;
+}
+#status{
+ text-align:center;padding:18px;
+ color:#aaa;font-size:14px;
+}
+</style>
+</head>
+<body>
+<header>KiraFlix</header>
+<main>
+ <div class="player">
+  <iframe id="player"
+   allow="autoplay; fullscreen; picture-in-picture"
+   allowfullscreen
+   referrerpolicy="strict-origin-when-cross-origin">
+  </iframe>
+ </div>
+ <div id="status">Carregando fonte...</div>
+</main>
+<script>
+const params=new URLSearchParams(location.search);
+const raw=params.get("url");
+const player=document.getElementById("player");
+const status=document.getElementById("status");
+
+if(!raw){
+ status.textContent="Nenhuma fonte informada.";
+}else{
+ try{
+  const url=new URL(raw);
+
+  if(!["https:","http:"].includes(url.protocol)){
+   throw new Error();
+  }
+
+  player.src=url.href;
+  status.textContent="Fonte carregada. Se não reproduzir, a fonte pode bloquear incorporação.";
+  player.addEventListener("load",()=>{
+   status.textContent="Fonte aberta.";
+  });
+ }catch(e){
+  status.textContent="Link inválido.";
+ }
+}
+</script>
+</body>
+</html>
