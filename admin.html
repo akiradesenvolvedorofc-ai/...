@@ -236,13 +236,11 @@ async function loadForEdit() {
   if (!id) return toast("Informe o ID", true);
 
   try {
-    // Tenta carregar do catalog.json do repo primeiro
     await loadCatalog();
     const bucket = type === "movie" ? catalog.movies : catalog.series;
     const existing = bucket?.[id];
 
     if (!existing) {
-      // Se não existir, busca no TMDB e cria um "esqueleto" para edição
       toast("Conteúdo não encontrado no catálogo. Buscando no TMDB...");
       $("type").value = type;
       $("tmdbId").value = id;
@@ -252,7 +250,6 @@ async function loadForEdit() {
       return;
     }
 
-    // Monta o objeto de edição a partir do que já está salvo
     if (type === "movie") {
       current = { type: "movie", id, data: { ...existing }, source: existing.source || "", subtitles: existing.subtitles || {} };
     } else {
@@ -338,27 +335,18 @@ async function autoScrape() {
     const proxy = $("corsProxy").value;
     const shouldPrefix = $("prefixScrape").value === "yes";
 
-    // Extrai o slug base do link
-    // Exemplo: https://.../yF46UsNaVEOIW0nTvpLyr-Black-Clover-Season-1/1
     const match = input.match(/\/([^\/]+-Season-\d+)\/(\d+)/i);
     if (!match) throw new Error("Padrão de URL não reconhecido. Use o link de um episódio (ex: .../Season-1/1)");
 
-    const slugWithSeason = match[1]; // "yF46UsNaVEOIW0nTvpLyr-Black-Clover-Season-1"
-    const startEpisode = parseInt(match[2], 10);
-
-    // Extrai o slug base e a temporada inicial
+    const slugWithSeason = match[1];
     const seasonMatch = slugWithSeason.match(/^(.*)-Season-(\d+)$/i);
     if (!seasonMatch) throw new Error("Não foi possível extrair a temporada do slug.");
-    const baseSlug = seasonMatch[1]; // "yF46UsNaVEOIW0nTvpLyr-Black-Clover"
+    const baseSlug = seasonMatch[1];
     const startSeason = parseInt(seasonMatch[2], 10);
+    const baseUrl = input.replace(/\/[^\/]+-Season-\d+\/\d+.*$/, "");
 
-    const baseUrl = input.replace(/\/[^\/]+-Season-\d+\/\d+.*$/, ""); // Remove a parte final
-    // baseUrl agora é "https://ww1.123flmsfree.com/pt/detail/drama"
-
-    // Precisamos encontrar todos os episódios de todas as temporadas.
-    // Estratégia: para cada temporada (começando em startSeason), tenta episódios de 1 até N.
-    const maxSeasons = 20; // limite de segurança
-    const maxEpisodes = 100; // limite de segurança
+    const maxSeasons = 20;
+    const maxEpisodes = 100;
 
     let foundAny = false;
     let seasonNum = startSeason;
@@ -367,24 +355,20 @@ async function autoScrape() {
       log.innerHTML += `<div>🔎 Verificando Temporada ${seasonNum}...</div>`;
       let seasonHasEpisodes = false;
 
-      // Tenta episódio 1 até maxEpisodes
       for (let epNum = 1; epNum <= maxEpisodes; epNum++) {
         const pageUrl = `${baseUrl}/${baseSlug}-Season-${seasonNum}/${epNum}`;
         try {
           const res = await fetch(proxy + encodeURIComponent(pageUrl));
           if (!res.ok) {
             if (epNum === 1) {
-              // Se o episódio 1 não existe, a temporada não existe → quebra o loop de temporadas
               log.innerHTML += `<div>❌ Temporada ${seasonNum} não encontrada. Fim.</div>`;
-              seasonNum = startSeason + maxSeasons; // força saída
+              seasonNum = startSeason + maxSeasons;
             } else {
               log.innerHTML += `<div>✅ Temporada ${seasonNum}: ${epNum - 1} episódios encontrados.</div>`;
             }
-            break; // sai do loop de episódios
+            break;
           }
           const html = await res.text();
-
-          // Extrai a URL do vídeo do HTML. Padrões comuns: <iframe src="...">, <source src="...">, ou links .mp4/.m3u8
           const videoMatch = html.match(/(?:src|href)=["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
           const videoUrl = videoMatch ? videoMatch[1] : "";
 
@@ -393,13 +377,11 @@ async function autoScrape() {
           } else {
             seasonHasEpisodes = true;
             foundAny = true;
-            // Adiciona ao current.seasons
             let seasonObj = current.seasons.find(s => s.number === seasonNum);
             if (!seasonObj) {
               seasonObj = { number: seasonNum, label: `Temporada ${seasonNum}`, episodes: [] };
               current.seasons.push(seasonObj);
             }
-            // Evita duplicatas
             if (!seasonObj.episodes.find(e => e.number === epNum)) {
               const finalUrl = shouldPrefix && !videoUrl.startsWith(PREFIX) ? PREFIX + videoUrl : videoUrl;
               seasonObj.episodes.push({
@@ -418,15 +400,11 @@ async function autoScrape() {
         }
       }
 
-      if (!seasonHasEpisodes) {
-        // Se a temporada não teve nenhum episódio, para de procurar novas temporadas
-        break;
-      }
+      if (!seasonHasEpisodes) break;
       seasonNum++;
     }
 
     if (foundAny) {
-      // Ordena temporadas e episódios
       current.seasons.sort((a, b) => a.number - b.number);
       current.seasons.forEach(s => s.episodes.sort((a, b) => a.number - b.number));
       renderPreview();
@@ -473,7 +451,8 @@ async function saveToCatalog() {
   collectCurrent();
 
   try {
-    await loadCatalog(); // carrega o catálogo atual
+    // Recarrega o catálogo para obter o SHA mais recente antes de salvar
+    await loadCatalog();
 
     if (current.type === "movie") {
       catalog.movies[current.id] = { ...current.data, source: current.source, subtitles: current.subtitles };
@@ -488,7 +467,9 @@ async function saveToCatalog() {
     if (cfg) {
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(catalog, null, 2))));
       const body = { message: `Update ${current.data.title}`, content };
+      // Só envia o SHA se ele existir (arquivo já criado)
       if (sha) body.sha = sha;
+
       const put = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
         method: "PUT",
         headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
@@ -510,7 +491,7 @@ async function saveToCatalog() {
 
 async function loadCatalog() {
   const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
-  if (!cfg) return; // sem GitHub configurado, catálogo vazio
+  if (!cfg) return;
   try {
     const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
       headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
@@ -519,6 +500,10 @@ async function loadCatalog() {
       const file = await r.json();
       catalog = JSON.parse(atob(file.content.replace(/\n/g, "")));
       catalogSha = file.sha;
+    } else if (r.status === 404) {
+      // Arquivo ainda não existe; o próximo save o criará sem SHA
+      catalogSha = null;
+      catalog = { movies: {}, series: {} };
     }
   } catch(e) {
     console.warn("Erro ao carregar catálogo:", e);
