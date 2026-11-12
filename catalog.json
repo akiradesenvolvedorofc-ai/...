@@ -1,4 +1,1120 @@
 {
   "movies": {},
-  "series": {}
+  "series": {
+    "5920": {
+      "title": "O Mentalista",
+      "overview": "Patrick Jane é famoso por sua habilidade de alta percepção de tudo que está ao seu redor. Ele já quase foi uma celebridade, alegando ser médium vidente, mas agora admite que fingia ter poderes paranormais. Com sua grande habilidade de observação, Patrick trabalha como consultor independente para as autoridades da Califórnia, resolvendo um número considerável de crimes complicados.",
+      "poster": "https://image.tmdb.org/t/p/w500/bJ0SNoD0DchXo5nH3N81ABIe3H.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/rJFqKcmMSttdNP58l0dVzY2NcTA.jpg",
+      "year": "2008",
+      "rating": 8.419,
+      "genres": [
+        "Crime",
+        "Drama",
+        "Mistério"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Piloto",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Cabelo Ruivo e Fita Prateada",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Maré Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Damas de Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Redwood",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Mãos Vermelhas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Enxergando Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Tênue Linha Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Vermelho Flamejante",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Tijolo Vermelho e Hera",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Amigos de Red John",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Rum Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Pinte de Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Carmesim Casanova",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Febre Escarlate",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Injetado de Sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Carnelian, Inc.",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Batatas Russet",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Uma Dúzia de Rosas Vermelhas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Molho Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Senhorita Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Irmãos de Sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Os Passos de Red John",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/23",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Redenção",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Letra Escarlate",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Distintivo Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Ameaça Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Vermelho Assustador",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ouro Preto e Sangue Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Touros Vermelhos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Sua Mão Direita Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Um Preço Acima de Rubis",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Arremesso de Fogo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Óculos Cor-De-Rosa",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Coração Sangrando",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Linha Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sangue Entra, Sangue Sai",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Arenque Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Código Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "A Caixa Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Aingavite Baa",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Dinheiro Sangrento",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Vermelho por Toda Parte",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "18-5-4",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Carta Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Céu Vermelho pela Manhã",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/23",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Céu Vermelho À Noite",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Balão de Sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Sangue nas Mãos Dele",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Tratamento do Carpete Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Pôneis Vermelhos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Terno Chanel Rosa",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Quente e Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Bola de Fogo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Lua Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Alegre Elfo Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Esporte Sangrento",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Cães de Caça",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Alerta Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sangue Por Sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Ouro Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Rainha Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Corrente Sanguínea",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "A Milha Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Toda Rosa Tem Seu Espinho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Redigido",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Um Enteado Ruivo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Rapsódia Em Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Morangos com Creme, Parte 1",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/23",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Morangos com Creme, Parte 2",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-3/24",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Fitas Escarlates",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Pequeno Livro Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Pequeno Balão Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Anel E A Rosa",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Sangue e Areia",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Onde Está Carmine O'brien",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Luz Vermelha Piscando",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Topo Rosa",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "A Camisa Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Fuga em Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Sempre Aposte no Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Meu Namorado Sangrento",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Vermelho é o Novo Preto",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "No Primeiro Corar",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Guerra de Rosas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Os Pensamentos Dele Eram Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Borgonha Barato",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Bochechas Coradas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Champanhe Rose no Gelo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Há Algo Podre Em Redmund",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Sapatos De Rubi",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Até Mais, E Obrigado Pelos Pargos Vermelhos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Vagabundo Vermelho, Vagabundo Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/23",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "O Chapéu Carmesim",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-4/24",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Temporada 5",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Conta de Vidro Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Cereja do Diabo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Nem um Centavo Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Disputa de Sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Amanhecer Avermelhado",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Cereja Colhida",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Se há sangue, há manchete",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Velas vermelhas no pôr-do-sol",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Cereja preta",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Vermelho Panamá",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Dias de vinho e rosas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Pequeno corvette vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Celeiro vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Dente e garra vermelhas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Esmalte Red Lacquer",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Haverá sangue",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Vermelho, branco e azul",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Por trás da cortina vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Dia da carta vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Cupcakes Red Velvet",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Vermelho e com coceira",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "As regras de Red John",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-5/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Temporada 6",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Rosa do Deserto",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Pássaro Preto de Asas Vermelhas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Casamento Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Lista Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Tatuagem Vermelha",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Fogo e Enxofre",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Grande Dragão Vermelho",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Red John",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Meu Céu Azul",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Polegar verde",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Linhas Brancas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O martelo dourado",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Helicópteros pretos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Águas residuais",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Branco como a neve",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Violetas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Asas de prata do tempo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Verde-floresta",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Garotas de olhos castanhos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Il Tavolo Bianco",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Corações negros",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Pássaro azul",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-6/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Temporada 7",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Nada além do céu azul...",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O hotel Greybar",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Sorvete de flor de laranjeira",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Mercado negro",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A maleta prateada",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Luz verde",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Pequena casa amarela",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O branco de seus olhos",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Bala de cobre",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Nada de Ouro Permanece",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Bizâncio",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Carpete marrom felpudo",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Orquídeas brancas",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-7/13",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
