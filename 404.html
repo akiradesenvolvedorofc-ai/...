@@ -16,17 +16,45 @@
 </div>
 <script>
 (function(){
-  var path = window.location.pathname;
-  var filme = path.match(/^\/filme\/([\w-]+)\/?$/i);
-  var serie = path.match(/^\/serie\/([\w-]+)\/?$/i);
+  var path = window.location.pathname.replace(/\/$/, "");
 
-  if (filme) {
-    window.location.replace('/index.html?id=' + filme[1] + '&type=movie');
-  } else if (serie) {
-    window.location.replace('/index.html?id=' + serie[1] + '&type=series');
-  } else {
-    window.location.replace('/admin.html');
+  // /embed/{id}/{season}/{episode}  →  SÉRIE forçada
+  var embedSeries = path.match(/^\/embed\/([\w-]+)\/(\d+)\/(\d+)$/i);
+  if (embedSeries) {
+    window.location.replace('/API.html?id=' + embedSeries[1] + '&type=series&season=' + embedSeries[2] + '&episode=' + embedSeries[3]);
+    return;
   }
+
+  // /serie/{id}/{season}/{episode}  →  SÉRIE forçada
+  var serieEp = path.match(/^\/serie\/([\w-]+)\/(\d+)\/(\d+)$/i);
+  if (serieEp) {
+    window.location.replace('/API.html?id=' + serieEp[1] + '&type=series&season=' + serieEp[2] + '&episode=' + serieEp[3]);
+    return;
+  }
+
+  // /embed/{id}  →  auto-detectar (filme ou série)
+  var embedAny = path.match(/^\/embed\/([\w-]+)$/i);
+  if (embedAny) {
+    window.location.replace('/API.html?id=' + embedAny[1]);
+    return;
+  }
+
+  // /filme/{id}  →  FILME forçado
+  var filme = path.match(/^\/filme\/([\w-]+)$/i);
+  if (filme) {
+    window.location.replace('/API.html?id=' + filme[1] + '&type=movie');
+    return;
+  }
+
+  // /serie/{id}  →  SÉRIE forçada
+  var serie = path.match(/^\/serie\/([\w-]+)$/i);
+  if (serie) {
+    window.location.replace('/API.html?id=' + serie[1] + '&type=series');
+    return;
+  }
+
+  // fallback
+  window.location.replace('/admin.html');
 })();
 </script>
 </body>
