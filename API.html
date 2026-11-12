@@ -5,50 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KiraFlix Player</title>
 
-    <!-- Video.js Base -->
+    <!-- Video.js -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
-    <!-- Video.js Plugins: Legendas, Qualidade, etc. -->
-    <link href="https://cdn.jsdelivr.net/npm/videojs-vtt-thumbnails@0.0.1/dist/videojs-vtt-thumbnails.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/videojs-vtt-thumbnails@0.0.1/dist/videojs-vtt-thumbnails.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-hotkeys@0.2.28/videojs.hotkeys.min.js"></script>
 
     <style>
-        /* Reset e Fundo */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background: radial-gradient(circle at top left, #1a1a2e, #0f0f1a);
             color: #fff;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 2rem 1rem;
         }
 
-        /* Container Principal */
-        .kira-container {
-            width: 100%;
+        .container {
             max-width: 1200px;
-            margin-bottom: 2rem;
+            margin: 0 auto;
         }
 
-        /* --- ESTILO GLASSMORPHISM DO PLAYER --- */
+        /* ================= PLAYER ================= */
+        .player-wrapper {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            background: #000;
+        }
+
         .video-js {
             width: 100%;
             aspect-ratio: 16/9;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
             background: #000;
-            /* Efeito de vidro no player */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
         }
 
-        /* Controles com efeito de vidro */
         .video-js .vjs-control-bar {
             background: rgba(20, 20, 30, 0.6) !important;
             backdrop-filter: blur(20px);
@@ -58,7 +51,6 @@
             align-items: center;
         }
 
-        /* Botão de Play Grande */
         .video-js .vjs-big-play-button {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
@@ -78,14 +70,11 @@
             border-color: #f59e0b;
         }
 
-        /* Barra de Progresso */
         .video-js .vjs-play-progress {
             background: linear-gradient(90deg, #f59e0b, #f97316) !important;
-            border-radius: 0 4px 4px 0;
         }
         .video-js .vjs-load-progress {
             background: rgba(255, 255, 255, 0.2) !important;
-            border-radius: 4px;
         }
         .video-js .vjs-progress-holder {
             height: 6px !important;
@@ -93,78 +82,81 @@
             margin: 0 10px;
         }
 
-        /* Botões e Ícones */
-        .video-js .vjs-button > .vjs-icon-placeholder:before {
-            line-height: 50px;
-        }
         .video-js .vjs-control:hover .vjs-icon-placeholder {
             color: #f59e0b;
         }
 
-        /* Menu de Configurações (Legendas, Qualidade) */
         .video-js .vjs-menu-content {
-            background: rgba(20, 20, 30, 0.9) !important;
+            background: rgba(20, 20, 30, 0.95) !important;
             backdrop-filter: blur(20px);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .video-js .vjs-menu li {
-            padding: 8px 16px;
         }
         .video-js .vjs-menu li:hover {
             background: rgba(245, 158, 11, 0.2) !important;
         }
 
-        /* Legendas */
-        .vjs-text-track-display {
-            font-family: 'Inter', sans-serif;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
         .vjs-text-track-cue {
-            background: rgba(0, 0, 0, 0.7) !important;
+            background: rgba(0, 0, 0, 0.75) !important;
             border-radius: 8px;
             padding: 4px 12px;
-            font-size: 1.1rem !important;
-            line-height: 1.5 !important;
+            font-size: 1.05rem !important;
         }
 
-        /* --- PAINEL DE ADMINISTRAÇÃO (ADICIONAR FILMES) --- */
-        .kira-admin {
+        /* ================= INFO DO FILME ================= */
+        .movie-info {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .movie-info.active { display: block; }
+        .movie-info h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .movie-info .meta { color: #a1a1aa; font-size: 0.9rem; }
+
+        /* ================= ADMIN PANEL ================= */
+        .admin {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             padding: 2rem;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 2rem;
         }
-
-        .kira-admin h2 {
+        .admin h2 {
             font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             background: linear-gradient(90deg, #f59e0b, #f97316);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
+        }
+        .admin p.subtitle {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
-        .kira-form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .kira-form-group label {
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #a1a1aa;
             margin-bottom: 0.4rem;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-
-        .kira-form-group input {
+        .form-group input {
             width: 100%;
             padding: 0.9rem 1rem;
             background: rgba(0, 0, 0, 0.4);
@@ -172,142 +164,228 @@
             border-radius: 12px;
             color: #fff;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             outline: none;
+            font-family: inherit;
         }
-
-        .kira-form-group input:focus {
+        .form-group input:focus {
             border-color: #f59e0b;
             box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
         }
-
-        .kira-form-group input::placeholder {
+        .form-group input::placeholder { color: #52525b; }
+        .form-group small {
+            display: block;
             color: #52525b;
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
         }
 
-        .kira-btn {
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
             background: linear-gradient(90deg, #f59e0b, #f97316);
             color: #000;
             font-weight: 700;
             padding: 1rem 2rem;
             border: none;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            flex: 1;
+            min-width: 180px;
         }
-
-        .kira-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
         }
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+        }
 
-        /* Seção de Resultados/Preview */
-        .kira-result {
+        .resultado {
             margin-top: 1.5rem;
             padding: 1.5rem;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.3);
             display: none;
         }
-
-        .kira-result h3 {
+        .resultado.active { display: block; }
+        .resultado h3 {
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
             color: #f59e0b;
+            margin-bottom: 0.8rem;
         }
-
-        .kira-result p {
-            font-size: 0.9rem;
+        .resultado label {
+            display: block;
+            font-size: 0.75rem;
             color: #a1a1aa;
-            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
         }
-
-        .kira-result .url-box {
+        .resultado label:first-of-type { margin-top: 0; }
+        .code-box {
             background: #000;
-            padding: 0.8rem;
+            padding: 0.9rem;
             border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
             color: #f59e0b;
             word-break: break-all;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            margin-top: 0.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
+        .copy-btn {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: rgba(245, 158, 11, 0.25); }
 
-        /* Ocultar elementos desnecessários */
-        .video-js .vjs-poster { display: none; }
+        /* Notificação */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #10b981;
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform 0.3s;
+            z-index: 9999;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
+    <div class="container">
 
-    <!-- PLAYER PRINCIPAL -->
-    <div class="kira-container">
-        <video
-            id="kira-player"
-            class="video-js vjs-big-play-centered"
-            controls
-            preload="auto"
-            poster=""
-            playsinline
-        >
-            <!-- A fonte será injetada via JavaScript -->
-            <p class="vjs-no-js">
-                Para visualizar este vídeo, por favor, ative o JavaScript.
-            </p>
-        </video>
+        <!-- PLAYER -->
+        <div class="player-wrapper">
+            <video
+                id="kira-player"
+                class="video-js vjs-big-play-centered"
+                controls
+                preload="auto"
+                playsinline
+            ></video>
+        </div>
+
+        <!-- INFO DO FILME -->
+        <div class="movie-info" id="movie-info">
+            <h1 id="movie-title">—</h1>
+            <p class="meta">ID TMDB: <span id="movie-id">—</span></p>
+        </div>
+
+        <!-- PAINEL ADMINISTRATIVO -->
+        <div class="admin" id="admin-panel">
+            <h2>⚙️ Painel de Configuração</h2>
+            <p class="subtitle">Adicione ou edite filmes/séries. Cada filme é salvo localmente e gera uma entrada JSON para o catálogo público.</p>
+
+            <div class="form-group">
+                <label>ID do TMDB</label>
+                <input type="text" id="tmdb-id" placeholder="Ex: 969681">
+                <small>Encontre o ID na URL do TMDB: themoviedb.org/movie/<strong>969681</strong></small>
+            </div>
+
+            <div class="form-group">
+                <label>Título do Filme/Série</label>
+                <input type="text" id="titulo" placeholder="Ex: Spider-Man: Brand New Day">
+            </div>
+
+            <div class="form-group">
+                <label>URL da Fonte de Vídeo</label>
+                <input type="text" id="fonte" placeholder="https://exemplo.com/filme.mp4">
+                <small>Pode ser MP4 direto, HLS (.m3u8) ou um endpoint de streaming.</small>
+            </div>
+
+            <div class="form-group">
+                <label>URL da Legenda (Opcional)</label>
+                <input type="text" id="legenda" placeholder="https://exemplo.com/legenda.vtt">
+                <small>Formato .vtt (WebVTT) recomendado. O player adiciona automaticamente.</small>
+            </div>
+
+            <div class="form-group">
+                <label>URL do Pôster (Opcional)</label>
+                <input type="text" id="poster" placeholder="https://exemplo.com/poster.jpg">
+            </div>
+
+            <div class="btn-row">
+                <button class="btn" onclick="gerar()">🚀 Gerar e Salvar</button>
+                <button class="btn secondary" onclick="carregarPreview()">▶️ Preview no Player</button>
+                <button class="btn secondary" onclick="exportarTudo()">📥 Exportar Catálogo</button>
+            </div>
+
+            <div class="resultado" id="resultado">
+                <h3>✅ Configuração gerada!</h3>
+
+                <label>URL pública do filme:</label>
+                <div class="code-box" id="url-publica">—</div>
+                <button class="copy-btn" onclick="copiar('url-publica')">📋 Copiar URL</button>
+
+                <label>Entrada JSON para colar no catálogo:</label>
+                <div class="code-box" id="json-entry">—</div>
+                <button class="copy-btn" onclick="copiar('json-entry')">📋 Copiar JSON</button>
+
+                <label>Código iframe para incorporar:</label>
+                <div class="code-box" id="iframe-code">—</div>
+                <button class="copy-btn" onclick="copiar('iframe-code')">📋 Copiar iframe</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PAINEL DE ADMINISTRAÇÃO / GERADOR DE PÁGINA -->
-    <div class="kira-admin">
-        <h2>⚙️ Gerador de Player KiraFlix</h2>
-        <p style="color: #a1a1aa; font-size: 0.9rem; margin-bottom: 1.5rem;">
-            Insira os dados do filme ou série para gerar a URL e o código do player automaticamente.
-        </p>
-
-        <!-- Formulário -->
-        <div class="kira-form-group">
-            <label for="tmdb-id">ID do TMDB (The Movie Database)</label>
-            <input type="text" id="tmdb-id" placeholder="Ex: 969681 (Spider-Man: Brand New Day)" value="969681">
-            <p style="font-size: 0.75rem; color: #52525b; margin-top: 0.3rem;">
-                Você pode encontrar o ID no site do TMDB, na URL do filme.
-            </p>
-        </div>
-
-        <div class="kira-form-group">
-            <label for="video-source">URL da Fonte de Vídeo (MP4 ou HLS)</label>
-            <input type="text" id="video-source" placeholder="https://exemplo.com/filme.mp4" 
-                   value="https://mgeb.space/mp4.php?url=https://es.cuevana4br.com/pt/detail/movie/iswnnqdfuZdhcRaFZNeuO-Spider-Man-Brand-New-Day">
-        </div>
-
-        <div class="kira-form-group">
-            <label for="subtitle-url">URL da Legenda (Opcional - .vtt ou .srt)</label>
-            <input type="text" id="subtitle-url" placeholder="https://exemplo.com/legenda.vtt">
-        </div>
-
-        <button class="kira-btn" onclick="gerarPlayer()">🚀 Gerar Player e URL</button>
-
-        <!-- Área de Resultado -->
-        <div class="kira-result" id="resultado">
-            <h3>✅ Player Gerado com Sucesso!</h3>
-            <p><strong>URL da Página:</strong></p>
-            <div class="url-box" id="url-gerada"></div>
-            <p style="margin-top: 1rem;"><strong>Código para incorporar em qualquer site:</strong></p>
-            <div class="url-box" id="codigo-incorporar"></div>
-        </div>
-    </div>
+    <div class="toast" id="toast">✅ Copiado!</div>
 
     <script>
-        // --- LÓGICA DO PLAYER VIDEO.JS ---
+        /* ============================================================
+           CATÁLOGO — Aqui ficam TODOS os filmes que você já cadastrou.
+           Você pode editar este objeto manualmente ou colar novas 
+           entradas usando o painel administrativo abaixo.
+           ============================================================ */
+        const CATALOGO = {
+            "969681": {
+                titulo: "Spider-Man: Brand New Day",
+                fonte: "https://mgeb.space/mp4.php?url=https://es.cuevana4br.com/pt/detail/movie/iswnnqdfuZdhcRaFZNeuO-Spider-Man-Brand-New-Day",
+                legenda: "",
+                poster: ""
+            }
+        };
+
+        /* ============================================================
+           INICIALIZAÇÃO DO PLAYER (Video.js)
+           ============================================================ */
+        let player;
+
         document.addEventListener('DOMContentLoaded', function() {
-            const player = videojs('kira-player', {
+            player = videojs('kira-player', {
                 fluid: true,
                 responsive: true,
-                playbackRates: [0.5, 1, 1.5, 2],
+                playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
                 controlBar: {
                     children: [
                         'playToggle',
@@ -316,103 +394,196 @@
                         'progressControl',
                         'durationDisplay',
                         'pictureInPictureToggle',
-                        'qualitySelector', // Se usar plugin
                         'subsCapsButton',
-                        'settingsMenu',
+                        'playbackRateMenuButton',
                         'fullscreenToggle'
                     ]
                 },
                 html5: {
-                    vhs: {
-                        overrideNative: true // Para HLS
-                    }
+                    vhs: { overrideNative: true }
                 }
             });
 
-            // Ativa atalhos de teclado (espaço, setas, etc.)
             player.hotkeys({
                 volumeStep: 0.1,
                 seekStep: 5,
                 enableModifiersForNumbers: false
             });
 
-            // Define a fonte inicial padrão (Spider-Man)
-            player.src({
-                src: 'https://mgeb.space/mp4.php?url=https://es.cuevana4br.com/pt/detail/movie/iswnnqdfuZdhcRaFZNeuO-Spider-Man-Brand-New-Day',
-                type: 'video/mp4'
-            });
+            // Verificar se a URL tem ?id= (vindo do 404.html)
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
 
-            // Função para buscar legendas (exemplo conceitual, a API real precisa de chave)
-            // Esta função é um exemplo de como você poderia integrar a API OpenSubtitles
-            async function buscarLegendas(imdbId) {
-                // A API do OpenSubtitles requer uma chave (Api-Key) no cabeçalho.
-                // Você pode obter uma gratuitamente em https://www.opensubtitles.com/
-                // const response = await fetch(`https://api.opensubtitles.com/api/v1/subtitles?imdb_id=${imdbId}`, {
-                //     headers: {
-                //         'Api-Key': 'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O',
-                //         'Content-Type': 'application/json'
-                //     }
-                // });
-                // const data = await response.json();
-                // Retornaria as legendas disponíveis.
-                console.log('Buscando legendas para o IMDB ID:', imdbId);
-                // Exemplo de retorno fictício para demonstração
-                return [
-                    { lang: 'pt-br', url: 'https://exemplo.com/legenda-ptbr.vtt', label: 'Português (BR)' }
-                ];
+            if (idFromUrl) {
+                carregarFilme(idFromUrl);
+            } else {
+                // Se não tem ID, mostra o painel e um player vazio
+                document.getElementById('admin-panel').style.display = 'block';
             }
-
-            // Expor o player globalmente para o gerador
-            window.kiraPlayer = player;
-            window.buscarLegendas = buscarLegendas;
         });
 
-        // --- LÓGICA DO GERADOR DE PÁGINA (ADMIN) ---
-        async function gerarPlayer() {
-            const tmdbId = document.getElementById('tmdb-id').value.trim();
-            const videoSource = document.getElementById('video-source').value.trim();
-            const subtitleUrl = document.getElementById('subtitle-url').value.trim();
-            const resultadoDiv = document.getElementById('resultado');
-            const urlGeradaDiv = document.getElementById('url-gerada');
-            const codigoIncorporarDiv = document.getElementById('codigo-incorporar');
+        /* ============================================================
+           CARREGAR FILME POR ID
+           ============================================================ */
+        function carregarFilme(id) {
+            // Buscar primeiro no catálogo embutido
+            let filme = CATALOGO[id];
 
-            if (!tmdbId || !videoSource) {
-                alert('Por favor, preencha o ID do TMDB e a URL do vídeo.');
+            // Se não estiver, tentar no localStorage
+            if (!filme) {
+                const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
+                filme = salvos[id];
+            }
+
+            if (!filme) {
+                player.src({ src: '', type: 'video/mp4' });
+                document.getElementById('movie-info').classList.remove('active');
+                document.getElementById('admin-panel').style.display = 'block';
+                console.warn('Filme não encontrado no catálogo:', id);
                 return;
             }
 
-            // 1. Atualiza o player na hora com a nova fonte
-            if (window.kiraPlayer) {
-                window.kiraPlayer.src({ src: videoSource, type: 'video/mp4' });
-                
-                // Se uma legenda foi fornecida, adiciona ao player
-                if (subtitleUrl) {
-                    window.kiraPlayer.addRemoteTextTrack({
-                        kind: 'subtitles',
-                        src: subtitleUrl,
-                        srclang: 'pt',
-                        label: 'Português',
-                        default: true
-                    }, false);
-                }
+            // Mostrar info do filme
+            document.getElementById('movie-info').classList.add('active');
+            document.getElementById('movie-title').textContent = filme.titulo || 'Sem título';
+            document.getElementById('movie-id').textContent = id;
+
+            // Carregar fonte no player
+            player.src({
+                src: filme.fonte,
+                type: filme.fonte.includes('.m3u8') ? 'application/x-mpegURL' : 'video/mp4'
+            });
+
+            if (filme.poster) player.poster(filme.poster);
+
+            // Adicionar legendas (remove antigas primeiro)
+            const tracks = player.remoteTextTracks();
+            for (let i = tracks.length - 1; i >= 0; i--) {
+                player.removeRemoteTextTrack(tracks[i]);
+            }
+            if (filme.legenda) {
+                player.addRemoteTextTrack({
+                    kind: 'subtitles',
+                    src: filme.legenda,
+                    srclang: 'pt',
+                    label: 'Português',
+                    default: true
+                }, false);
             }
 
-            // 2. Gera a URL "amigável" baseada no domínio KiraFlix
-            // Supondo que seu domínio seja kiraflix.qd.je
-            const baseUrl = 'https://kiraflix.qd.je';
-            const urlAmigavel = `${baseUrl}/filme/${tmdbId}`;
-            
-            // 3. Gera o código de incorporação (iframe ou script)
-            const codigoIframe = `<iframe src="${baseUrl}/embed/${tmdbId}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`;
+            // Esconde o painel admin para o usuário final
+            document.getElementById('admin-panel').style.display = 'none';
 
-            // 4. Exibe os resultados
-            urlGeradaDiv.textContent = urlAmigavel;
-            codigoIncorporarDiv.textContent = codigoIframe;
-            resultadoDiv.style.display = 'block';
+            // Atualiza o título da página
+            document.title = (filme.titulo || 'KiraFlix') + ' - KiraFlix';
+        }
 
-            // 5. (Opcional) Buscar legendas automaticamente se tiver a chave da API
-            // const legendas = await window.buscarLegendas(tmdbId);
-            // console.log('Legendas encontradas:', legendas);
+        /* ============================================================
+           PAINEL ADMINISTRATIVO — Gerar e salvar
+           ============================================================ */
+        function gerar() {
+            const id = document.getElementById('tmdb-id').value.trim();
+            const titulo = document.getElementById('titulo').value.trim();
+            const fonte = document.getElementById('fonte').value.trim();
+            const legenda = document.getElementById('legenda').value.trim();
+            const poster = document.getElementById('poster').value.trim();
+
+            if (!id || !titulo || !fonte) {
+                alert('Preencha pelo menos: ID, Título e Fonte.');
+                return;
+            }
+
+            const filme = { titulo, fonte, legenda, poster };
+
+            // Salvar no localStorage (para funcionar imediatamente)
+            const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
+            salvos[id] = filme;
+            localStorage.setItem('kiraflix_catalogo', JSON.stringify(salvos));
+
+            // Atualizar catálogo em memória
+            CATALOGO[id] = filme;
+
+            // Gerar URL pública
+            const baseUrl = window.location.origin;
+            const urlPublica = baseUrl + '/filme/' + id;
+
+            // Gerar entrada JSON
+            const jsonEntry = '        "' + id + '": ' + JSON.stringify(filme, null, 4).replace(/\n/g, '\n        ') + ',';
+
+            // Gerar iframe
+            const iframeCode = '<iframe src="' + baseUrl + '/API.html?id=' + id + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
+
+            // Exibir resultados
+            document.getElementById('url-publica').textContent = urlPublica;
+            document.getElementById('json-entry').textContent = jsonEntry;
+            document.getElementById('iframe-code').textContent = iframeCode;
+            document.getElementById('resultado').classList.add('active');
+
+            // Carrega preview automático
+            carregarPreview();
+        }
+
+        function carregarPreview() {
+            const fonte = document.getElementById('fonte').value.trim();
+            const legenda = document.getElementById('legenda').value.trim();
+            const poster = document.getElementById('poster').value.trim();
+
+            if (!fonte) {
+                alert('Informe a URL da fonte primeiro.');
+                return;
+            }
+
+            player.src({
+                src: fonte,
+                type: fonte.includes('.m3u8') ? 'application/x-mpegURL' : 'video/mp4'
+            });
+
+            if (poster) player.poster(poster);
+
+            const tracks = player.remoteTextTracks();
+            for (let i = tracks.length - 1; i >= 0; i--) {
+                player.removeRemoteTextTrack(tracks[i]);
+            }
+            if (legenda) {
+                player.addRemoteTextTrack({
+                    kind: 'subtitles',
+                    src: legenda,
+                    srclang: 'pt',
+                    label: 'Português',
+                    default: true
+                }, false);
+            }
+        }
+
+        function exportarTudo() {
+            const salvos = JSON.parse(localStorage.getItem('kiraflix_catalogo') || '{}');
+            const completo = { ...CATALOGO, ...salvos };
+            const json = JSON.stringify(completo, null, 4);
+
+            // Cria um arquivo para download
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'catalogo.json';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('📥 Catálogo exportado!');
+        }
+
+        function copiar(elId) {
+            const texto = document.getElementById(elId).textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                showToast('✅ Copiado!');
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
     </script>
 </body>
