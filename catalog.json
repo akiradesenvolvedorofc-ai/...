@@ -1,6 +1,356 @@
 {
   "movies": {},
   "series": {
+    "5920": {
+      "title": "O Mentalista",
+      "overview": "Patrick Jane é famoso por sua habilidade de alta percepção de tudo que está ao seu redor. Ele já quase foi uma celebridade, alegando ser médium vidente, mas agora admite que fingia ter poderes paranormais. Com sua grande habilidade de observação, Patrick trabalha como consultor independente para as autoridades da Califórnia, resolvendo um número considerável de crimes complicados.",
+      "poster": "https://image.tmdb.org/t/p/w500/bJ0SNoD0DchXo5nH3N81ABIe3H.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/rJFqKcmMSttdNP58l0dVzY2NcTA.jpg",
+      "year": "2008",
+      "rating": 8.419,
+      "genres": [
+        "Crime",
+        "Drama",
+        "Mistério"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-1/23",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/gjG2CqKaqR601v37CBElT-The-Mentalist-Season-2/23",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
+    },
     "95897": {
       "title": "Overflow: Transbordando",
       "overview": "Um dia, Kazushi Sudou recebe a visita das irmãs Ayane e Kotone Shirakawa, suas duas lindas amigas de infância. Embora não sejam parentes de sangue, as duas o chamam carinhosamente de \"irmão\". Do nada, e como vingança por Ayane, as duas irmãs decidem se juntar a Kazushi em seu pequeno banho e acabam tomando banho juntas. Em meio ao doce aroma e à espuma de banho, Kotone tem um pequeno acidente com Kazushi e os dois acabam \"se pegando\". Será que o pervertido Kazushi conseguirá resistir aos encantos dessas belas irmãs?",
