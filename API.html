@@ -25,6 +25,7 @@
   .meta { flex: 1 1 auto; min-width: 0; padding-top: 6px; }
   .meta h1 { margin: 0 0 14px 0; font-size: clamp(22px, 3.2vw, 40px); font-weight: 800;
     letter-spacing: -0.5px; line-height: 1.15; }
+  .meta .ep-info { font-size: 15px; font-weight: 600; color: #ffd166; margin-bottom: 12px; }
   .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; font-size: 13px; }
   .badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 6px;
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); font-weight: 600; color: #e6e6e6; }
@@ -120,7 +121,7 @@
   .menu-subs     { top: 60px; right: 62px; min-width: 240px; }
   .menu-share    { top: 60px; right: 62px; min-width: 260px; }
   .menu-scale    { top: 60px; right: 62px; min-width: 220px; }
-  .menu-episodes { top: 60px; left: 18px; min-width: 320px; max-width: 380px; }
+  .menu-episodes { top: 60px; left: 18px; min-width: 340px; max-width: 420px; }
 
   .season-row { padding: 8px 16px 4px 16px; }
   .season-row select { width: 100%; padding: 8px 12px; background: #111; color: #fff;
@@ -155,8 +156,13 @@
     background: #000; z-index: 100; padding: 20px; text-align: center; flex-direction: column; gap: 16px; }
   #errorBox.show { display: flex; }
   #errorBox h2 { color: #e53935; font-size: 1.5rem; margin: 0; }
-  #errorBox p { color: #a1a1aa; max-width: 480px; line-height: 1.5; margin: 0; }
+  #errorBox p { color: #a1a1aa; max-width: 520px; line-height: 1.5; margin: 0; font-size: 14px; }
   #errorBox a { color: #e53935; font-weight: 700; text-decoration: none; }
+
+  #debugBadge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.85);
+    color: #4ade80; font-family: ui-monospace, monospace; font-size: 11px;
+    padding: 6px 10px; border-radius: 6px; z-index: 200; display: none; line-height: 1.5; }
+  #debugBadge.show { display: block; }
 
   @media (max-width: 640px) {
     .overlay-content { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
@@ -187,11 +193,14 @@
 <div id="player">
   <video id="video" playsinline preload="metadata" controlslist="nodownload noplaybackrate noremoteplayback" poster=""></video>
 
+  <div id="debugBadge"></div>
+
   <div id="overlay">
     <div class="overlay-content">
       <div class="poster-wrap"><img id="posterImg" alt="" /></div>
       <div class="meta">
         <h1 id="titleEl">Carregando...</h1>
+        <div class="ep-info" id="epInfoEl" style="display:none"></div>
         <div class="badges">
           <span class="badge star" id="badgeRating" style="display:none">★ -</span>
           <span class="badge" id="badgeYear" style="display:none">----</span>
@@ -257,7 +266,6 @@
     </div>
   </div>
 
-  <!-- MENU SETTINGS -->
   <div class="menu menu-settings" id="settingsMenu">
     <div class="menu-title">Velocidade</div>
     <div class="item" data-speed="0.5">0.5x</div>
@@ -271,13 +279,11 @@
     <div class="item" id="setLoop">Repetir <span class="val">Não</span></div>
   </div>
 
-  <!-- MENU QUALIDADE -->
   <div class="menu menu-quality" id="qualityMenu">
     <div class="menu-title">Qualidade</div>
     <div id="qualityList"></div>
   </div>
 
-  <!-- MENU ESCALA -->
   <div class="menu menu-scale" id="scaleMenu">
     <div class="menu-title">Escala da tela</div>
     <div class="item active" data-scale="contain">Ajustar <span class="val">Padrão</span></div>
@@ -289,7 +295,6 @@
     <div class="item" data-scale="zoom150">Zoom 150%</div>
   </div>
 
-  <!-- MENU LEGENDAS -->
   <div class="menu menu-subs" id="subsMenu">
     <div class="menu-title">Legendas</div>
     <div class="item active" data-sub="off">Desativadas</div>
@@ -298,20 +303,19 @@
     <div class="item" id="uploadSub">📁 Carregar .vtt<input type="file" accept=".vtt,text/vtt" id="subFile" style="display:none"></div>
   </div>
 
-  <!-- MENU EPISÓDIOS (só aparece em séries) -->
   <div class="menu menu-episodes" id="episodesMenu">
     <div class="menu-title">Episódios</div>
     <div class="season-row"><select id="seasonSelect"></select></div>
     <div id="episodeList"></div>
   </div>
 
-  <!-- MENU COMPARTILHAR -->
   <div class="menu menu-share" id="shareMenu">
     <div class="menu-title">Compartilhar</div>
     <div class="share-preview" id="sharePreview"></div>
     <div class="sep"></div>
     <div class="item" id="shareNative">📱 Compartilhar</div>
     <div class="item" id="shareCopy">🔗 Copiar link</div>
+    <div class="item" id="shareEmbed">📋 Copiar link embed</div>
     <div class="item" id="shareWhatsapp">💬 WhatsApp</div>
     <div class="item" id="shareTelegram">✈️ Telegram</div>
   </div>
@@ -321,7 +325,7 @@
 
   <div id="errorBox">
     <h2>⚠ Conteúdo não encontrado</h2>
-    <p id="errorMsg">O ID solicitado não está no catálogo ou o catálogo não foi carregado.</p>
+    <p id="errorMsg">O ID solicitado não está no catálogo.</p>
     <a href="/admin.html">Ir para o painel admin</a>
   </div>
 </div>
@@ -333,10 +337,6 @@
 (function () {
   "use strict";
 
-  // ============================================================
-  //  🎯 CONFIG — Preenchido dinamicamente por ?id= e ?type=
-  // ============================================================
-  var TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
   var LANG = "pt-BR";
   var RESUME_PREFIX = "kiraflix_resume_";
 
@@ -345,8 +345,6 @@
   var CONTENT_TYPE = null;
   var currentSeasonIdx = 0;
   var currentEpisodeIdx = 0;
-
-  // ============================================================
 
   var $ = function(id){ return document.getElementById(id); };
   var video = $("video"), player = $("player"), overlay = $("overlay"), tapToPlay = $("tapToPlay");
@@ -365,6 +363,14 @@
   var progressHand = $("progressHandle"), timeLabel = $("timeLabel");
   var seekFb = $("seekFeedback"), toastEl = $("toast");
   var buffering = $("buffering");
+  var debugBadge = $("debugBadge");
+  var epInfoEl = $("epInfoEl");
+
+  var DEBUG = new URLSearchParams(location.search).get("debug") === "1";
+  function debugLog(msg) {
+    if (DEBUG) console.log("[KiraFlix]", msg);
+    if (DEBUG) { debugBadge.classList.add("show"); debugBadge.innerHTML += msg + "<br>"; }
+  }
 
   function renderIcons() { if (window.lucide && typeof lucide.createIcons === "function") lucide.createIcons(); }
   function showToast(msg, dur) {
@@ -381,46 +387,95 @@
   function closeAllMenus() { allMenus.forEach(function(m){ if (m) m.classList.remove("show"); }); }
   function isMenuOpen() { return allMenus.some(function(m){ return m && m.classList.contains("show"); }); }
 
-  // ============ INICIALIZAÇÃO ============
+  // ============ BOOTSTRAP ============
   async function bootstrap() {
     var params = new URLSearchParams(window.location.search);
     CONTENT_ID = params.get("id");
-    CONTENT_TYPE = params.get("type") || "movie";
+    var typeParam = params.get("type");
+    var seasonParam = params.get("season");
+    var episodeParam = params.get("episode");
 
-    if (!CONTENT_ID) { showError("Nenhum ID informado na URL. Use ?id=XXXX&type=movie ou ?id=XXXX&type=series"); return; }
+    debugLog("id=" + CONTENT_ID + " type=" + typeParam + " season=" + seasonParam + " ep=" + episodeParam);
+
+    if (!CONTENT_ID) {
+      showError("Nenhum ID informado na URL. Use <code>?id=XXXX&type=movie</code>, <code>?id=XXXX&type=series</code>, ou <code>/embed/XXXX</code>.");
+      return;
+    }
 
     try {
       var res = await fetch("/catalog.json?t=" + Date.now());
-      if (!res.ok) throw new Error("catalog.json não encontrado (HTTP " + res.status + ")");
+      if (!res.ok) throw new Error("catalog.json não encontrado (HTTP " + res.status + "). Você já criou este arquivo na raiz do repo?");
       var catalog = await res.json();
-      var bucket = CONTENT_TYPE === "series" ? catalog.series : catalog.movies;
-      CONTENT = bucket ? bucket[CONTENT_ID] : null;
+      debugLog("catalog carregado");
 
-      if (!CONTENT) {
-        showError("O conteúdo com ID <b>" + CONTENT_ID + "</b> não está no catálogo. Cadastre-o no admin primeiro.");
+      // AUTO-DETECÇÃO: procura ID em movies e series
+      var inMovies = catalog.movies ? catalog.movies[CONTENT_ID] : null;
+      var inSeries = catalog.series ? catalog.series[CONTENT_ID] : null;
+
+      debugLog("existe em movies? " + !!inMovies + " | existe em series? " + !!inSeries);
+
+      if (!inMovies && !inSeries) {
+        showError("O ID <b>" + CONTENT_ID + "</b> não está cadastrado no catálogo (nem como filme, nem como série). Vá ao <a href='/admin.html'>admin</a>, cadastre-o e clique em <b>Salvar no catálogo</b>.");
         return;
       }
 
+      // Prioridade: type explícito > season/episode > bucket
+      if (typeParam === "series" || seasonParam || episodeParam) {
+        CONTENT_TYPE = "series";
+      } else if (typeParam === "movie") {
+        CONTENT_TYPE = "movie";
+      } else if (inSeries && !inMovies) {
+        CONTENT_TYPE = "series";
+      } else if (inMovies && !inSeries) {
+        CONTENT_TYPE = "movie";
+      } else {
+        // Está nos dois (não deveria acontecer, mas previne)
+        CONTENT_TYPE = "movie";
+      }
+
+      debugLog("type decidido: " + CONTENT_TYPE);
+
+      // Valida se o tipo bate com o bucket
+      if (CONTENT_TYPE === "series" && !inSeries) {
+        showError("O ID <b>" + CONTENT_ID + "</b> está cadastrado como <b>FILME</b>, não como série. Use <code>/filme/" + CONTENT_ID + "</code> ou cadastre-o no admin como série.");
+        return;
+      }
+      if (CONTENT_TYPE === "movie" && !inMovies) {
+        showError("O ID <b>" + CONTENT_ID + "</b> está cadastrado como <b>SÉRIE</b>, não como filme. Use <code>/serie/" + CONTENT_ID + "</code> ou <code>/embed/" + CONTENT_ID + "/1/1</code>.");
+        return;
+      }
+
+      CONTENT = CONTENT_TYPE === "series" ? inSeries : inMovies;
       fillInfo(CONTENT);
 
       if (CONTENT_TYPE === "movie") {
+        if (!CONTENT.source) {
+          showToast("⚠ Filme sem fonte de vídeo. Edite no admin.", 4000);
+        }
         loadVideoUrl(CONTENT.source, false);
         tryResume(CONTENT_ID);
       } else {
-        setupSeries();
+        // Valida estrutura de seasons
+        if (!Array.isArray(CONTENT.seasons) || CONTENT.seasons.length === 0) {
+          showError("A série <b>" + (CONTENT.title || CONTENT_ID) + "</b> está cadastrada, mas <b>não tem temporadas/episódios</b>. Volte ao <a href='/admin.html'>admin</a>, adicione os episódios e salve novamente.");
+          return;
+        }
+        setupSeries(seasonParam, episodeParam);
       }
 
       setupKeyboard();
     } catch (err) {
-      console.error("Erro carregando catálogo:", err);
-      showError("Erro ao carregar catálogo: " + err.message);
+      console.error("Erro bootstrap:", err);
+      showError("Erro ao carregar catálogo: <b>" + err.message + "</b>");
     }
   }
 
   function showError(msg) {
-    $("errorMsg").innerHTML = msg || $("errorMsg").innerHTML;
-    $("errorBox").classList.add("show");
+    var box = $("errorBox");
+    $("errorMsg").innerHTML = msg || "Erro desconhecido.";
+    box.classList.add("show");
     document.title = "Não encontrado";
+    debugLog("ERRO: " + msg);
   }
 
   function fillInfo(data) {
@@ -459,17 +514,39 @@
   }
 
   // ============ SÉRIE ============
-  function setupSeries() {
+  function setupSeries(seasonParam, episodeParam) {
     btnEpisodes.style.display = "flex";
 
-    // Verifica hash (#t1e2) para episódio inicial
-    var hash = window.location.hash.match(/t(\d+)e(\d+)/i);
-    if (hash) {
-      var sNum = parseInt(hash[1], 10), eNum = parseInt(hash[2], 10);
-      var si = (CONTENT.seasons || []).findIndex(function(s){ return s.number === sNum; });
+    debugLog("setupSeries: seasons=" + CONTENT.seasons.length);
+
+    // Prioridade 1: URL params
+    var found = false;
+    if (seasonParam) {
+      var sNum = parseInt(seasonParam, 10);
+      var si = CONTENT.seasons.findIndex(function(s){ return parseInt(s.number, 10) === sNum; });
+      debugLog("procurando season " + sNum + " → índice " + si);
       if (si >= 0) {
-        var ei = CONTENT.seasons[si].episodes.findIndex(function(e){ return e.number === eNum; });
-        if (ei >= 0) { currentSeasonIdx = si; currentEpisodeIdx = ei; }
+        currentSeasonIdx = si;
+        found = true;
+        if (episodeParam) {
+          var eNum = parseInt(episodeParam, 10);
+          var ei = CONTENT.seasons[si].episodes.findIndex(function(e){ return parseInt(e.number, 10) === eNum; });
+          debugLog("procurando episode " + eNum + " → índice " + ei);
+          if (ei >= 0) currentEpisodeIdx = ei;
+        }
+      }
+    }
+
+    // Prioridade 2: hash (#t1e2) se não achou via URL params
+    if (!found) {
+      var hash = window.location.hash.match(/t(\d+)e(\d+)/i);
+      if (hash) {
+        var sNum2 = parseInt(hash[1], 10), eNum2 = parseInt(hash[2], 10);
+        var si2 = CONTENT.seasons.findIndex(function(s){ return parseInt(s.number, 10) === sNum2; });
+        if (si2 >= 0) {
+          var ei2 = CONTENT.seasons[si2].episodes.findIndex(function(e){ return parseInt(e.number, 10) === eNum2; });
+          if (ei2 >= 0) { currentSeasonIdx = si2; currentEpisodeIdx = ei2; }
+        }
       }
     }
 
@@ -521,11 +598,20 @@
     var ep = s.episodes && s.episodes[currentEpisodeIdx];
     if (!ep) return;
 
-    history.replaceState(null, "", "#t" + s.number + "e" + ep.number);
+    // Atualiza a URL para refletir o episódio atual (sem recarregar)
+    var newUrl = "/API.html?id=" + CONTENT_ID + "&type=series&season=" + s.number + "&episode=" + ep.number;
+    if (history.replaceState) history.replaceState(null, "", newUrl);
+
+    // Atualiza info do episódio no overlay
+    epInfoEl.style.display = "block";
+    epInfoEl.textContent = (s.label || ("Temporada " + s.number)) + " · " + (ep.label || ("Episódio " + ep.number)) + (ep.title ? " — " + ep.title : "");
+
+    if (!ep.source) {
+      showToast("⚠ Episódio sem fonte de vídeo. Edite no admin.", 4000);
+    }
+
     loadVideoUrl(ep.source, false);
     buildEpisodeList();
-
-    // Legendas por episódio
     rebuildSubtitles(ep.subtitles || {});
 
     // Resume do episódio
@@ -539,6 +625,8 @@
         }, 500);
       }
     } catch(e){}
+
+    debugLog("tocando S" + s.number + "E" + ep.number);
   }
 
   // ============ AUTOPLAY / PLAY-PAUSE ============
@@ -575,7 +663,7 @@
   video.addEventListener("play", function () { overlay.classList.remove("show"); });
   overlay.addEventListener("click", function () { overlay.classList.remove("show"); video.play().catch(function(){}); });
 
-  // ============ FIM DO EPISÓDIO → PRÓXIMO ============
+  // ============ FIM → PRÓXIMO EPISÓDIO ============
   video.addEventListener("ended", function () {
     saveResume();
     if (CONTENT_TYPE !== "series") return;
@@ -647,7 +735,18 @@
   if (video.remote && typeof video.remote.watchAvailability === "function") { video.remote.watchAvailability(function (available) { btnCast.classList.toggle("casting", !!available); }).catch(function(){}); }
 
   // ============ SHARE ============
-  function buildShareUrl() { return window.location.origin + window.location.pathname + window.location.search + window.location.hash; }
+  function buildShareUrl() {
+    var base = window.location.origin;
+    if (CONTENT_TYPE === "series") {
+      var s = CONTENT.seasons && CONTENT.seasons[currentSeasonIdx];
+      var ep = s && s.episodes && s.episodes[currentEpisodeIdx];
+      if (s && ep) return base + "/embed/" + CONTENT_ID + "/" + s.number + "/" + ep.number;
+    }
+    return base + "/embed/" + CONTENT_ID;
+  }
+  function buildEmbedCode() {
+    return '<iframe src="' + buildShareUrl() + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
+  }
   function updateSharePreview() {
     var title = $("titleEl").textContent || "Vídeo";
     sharePreview.innerHTML = title + "<br><code>" + buildShareUrl() + "</code>";
@@ -664,12 +763,13 @@
   }
   async function copyToClipboard(txt) {
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(txt); showToast("Link copiado!"); }
-      else { var ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast("Link copiado!"); }
+      if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(txt); showToast("Copiado!"); }
+      else { var ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast("Copiado!"); }
     } catch (e) { showToast("Não foi possível copiar"); }
   }
   $("shareNative").addEventListener("click", function(e){ e.stopPropagation(); doShare(); });
   $("shareCopy").addEventListener("click", function(e){ e.stopPropagation(); copyToClipboard(buildShareUrl()); });
+  $("shareEmbed").addEventListener("click", function(e){ e.stopPropagation(); copyToClipboard(buildEmbedCode()); });
   $("shareWhatsapp").addEventListener("click", function(e){ e.stopPropagation(); window.open("https://wa.me/?text=" + encodeURIComponent(($("titleEl").textContent||"") + " - " + buildShareUrl()), "_blank"); });
   $("shareTelegram").addEventListener("click", function(e){ e.stopPropagation(); window.open("https://t.me/share/url?url=" + encodeURIComponent(buildShareUrl()) + "&text=" + encodeURIComponent($("titleEl").textContent||""), "_blank"); });
 
@@ -709,7 +809,6 @@
     return t;
   }
   function rebuildSubtitles(subs) {
-    // Remove as antigas
     subtitleTracks.forEach(function(st){ try { st.trackEl.remove(); } catch(e){} });
     subtitleTracks = [];
     if (subs && subs.pt) addSubtitleTrack("pt", "Português", subs.pt);
@@ -825,7 +924,7 @@
     closeAllMenus();
   });
 
-  // ============ MOSTRAR/ESCONDER CONTROLES ============
+  // ============ MOSTRAR/ESCONDER ============
   var hideTimer = null;
   function showControls() {
     controls.classList.add("visible");
@@ -866,7 +965,7 @@
     } catch(e){}
   }
   function tryResume(id) {
-    if (CONTENT_TYPE === "series") return; // tratado em playCurrentEpisode
+    if (CONTENT_TYPE === "series") return;
     try {
       var r = JSON.parse(localStorage.getItem(RESUME_PREFIX + id) || "null");
       if (r && r.time > 15 && r.dur && (r.time / r.dur) < 0.97) {
@@ -898,22 +997,6 @@
       }
     });
   }
-
-  // ============ HASH CHANGE (compartilhamento de episódio) ============
-  window.addEventListener("hashchange", function () {
-    if (CONTENT_TYPE !== "series") return;
-    var hash = window.location.hash.match(/t(\d+)e(\d+)/i);
-    if (!hash) return;
-    var sNum = parseInt(hash[1], 10), eNum = parseInt(hash[2], 10);
-    var si = (CONTENT.seasons || []).findIndex(function(s){ return s.number === sNum; });
-    if (si < 0) return;
-    var ei = CONTENT.seasons[si].episodes.findIndex(function(e){ return e.number === eNum; });
-    if (ei < 0) return;
-    if (si === currentSeasonIdx && ei === currentEpisodeIdx) return;
-    currentSeasonIdx = si; currentEpisodeIdx = ei;
-    buildSeasonSelect(); buildEpisodeList(); playCurrentEpisode();
-    video.play().catch(function(){});
-  });
 
   // ============ INICIAR ============
   renderIcons();
