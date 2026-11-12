@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — KiraFlix</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at top,#1a1a2e,#0a0a14);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;padding:20px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:2rem;background:linear-gradient(90deg,#e53935,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.sub{color:#71717a;font-size:.9rem;margin-bottom:24px}
+.card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px}
+.card h2{font-size:1rem;color:#e53935;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
+label{display:block;font-size:.75rem;color:#a1a1aa;margin-bottom:6px;text-transform:uppercase;font-weight:600}
+input,select,textarea{width:100%;padding:10px 14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;outline:none;font-family:inherit}
+input:focus,select:focus{border-color:#e53935}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:200px}
+button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;transition:.2s}
+button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(229,57,53,.35)}
+button.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
+button.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
+button:disabled{opacity:.5;pointer-events:none}
+.mt{margin-top:14px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,120px);background:#10b981;color:#000;padding:12px 24px;border-radius:10px;font-weight:700;transition:.3s;z-index:9999;font-size:.9rem}
+.toast.show{transform:translate(-50%,0)}
+.toast.err{background:#ef4444;color:#fff}
+.preview{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}
+.preview img{width:120px;border-radius:10px;flex:0 0 auto}
+.preview-info{flex:1;min-width:200px}
+.preview-info h3{font-size:1.1rem;margin-bottom:6px}
+.preview-info .meta{color:#a1a1aa;font-size:.8rem;margin-bottom:8px}
+.preview-info p{color:#d4d4d8;font-size:.85rem;line-height:1.5;max-height:100px;overflow:auto}
+.ep{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid rgba(229,57,53,.4)}
+.ep h4{font-size:.9rem;color:#fbbf24;margin-bottom:8px}
+.ep .sources{display:flex;flex-direction:column;gap:8px}
+.hidden{display:none!important}
+.status{font-size:.75rem;padding:4px 8px;border-radius:6px;background:rgba(16,185,129,.15);color:#10b981;display:inline-block}
+.badge{background:rgba(229,57,53,.2);color:#e53935;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
+details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user-select:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⚙️ KiraFlix Admin</h1>
+  <p class="sub">Adicione filmes ou séries pelo ID do TMDB. As fontes de vídeo são inseridas manualmente.</p>
+
+  <!-- GITHUB CONFIG -->
+  <div class="card">
+    <h2>🔑 GitHub (salvar catálogo automaticamente)</h2>
+    <div class="row">
+      <div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva"></div>
+      <div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix"></div>
+      <div style="flex:2;min-width:300px"><label>Personal Access Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..."></div>
+    </div>
+    <button class="ghost mt" onclick="saveGithubConfig()">💾 Salvar configuração</button>
+    <span class="status" id="ghStatus" style="display:none;margin-left:10px">✔ Configurado</span>
+    <p style="font-size:.75rem;color:#52525b;margin-top:10px">Crie seu token em <b>github.com/settings/tokens</b> com escopo <b>repo</b>. Ele fica só no seu navegador.</p>
+  </div>
+
+  <!-- BUSCAR TMDB -->
+  <div class="card">
+    <h2>🔍 Buscar conteúdo no TMDB</h2>
+    <div class="row">
+      <div><label>Tipo</label><select id="type"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+      <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" placeholder="ex: 969681"></div>
+      <div style="flex:0;display:flex;align-items:flex-end"><button onclick="fetchContent()">Buscar</button></div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="card hidden" id="resultCard">
+    <h2>📝 Conteúdo carregado</h2>
+    <div class="preview" id="preview"></div>
+    <div id="episodesArea" class="mt"></div>
+    <button class="mt" onclick="saveToCatalog()">💾 Salvar no catálogo</button>
+    <button class="ghost mt" onclick="downloadCatalog()">📥 Baixar catalog.json</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
+const HEADERS = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
+const LANG = "pt-BR";
+
+let current = null; // { type, id, tmdbData, seasons[] }
+let catalog = { movies: {}, series: {} };
+
+const $ = id => document.getElementById(id);
+function toast(msg, err) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.toggle("err", !!err);
+  t.classList.add("show");
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+// === GITHUB CONFIG ===
+function saveGithubConfig() {
+  const cfg = { owner: $("ghOwner").value.trim(), repo: $("ghRepo").value.trim(), token: $("ghToken").value.trim() };
+  if (!cfg.owner || !cfg.repo || !cfg.token) return toast("Preencha os 3 campos", true);
+  localStorage.setItem("kiraflix_gh", JSON.stringify(cfg));
+  $("ghStatus").style.display = "inline-block";
+  toast("✔ GitHub configurado");
+}
+function loadGithubConfig() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
+    if (cfg) { $("ghOwner").value = cfg.owner; $("ghRepo").value = cfg.repo; $("ghToken").value = cfg.token; $("ghStatus").style.display = "inline-block"; }
+  } catch(e){}
+}
+loadGithubConfig();
+
+// === BUSCAR TMDB ===
+async function fetchContent() {
+  const type = $("type").value;
+  const id = $("tmdbId").value.trim();
+  if (!id) return toast("Informe o ID do TMDB", true);
+  try {
+    const endpoint = type === "movie" ? "movie" : "tv";
+    const res = await fetch(`https://api.themoviedb.org/3/${endpoint}/${id}?language=${LANG}`, { headers: HEADERS });
+    if (!res.ok) throw new Error("Não encontrado");
+    const data = await res.json();
+
+    // Age rating
+    let ageRating = "";
+    try {
+      const ep = type === "movie" ? `movie/${id}/release_dates` : `tv/${id}/content_ratings`;
+      const r2 = await fetch(`https://api.themoviedb.org/3/${ep}`, { headers: HEADERS });
+      const d2 = await r2.json();
+      const br = (d2.results || []).find(x => x.iso_3166_1 === "BR");
+      if (br) ageRating = type === "movie" ? (br.release_dates?.[0]?.certification || "") : (br.rating || "");
+    } catch(e){}
+
+    const base = {
+      title: data.title || data.name || "",
+      overview: data.overview || "",
+      poster: data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "",
+      backdrop: data.backdrop_path ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` : "",
+      year: (data.release_date || data.first_air_date || "").slice(0,4),
+      rating: data.vote_average || 0,
+      genres: (data.genres || []).map(g => g.name),
+      ageRating
+    };
+
+    if (type === "movie") {
+      current = { type: "movie", id, data: base, source: "" };
+    } else {
+      // Buscar episódios de cada temporada
+      const seasons = [];
+      const seasonList = (data.seasons || []).filter(s => s.season_number > 0);
+      toast(`Carregando ${seasonList.length} temporadas...`);
+      for (const s of seasonList) {
+        const sr = await fetch(`https://api.themoviedb.org/3/tv/${id}/season/${s.season_number}?language=${LANG}`, { headers: HEADERS });
+        const sd = await sr.json();
+        seasons.push({
+          number: s.season_number,
+          label: s.name || `Temporada ${s.season_number}`,
+          episodes: (sd.episodes || []).map(ep => ({
+            number: ep.episode_number,
+            label: `Episódio ${ep.episode_number}`,
+            title: ep.name || "",
+            overview: ep.overview || "",
+            still: ep.still_path ? `https://image.tmdb.org/t/p/w300${ep.still_path}` : "",
+            source: "",
+            subtitles: {}
+          }))
+        });
+      }
+      current = { type: "series", id, data: base, seasons };
+    }
+
+    renderPreview();
+    $("resultCard").classList.remove("hidden");
+    toast("✔ Conteúdo carregado");
+  } catch (err) {
+    console.error(err);
+    toast("Erro ao buscar: " + err.message, true);
+  }
+}
+
+// === RENDER PREVIEW ===
+function renderPreview() {
+  const { type, data } = current;
+  $("preview").innerHTML = `
+    ${data.poster ? `<img src="${data.poster}" alt="">` : ""}
+    <div class="preview-info">
+      <h3>${data.title} <span class="badge">${type === "movie" ? "FILME" : "SÉRIE"}</span></h3>
+      <div class="meta">${data.year} • ⭐ ${data.rating.toFixed(1)} ${data.ageRating ? "• " + data.ageRating : ""} ${data.genres.length ? "• " + data.genres.join(", ") : ""}</div>
+      <p>${data.overview || "Sem sinopse"}</p>
+    </div>`;
+
+  const area = $("episodesArea");
+
+  if (type === "movie") {
+    area.innerHTML = `
+      <div class="ep"><h4>🎬 Fonte do filme</h4>
+        <div class="sources">
+          <div><label>URL do vídeo (MP4 ou M3U8)</label><input id="movieSource" placeholder="https://..." value="${current.source}"></div>
+          <div class="row">
+            <div><label>Legenda PT (.vtt)</label><input id="movieSubPt" placeholder="https://... (opcional)"></div>
+            <div><label>Legenda EN (.vtt)</label><input id="movieSubEn" placeholder="https://... (opcional)"></div>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    let html = "";
+    current.seasons.forEach((s, si) => {
+      html += `<details ${si === 0 ? "open" : ""}><summary><b>${s.label}</b> (${s.episodes.length} eps)</summary>`;
+      s.episodes.forEach((ep, ei) => {
+        html += `
+          <div class="ep">
+            <h4>${ep.label} — ${ep.title}</h4>
+            <div class="sources">
+              <input id="src_${si}_${ei}" placeholder="URL do vídeo (MP4/M3U8)" value="${ep.source}">
+              <input id="sub_${si}_${ei}" placeholder="Legenda PT (opcional)">
+            </div>
+          </div>`;
+      });
+      html += `</details>`;
+    });
+    area.innerHTML = html;
+  }
+}
+
+// === COLETAR SOURCES DO FORM ===
+function collectCurrent() {
+  if (current.type === "movie") {
+    current.source = $("movieSource").value.trim();
+    current.subtitles = {
+      pt: $("movieSubPt").value.trim(),
+      en: $("movieSubEn").value.trim()
+    };
+  } else {
+    current.seasons.forEach((s, si) => {
+      s.episodes.forEach((ep, ei) => {
+        ep.source = ($("src_" + si + "_" + ei)?.value || "").trim();
+        const sub = ($("sub_" + si + "_" + ei)?.value || "").trim();
+        ep.subtitles = sub ? { pt: sub } : {};
+      });
+    });
+  }
+}
+
+// === SALVAR ===
+async function saveToCatalog() {
+  if (!current) return;
+  collectCurrent();
+
+  try {
+    // Carrega catálogo atual do repo
+    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
+    if (cfg) {
+      try {
+        const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+          headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+        });
+        if (r.ok) {
+          const file = await r.json();
+          catalog = JSON.parse(atob(file.content.replace(/\n/g, "")));
+          catalog._sha = file.sha;
+        }
+      } catch(e) {}
+    }
+
+    // Atualiza
+    if (current.type === "movie") {
+      catalog.movies[current.id] = { ...current.data, source: current.source, subtitles: current.subtitles };
+    } else {
+      catalog.series[current.id] = { ...current.data, seasons: current.seasons };
+    }
+
+    const sha = catalog._sha;
+    delete catalog._sha;
+
+    // Salva no GitHub
+    if (cfg) {
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(catalog, null, 2))));
+      const body = { message: `Add ${current.data.title}`, content };
+      if (sha) body.sha = sha;
+      const put = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+        method: "PUT",
+        headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      if (!put.ok) throw new Error("Erro no GitHub: " + put.status);
+      toast("✔ Salvo no GitHub! Todos verão o conteúdo em ~1min");
+    } else {
+      downloadCatalog();
+    }
+  } catch (err) {
+    console.error(err);
+    toast("Erro: " + err.message, true);
+  }
+}
+
+function downloadCatalog() {
+  collectCurrent();
+  if (current.type === "movie") catalog.movies[current.id] = { ...current.data, source: current.source, subtitles: current.subtitles };
+  else catalog.series[current.id] = { ...current.data, seasons: current.seasons };
+  delete catalog._sha;
+  const blob = new Blob([JSON.stringify(catalog, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "catalog.json";
+  a.click();
+  toast("📥 Baixado! Suba no repo substituindo catalog.json");
+}
+</script>
+</body>
+</html>
