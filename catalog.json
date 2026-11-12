@@ -1964,6 +1964,1385 @@
           ]
         }
       ]
+    },{
+  "movies": {},
+  "series": {
+    "5920": {
+      "title": "O Mentalista",
+      "overview": "Patrick Jane é famoso por sua habilidade de alta percepção de tudo que está ao seu redor. Ele já quase foi uma celebridade, alegando ser médium vidente, mas agora admite que fingia ter poderes paranormais. Com sua grande habilidade de observação, Patrick trabalha como consultor independente para as autoridades da Califórnia, resolvendo um número considerável de crimes complicados.",
+      "poster": "https://image.tmdb.org/t/p/w500/bJ0SNoD0DchXo5nH3N81ABIe3H.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/rJFqKcmMSttdNP58l0dVzY2NcTA.jpg",
+      "year": "2008",
+      "rating": 8.419,
+      "genres": ["Crime", "Drama", "Mistério"],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Piloto",
+              "overview": "O \"vidente\" Patrick Jane se une a uma equipe de investigadores que tenta solucionar um assassinato duplo provavelmente cometido por um assassino em série ligado a Jane.",
+              "still": "https://image.tmdb.org/t/p/w300/jDP0SSNdjDO6NANoZA8q1ps5khm.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Cabelo Ruivo e Fita Prateada",
+              "overview": "Jane age pelas costas da agente sênior Teresa Lisbon para orquestrar sua própria operação secreta enquanto a equipe tenta capturar um assassino em Napa Valley.",
+              "still": "https://image.tmdb.org/t/p/w300/qsf9RRhR3G3YsiE8tPwvvxuyupU.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Maré Vermelha",
+              "overview": "Quando o corpo de uma adolescente aparece na praia, Patrick Jane prepara uma armadilha mental para que os amigos surfistas da garota confessem o que aconteceu.",
+              "still": "https://image.tmdb.org/t/p/w300/o8MoUtaLAGvVjCRSwhQQW9V9qDX.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Damas de Vermelho",
+              "overview": "A verdade sobre um rico banqueiro é revelada quando ele é encontrado morto dentro do cofre. Patrick investiga os suspeitos para chegar ao verdadeiro criminoso.",
+              "still": "https://image.tmdb.org/t/p/w300/vXOcRm4emzk2G1fz4mxp9tVNr3i.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Redwood",
+              "overview": "Uma garota confusa é encontrada segurando a arma usada no assassinato de sua melhor amiga, mas ela não consegue se lembrar de nada. Acreditando que ela não é a culpada pelo crime, Jane encontra uma maneira de fazê-la reviver o evento para recuperar a memória.",
+              "still": "https://image.tmdb.org/t/p/w300/ev5PLgm0GYT0oBZ6q0yM8yHYcEN.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Mãos Vermelhas",
+              "overview": "A investigação da morte do dono de um cassino faz jane usar todas as suas habilidades nas mesas de jogo para tentar resolver o caso - e ganhar algum dinheiro.",
+              "still": "https://image.tmdb.org/t/p/w300/qcA8Xyx3xo9Dzg9XtKPgf8O8tl6.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Enxergando Vermelho",
+              "overview": "Rosemary Tennant foi vítima de um atropelamento, e o motorista que a atingiu fugiu. Patrick Jane investiga a \"guia espiritual\" da vítima, que afirma ter previsto a morte da cliente. Para o detetive, a guru é uma fraude.",
+              "still": "https://image.tmdb.org/t/p/w300/6bHllIs7gLCGAixAblsk69jyetz.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Tênue Linha Vermelha",
+              "overview": "Uma testemunha em um caso de narcóticos é assassinado junto com sua namorada. Todos os olhos se voltam para o traficante contra quem a vítima deveria testemunhar, mas Jane percebe um motivo e um suspeito diferentes.",
+              "still": "https://image.tmdb.org/t/p/w300/7oxcBt3eHyYxuabscmxU7w6r9sj.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Vermelho Flamejante",
+              "overview": "Um assassinato em uma cidade pequena é investigado e logo descobre-se que se trata de um caso de vingança.",
+              "still": "https://image.tmdb.org/t/p/w300/zMhFZ3kf2Clwv497eQ9Sk5ZDsrX.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Tijolo Vermelho e Hera",
+              "overview": "Patrick Jane fica muito interessado em um caso que envolve sua ex-psiquiatra, que é também a ex-esposa da vítima e a principal suspeita do crime.",
+              "still": "https://image.tmdb.org/t/p/w300/6AjUXnH5WbTCKh4UakaF9irrseQ.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Amigos de Red John",
+              "overview": "Um assassino condenado convence Jane a provar sua inocência dizendo ao investigador que ele tem informações sobre Red John. Jane deixa o CBI para se dedicar exclusivamente ao prisioneiro.",
+              "still": "https://image.tmdb.org/t/p/w300/u36ZDs3dLUdHb1ftzN0zxvfOWns.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Rum Vermelho",
+              "overview": "Quando Cody Elkins, uma estrela do futebol da escola, é encontrado assassinado, todos as evidências apontam para uma mulher que é considerada a bruxa da cidade. Antes de morrer, Cody teria roubado, torturado e matado o gato da mulher. Quando o CBI entra na investigação, ela admite ter feito um feitiço para matar Cody, mas Jane ainda se mostra cético.",
+              "still": "https://image.tmdb.org/t/p/w300/hRHYTu3sbY0nIjOmZjal6a9R9er.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Pinte de Vermelho",
+              "overview": "O genro de um poderoso empresário é encontrado morto no escritório de seu sogro, perto de onde já esteve pendurado um quadro de 50 milhões de dólares. Jane e o CBI tentam descobrir como ele pode estar envolvido no caso e quem mais é reponsável pela morte.",
+              "still": "https://image.tmdb.org/t/p/w300/ycvYblBRPJLQodxlTOYqtmO0dtZ.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Carmesim Casanova",
+              "overview": "A CBI investiga a morte de uma mulher casada, que foi assassinada enquanto estava na cama com seu amante.",
+              "still": "https://image.tmdb.org/t/p/w300/5Qsk1r0pWxt25fJxj9TQF368WU3.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Febre Escarlate",
+              "overview": "Uma mulher é envenenada num country club, enquanto a festa está a todo o vapor. A equipe logo descobre que cada um dos suspeitos está escondendo algo.",
+              "still": "https://image.tmdb.org/t/p/w300/bxxyLY8S1c9VhiKBvSTDPzIYprc.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Injetado de Sangue",
+              "overview": "Quando Patrick fica ferido por causa de uma explosão, ele começa a utilizar alguns métodos incomuns. Enquanto isso, a CBI investiga a morte de um conselheiro de finanças.",
+              "still": "https://image.tmdb.org/t/p/w300/cqO69jNtj51YNkDSRXzuK7occGF.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Carnelian, Inc.",
+              "overview": "A CBI é chamada para investigar, quando um diretor de RH da Carnelian morre aos pés de Jane, durante um exercício de skydiving.",
+              "still": "https://image.tmdb.org/t/p/w300/caAZQX4va2pF0mSUeyZZak6r62d.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Batatas Russet",
+              "overview": "Jane e o CBI perseguem uma pessoa que hiptoniza as pessoas para que elas façam o trabalho sujo em seu nome.",
+              "still": "https://image.tmdb.org/t/p/w300/3W680u2hpzQKRIADH9Ayio2N3My.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Uma Dúzia de Rosas Vermelhas",
+              "overview": "Quando um produtor de Hollywood é assassinado, a CBI é convocada para a investigação.",
+              "still": "https://image.tmdb.org/t/p/w300/laEDZyGBwpohflDrPyS6U48Q55Q.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Molho Vermelho",
+              "overview": "Jane e a CBI tentam descobrir quem é o responsável pelo extermínio (ao estilo da máfia) de um homem do Serviço de Proteção à Testemunha.",
+              "still": "https://image.tmdb.org/t/p/w300/eo9LSRl6H3N9iKogKnTNZlrmDvY.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Senhorita Vermelha",
+              "overview": "O diretor de uma empresa de softwares é encontrado morto no seu iate e Jane joga os dois suspeitos um contra o outro na tentativa de encontrar o assassino.",
+              "still": "https://image.tmdb.org/t/p/w300/zNSWZ1ooVbma6wrgDhV98YdCoVA.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Irmãos de Sangue",
+              "overview": "Um estudante inscrito em um programa para jovens problemáticos é assassinado.",
+              "still": "https://image.tmdb.org/t/p/w300/vfDeoJcexMrQ2DtsgN00giMW4fJ.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Os Passos de Red John",
+              "overview": "Jane e a CBI entram em uma investigação quando carinhas sorridentes pintadas com sangue começam a aparecer na cidade após o sequestro de duas garotas. Seria obra de Red John ou trata-se de mais um copiador?",
+              "still": "https://image.tmdb.org/t/p/w300/ibJykrUSEL7qSK9FnSJpRKTmJnr.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-1/23",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Redenção",
+              "overview": "A CBI investiga o assassinato de uma mulher que foi encontrada sufocada depois de ter sido acusada de roubar milhões de dólares de seu empregador. Enquanto isso, Jane e Lisbon apenas podem assistir à investigação, pois o caso de Red John é tirado das mãos deles e dado de volta ao agente Sam Bosco.",
+              "still": "https://image.tmdb.org/t/p/w300/cHnMZCdgxSVAGCi1JtlsJadeahH.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Letra Escarlate",
+              "overview": "Lisbon e sua equipe trabalham no caso do assassinato de um estagiário do senador, enquanto Jane tenta, ao mesmo tempo, descobrir que novas informações Bosco encontrou sobre o caso de Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/pfDL2jw3dXizGrcCuIZI8ckhDuX.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Distintivo Vermelho",
+              "overview": "Depois de receber uma dica anônima, a equipe da CBI encontra o cadáver de um pedófilo que Lisbon prendeu há anos com Sam Bosco. Agora Lisbon vira a principal suspeita do crime.",
+              "still": "https://image.tmdb.org/t/p/w300/yQzY8IRNZYkMlFcezKonKQdWaXS.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Ameaça Vermelha",
+              "overview": "A CBI investiga o assassinato de um poderoso advogado criminal cujos únicos clientes eram uma gangue de motociclistas famosos.",
+              "still": "https://image.tmdb.org/t/p/w300/iQo1uJRoI7AjBGlYTozSwGMCIjf.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Vermelho Assustador",
+              "overview": "Jane e a CBI se deparam com um fantasma e uma mansão assombrada, quando investigam a morte misteriosa de um homem rico. A única testemunha do crime diz que ele foi morto por um fantasma em sua mansão.",
+              "still": "https://image.tmdb.org/t/p/w300/bHPF974uHnxhHk7HH9vuHe0LcUs.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ouro Preto e Sangue Vermelho",
+              "overview": "Bosco prende Jane e o coloca na prisão por ele ter espionado a equipe da CBI enquanto eles investigavam o caso de Red John. Mesmo atrás das grades, Jane consegue ajudar Lisbon e sua equipe a resolverem o assassinato de um jovem.",
+              "still": "https://image.tmdb.org/t/p/w300/wKJRCPj1S1DdZoW1tXn18jfKOCr.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Touros Vermelhos",
+              "overview": "Quando a CBI é chamada para investigar o sequestro de uma rica herdeira da Califórnia, a forte animosidade de Bosco contra os métodos não-convencionais de Jane ameaça a vida da vítima raptada.",
+              "still": "https://image.tmdb.org/t/p/w300/pZRNfulXuzq6hF2JJ7zNs4ajMgF.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Mão Direita Vermelha",
+              "overview": "O caso de Red John volta à tona quando um homem é encontrado morto com uma marca deixada pelo assassino. Jane suspeita que Bosco possa estar escondendo algo.",
+              "still": "https://image.tmdb.org/t/p/w300/8jXy5g7y6y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Um Preço Acima de Rubis",
+              "overview": "A CBI investiga o assassinato de um joalheiro durante um evento de caridade. Jane suspeita que o crime esteja ligado a uma rede de contrabando de pedras preciosas.",
+              "still": "https://image.tmdb.org/t/p/w300/9jXy5g7y6y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Atirando Fogo",
+              "overview": "Um jogador profissional de beisebol é encontrado morto, e a equipe investiga seu centro de treinamento. Jane descobre que a vítima estava envolvida em um esquema de apostas ilegais.",
+              "still": "https://image.tmdb.org/t/p/w300/10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Óculos Cor-de-Rosa",
+              "overview": "Uma mulher é assassinada e todas as pistas apontam para seu marido. No entanto, Jane acredita que a vítima estava sendo manipulada por alguém de seu passado.",
+              "still": "https://image.tmdb.org/t/p/w300/11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Coração Sangrando",
+              "overview": "A equipe investiga o assassinato de um cirurgião cardíaco, e Jane suspeita que o crime esteja relacionado a um transplante de coração ilegal.",
+              "still": "https://image.tmdb.org/t/p/w300/12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Linha Vermelha",
+              "overview": "A CBI investiga a morte de um piloto de corridas, e Jane acredita que o acidente não foi um acidente.",
+              "still": "https://image.tmdb.org/t/p/w300/13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sangue por Sangue",
+              "overview": "A equipe investiga o assassinato de um membro de uma gangue, e Jane tenta negociar uma trégua entre gangues rivais para descobrir a verdade.",
+              "still": "https://image.tmdb.org/t/p/w300/14jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Pista Falsa",
+              "overview": "O corpo de uma mulher é encontrado em um parque, e a equipe descobre que ela estava envolvida em um esquema de falsificação de arte.",
+              "still": "https://image.tmdb.org/t/p/w300/15jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Código Vermelho",
+              "overview": "Uma cientista é assassinada e a equipe investiga uma possível ligação com uma arma biológica.",
+              "still": "https://image.tmdb.org/t/p/w300/16jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "A Caixa Vermelha",
+              "overview": "A equipe investiga o assassinato de um professor, e Jane descobre uma caixa vermelha com segredos que podem levar ao assassino.",
+              "still": "https://image.tmdb.org/t/p/w300/17jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Aingavite Baa",
+              "overview": "A equipe investiga a morte de um índio em uma reserva, e Jane precisa entender os costumes locais para resolver o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/18jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Dinheiro Sangrento",
+              "overview": "A equipe investiga o assassinato de um coletor de dívidas, e Jane suspeita que o crime esteja ligado a um esquema de lavagem de dinheiro.",
+              "still": "https://image.tmdb.org/t/p/w300/19jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Tudo Vermelho",
+              "overview": "A equipe investiga a morte de um fotógrafo de moda, e Jane descobre que as fotos da vítima escondem pistas sobre o assassino.",
+              "still": "https://image.tmdb.org/t/p/w300/20jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "18-5-4",
+              "overview": "A equipe investiga o assassinato de um contador, e Jane descobre uma sequência de números que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/21jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Letra Vermelha",
+              "overview": "A equipe investiga o assassinato de um escritor, e Jane suspeita que o crime esteja relacionado a um livro não publicado.",
+              "still": "https://image.tmdb.org/t/p/w300/22jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Céu Vermelho pela Manhã",
+              "overview": "No final da temporada, Jane finalmente se encontra cara a cara com Red John, mas o confronto tem consequências inesperadas.",
+              "still": "https://image.tmdb.org/t/p/w300/23jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-2/23",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Céu Vermelho à Noite",
+              "overview": "Na estreia da terceira temporada, Jane continua incerto sobre seu futuro na CBI após seu encontro cara a cara com Red John na temporada anterior.",
+              "still": "https://image.tmdb.org/t/p/w300/3x1jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Sangue de Cackle-Bladder",
+              "overview": "A equipe investiga o assassinato de um corretor de imóveis, e Jane usa um método incomum para encontrar o culpado.",
+              "still": "https://image.tmdb.org/t/p/w300/3x2jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Sangue em Suas Mãos",
+              "overview": "A equipe investiga o assassinato de um advogado, e Jane suspeita que o crime esteja ligado a um caso antigo de Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/3x3jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Tratamento de Tapete Vermelho",
+              "overview": "A equipe investiga o assassinato de uma estrela de cinema, e Jane precisa lidar com o assédio da mídia.",
+              "still": "https://image.tmdb.org/t/p/w300/3x4jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Os Pôneis Vermelhos",
+              "overview": "A equipe investiga o assassinato de um treinador de cavalos, e Jane descobre uma rede de apostas ilegais.",
+              "still": "https://image.tmdb.org/t/p/w300/3x5jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Terno Rosa Chanel",
+              "overview": "A equipe investiga o assassinato de uma socialite, e Jane suspeita que o crime esteja ligado a um segredo de família.",
+              "still": "https://image.tmdb.org/t/p/w300/3x6jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Vermelho Quente",
+              "overview": "A equipe investiga o assassinato de um bombeiro, e Jane acredita que o incêndio foi criminoso.",
+              "still": "https://image.tmdb.org/t/p/w300/3x7jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Bola de Fogo",
+              "overview": "A equipe investiga o assassinato de um professor, e Jane descobre que a vítima estava envolvida em um grupo radical.",
+              "still": "https://image.tmdb.org/t/p/w300/3x8jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Lua Vermelha",
+              "overview": "A equipe investiga o assassinato de uma mulher durante um ritual, e Jane suspeita que o crime esteja ligado a uma seita.",
+              "still": "https://image.tmdb.org/t/p/w300/3x9jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Ouro Vermelho",
+              "overview": "A equipe investiga o assassinato de um joalheiro, e Jane descobre uma rede de contrabando de ouro.",
+              "still": "https://image.tmdb.org/t/p/w300/3x10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Rainha Vermelha",
+              "overview": "A equipe investiga o assassinato de uma advogada, e Jane suspeita que o crime esteja ligado a um caso de corrupção.",
+              "still": "https://image.tmdb.org/t/p/w300/3x11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Milha Vermelha",
+              "overview": "A equipe investiga o assassinato de um corredor, e Jane acredita que o crime esteja ligado a um esquema de doping.",
+              "still": "https://image.tmdb.org/t/p/w300/3x12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Alerta Vermelho",
+              "overview": "A equipe investiga o assassinato de um policial, e Jane precisa lidar com a pressão da mídia.",
+              "still": "https://image.tmdb.org/t/p/w300/3x13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sangue por Sangue",
+              "overview": "A equipe investiga o assassinato de um membro de uma gangue, e Jane tenta negociar uma trégua entre gangues rivais para descobrir a verdade.",
+              "still": "https://image.tmdb.org/t/p/w300/3x14jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Ouro Vermelho",
+              "overview": "A equipe investiga o assassinato de um joalheiro, e Jane descobre uma rede de contrabando de ouro.",
+              "still": "https://image.tmdb.org/t/p/w300/3x15jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Rainha Vermelha",
+              "overview": "A equipe investiga o assassinato de uma advogada, e Jane suspeita que o crime esteja ligado a um caso de corrupção.",
+              "still": "https://image.tmdb.org/t/p/w300/3x16jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Fluxo Sanguíneo",
+              "overview": "A equipe investiga o assassinato de um médico, e Jane suspeita que o crime esteja ligado a um experimento ilegal.",
+              "still": "https://image.tmdb.org/t/p/w300/3x17jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "A Milha Vermelha",
+              "overview": "A equipe investiga o assassinato de um corredor, e Jane acredita que o crime esteja ligado a um esquema de doping.",
+              "still": "https://image.tmdb.org/t/p/w300/3x18jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Toda Rosa Tem Seu Espinho",
+              "overview": "A equipe investiga o assassinato de uma florista, e Jane descobre que a vítima estava envolvida em um triângulo amoroso.",
+              "still": "https://image.tmdb.org/t/p/w300/3x19jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Redigido",
+              "overview": "A equipe investiga o assassinato de um jornalista, e Jane suspeita que o crime esteja ligado a informações confidenciais.",
+              "still": "https://image.tmdb.org/t/p/w300/3x20jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Sangue em Suas Mãos",
+              "overview": "A equipe investiga o assassinato de um advogado, e Jane suspeita que o crime esteja ligado a um caso antigo de Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/3x21jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Céu Vermelho pela Manhã",
+              "overview": "No final da temporada, Jane finalmente se encontra cara a cara com Red John, mas o confronto tem consequências inesperadas.",
+              "still": "https://image.tmdb.org/t/p/w300/3x22jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-3/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Fitas Escarlates",
+              "overview": "Na estreia da quarta temporada, Jane está na prisão por matar seu inimigo, e precisa provar que o homem que matou era realmente Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/4x1jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Pequeno Livro Vermelho",
+              "overview": "A equipe investiga o assassinato de um contador, e Jane descobre um pequeno livro vermelho com segredos que podem levar ao assassino.",
+              "still": "https://image.tmdb.org/t/p/w300/4x2jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Belo Balão Vermelho",
+              "overview": "A equipe investiga o assassinato de uma criança, e Jane suspeita que o crime esteja ligado a um balão de gás.",
+              "still": "https://image.tmdb.org/t/p/w300/4x3jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Anel e a Rosa",
+              "overview": "A equipe investiga o assassinato de uma mulher, e Jane descobre um anel que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/4x4jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Sangue e Areia",
+              "overview": "A equipe investiga o assassinato de um toureiro, e Jane precisa entender a cultura local para resolver o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/4x5jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Onde no Mundo Está Carmine O'Brien?",
+              "overview": "A equipe investiga o desaparecimento de um homem, e Jane suspeita que ele possa estar escondido em outro país.",
+              "still": "https://image.tmdb.org/t/p/w300/4x6jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Luz Vermelha Piscando",
+              "overview": "A equipe investiga o assassinato de um comediante, e Jane descobre que a vítima estava sendo chantageada.",
+              "still": "https://image.tmdb.org/t/p/w300/4x7jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Pink Tops",
+              "overview": "A equipe investiga o assassinato de uma dançarina, e Jane suspeita que o crime esteja ligado a um clube noturno.",
+              "still": "https://image.tmdb.org/t/p/w300/4x8jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Redshirt",
+              "overview": "A equipe investiga o assassinato de um ator, e Jane descobre que a vítima foi morta por causa de um segredo de bastidores.",
+              "still": "https://image.tmdb.org/t/p/w300/4x9jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Fuga em Vermelho",
+              "overview": "A equipe investiga o assassinato de um músico, e Jane suspeita que o crime esteja ligado a uma fuga.",
+              "still": "https://image.tmdb.org/t/p/w300/4x10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Sempre Aposte no Vermelho",
+              "overview": "A equipe investiga o assassinato de um jogador, e Jane precisa usar suas habilidades nas mesas de jogo para resolver o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/4x11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Meu Sangrento Valentine",
+              "overview": "A equipe investiga o assassinato de uma mulher no Dia dos Namorados, e Jane suspeita que o crime esteja ligado a um admirador secreto.",
+              "still": "https://image.tmdb.org/t/p/w300/4x12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Vermelho É o Novo Preto",
+              "overview": "A equipe investiga o assassinato de uma estilista, e Jane suspeita que o crime esteja ligado ao mundo da moda.",
+              "still": "https://image.tmdb.org/t/p/w300/4x13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "À Primeira Vista",
+              "overview": "A equipe investiga o assassinato de um homem, e Jane suspeita que o crime esteja ligado a um caso de amor à primeira vista.",
+              "still": "https://image.tmdb.org/t/p/w300/4x14jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Guerra das Rosas",
+              "overview": "A equipe investiga o assassinato de uma florista, e Jane descobre que a vítima estava envolvida em uma guerra entre floriculturas.",
+              "still": "https://image.tmdb.org/t/p/w300/4x15jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Seus Pensamentos Eram Vermelhos",
+              "overview": "A equipe investiga o assassinato de um psicólogo, e Jane suspeita que o crime esteja ligado a um experimento mental.",
+              "still": "https://image.tmdb.org/t/p/w300/4x16jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Borgonha Barata",
+              "overview": "A equipe investiga o assassinato de um enólogo, e Jane descobre uma rede de falsificação de vinhos.",
+              "still": "https://image.tmdb.org/t/p/w300/4x17jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Bochechas Coradas",
+              "overview": "A equipe investiga o assassinato de uma modelo, e Jane suspeita que o crime esteja ligado a um segredo de família.",
+              "still": "https://image.tmdb.org/t/p/w300/4x18jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Champanhe Rosa no Gelo",
+              "overview": "A equipe investiga o assassinato de um mágico, e Jane relembra seus dias de palco para resolver o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/4x19jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Algo Podre em Redmund",
+              "overview": "A equipe investiga o assassinato de um professor, e Jane suspeita que o crime esteja ligado a um escândalo na escola.",
+              "still": "https://image.tmdb.org/t/p/w300/4x20jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Sapatos de Rubi",
+              "overview": "A equipe investiga o assassinato de uma dançarina, e Jane descobre um par de sapatos de rubi que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/4x21jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Até Logo",
+              "overview": "No final da temporada, Jane finalmente se encontra cara a cara com Red John, mas o confronto tem consequências inesperadas.",
+              "still": "https://image.tmdb.org/t/p/w300/4x22jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-4/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Temporada 5",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Conta de Vidro Vermelha",
+              "overview": "Na estreia da quinta temporada, Jane tenta decifrar a conexão entre Red John e Lorelei enquanto a equipe do CBI é obrigada a se unir ao FBI para solucionar um assassinato.",
+              "still": "https://image.tmdb.org/t/p/w300/5x1jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Cereja do Diabo",
+              "overview": "A equipe investiga o assassinato de uma mulher, e Jane suspeita que o crime esteja ligado a uma flor chamada \"Cereja do Diabo\".",
+              "still": "https://image.tmdb.org/t/p/w300/5x2jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Nem Um Centavo Vermelho",
+              "overview": "A equipe investiga o assassinato de um homem, e Jane descobre que a vítima estava envolvida em um esquema de falsificação de moedas.",
+              "still": "https://image.tmdb.org/t/p/w300/5x3jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Vingança de Sangue",
+              "overview": "A equipe investiga o assassinato de um membro de uma família criminosa, e Jane tenta evitar uma guerra entre gangues.",
+              "still": "https://image.tmdb.org/t/p/w300/5x4jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Amanhecer Vermelho",
+              "overview": "A equipe investiga o assassinato de um soldado, e Jane suspeita que o crime esteja ligado a um segredo militar.",
+              "still": "https://image.tmdb.org/t/p/w300/5x5jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Cereja Escolhida",
+              "overview": "A equipe investiga o assassinato de uma mulher, e Jane descobre que a vítima foi escolhida a dedo por um assassino em série.",
+              "still": "https://image.tmdb.org/t/p/w300/5x6jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Se Sangra, Lidera",
+              "overview": "A equipe investiga o assassinato de um jornalista, e Jane suspeita que o crime esteja ligado a uma reportagem investigativa.",
+              "still": "https://image.tmdb.org/t/p/w300/5x7jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Velas Vermelhas ao Pôr do Sol",
+              "overview": "A equipe investiga o assassinato de um marinheiro, e Jane descobre um segredo escondido em um barco à vela.",
+              "still": "https://image.tmdb.org/t/p/w300/5x8jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Dias de Vinho e Rosas",
+              "overview": "A equipe investiga o assassinato de um sommelier, e Jane suspeita que o crime esteja ligado a uma adega de vinhos raros.",
+              "still": "https://image.tmdb.org/t/p/w300/5x9jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Pequeno Corvette Vermelho",
+              "overview": "A equipe investiga o assassinato de um mecânico, e Jane descobre um carro clássico que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/5x10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Vermelho na Presa e na Garra",
+              "overview": "A equipe investiga o assassinato de um veterinário, e Jane suspeita que o crime esteja ligado a um animal exótico.",
+              "still": "https://image.tmdb.org/t/p/w300/5x11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Pânico Vermelho",
+              "overview": "A equipe investiga o assassinato de um médico, e Jane descobre que a vítima estava trabalhando em uma cura para uma doença rara.",
+              "still": "https://image.tmdb.org/t/p/w300/5x12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Lado Negro da Lua",
+              "overview": "A equipe investiga o assassinato de um astrônomo, e Jane suspeita que o crime esteja ligado a uma descoberta científica.",
+              "still": "https://image.tmdb.org/t/p/w300/5x13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Vermelho, Branco e Azul",
+              "overview": "A equipe investiga o assassinato de um veterano de guerra, e Jane descobre um segredo sobre o passado militar da vítima.",
+              "still": "https://image.tmdb.org/t/p/w300/5x14jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Sangue Vermelho",
+              "overview": "A equipe investiga o assassinato de uma enfermeira, e Jane suspeita que o crime esteja ligado a um caso de negligência médica.",
+              "still": "https://image.tmdb.org/t/p/w300/5x15jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Tinta Vermelha",
+              "overview": "A equipe investiga o assassinato de um tatuador, e Jane descobre que a tatuagem da vítima pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/5x16jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Estrada Vermelha",
+              "overview": "A equipe investiga o assassinato de um caminhoneiro, e Jane suspeita que o crime esteja ligado a uma rota de contrabando.",
+              "still": "https://image.tmdb.org/t/p/w300/5x17jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Vermelho no Pôr do Sol",
+              "overview": "A equipe investiga o assassinato de um fotógrafo, e Jane descobre que a última foto da vítima pode conter uma pista.",
+              "still": "https://image.tmdb.org/t/p/w300/5x18jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Vermelho é a Cor do Dinheiro",
+              "overview": "A equipe investiga o assassinato de um banqueiro, e Jane suspeita que o crime esteja ligado a um esquema de lavagem de dinheiro.",
+              "still": "https://image.tmdb.org/t/p/w300/5x19jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Vermelho Sobre Vermelho",
+              "overview": "A equipe investiga o assassinato de um pintor, e Jane descobre que a obra da vítima esconde uma mensagem.",
+              "still": "https://image.tmdb.org/t/p/w300/5x20jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "O Grande Dragão Vermelho",
+              "overview": "A equipe investiga o assassinato de um membro de uma seita, e Jane suspeita que o crime esteja ligado a Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/5x21jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "As Regras de Red John",
+              "overview": "No final da temporada, Jane estreita sua lista de suspeitos de Red John, mas o confronto final tem consequências chocantes.",
+              "still": "https://image.tmdb.org/t/p/w300/5x22jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-5/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Temporada 6",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Rosa do Deserto",
+              "overview": "Na estreia da sexta temporada, Jane e Lisbon continuam secretamente a missão perigosa de encurtar a lista de suspeitos de serem Red John enquanto investigam o assassinato de um homem desaparecido há anos.",
+              "still": "https://image.tmdb.org/t/p/w300/6x1jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Pássaro Preto de Asas Vermelhas",
+              "overview": "A equipe investiga o assassinato de um ornitólogo, e Jane descobre que a vítima estava observando uma espécie rara de pássaro.",
+              "still": "https://image.tmdb.org/t/p/w300/6x2jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Casamento em Vermelho",
+              "overview": "A equipe investiga o assassinato de um noivo durante seu casamento, e Jane suspeita que o crime esteja ligado a um segredo de família.",
+              "still": "https://image.tmdb.org/t/p/w300/6x3jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Listados em Vermelho",
+              "overview": "A equipe investiga o assassinato de um homem que estava na lista de suspeitos de Red John, e Jane precisa descobrir se o crime está ligado ao assassino em série.",
+              "still": "https://image.tmdb.org/t/p/w300/6x4jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Tatuagem Vermelha",
+              "overview": "A equipe investiga o assassinato de um homem com uma tatuagem misteriosa, e Jane descobre que a tatuagem pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/6x5jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Fogo e Enxofre",
+              "overview": "A equipe investiga o assassinato de um bombeiro, e Jane suspeita que o crime esteja ligado a um incêndio criminoso.",
+              "still": "https://image.tmdb.org/t/p/w300/6x6jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Grande Dragão Vermelho",
+              "overview": "A equipe investiga o assassinato de um membro de uma seita, e Jane suspeita que o crime esteja ligado a Red John.",
+              "still": "https://image.tmdb.org/t/p/w300/6x7jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Red John",
+              "overview": "Jane finalmente fica cara a cara com Red John, o assassino em série que ele está procurando desde que matou sua esposa e filha.",
+              "still": "https://image.tmdb.org/t/p/w300/6x8jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Meu Paraíso Azul",
+              "overview": "Após os eventos chocantes, Jane tenta se ajustar a uma nova vida, mas o passado o assombra.",
+              "still": "https://image.tmdb.org/t/p/w300/6x9jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Polegar Verde",
+              "overview": "A equipe investiga o assassinato de um jardineiro, e Jane descobre uma rede de contrabando de plantas raras.",
+              "still": "https://image.tmdb.org/t/p/w300/6x10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Linhas Brancas",
+              "overview": "A equipe investiga o assassinato de um médico, e Jane suspeita que o crime esteja ligado a um esquema de prescrição de drogas.",
+              "still": "https://image.tmdb.org/t/p/w300/6x11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Martelo Dourado",
+              "overview": "A equipe investiga o assassinato de um juiz, e Jane descobre um martelo dourado que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/6x12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Helicópteros Negros",
+              "overview": "A equipe investiga o assassinato de um piloto, e Jane suspeita que o crime esteja ligado a uma operação militar secreta.",
+              "still": "https://image.tmdb.org/t/p/w300/6x13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Água Cinzenta",
+              "overview": "A equipe investiga o assassinato de um mergulhador, e Jane descobre um segredo escondido nas profundezas do oceano.",
+              "still": "https://image.tmdb.org/t/p/w300/6x14jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Branco como a Neve",
+              "overview": "A equipe investiga o assassinato de uma esquiadora, e Jane suspeita que o crime esteja ligado a uma competição.",
+              "still": "https://image.tmdb.org/t/p/w300/6x15jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Violetas",
+              "overview": "A equipe investiga o assassinato de uma florista, e Jane descobre que a vítima estava envolvida em um triângulo amoroso.",
+              "still": "https://image.tmdb.org/t/p/w300/6x16jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Asas Prateadas do Tempo",
+              "overview": "A equipe investiga o assassinato de um relojoeiro, e Jane descobre um relógio antigo que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/6x17jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Floresta Verde",
+              "overview": "A equipe investiga o assassinato de um guarda florestal, e Jane suspeita que o crime esteja ligado a uma operação de desmatamento ilegal.",
+              "still": "https://image.tmdb.org/t/p/w300/6x18jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Garotas de Olhos Castanhos",
+              "overview": "A equipe investiga o assassinato de uma estudante, e Jane descobre que a vítima estava sendo perseguida por um stalker.",
+              "still": "https://image.tmdb.org/t/p/w300/6x19jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Il Tavolo Bianco",
+              "overview": "A equipe investiga o assassinato de um chef italiano, e Jane suspeita que o crime esteja ligado à máfia.",
+              "still": "https://image.tmdb.org/t/p/w300/6x20jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Corações Negros",
+              "overview": "A equipe investiga o assassinato de um cardiologista, e Jane descobre que a vítima estava envolvida em um esquema de tráfico de órgãos.",
+              "still": "https://image.tmdb.org/t/p/w300/6x21jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Pássaro Azul",
+              "overview": "No final da temporada, Jane e Lisbon investigam um caso antigo que pode mudar suas vidas para sempre.",
+              "still": "https://image.tmdb.org/t/p/w300/6x22jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-6/22",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Temporada 7",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Nada Além do Céu Azul",
+              "overview": "Na estreia da sétima e última temporada, Jane e Lisbon decidem manter seu relacionamento em segredo enquanto investigam o assassinato de um agente.",
+              "still": "https://image.tmdb.org/t/p/w300/7x1jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Hotel Greybar",
+              "overview": "A equipe investiga o assassinato de um hóspede em um hotel, e Jane suspeita que o crime esteja ligado a um esquema de prostituição.",
+              "still": "https://image.tmdb.org/t/p/w300/7x2jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Sorvete de Flor de Laranjeira",
+              "overview": "A equipe investiga o assassinato de um sorveteiro, e Jane descobre uma rivalidade entre sorveterias.",
+              "still": "https://image.tmdb.org/t/p/w300/7x3jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Mercado Negro",
+              "overview": "A equipe investiga um assassinato ligado a uma operação de falsificação de diamantes, mas uma doença obriga Jane a confiar em seus colegas enquanto ele se recupera.",
+              "still": "https://image.tmdb.org/t/p/w300/7x4jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Maleta Prateada",
+              "overview": "A equipe investiga o assassinato de um advogado, e Jane descobre uma maleta prateada que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/7x5jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Luz Verde",
+              "overview": "A equipe investiga o assassinato de um oficial, e Jane suspeita que o crime esteja ligado a um esquema de corrupção policial.",
+              "still": "https://image.tmdb.org/t/p/w300/7x6jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Pequena Casa Amarela",
+              "overview": "A equipe investiga o assassinato de uma mulher, e Jane descobre uma pequena casa amarela que pode conter pistas.",
+              "still": "https://image.tmdb.org/t/p/w300/7x7jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Branco dos Seus Olhos",
+              "overview": "A equipe investiga o assassinato de um homem, e Jane suspeita que o crime esteja ligado a um segredo escondido nos olhos da vítima.",
+              "still": "https://image.tmdb.org/t/p/w300/7x8jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Bala de Cobre",
+              "overview": "A equipe investiga o assassinato de um policial, e Jane descobre uma bala de cobre que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/7x9jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Nada de Ouro Pode Permanecer",
+              "overview": "A equipe investiga o assassinato de um joalheiro, e Jane suspeita que o crime esteja ligado a um esquema de contrabando de ouro.",
+              "still": "https://image.tmdb.org/t/p/w300/7x10jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Tapete Marrom Felpudo",
+              "overview": "A equipe investiga o assassinato de um decorador, e Jane descobre um tapete que pode ser a chave para o caso.",
+              "still": "https://image.tmdb.org/t/p/w300/7x11jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Pássaro Azul",
+              "overview": "No final da série, Jane e Lisbon se casam, e o futuro promete novos começos.",
+              "still": "https://image.tmdb.org/t/p/w300/7x12jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio Final",
+              "overview": "O episódio final da série traz um desfecho emocionante para a jornada de Jane e Lisbon.",
+              "still": "https://image.tmdb.org/t/p/w300/7x13jXy5g7y6y6y6y6y6y6y6y.jpg",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/hKjkdIugYZVbfk2IAl5gF-The-Mentalist-Season-7/13",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
     }
   }
 }
