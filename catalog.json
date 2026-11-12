@@ -1,1 +1,97 @@
-
+{
+  "filmes": {},
+  "série": {
+    "95897": {
+      "título": "Overflow: Transbordando",
+      "overview": "Um dia, Kazushi Sudou recebe a visita das irmãs Ayane e Kotone Shirakawa, suas duas lindas amigas de infância. Embora não sejam parentes de sangue, as duas o chamam carinhosamente de \"irmão\". Do nada, e como vingança por Ayane, as duas irmãs decidem se juntar a Kazushi em seu pequeno banho e acabam tomando banho juntos. Em meio ao doce aroma e à espuma de banho, Kotone tem um pequeno acidente com Kazushi e os dois acabará \"se pegando\". Será que o pervertido Kazushi conseguirá resistir aos encantos dessas belas irmãs?",
+      "pôster": "https://image.tmdb.org/t/p/w500/ipxOC1C1eFnSlqbB5sTsnA3K38O.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/bzlZwirOq5SDC0bCWAXGBx4XDg9.jpg",
+      "ano": "2020",
+      "classificação": 7,4
+      "gêneros": [
+        "Animação"
+      ],
+      Classificação etária: 18 anos
+      "estações": [
+        {
+          "número": 1,
+          "label": "Temporada 1",
+          "episódios": [
+            {
+              "número": 1,
+              "label": "Episódio 1",
+              "título": "Episódio 1",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/cQnw6nMykJ77d4oDoET8adsFMNo.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/1",
+              "legendas": {}
+            },
+            {
+              "número": 2,
+              "label": "Episódio 2",
+              "título": "Episódio 2",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/lqdRMWb7u43kU1tOJ47YAtrYEwO.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/2",
+              "legendas": {}
+            },
+            {
+              "número": 3,
+              "rótulo": "Episódio 3",
+              "título": "Episódio 3",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/pGiTNjkq3fPMtMzeJMkeKrlHavR.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/3",
+              "legendas": {}
+            },
+            {
+              "número": 4,
+              "rótulo": "Episódio 4",
+              "título": "Episódio 4",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/shlTyhEWqbWK5c20c4ZvMKYpgmV.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/4",
+              "legendas": {}
+            },
+            {
+              "número": 5,
+              "rótulo": "Episódio 5",
+              "título": "Episódio 5",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/y54ua2CSujIfOZsBPjyaQBRu4FY.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/5",
+              "legendas": {}
+            },
+            {
+              "número": 6,
+              "rótulo": "Episódio 6",
+              "título": "Episódio 6",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/1V5Var49UnMRFQSQ2ljm72YJqp3.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/6",
+              "legendas": {}
+            },
+            {
+              "número": 7,
+              "rótulo": "Episódio 7",
+              "título": "Episódio 7",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/pPDsbiUFLYWMslGFkV9mP2hGvNK.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/7",
+              "legendas": {}
+            },
+            {
+              "número": 8,
+              "rótulo": "Episódio 8",
+              "título": "Episódio 8",
+              "visão geral": "",
+              "ainda": "https://image.tmdb.org/t/p/w300/tWgdvpXAwqEqO29RqJNc0XAXFYh.jpg",
+              "fonte": "https://mgeb.space/mp4.php?url=https://ww20.321moviesfree.com/pt/detail/drama/e1U0b6tBKHOrfK2R3Q9C3-Overflow/8",
+              "legendas": {}
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
