@@ -79,15 +79,14 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     <div class="preview" id="preview"></div>
 
     <div id="seriesTools" class="hidden">
-      <!-- NOVO SISTEMA DE AUTOMAÇÃO TOTAL -->
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px; border: 1px solid rgba(229,57,53,.5);">
-        <h2>🤖 Busca Automática de Temporadas (Seekee/MegaEmbed)</h2>
+        <h2>🤖 Busca Automática Inteligente (Seekee)</h2>
         <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
-          Cole <b>apenas 1 link</b> da série. O sistema vai varrer o site e buscar todos os episódios de todas as temporadas automaticamente.
+          Cole o link da temporada. O sistema lê a página, encontra os links de <b>todas as temporadas</b> e busca os episódios de cada uma.
         </p>
         
         <div class="row">
-          <div style="flex:3"><label>Link do Episódio (Qualquer Temporada)</label><input id="scrapeUrl" placeholder="https://peliculaplay.com/.../Slime/1"></div>
+          <div style="flex:3"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://peliculaplay.com/.../Raising-Dion-Season-1"></div>
           <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrapeTudo()" id="btnScrapeAll">🤖 Buscar Tudo</button></div>
         </div>
         
@@ -109,7 +108,6 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
         <div class="progress-log" id="scrapeLog"></div>
       </div>
 
-      <!-- GERADOR POR TEMPORADA (MANTIDO) -->
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px;">
         <details>
           <summary style="font-size:1rem;color:#e53935;font-weight:700;text-transform:uppercase;">⚡ Gerador Manual por Temporada (Avançado)</summary>
@@ -184,7 +182,6 @@ function toast(msg, err) {
   t._t = setTimeout(() => t.classList.remove("show"), 4000);
 }
 
-// === GITHUB CONFIG ===
 function getGithubConfig() {
   try {
     const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
@@ -238,7 +235,6 @@ function loadGithubConfig() {
 }
 loadGithubConfig();
 
-// === BUSCAR TMDB ===
 async function fetchContent() {
   const type = $("type").value;
   const id = $("tmdbId").value.trim();
@@ -303,7 +299,7 @@ async function fetchContent() {
   }
 }
 
-// === AUTO SCRAPE TOTAL (MEGAEMBED STYLE) ===
+// === AUTO SCRAPE INTELIGENTE ===
 async function autoScrapeTudo() {
   let baseUrl = $("scrapeUrl").value.trim();
   if (!baseUrl) return toast("Cole o link da série", true);
@@ -313,22 +309,27 @@ async function autoScrapeTudo() {
     baseUrl = baseUrl.split("mgeb.space/mp4.php?url=")[1];
   }
 
-  // Descobrir a estrutura da URL
-  let root = baseUrl;
-  let format = "";
-  
-  if (baseUrl.match(/-Season-\d+\/\d+/i)) {
-    root = baseUrl.replace(/-Season-\d+\/\d+.*$/, "");
-    format = "season-path"; // {root}-Season-{s}/{e}
+  // 1. Detectar o padrão da URL inicial
+  let baseSlug = "";
+  let startSeason = 1;
+  let patternType = "";
+
+  const seasonPageMatch = baseUrl.match(/(.*)-Season-(\d+)(?:\/\d+)?$/i);
+  if (seasonPageMatch) {
+    baseSlug = seasonPageMatch[1];
+    startSeason = parseInt(seasonPageMatch[2], 10);
+    patternType = "season-page";
   } else if (baseUrl.match(/\/\d+\/\d+/)) {
-    root = baseUrl.replace(/\/\d+\/\d+.*$/, "");
-    format = "direct-path"; // {root}/{s}/{e}
-  } else if (baseUrl.match(/\/\d+$/)) {
-    root = baseUrl.replace(/\/\d+.*$/, "");
-    format = "single-season"; // {root}/{e}
+    const parts = baseUrl.split('/');
+    const sNum = parseInt(parts[parts.length - 2], 10);
+    if (!isNaN(sNum)) {
+        startSeason = sNum;
+        baseSlug = parts.slice(0, -2).join('/');
+        patternType = "direct-path";
+    }
   }
 
-  if (!format) return toast("Formato de URL não reconhecido.", true);
+  if (!patternType) return toast("URL não reconhecida.", true);
 
   const proxy = $("corsProxy").value;
   const shouldPrefix = $("bulkPrefix").value === "yes";
@@ -340,40 +341,81 @@ async function autoScrapeTudo() {
   btn.disabled = true;
   btn.innerHTML = 'Varrendo...<span class="spinner"></span>';
 
-  let foundSeasons = [];
-  const maxSeasons = 20;
+  // 2. LER O HTML PARA ACHAR OS LINKS REAIS DAS TEMPORADAS
+  log.innerHTML += `<div>🔎 Analisando página para encontrar temporadas...</div>`;
+  let seasonUrls = [];
+  try {
+    const res = await fetch(proxy + encodeURIComponent(baseUrl));
+    if (res.ok) {
+        const html = await res.text();
+        const linkRegex = /(?:href|value)=["']([^"']*(?:-Season-|-Temporada-|-seasons?-)\d+[^"']*)["']/gi;
+        let match;
+        const foundUrls = new Set();
+        const domain = new URL(baseUrl).origin;
+        
+        while ((match = linkRegex.exec(html)) !== null) {
+            let url = match[1].split('?')[0].split('#')[0];
+            if (url.startsWith('/')) url = domain + url;
+            else if (!url.startsWith('http')) continue;
+            
+            // Limpa a URL (remove episódio final se houver)
+            let cleanUrl = url.replace(/\/\d+\/?$/, "");
+            foundUrls.add(cleanUrl);
+        }
+        
+        if (foundUrls.size > 0) {
+            let parsed = Array.from(foundUrls).map(u => {
+                const sMatch = u.match(/-Season-(\d+)/i) || u.match(/-Temporada-(\d+)/i);
+                return sMatch ? { season: parseInt(sMatch[1], 10), url: u } : null;
+            }).filter(Boolean);
+            
+            // Deduplicar e ordenar
+            const unique = [];
+            const seen = new Set();
+            parsed.forEach(p => { if(!seen.has(p.season)){ seen.add(p.season); unique.push(p); }});
+            seasonUrls = unique.sort((a,b) => a.season - b.season);
+            
+            log.innerHTML += `<div>✅ Encontradas ${seasonUrls.length} temporadas na página!</div>`;
+        }
+    }
+  } catch(e) {
+    console.error("Erro ao ler HTML:", e);
+  }
 
+  // Fallback: se não achou nada no HTML, chuta os números
+  if (seasonUrls.length === 0) {
+    log.innerHTML += `<div>⚠️ Links não encontrados na página. Usando busca por padrão...</div>`;
+    for (let s = startSeason; s <= startSeason + 20; s++) {
+        if (patternType === "season-page") seasonUrls.push({ season: s, url: `${baseSlug}-Season-${s}` });
+        else if (patternType === "direct-path") seasonUrls.push({ season: s, url: `${baseSlug}/${s}` });
+    }
+  }
+
+  // 3. Loop de Episódios para cada temporada
+  const maxEpisodes = 200;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let foundSeasonsCount = 0;
 
-  for (let s = 1; s <= maxSeasons; s++) {
+  for (const seasonObj of seasonUrls) {
+    const s = seasonObj.season;
     let epsFound = [];
-    
-    // Se for single-season, pula o loop de temporadas
-    if (format === "single-season" && s > 1) break;
-
     log.innerHTML += `<div>🔎 Verificando Temporada ${s}...</div>`;
     log.scrollTop = log.scrollHeight;
 
     let epNum = 1;
     let consecutiveFails = 0;
+    const seasonBaseUrl = seasonObj.url.replace(/\/$/, ""); // Remove barra final
 
-    // Varre os episódios (até 200 por temp)
-    while (epNum <= 200) {
-      let epUrl = "";
-      if (format === "season-path") epUrl = `${root}-Season-${s}/${epNum}`;
-      else if (format === "direct-path") epUrl = `${root}/${s}/${epNum}`;
-      else epUrl = `${root}/${epNum}`;
+    while (epNum <= maxEpisodes) {
+      let epUrl = `${seasonBaseUrl}/${epNum}`;
 
       try {
         const res = await fetch(proxy + encodeURIComponent(epUrl));
         
         if (!res.ok) {
-          if (epNum === 1) {
-            log.innerHTML += `<div>❌ Temporada ${s} não encontrada.</div>`;
-          } else {
-            log.innerHTML += `<div>✅ Temporada ${s} finalizada: ${epNum - 1} episódios encontrados.</div>`;
-          }
-          break; // Fim da temporada
+          if (epNum === 1) log.innerHTML += `<div>❌ Temporada ${s} não encontrada.</div>`;
+          else log.innerHTML += `<div>✅ Temporada ${s} finalizada: ${epNum - 1} eps.</div>`;
+          break;
         }
 
         const html = await res.text();
@@ -386,67 +428,49 @@ async function autoScrapeTudo() {
           log.innerHTML += `<div>✔️ T${s} E${epNum} encontrado.</div>`;
           consecutiveFails = 0;
         } else {
-          log.innerHTML += `<div>⚠️ T${s} E${epNum} existe, mas sem vídeo (ignorado).</div>`;
+          log.innerHTML += `<div>⚠️ T${s} E${epNum} sem vídeo (ignorado).</div>`;
           consecutiveFails++;
         }
         
         if (consecutiveFails >= 3) {
-          log.innerHTML += `<div>⚠️ 3 falhas seguidas. Pulando para a próxima temporada.</div>`;
+          log.innerHTML += `<div>⚠️ 3 falhas seguidas. Pulando temporada.</div>`;
           break;
         }
 
         epNum++;
-        await sleep(300); // Delay para não bloquear o proxy
+        await sleep(300);
       } catch (err) {
         break;
       }
     }
 
     if (epsFound.length > 0) {
-      foundSeasons.push({ season: s, episodes: epsFound });
-    } else if (s === 1 && format !== "single-season") {
-      // Se a temporada 1 falhou 100%, pode ser que a URL base esteja errada
-      log.innerHTML += `<div>❌ Nenhum episódio na temporada 1. Abortando busca.</div>`;
-      break;
+      foundSeasonsCount++;
+      let sObj = current.seasons.find(x => x.number === s);
+      if (!sObj) {
+        sObj = { number: s, label: `Temporada ${s}`, episodes: [] };
+        current.seasons.push(sObj);
+      }
+      
+      epsFound.forEach(fe => {
+        let eObj = sObj.episodes.find(x => x.number === fe.number);
+        if (eObj) eObj.source = fe.source;
+        else sObj.episodes.push({ number: fe.number, label: `Episódio ${fe.number}`, title: "", source: fe.source, subtitles: {} });
+      });
+      
+      sObj.episodes.sort((a,b) => a.number - b.number);
     }
     log.scrollTop = log.scrollHeight;
   }
 
-  // Injetar no objeto current
-  if (foundSeasons.length > 0) {
-    foundSeasons.forEach(fs => {
-      let sObj = current.seasons.find(x => x.number === fs.season);
-      if (!sObj) {
-        sObj = { number: fs.season, label: `Temporada ${fs.season}`, episodes: [] };
-        current.seasons.push(sObj);
-      }
-      
-      fs.episodes.forEach(fe => {
-        let eObj = sObj.episodes.find(x => x.number === fe.number);
-        if (eObj) {
-          eObj.source = fe.source;
-        } else {
-          sObj.episodes.push({
-            number: fe.number,
-            label: `Episódio ${fe.number}`,
-            title: "",
-            source: fe.source,
-            subtitles: {}
-          });
-        }
-      });
-      
-      // Ordenar episódios
-      sObj.episodes.sort((a,b) => a.number - b.number);
-    });
-
+  if (foundSeasonsCount > 0) {
     current.seasons.sort((a,b) => a.number - b.number);
     renderPreview();
-    toast(`✔️ Automação concluída! ${foundSeasons.length} temporadas preenchidas.`);
-    log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ FIM! ${foundSeasons.length} temporadas encontradas com sucesso.</div>`;
+    toast(`✔️ Automação concluída! ${foundSeasonsCount} temporadas preenchidas.`);
+    log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ FIM! ${foundSeasonsCount} temporadas encontradas com sucesso.</div>`;
   } else {
     toast("Nenhum episódio encontrado. Verifique o link.", true);
-    log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado no total.</div>`;
+    log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado.</div>`;
   }
 
   btn.disabled = false;
