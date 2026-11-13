@@ -9243,6 +9243,82 @@
           ]
         }
       ]
+    },
+    "292554": {
+      "title": "デキちゃうまで婚",
+      "overview": "",
+      "poster": "https://image.tmdb.org/t/p/w500/4KouLBIT2W1aacqMx9sxuHCwYEY.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/nwzPP53GpK3ZvKh191GJyLXbLvA.jpg",
+      "year": "2025",
+      "rating": 6.2,
+      "genres": [
+        "Animação"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/kd4GfnYLcSDN2g0ighrGa-Marry-Me-Lets-Have-a-Baby/8",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
     }
   }
 }
