@@ -41,7 +41,7 @@ button:disabled{opacity:.5;pointer-events:none}
 details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user-select:none}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-left:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.progress-log{font-size:.8rem;color:#a1a1aa;margin-top:8px;max-height:150px;overflow-y:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;display:none;font-family:ui-monospace,monospace}
+.progress-log{font-size:.8rem;color:#a1a1aa;margin-top:8px;max-height:200px;overflow-y:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;display:none;font-family:ui-monospace,monospace}
 .progress-log.show{display:block}
 .edit-badge{background:rgba(59,130,246,.2);color:#60a5fa;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
 </style>
@@ -80,25 +80,17 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
 
     <div id="seriesTools" class="hidden">
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px; border: 1px solid rgba(229,57,53,.5);">
-        <h2>🤖 Busca Automática (Seekee)</h2>
+        <h2>🕷️ Raspagem Profunda (Seekee / Solo-Latino)</h2>
         <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
-          Cole o link da temporada. O sistema vai puxar as temporadas exatas do TMDB e extrair os links dos vídeos.
+          Cole o link de <b>qualquer</b> episódio ou temporada. O sistema vai varrer a página, extrair os padrões, chutar URLs de temporadas e raspar o vídeo do HTML.
         </p>
         
         <div class="row">
-          <div style="flex:3"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://peliculaplay.com/.../Raising-Dion-Season-1"></div>
-          <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrapeTudo()" id="btnScrapeAll">🤖 Buscar Tudo</button></div>
+          <div style="flex:3"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://latino.solo-latino.com/.../Dexter-Resurrection/1"></div>
+          <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrapeTudo()" id="btnScrapeAll">🕷️ Varrer Tudo</button></div>
         </div>
         
         <div class="row mt">
-          <div>
-            <label>Proxy CORS</label>
-            <select id="corsProxy">
-              <option value="https://api.allorigins.win/raw?url=">allorigins.win</option>
-              <option value="https://corsproxy.io/?">corsproxy.io</option>
-              <option value="https://api.codetabs.com/v1/proxy?quest=">codetabs.com</option>
-            </select>
-          </div>
           <div>
             <label>Prefixar links?</label>
             <select id="bulkPrefix"><option value="yes">Sim (mgeb.space)</option><option value="no">Não</option></select>
@@ -167,6 +159,14 @@ const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTV
 const HEADERS_TMDB = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
 const LANG = "pt-BR";
 const PREFIX = "https://mgeb.space/mp4.php?url=";
+
+// Lista de proxies para fallback
+const PROXIES = [
+  "https://api.allorigins.win/raw?url=",
+  "https://corsproxy.io/?",
+  "https://api.codetabs.com/v1/proxy?quest="
+];
+let currentProxyIndex = 0;
 
 let current = null;
 let catalog = { movies: {}, series: {} };
@@ -299,42 +299,63 @@ async function fetchContent() {
   }
 }
 
-// === AUTO SCRAPE INTELIGENTE (CORRIGIDO) ===
+// ================== SISTEMA DE RASPAGEM PROFUNDA ==================
+
+// Função que testa todos os proxies até um funcionar
+async function fetchWithProxy(url) {
+  for (let i = 0; i < PROXIES.length; i++) {
+    const idx = (currentProxyIndex + i) % PROXIES.length;
+    const proxy = PROXIES[idx];
+    try {
+      const res = await fetch(proxy + encodeURIComponent(url));
+      if (res.ok) {
+        currentProxyIndex = idx; // fixa o proxy que deu certo
+        return res;
+      }
+    } catch(e) {}
+  }
+  return null;
+}
+
+// Extrai o link do vídeo do HTML com 5 níveis de profundidade
+function extrairVideoDoHtml(html, fallbackUrl) {
+  // 1. Tenta achar mp4 ou m3u8 direto no HTML
+  let m1 = html.match(/https?:\/\/[^"'\s\\]+?\.(?:mp4|m3u8)[^"'\s\\]*/i);
+  if (m1) return { url: m1[0], tipo: "MP4/HLS Direto" };
+
+  // 2. Tenta achar no iframe
+  let m2 = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
+  if (m2) {
+    let u = m2[1];
+    if (u.startsWith('//')) u = 'https:' + u;
+    return { url: u, tipo: "Iframe Embed" };
+  }
+
+  // 3. Tenta achar em JSON interno (__NEXT_DATA__, __NUXT__, etc)
+  let m3 = html.match(/["'](?:file|url|src|video_url|link|stream)["']\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+  if (m3) {
+    let u = m3[1].replace(/\\\//g, '/');
+    return { url: u, tipo: "JSON Interno" };
+  }
+
+  // 4. Tenta achar links do mgeb já prontos
+  let m4 = html.match(/(https?:\/\/mgeb\.space\/mp4\.php\?url=[^"'\s\\]+)/i);
+  if (m4) return { url: m4[0], tipo: "mgeb Direto" };
+
+  // 5. Fallback: usa a URL da própria página (o mgeb resolve)
+  return { url: fallbackUrl, tipo: "Fallback Página" };
+}
+
 async function autoScrapeTudo() {
-  let baseUrl = $("scrapeUrl").value.trim();
-  if (!baseUrl) return toast("Cole o link da série", true);
+  let initialUrl = $("scrapeUrl").value.trim();
+  if (!initialUrl) return toast("Cole o link da série", true);
   if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro.", true);
 
-  if (baseUrl.includes("mgeb.space/mp4.php?url=")) {
-    baseUrl = baseUrl.split("mgeb.space/mp4.php?url=")[1];
+  if (initialUrl.includes("mgeb.space/mp4.php?url=")) {
+    initialUrl = initialUrl.split("mgeb.space/mp4.php?url=")[1];
   }
 
-  // 1. Pegar o limite real de temporadas do TMDB
   const maxSeasonsTMDB = Math.max(...current.seasons.map(s => s.number));
-
-  // 2. Detectar o padrão da URL inicial
-  let baseSlug = "";
-  let startSeason = 1;
-  let patternType = "";
-
-  const seasonPageMatch = baseUrl.match(/(.*)-Season-(\d+)(?:\/\d+)?$/i);
-  if (seasonPageMatch) {
-    baseSlug = seasonPageMatch[1];
-    startSeason = parseInt(seasonPageMatch[2], 10);
-    patternType = "season-page";
-  } else if (baseUrl.match(/\/\d+\/\d+/)) {
-    const parts = baseUrl.split('/');
-    const sNum = parseInt(parts[parts.length - 2], 10);
-    if (!isNaN(sNum)) {
-        startSeason = sNum;
-        baseSlug = parts.slice(0, -2).join('/');
-        patternType = "direct-path";
-    }
-  }
-
-  if (!patternType) return toast("URL não reconhecida.", true);
-
-  const proxy = $("corsProxy").value;
   const shouldPrefix = $("bulkPrefix").value === "yes";
   const log = $("scrapeLog");
   
@@ -342,166 +363,155 @@ async function autoScrapeTudo() {
   log.innerHTML = "";
   const btn = $("btnScrapeAll");
   btn.disabled = true;
-  btn.innerHTML = 'Varrendo...<span class="spinner"></span>';
+  btn.innerHTML = 'Raspando...<span class="spinner"></span>';
 
-  let seasonUrls = [];
+  const domain = new URL(initialUrl).origin;
   
-  // 3. Tentar achar os links reais das temporadas na página (opcional)
-  log.innerHTML += `<div>🔎 Analisando página para extrair links de temporadas...</div>`;
+  // Limpa a URL base (remove episódio e sufixo de temporada)
+  let urlBase = initialUrl.replace(/\/\d+\/?$/, "").replace(/-Season-\d+$/i, "").replace(/-Temporada-\d+$/i, "");
+  
+  // Extrai o slug para usar como base no regex
+  const slugMatch = urlBase.match(/\/([^\/]+)$/);
+  const slug = slugMatch ? slugMatch[1] : "";
+
+  log.innerHTML += `<div>🔎 Iniciando raspagem profunda em: ${domain}</div>`;
+
+  // PASSO 1: TENTAR ACHAR LINKS NO HTML
+  let seasonUrls = {};
   try {
-    const res = await fetch(proxy + encodeURIComponent(baseUrl));
-    if (res.ok) {
-        const html = await res.text();
-        const linkRegex = /(?:href|value)=["']([^"']*(?:-Season-|-Temporada-|-seasons?-)\d+[^"']*)["']/gi;
-        let match;
-        const foundUrls = new Set();
-        const domain = new URL(baseUrl).origin;
+    log.innerHTML += `<div>🌐 Baixando HTML da página inicial...</div>`;
+    const res = await fetchWithProxy(initialUrl);
+    if (res) {
+      const html = await res.text();
+      const linkRegex = /href=["']([^"']+)["']/gi;
+      let match;
+      
+      while ((match = linkRegex.exec(html)) !== null) {
+        let url = match[1];
+        if (url.startsWith('/')) url = domain + url;
+        if (!url.startsWith('http')) continue;
         
-        while ((match = linkRegex.exec(html)) !== null) {
-            let url = match[1].split('?')[0].split('#')[0];
-            if (url.startsWith('/')) url = domain + url;
-            else if (!url.startsWith('http')) continue;
+        // Limpa episódio final da URL
+        let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
+        
+        // Verifica se pertence a mesma série
+        if (slug && cleanUrl.includes(slug.substring(0, 10))) {
+            let sNum = 1;
+            const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
+            if (sMatch) sNum = parseInt(sMatch[1], 10);
             
-            let cleanUrl = url.replace(/\/\d+\/?$/, "");
-            foundUrls.add(cleanUrl);
-        }
-        
-        if (foundUrls.size > 0) {
-            let parsed = Array.from(foundUrls).map(u => {
-                const sMatch = u.match(/-Season-(\d+)/i) || u.match(/-Temporada-(\d+)/i);
-                return sMatch ? { season: parseInt(sMatch[1], 10), url: u } : null;
-            }).filter(Boolean);
-            
-            const unique = [];
-            const seen = new Set();
-            parsed.forEach(p => { if(!seen.has(p.season)){ seen.add(p.season); unique.push(p); }});
-            seasonUrls = unique.sort((a,b) => a.season - b.season);
-            
-            log.innerHTML += `<div>✅ Encontrados links para ${seasonUrls.length} temporadas na página.</div>`;
-        }
-    }
-  } catch(e) {
-    console.error("Erro ao ler HTML inicial:", e);
-  }
-
-  // Fallback: se não achou os links no HTML, monta as URLs com base na quantidade do TMDB
-  if (seasonUrls.length === 0) {
-    log.innerHTML += `<div>⚠️ Links não listados. Usando o total do TMDB (${maxSeasonsTMDB} temporadas)...</div>`;
-    for (let s = startSeason; s <= maxSeasonsTMDB; s++) {
-        if (patternType === "season-page") seasonUrls.push({ season: s, url: `${baseSlug}-Season-${s}` });
-        else if (patternType === "direct-path") seasonUrls.push({ season: s, url: `${baseSlug}/${s}` });
-    }
-  } else {
-    // Se achou na página, filtra para não passar do limite do TMDB
-    seasonUrls = seasonUrls.filter(s => s.season <= maxSeasonsTMDB);
-  }
-
-  if (seasonUrls.length === 0) {
-      toast("Nenhuma temporada válida encontrada para processar.", true);
-      btn.disabled = false;
-      btn.innerHTML = '🤖 Buscar Tudo';
-      return;
-  }
-
-  // 4. Loop de Episódios para cada temporada
-  const maxEpisodes = 200;
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  let foundSeasonsCount = 0;
-
-  for (const seasonObj of seasonUrls) {
-    const s = seasonObj.season;
-    let epsFound = [];
-    log.innerHTML += `<div>🔎 Verificando Temporada ${s}...</div>`;
-    log.scrollTop = log.scrollHeight;
-
-    let epNum = 1;
-    let consecutiveFails = 0;
-    const seasonBaseUrl = seasonObj.url.replace(/\/$/, ""); 
-
-    while (epNum <= maxEpisodes) {
-      let epUrl = `${seasonBaseUrl}/${epNum}`;
-
-      try {
-        const res = await fetch(proxy + encodeURIComponent(epUrl));
-        
-        // Se o servidor retornar erro 404 (página não existe), a temporada acabou
-        if (!res.ok) {
-          if (epNum === 1) log.innerHTML += `<div>❌ Temporada ${s} não encontrada.</div>`;
-          else log.innerHTML += `<div>✅ Temporada ${s} finalizada: ${epNum - 1} eps.</div>`;
-          break;
-        }
-
-        const html = await res.text();
-        
-        // Tenta achar um link direto .mp4 ou .m3u8
-        let match = html.match(/(?:src|href)=["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
-        let finalUrl = "";
-        let extractionType = "";
-
-        if (match) {
-            finalUrl = match[1];
-            extractionType = "Direto";
-        } else {
-            // Se não achou mp4, tenta achar um iframe com o player
-            let iframeMatch = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
-            if (iframeMatch) {
-                finalUrl = iframeMatch[1];
-                extractionType = "Iframe";
-                if (finalUrl.startsWith('//')) finalUrl = 'https:' + finalUrl;
-            } else {
-                // Fallback: usa a URL da própria página (o mgeb.space resolve isso)
-                finalUrl = epUrl;
-                extractionType = "Página";
+            if (sNum <= maxSeasonsTMDB) {
+                seasonUrls[sNum] = cleanUrl;
             }
         }
+      }
+      log.innerHTML += `<div>✅ Links encontrados no HTML: ${Object.keys(seasonUrls).length} temporadas.</div>`;
+    }
+  } catch(e) {
+    log.innerHTML += `<div>⚠️ Falha ao ler HTML, usando força bruta.</div>`;
+  }
+
+  // PASSO 2: FORÇA BRUTA - Testar todas as combinações possíveis
+  log.innerHTML += `<div>💪 Testando padrões de URL manualmente...</div>`;
+  
+  const patterns = [
+      (s) => s === 1 ? urlBase : `${urlBase}-Season-${s}`,
+      (s) => s === 1 ? urlBase : `${urlBase}-Temporada-${s}`,
+      (s) => s === 1 ? urlBase : `${urlBase}-season-${s}`,
+      (s) => `${urlBase}/temporada-${s}`,
+      (s) => `${urlBase}/tp/${s}`
+  ];
+
+  for (let s = 1; s <= maxSeasonsTMDB; s++) {
+      if (seasonUrls[s]) continue; // Se já achou no HTML, pula a força bruta
+      
+      for (let p of patterns) {
+          let testUrl = p(s) + "/1"; // Testa o episódio 1
+          const res = await fetchWithProxy(testUrl);
+          if (res) {
+              const text = await res.text();
+              if (text.length > 1000 && !text.includes("404 Not Found") && !text.includes("Page Not Found")) {
+                  seasonUrls[s] = p(s);
+                  log.innerHTML += `<div>✔️ Padrão encontrado para T${s}: ${p(s).split('/').pop()}</div>`;
+                  break;
+              }
+          }
+      }
+  }
+
+  // PASSO 3: EXTRAIR EPISÓDIOS
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let totalEpisodios = 0;
+
+  for (let s = 1; s <= maxSeasonsTMDB; s++) {
+    if (!seasonUrls[s]) {
+        log.innerHTML += `<div>❌ Temporada ${s} não encontrada em nenhum padrão.</div>`;
+        continue;
+    }
+
+    log.innerHTML += `<div>🔎 Buscando episódios da T${s}...</div>`;
+    let epNum = 1;
+    let fails = 0;
+    const seasonBase = seasonUrls[s];
+
+    while (epNum <= 200) {
+      let epUrl = `${seasonBase}/${epNum}`;
+      try {
+        const res = await fetchWithProxy(epUrl);
+        if (!res) { fails++; if(fails >= 3) break; continue; }
         
-        // Aplica o prefixo do mgeb.space se necessário
+        const html = await res.text();
+        
+        // Verifica se a página realmente existe
+        if (html.includes("404") && html.includes("Not Found")) {
+            if (epNum === 1) log.innerHTML += `<div>❌ T${s} não encontrada.</div>`;
+            break;
+        }
+
+        // Extrai o vídeo com o sistema profundo
+        const videoData = extrairVideoDoHtml(html, epUrl);
+        
+        let finalUrl = videoData.url;
         if (shouldPrefix && !finalUrl.startsWith(PREFIX)) {
             finalUrl = PREFIX + finalUrl;
         }
         
-        epsFound.push({ number: epNum, source: finalUrl });
-        log.innerHTML += `<div>✔️ T${s} E${epNum} encontrado (${extractionType}).</div>`;
-        consecutiveFails = 0;
+        // Injeta no objeto
+        let sObj = current.seasons.find(x => x.number === s);
+        if (!sObj) {
+            sObj = { number: s, label: `Temporada ${s}`, episodes: [] };
+            current.seasons.push(sObj);
+        }
         
+        let eObj = sObj.episodes.find(x => x.number === epNum);
+        if (eObj) eObj.source = finalUrl;
+        else sObj.episodes.push({ number: epNum, label: `Episódio ${epNum}`, title: "", source: finalUrl, subtitles: {} });
+
+        totalEpisodios++;
+        log.innerHTML += `<div>✔️ T${s} E${epNum} [${videoData.tipo}]</div>`;
+        fails = 0;
         epNum++;
-        await sleep(200); // Delay para não sobrecarregar o proxy
+        await sleep(150);
       } catch (err) {
         break;
       }
     }
-
-    if (epsFound.length > 0) {
-      foundSeasonsCount++;
-      let sObj = current.seasons.find(x => x.number === s);
-      if (!sObj) {
-        sObj = { number: s, label: `Temporada ${s}`, episodes: [] };
-        current.seasons.push(sObj);
-      }
-      
-      epsFound.forEach(fe => {
-        let eObj = sObj.episodes.find(x => x.number === fe.number);
-        if (eObj) eObj.source = fe.source;
-        else sObj.episodes.push({ number: fe.number, label: `Episódio ${fe.number}`, title: "", source: fe.source, subtitles: {} });
-      });
-      
-      sObj.episodes.sort((a,b) => a.number - b.number);
-    }
-    log.scrollTop = log.scrollHeight;
   }
 
-  if (foundSeasonsCount > 0) {
+  // FINALIZAÇÃO
+  if (totalEpisodios > 0) {
     current.seasons.sort((a,b) => a.number - b.number);
+    current.seasons.forEach(s => s.episodes.sort((a,b) => a.number - b.number));
     renderPreview();
-    toast(`✔️ Automação concluída! ${foundSeasonsCount} temporadas preenchidas.`);
-    log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ FIM! ${foundSeasonsCount} temporadas encontradas com sucesso.</div>`;
+    toast(`✔️ Raspagem concluída! ${totalEpisodios} episódios encontrados.`);
+    log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ FIM! ${totalEpisodios} episódios salvos no catálogo.</div>`;
   } else {
-    toast("Nenhum episódio encontrado. Verifique o link.", true);
+    toast("Nenhum episódio encontrado.", true);
     log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado.</div>`;
   }
 
   btn.disabled = false;
-  btn.innerHTML = '🤖 Buscar Tudo';
+  btn.innerHTML = '🕷️ Varrer Tudo';
   log.scrollTop = log.scrollHeight;
 }
 
