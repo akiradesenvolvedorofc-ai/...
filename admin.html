@@ -80,18 +80,25 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
 
     <div id="seriesTools" class="hidden">
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px; border: 1px solid rgba(229,57,53,.3);">
-        <h2>⚡ Gerador por Temporada</h2>
+        <h2>⚡ Gerador de Links</h2>
         <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
-          Selecione a temporada, cole o link de um episódio dela, e o sistema vai preencher os links apenas dessa temporada.
+          Escolha a temporada (ou todas), cole o link de exemplo e o sistema preenche os episódios.
         </p>
         
         <div class="row">
           <div style="flex:1; min-width:150px;">
+            <label>Modo de Aplicação</label>
+            <select id="applyMode">
+              <option value="single">Apenas Temporada Selecionada</option>
+              <option value="all">Em Todas as Temporadas</option>
+            </select>
+          </div>
+          <div style="flex:1; min-width:150px;" id="seasonSelectWrap">
             <label>Temporada Alvo</label>
             <select id="targetSeason"></select>
           </div>
           <div style="flex:3">
-            <label>Link de Exemplo (desta temporada)</label>
+            <label>Link de Exemplo</label>
             <input id="exampleUrl" placeholder="https://peliculaplay.com/.../Slime/1">
           </div>
           <div style="flex:0;display:flex;align-items:flex-end">
@@ -103,27 +110,7 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
           <div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{episode}"></div>
           <div><label>Prefixar?</label><select id="bulkPrefix"><option value="yes">Sim (mgeb)</option><option value="no">Não</option></select></div>
         </div>
-        <button class="mt" onclick="aplicarNaTemporada()">⚡ Aplicar na Temporada</button>
-      </div>
-
-      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px">
-        <details>
-          <summary style="font-size:1rem;color:#e53935;font-weight:700;text-transform:uppercase;">🤖 Auto-Scrape Automático (Avançado)</summary>
-          <div style="padding-top:10px">
-            <div class="row">
-              <div style="flex:2"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://ww1.123flmsfree.com/..."></div>
-              <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrape()" id="btnScrape">Iniciar</button></div>
-            </div>
-            <div class="row mt">
-              <div><label>Proxy CORS</label><select id="corsProxy">
-                <option value="https://api.allorigins.win/raw?url=">allorigins.win</option>
-                <option value="https://corsproxy.io/?">corsproxy.io</option>
-                <option value="https://api.codetabs.com/v1/proxy?quest=">codetabs.com</option>
-              </select></div>
-            </div>
-            <div class="progress-log" id="scrapeLog"></div>
-          </div>
-        </details>
+        <button class="mt" onclick="aplicarLinks()">⚡ Aplicar Links</button>
       </div>
     </div>
 
@@ -168,6 +155,7 @@ function toast(msg, err) {
   t._t = setTimeout(() => t.classList.remove("show"), 4000);
 }
 
+// === GITHUB CONFIG ===
 function getGithubConfig() {
   try {
     const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
@@ -194,15 +182,15 @@ async function testGithubConnection() {
     });
     if (res.status === 401) throw new Error("Token inválido (401).");
     if (res.status === 404) throw new Error("Repositório não encontrado (404).");
-    if (!res.ok) throw new Error(`Erro ${res.status}: ${res.statusText}`);
+    if (!res.ok) throw new Error(`Erro ${res.status}`);
     
     const catRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
       headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
     });
     
-    if (catRes.status === 404) toast("✔ Repo encontrado! O catalog.json será criado no primeiro save.");
+    if (catRes.status === 404) toast("✔ Repo encontrado! O catalog.json será criado.");
     else if (!catRes.ok) throw new Error(`Erro ao ler catalog.json: ${catRes.status}`);
-    else toast("✔ Tudo certo! Repo e catalog.json acessíveis.");
+    else toast("✔ Tudo certo!");
   } catch (err) {
     toast("❌ " + err.message, true);
   } finally {
@@ -221,6 +209,7 @@ function loadGithubConfig() {
 }
 loadGithubConfig();
 
+// === BUSCAR TMDB ===
 async function fetchContent() {
   const type = $("type").value;
   const id = $("tmdbId").value.trim();
@@ -256,7 +245,7 @@ async function fetchContent() {
     } else {
       const seasons = [];
       const seasonList = (data.seasons || []).filter(s => s.season_number > 0);
-      toast(`Carregando ${seasonList.length} temporadas do TMDB...`);
+      toast(`Carregando ${seasonList.length} temporadas...`);
       for (const s of seasonList) {
         const sr = await fetch(`https://api.themoviedb.org/3/tv/${id}/season/${s.season_number}?language=${LANG}`, { headers: HEADERS_TMDB });
         const sd = await sr.json();
@@ -279,13 +268,21 @@ async function fetchContent() {
     renderPreview();
     $("resultCard").classList.remove("hidden");
     $("seriesTools").classList.toggle("hidden", type !== "series");
-    toast("✔ Conteúdo carregado do TMDB");
+    toast("✔ Conteúdo carregado");
   } catch (err) {
-    toast("Erro ao buscar: " + err.message, true);
+    toast("Erro: " + err.message, true);
   }
 }
 
-// === ATUALIZAR O SELECT DE TEMPORADAS ===
+// === CONTROLE DO MODO DE APLICAÇÃO ===
+$("applyMode").addEventListener("change", function() {
+  if (this.value === "all") {
+    $("seasonSelectWrap").style.display = "none";
+  } else {
+    $("seasonSelectWrap").style.display = "block";
+  }
+});
+
 function updateSeasonSelect() {
   const sel = $("targetSeason");
   sel.innerHTML = "";
@@ -309,18 +306,15 @@ function detectarVariaveis() {
 
   let originalUrl = url;
 
-  // Tenta achar Temporada e Episódio (ex: /Season-1/2 ou /2/1)
-  // Padrão 1: text-Season-1/2
+  // Tenta achar Temporada e Episódio
   const regexSeasonText = /((?:Season|Temporada)[-_ ]?)(\d+)(\/)(\d+)/i;
   if (regexSeasonText.test(url)) {
     url = url.replace(regexSeasonText, '$1{season}$3{episode}');
   } else {
-    // Padrão 2: /1/2 (apenas dois números no final)
     const regexNumbers = /\/(\d+)\/(\d+)(\/|$|\?)/;
     if (regexNumbers.test(url)) {
       url = url.replace(regexNumbers, '/{season}/{episode}$3');
     } else {
-      // Padrão 3: /2 (apenas um número, significa que a temporada já está na base ou é single season)
       const regexEp = /\/(\d+)(\/|$|\?)/;
       if (regexEp.test(url)) {
         url = url.replace(regexEp, '/{episode}$2');
@@ -336,46 +330,65 @@ function detectarVariaveis() {
   }
 }
 
-// === APLICAR APENAS NA TEMPORADA SELECIONADA ===
-function aplicarNaTemporada() {
+// === APLICAR LINKS (NOVO SISTEMA) ===
+function aplicarLinks() {
   if (!current || current.type !== "series") return;
   
+  const mode = $("applyMode").value;
   const seasonIdx = parseInt($("targetSeason").value, 10);
-  const season = current.seasons[seasonIdx];
-  if (!season) return toast("Selecione uma temporada válida.", true);
-
   const template = $("bulkTemplate").value.trim();
   const shouldPrefix = $("bulkPrefix").value === "yes";
 
   if (!template) return toast("Cole a URL Template.", true);
-  if (!template.includes("{episode}")) {
-    return toast("A URL precisa ter {episode}.", true);
+  if (!template.includes("{episode}")) return toast("A URL precisa ter {episode}.", true);
+
+  let seasonsToApply = [];
+  if (mode === "all") {
+    seasonsToApply = current.seasons;
+  } else {
+    if (current.seasons[seasonIdx]) {
+      seasonsToApply = [current.seasons[seasonIdx]];
+    }
   }
+
+  if (seasonsToApply.length === 0) return toast("Nenhuma temporada encontrada.", true);
 
   const hasSeasonVar = template.includes("{season}");
   let count = 0;
 
-  season.episodes.forEach((ep) => {
-    let url = template;
-    if (hasSeasonVar) {
-      url = url.replace(/{season}/g, season.number);
-    }
-    url = url.replace(/{episode}/g, ep.number);
-    
-    if (url.includes("mgeb.space/mp4.php?url=")) {
-      url = url.split("mgeb.space/mp4.php?url=")[1];
-    }
+  seasonsToApply.forEach((season) => {
+    season.episodes.forEach((ep) => {
+      let url = template;
+      
+      // Substitui {season} apenas se o template tiver
+      if (hasSeasonVar) {
+        url = url.replace(/{season}/g, season.number);
+      }
+      
+      url = url.replace(/{episode}/g, ep.number);
+      
+      // Remove prefixo duplicado
+      if (url.includes("mgeb.space/mp4.php?url=")) {
+        url = url.split("mgeb.space/mp4.php?url=")[1];
+      }
 
-    if (shouldPrefix) url = PREFIX + url;
-    
-    ep.source = url;
-    count++;
+      if (shouldPrefix) url = PREFIX + url;
+      
+      ep.source = url;
+      count++;
+    });
   });
 
   renderPreview();
-  toast(`✔️ Aplicado na ${season.label} (${count} episódios)!`);
+  
+  if (mode === "all") {
+    toast(`✔️ Links aplicados em TODAS as ${seasonsToApply.length} temporadas (${count} episódios)!`);
+  } else {
+    toast(`✔️ Links aplicados na ${seasonsToApply[0].label} (${count} episódios)!`);
+  }
 }
 
+// === GITHUB CATALOG ===
 async function loadCatalog() {
   const cfg = getGithubConfig();
   if (!cfg) throw new Error("GitHub não configurado.");
@@ -406,6 +419,7 @@ async function loadCatalog() {
   }
 }
 
+// === SALVAR ===
 async function saveToCatalog() {
   if (!current) return;
   collectCurrent();
@@ -452,12 +466,7 @@ async function saveToCatalog() {
   }
 }
 
-async function autoScrape() {
-  // Mantido igual, mas omitido aqui para economizar espaço, 
-  // você pode manter o anterior se quiser.
-  toast("Função de auto-scrape ignorada nesta versão para focar no gerador por temporada.");
-}
-
+// === EDIÇÃO E OUTRAS FUNÇÕES ===
 async function loadForEdit() {
   const type = $("editType").value;
   const id = $("editId").value.trim();
