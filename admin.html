@@ -3,1006 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KiraFlix Super Extractor v5.0</title>
+<title>Admin — KiraFlix ALL Seekee + Uqload Auto</title>
 <style>
-/* ============================================================
-   RESET E VARIÁVEIS
-   ============================================================ */
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#06060c;--bg2:#0a0a14;--card:#0f0f1a;--card2:#13131f;
-  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.15);
-  --txt:#e4e4e7;--txt2:#a1a1aa;--txt3:#52525b;
-  --red:#e53935;--red2:#ef4444;--orange:#f97316;--amber:#f59e0b;
-  --green:#10b981;--blue:#60a5fa;--purple:#a855f7;--pink:#ec4899;
-  --cyan:#06b6d4;--lime:#84cc16;--indigo:#6366f1;
-  --shadow:0 10px 40px rgba(0,0,0,.5);
-  --shadow-red:0 10px 30px rgba(229,57,53,.35);
-  --shadow-green:0 10px 30px rgba(16,185,129,.35);
-  --shadow-purple:0 10px 30px rgba(168,85,247,.35);
-}
-body{
-  background:radial-gradient(ellipse at top,#1a0a1e 0%,#06060c 50%,#000 100%);
-  color:var(--txt);font-family:system-ui,-apple-system,sans-serif;
-  min-height:100vh;padding:20px;line-height:1.5;overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(circle at 10% 10%,rgba(229,57,53,.15),transparent 40%),
-    radial-gradient(circle at 90% 20%,rgba(168,85,247,.1),transparent 40%),
-    radial-gradient(circle at 50% 90%,rgba(6,182,212,.08),transparent 40%);
-}
-.wrap{max-width:1400px;margin:0 auto;position:relative;z-index:1}
-
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:rgba(0,0,0,.3);border-radius:4px}
-::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--red),var(--orange));border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--orange),var(--amber))}
-
-/* ============================================================
-   HEADER
-   ============================================================ */
-.header{text-align:center;margin-bottom:24px;padding:16px 0}
-.header h1{
-  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;
-  background:linear-gradient(90deg,#e53935,#f97316,#f59e0b,#e53935);
-  background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:gradientShift 5s ease infinite;margin-bottom:8px;
-  letter-spacing:-.03em;
-}
-@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.header .subtitle{color:var(--txt2);font-size:.9rem;letter-spacing:.05em}
-.header .version{
-  display:inline-block;background:linear-gradient(90deg,var(--red),var(--orange));
-  color:#fff;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:800;
-  letter-spacing:.1em;margin-left:8px;vertical-align:middle;
-}
-
-/* ============================================================
-   CARDS
-   ============================================================ */
-.card{
-  background:linear-gradient(135deg,rgba(15,15,26,.9),rgba(19,19,31,.9));
-  border:1px solid var(--border);border-radius:18px;padding:22px;
-  margin-bottom:18px;box-shadow:var(--shadow);backdrop-filter:blur(20px);
-  position:relative;overflow:hidden;
-}
-.card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:.6;
-}
-.card h2{
-  font-size:.95rem;color:var(--txt);margin-bottom:16px;text-transform:uppercase;
-  letter-spacing:.1em;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-}
-.card h2 .icon{
-  width:32px;height:32px;border-radius:10px;
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-  box-shadow:0 4px 15px rgba(229,57,53,.4);
-}
-.card h2 .badge-tag{
-  margin-left:auto;font-size:.65rem;background:rgba(16,185,129,.15);
-  color:var(--green);padding:3px 10px;border-radius:20px;font-weight:700;
-  text-transform:none;letter-spacing:0;
-}
-.card h2 .badge-warn{
-  margin-left:auto;font-size:.65rem;background:rgba(245,158,11,.15);
-  color:var(--amber);padding:3px 10px;border-radius:20px;font-weight:700;
-  text-transform:none;letter-spacing:0;
-}
-
-/* ============================================================
-   GLOBAL TOGGLE BAR
-   ============================================================ */
-.global-bar{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-.global-toggle{
-  background:linear-gradient(135deg,rgba(15,15,26,.95),rgba(19,19,31,.95));
-  border:2px solid var(--border);border-radius:16px;padding:16px 20px;
-  display:flex;align-items:center;gap:16px;transition:.3s;
-}
-.global-toggle.active{
-  border-color:var(--green);
-  background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.02));
-  box-shadow:0 0 30px rgba(16,185,129,.15);
-}
-.global-toggle.inactive{
-  border-color:var(--amber);
-  background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.02));
-}
-.global-toggle .toggle-icon{
-  width:48px;height:48px;border-radius:12px;background:rgba(0,0,0,.4);
-  display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
-}
-.global-toggle.active .toggle-icon{background:rgba(16,185,129,.2);color:var(--green)}
-.global-toggle.inactive .toggle-icon{background:rgba(245,158,11,.2);color:var(--amber)}
-.global-toggle .toggle-info{flex:1;min-width:0}
-.global-toggle .toggle-label{
-  font-size:.7rem;color:var(--txt2);text-transform:uppercase;
-  letter-spacing:.1em;font-weight:800;margin-bottom:4px;
-}
-.global-toggle .toggle-value{font-size:1rem;font-weight:900;color:#fff}
-.global-toggle .toggle-desc{font-size:.72rem;color:var(--txt3);margin-top:4px}
-.toggle-switch{
-  position:relative;width:56px;height:32px;background:rgba(255,255,255,.1);
-  border-radius:20px;cursor:pointer;flex-shrink:0;transition:.3s;
-}
-.toggle-switch::after{
-  content:'';position:absolute;width:24px;height:24px;border-radius:50%;
-  background:#fff;top:4px;left:4px;transition:.3s cubic-bezier(.34,1.56,.64,1);
-  box-shadow:0 2px 8px rgba(0,0,0,.4);
-}
-.toggle-switch.on{background:var(--green)}
-.toggle-switch.on::after{left:28px}
-.toggle-switch.off{background:var(--amber)}
-
-/* ============================================================
-   FORMS
-   ============================================================ */
-label{
-  display:block;font-size:.7rem;color:var(--txt2);margin-bottom:6px;
-  text-transform:uppercase;font-weight:700;letter-spacing:.08em;
-}
-input,select,textarea{
-  width:100%;padding:11px 14px;background:rgba(0,0,0,.6);
-  border:1px solid var(--border2);border-radius:10px;color:#fff;
-  font-size:.9rem;outline:none;font-family:inherit;transition:.2s;
-}
-input:focus,select:focus,textarea:focus{
-  border-color:var(--red);box-shadow:0 0 0 3px rgba(229,57,53,.15);
-}
-input:disabled{opacity:.5;cursor:not-allowed}
-input::placeholder{color:var(--txt3)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a14;color:#fff;font-family:system-ui,sans-serif;padding:20px;min-height:100vh}
+.wrap{max-width:1200px;margin:0 auto}
+h1{font-size:2rem;background:linear-gradient(90deg,#e53935,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.sub{color:#71717a;font-size:.9rem;margin-bottom:24px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px}
+.card h2{font-size:1rem;color:#e53935;margin-bottom:14px;text-transform:uppercase}
+label{display:block;font-size:.75rem;color:#a1a1aa;margin-bottom:6px;text-transform:uppercase;font-weight:600}
+input,select{width:100%;padding:10px 14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;outline:none}
+input:focus,select:focus{border-color:#e53935}
 .row{display:flex;gap:10px;flex-wrap:wrap}
 .row>*{flex:1;min-width:180px}
-.row.tight>*{min-width:120px}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-button{
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  color:#fff;border:0;padding:11px 20px;border-radius:10px;
-  font-weight:800;cursor:pointer;font-size:.8rem;text-transform:uppercase;
-  letter-spacing:.05em;transition:.25s;white-space:nowrap;
-  font-family:inherit;position:relative;overflow:hidden;
-}
-button:hover{transform:translateY(-2px);box-shadow:var(--shadow-red)}
-button:active{transform:translateY(0)}
-button:disabled{opacity:.4;pointer-events:none;transform:none}
-button.ghost{background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--txt)}
+button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;transition:.2s;white-space:nowrap}
+button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(229,57,53,.35)}
+button.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
 button.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
-button.success{background:linear-gradient(135deg,var(--green),#059669)}
-button.success:hover{box-shadow:var(--shadow-green)}
-button.blue{background:linear-gradient(135deg,var(--blue),#3b82f6)}
-button.purple{background:linear-gradient(135deg,var(--purple),#7c3aed)}
-button.purple:hover{box-shadow:var(--shadow-purple)}
-button.amber{background:linear-gradient(135deg,var(--amber),#d97706)}
-button.cyan{background:linear-gradient(135deg,var(--cyan),#0891b2)}
-button.danger{background:linear-gradient(135deg,var(--red2),#b91c1c)}
-button.mini{padding:6px 12px;font-size:.7rem;border-radius:8px}
-button.icon-btn{padding:8px;width:36px;height:36px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center}
-
-/* ============================================================
-   TOAST
-   ============================================================ */
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translate(-50%,150px);
-  background:linear-gradient(135deg,var(--green),#059669);color:#fff;
-  padding:14px 28px;border-radius:12px;font-weight:800;font-size:.9rem;
-  z-index:9999;box-shadow:var(--shadow-green);transition:.4s cubic-bezier(.34,1.56,.64,1);
-  max-width:90%;text-align:center;pointer-events:none;
-}
-.toast.show{transform:translate(-50%,0)}
-.toast.err{background:linear-gradient(135deg,var(--red2),#b91c1c);box-shadow:var(--shadow-red)}
-.toast.warn{background:linear-gradient(135deg,var(--amber),#d97706)}
-.toast.info{background:linear-gradient(135deg,var(--blue),#3b82f6)}
-
-/* ============================================================
-   MOVIE PREVIEW
-   ============================================================ */
-.movie-preview{
-  display:flex;gap:20px;align-items:flex-start;padding:18px;
-  background:linear-gradient(135deg,rgba(229,57,53,.08),rgba(249,115,22,.05));
-  border-radius:14px;border:1px solid rgba(229,57,53,.2);margin-bottom:16px;
-}
-.movie-preview .poster{
-  width:140px;height:200px;border-radius:12px;object-fit:cover;
-  border:2px solid rgba(229,57,53,.3);box-shadow:0 10px 30px rgba(0,0,0,.6);
-  flex-shrink:0;transition:.3s;
-}
-.movie-preview .poster:hover{transform:scale(1.03);border-color:var(--red)}
-.movie-preview .info{flex:1;min-width:0}
-.movie-preview .info h3{font-size:1.4rem;margin-bottom:8px;color:#fff;font-weight:900;line-height:1.2}
-.movie-preview .info .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;font-size:.8rem}
-.movie-preview .info .meta .tag{
-  background:rgba(255,255,255,.08);padding:4px 10px;border-radius:20px;
-  border:1px solid var(--border2);font-weight:700;color:var(--txt);
-}
-.movie-preview .info .meta .tag.rating{color:#fbbf24;border-color:rgba(251,191,36,.3)}
-.movie-preview .info .meta .tag.year{color:var(--cyan);border-color:rgba(6,182,212,.3)}
-.movie-preview .info .meta .tag.age{background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4);color:#fca5a5}
-.movie-preview .info .overview{
-  font-size:.85rem;color:var(--txt2);line-height:1.6;
-  max-height:100px;overflow-y:auto;padding-right:8px;
-}
-
-/* ============================================================
-   MODE SELECTOR
-   ============================================================ */
-.mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.mode-option{
-  background:rgba(0,0,0,.4);border:2px solid var(--border);border-radius:12px;
-  padding:14px 16px;cursor:pointer;transition:.25s;display:flex;
-  align-items:center;gap:12px;position:relative;
-}
-.mode-option:hover{border-color:var(--border2);background:rgba(0,0,0,.6)}
-.mode-option.active{
-  border-color:var(--green);
-  background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(16,185,129,.02));
-  box-shadow:0 0 25px rgba(16,185,129,.15);
-}
-.mode-option.active-blue{
-  border-color:var(--blue);
-  background:linear-gradient(135deg,rgba(96,165,250,.12),rgba(96,165,250,.02));
-  box-shadow:0 0 25px rgba(96,165,250,.15);
-}
-.mode-option .mode-icon{
-  width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);
-  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
-}
-.mode-option.active .mode-icon{background:rgba(16,185,129,.2);color:var(--green)}
-.mode-option.active-blue .mode-icon{background:rgba(96,165,250,.2);color:var(--blue)}
-.mode-option .mode-info{flex:1;min-width:0}
-.mode-option .mode-name{font-size:.85rem;font-weight:900;color:#fff;margin-bottom:2px}
-.mode-option .mode-desc{font-size:.68rem;color:var(--txt2);line-height:1.3}
-.mode-option::after{
-  content:'';position:absolute;top:10px;right:10px;width:18px;height:18px;
-  border-radius:50%;border:2px solid var(--border2);
-}
-.mode-option.active::after{border-color:var(--green);background:var(--green);box-shadow:inset 0 0 0 3px var(--card)}
-.mode-option.active-blue::after{border-color:var(--blue);background:var(--blue);box-shadow:inset 0 0 0 3px var(--card)}
-
-/* ============================================================
-   STATUS MONITOR
-   ============================================================ */
-.status-monitor{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;margin-bottom:16px;
-}
-.status-item{
-  background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;
-  padding:14px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;
-}
-.status-item::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--red);border-radius:2px;
-}
-.status-item.ok::before{background:var(--green)}
-.status-item.warn::before{background:var(--amber)}
-.status-item.err::before{background:var(--red2)}
-.status-item .label{font-size:.65rem;color:var(--txt2);text-transform:uppercase;letter-spacing:.1em;font-weight:800}
-.status-item .value{font-size:.85rem;font-weight:900;color:#fff;word-break:break-all;line-height:1.3}
-.status-item .value.ok{color:var(--green)}
-.status-item .value.err{color:var(--red2)}
-.status-item .value.warn{color:var(--amber)}
-
-/* ============================================================
-   COUNTDOWN
-   ============================================================ */
-.countdown-container{
-  display:flex;align-items:center;justify-content:center;gap:24px;
-  padding:24px;background:rgba(0,0,0,.5);border-radius:16px;
-  border:2px solid rgba(16,185,129,.3);margin-bottom:16px;
-}
-.countdown-ring{
-  width:120px;height:120px;border-radius:50%;position:relative;
-  background:conic-gradient(var(--green) var(--pct,0deg),rgba(255,255,255,.1) 0deg);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 40px rgba(16,185,129,.3);flex-shrink:0;
-}
-.countdown-ring::before{content:'';position:absolute;inset:8px;border-radius:50%;background:var(--bg2)}
-.countdown-ring .inner{position:relative;z-index:2;text-align:center}
-.countdown-ring .num{
-  font-size:2.2rem;font-weight:900;line-height:1;
-  background:linear-gradient(135deg,var(--green),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.countdown-ring .unit{font-size:.65rem;color:var(--txt2);text-transform:uppercase;letter-spacing:.15em;font-weight:800;margin-top:4px}
-.countdown-info{flex:1}
-.countdown-info h4{font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px}
-.countdown-info p{font-size:.8rem;color:var(--txt2);line-height:1.6}
-.countdown-info .next-run{color:var(--green);font-weight:800;font-family:ui-monospace,monospace}
-.countdown-info .last-run{color:var(--cyan);font-weight:800;font-family:ui-monospace,monospace}
-
-/* ============================================================
-   LOG
-   ============================================================ */
-.log-box{
-  font-size:.78rem;color:var(--txt2);margin-top:12px;max-height:400px;
-  overflow-y:auto;background:rgba(0,0,0,.5);padding:14px;border-radius:10px;
-  display:none;font-family:ui-monospace,'Courier New',monospace;
-  line-height:1.7;border:1px solid var(--border);
-}
-.log-box.show{display:block}
-.log-line{padding:2px 0;border-left:3px solid transparent;padding-left:10px}
-.log-line.success{color:var(--green);border-left-color:var(--green)}
-.log-line.error{color:var(--red2);border-left-color:var(--red2)}
-.log-line.warn{color:var(--amber);border-left-color:var(--amber)}
-.log-line.info{color:var(--blue);border-left-color:var(--blue)}
-.log-line.title{
-  color:var(--red);font-weight:900;text-transform:uppercase;
-  margin-top:10px;border-top:1px dashed rgba(255,255,255,.1);
-  padding-top:8px;letter-spacing:.1em;font-size:.75rem;border-left-color:var(--orange);
-}
-.log-line::before{content:'▸ ';opacity:.5}
-
-/* ============================================================
-   PROXIES
-   ============================================================ */
-.proxy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
-.proxy-item{
-  background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:8px;
-  padding:8px 10px;font-size:.72rem;display:flex;align-items:center;gap:8px;
-}
-.proxy-item .dot{width:8px;height:8px;border-radius:50%;background:var(--txt3);flex-shrink:0}
-.proxy-item.alive .dot{background:var(--green);box-shadow:0 0 8px var(--green)}
-.proxy-item.dead .dot{background:var(--red2);box-shadow:0 0 8px var(--red2)}
-.proxy-item.checking .dot{background:var(--amber);animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.proxy-item .name{font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-/* ============================================================
-   MODES GRID
-   ============================================================ */
-.modes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.mode-card{
-  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-  border:1px solid var(--border);border-radius:12px;padding:12px;
-  cursor:pointer;transition:.25s;position:relative;
-}
-.mode-card:hover{transform:translateY(-2px);border-color:var(--red);box-shadow:0 8px 20px rgba(229,57,53,.2)}
-.mode-card.active{
-  border-color:var(--green);
-  background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.05));
-}
-.mode-card .mode-icon{font-size:1.5rem;margin-bottom:6px}
-.mode-card .mode-name{font-size:.8rem;font-weight:900;color:#fff;margin-bottom:4px}
-.mode-card .mode-desc{font-size:.65rem;color:var(--txt2);line-height:1.4}
-.mode-card.active::after{
-  content:'✓';position:absolute;top:8px;right:8px;width:20px;height:20px;
-  border-radius:50%;background:var(--green);color:#fff;display:flex;
-  align-items:center;justify-content:center;font-size:.7rem;font-weight:900;
-}
-
-/* ============================================================
-   TOOL CARDS
-   ============================================================ */
-.tool-card{
-  background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:12px;
-  padding:16px;margin-bottom:12px;
-}
-.tool-card.highlight-red{border-color:rgba(229,57,53,.3);background:linear-gradient(135deg,rgba(229,57,53,.05),rgba(229,57,53,.01))}
-.tool-card.highlight-blue{border-color:rgba(96,165,250,.3);background:linear-gradient(135deg,rgba(96,165,250,.05),rgba(96,165,250,.01))}
-.tool-card.highlight-purple{border-color:rgba(168,85,247,.3);background:linear-gradient(135deg,rgba(168,85,247,.05),rgba(168,85,247,.01))}
-.tool-card.highlight-green{border-color:rgba(16,185,129,.3);background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(16,185,129,.01))}
-.tool-card.highlight-cyan{border-color:rgba(6,182,212,.3);background:linear-gradient(135deg,rgba(6,182,212,.05),rgba(6,182,212,.01))}
-.tool-card.highlight-amber{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,rgba(245,158,11,.05),rgba(245,158,11,.01))}
-.tool-card h3{
-  font-size:.85rem;color:var(--amber);margin-bottom:10px;font-weight:800;
-  text-transform:uppercase;display:flex;align-items:center;gap:8px;
-}
-
-/* ============================================================
-   EPISODE LIST
-   ============================================================ */
-.episode-list{display:flex;flex-direction:column;gap:8px;max-height:600px;overflow-y:auto;padding:4px}
-.season-header{
-  background:linear-gradient(90deg,rgba(229,57,53,.15),rgba(249,115,22,.05));
-  padding:10px 14px;border-radius:10px;font-size:.8rem;font-weight:900;
-  color:var(--amber);margin-top:10px;border-left:3px solid var(--red);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.episode-row{
-  background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;
-  padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-}
-.episode-row .ep-badge{
-  background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;
-  padding:4px 10px;border-radius:8px;font-size:.7rem;font-weight:900;
-  flex-shrink:0;min-width:60px;text-align:center;
-}
-.episode-row .ep-url-input{
-  flex:1;min-width:200px;padding:8px 12px;background:rgba(0,0,0,.6);
-  border:1px solid var(--border2);border-radius:8px;color:#fff;
-  font-size:.72rem;font-family:ui-monospace,monospace;
-}
-.episode-row .ep-url-input:focus{border-color:var(--red);outline:none}
-.episode-row .ep-mode{font-size:.65rem;padding:3px 8px;border-radius:8px;font-weight:800;flex-shrink:0}
-.episode-row .ep-mode.extract{background:rgba(168,85,247,.2);color:var(--purple)}
-.episode-row .ep-mode.direct{background:rgba(96,165,250,.2);color:var(--blue)}
-.episode-row .ep-mode.pending{background:rgba(245,158,11,.2);color:var(--amber)}
-.episode-row .ep-mode.failed{background:rgba(239,68,68,.2);color:var(--red2)}
-
-/* ============================================================
-   SOURCES LIST
-   ============================================================ */
-.sources-list{display:flex;flex-direction:column;gap:10px}
-.source-item{
-  background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;
-  padding:12px 14px;display:flex;align-items:center;gap:12px;transition:.2s;
-}
-.source-item:hover{border-color:var(--border2);background:rgba(0,0,0,.6)}
-.source-item.active-source{border-left:3px solid var(--green)}
-.source-item.direct-source{border-left:3px solid var(--blue)}
-.source-item .src-poster{
-  width:44px;height:64px;border-radius:6px;object-fit:cover;
-  flex-shrink:0;border:1px solid var(--border);
-}
-.source-item .src-info{flex:1;min-width:0}
-.source-item .src-info .src-title{
-  font-weight:800;font-size:.85rem;color:#fff;margin-bottom:4px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.source-item .src-info .src-url{
-  font-size:.68rem;color:var(--txt2);font-family:ui-monospace,monospace;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.source-item .src-info .src-status{font-size:.65rem;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}
-.source-item .src-status span{padding:2px 8px;border-radius:10px;font-weight:800}
-.source-item .src-status .active{background:rgba(16,185,129,.2);color:var(--green)}
-.source-item .src-status .expired{background:rgba(239,68,68,.2);color:var(--red2)}
-.source-item .src-status .checking{background:rgba(245,158,11,.2);color:var(--amber)}
-.source-item .src-status .mode-extract{background:rgba(168,85,247,.2);color:var(--purple)}
-.source-item .src-status .mode-direct{background:rgba(96,165,250,.2);color:var(--blue)}
-.source-item .src-actions{display:flex;gap:4px;flex-shrink:0}
-.source-item .src-actions button{padding:6px 10px;font-size:.7rem}
-
-/* ============================================================
-   STATS
-   ============================================================ */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-.stat-box{
-  background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(99,102,241,.05));
-  border:1px solid rgba(168,85,247,.2);border-radius:10px;padding:12px;text-align:center;
-}
-.stat-box .stat-value{
-  font-size:1.5rem;font-weight:900;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;
-}
-.stat-box .stat-label{font-size:.65rem;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;margin-top:6px;font-weight:700}
-
-/* ============================================================
-   UTIL
-   ============================================================ */
-.hidden{display:none!important}
+button:disabled{opacity:.5;pointer-events:none}
 .mt{margin-top:14px}
-.text-center{text-align:center}
-.flex-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.spinner{
-  display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);
-  border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;
-  vertical-align:middle;margin-left:6px;
-}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,120px);background:#10b981;color:#000;padding:12px 24px;border-radius:10px;font-weight:700;transition:.3s;z-index:9999;font-size:.9rem;max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.toast.err{background:#ef4444;color:#fff}
+.preview{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}
+.preview img{width:120px;border-radius:10px;flex:0 0 auto}
+.preview-info{flex:1;min-width:200px}
+.preview-info h3{font-size:1.1rem;margin-bottom:6px}
+.preview-info .meta{color:#a1a1aa;font-size:.8rem;margin-bottom:8px}
+.preview-info p{color:#d4d4d8;font-size:.85rem;line-height:1.5;max-height:100px;overflow:auto}
+.ep{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid rgba(229,57,53,.4)}
+.ep h4{font-size:.9rem;color:#fbbf24;margin-bottom:8px}
+.ep .sources{display:flex;flex-direction:column;gap:8px}
+.hidden{display:none!important}
+.status{font-size:.75rem;padding:4px 8px;border-radius:6px;background:rgba(16,185,129,.15);color:#10b981;display:inline-block}
+.badge{background:rgba(229,57,53,.2);color:#e53935;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
+details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user-select:none}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-left:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9998;
-  display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(10px);flex-direction:column;gap:20px;
-}
-.loading-overlay.show{display:flex}
-.loading-overlay .spinner-big{
-  width:80px;height:80px;border:5px solid rgba(229,57,53,.2);
-  border-top-color:var(--red);border-radius:50%;animation:spin 1s linear infinite;
-}
-.loading-overlay .msg{font-size:1rem;color:#fff;font-weight:800;text-align:center;max-width:80%}
+.progress-log{font-size:.78rem;color:#a1a1aa;margin-top:8px;max-height:350px;overflow-y:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;display:none;font-family:ui-monospace,monospace;line-height:1.6;border:1px solid rgba(255,255,255,.05)}
+.progress-log.show{display:block}
+.log-success{color:#10b981;font-weight:600}
+.log-error{color:#ef4444;font-weight:600}
+.log-warn{color:#f59e0b;font-weight:600}
+.log-info{color:#60a5fa}
+.log-title{color:#e53935;font-weight:800;text-transform:uppercase;margin-top:8px;border-top:1px dashed rgba(255,255,255,.1);padding-top:6px}
+.edit-badge{background:rgba(59,130,246,.2);color:#60a5fa;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
 
-/* ============================================================
-   TABS
-   ============================================================ */
-.tabs{
-  display:flex;gap:4px;margin-bottom:14px;background:rgba(0,0,0,.4);
-  padding:4px;border-radius:10px;overflow-x:auto;
-}
-.tab{
-  padding:8px 16px;border-radius:8px;font-size:.78rem;font-weight:800;
-  cursor:pointer;transition:.2s;color:var(--txt2);white-space:nowrap;
-  border:0;background:transparent;font-family:inherit;
-}
-.tab.active{
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  color:#fff;box-shadow:0 4px 15px rgba(229,57,53,.3);
-}
-.tab:hover:not(.active){background:rgba(255,255,255,.05);color:var(--txt)}
+/* Auto-Refresh específico */
+.auto-item{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.auto-item.active{border-left:3px solid #10b981}
+.auto-item.error{border-left:3px solid #ef4444}
+.auto-item .ai-info{flex:1;min-width:200px}
+.auto-item .ai-title{font-weight:800;font-size:.85rem;margin-bottom:4px}
+.auto-item .ai-url{font-size:.68rem;color:#a1a1aa;font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:4px}
+.auto-item .ai-meta{font-size:.65rem;display:flex;gap:8px;flex-wrap:wrap}
+.auto-item .ai-meta span{padding:2px 8px;border-radius:10px;font-weight:800}
+.auto-item .ai-meta .timer{background:rgba(16,185,129,.2);color:#10b981}
+.auto-item .ai-meta .link-status{background:rgba(96,165,250,.2);color:#60a5fa}
+.auto-item .ai-meta .next{background:rgba(168,85,247,.2);color:#a855f7}
+.auto-item .ai-countdown{font-size:1.5rem;font-weight:900;color:#10b981;font-family:ui-monospace,monospace;min-width:60px;text-align:center}
+.auto-item .ai-actions{display:flex;gap:4px}
+.auto-item .ai-actions button{padding:6px 10px;font-size:.7rem}
 
-/* ============================================================
-   MODAL
-   ============================================================ */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9997;
-  display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(10px);padding:20px;
-}
-.modal-overlay.show{display:flex}
-.modal-box{
-  background:linear-gradient(135deg,rgba(15,15,26,.98),rgba(19,19,31,.98));
-  border:1px solid var(--border);border-radius:18px;padding:24px;
-  max-width:600px;width:100%;max-height:85vh;overflow-y:auto;
-  box-shadow:0 20px 60px rgba(0,0,0,.8);
-}
-.modal-box h3{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:16px}
-.modal-box .modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.prefix-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:.72rem;font-weight:800;cursor:pointer;transition:.2s;border:1px solid transparent}
+.prefix-badge.on{background:rgba(16,185,129,.15);color:#10b981;border-color:rgba(16,185,129,.3)}
+.prefix-badge.off{background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.3)}
+.prefix-badge:hover{transform:scale(1.05)}
 
-/* ============================================================
-   MINUTE PICKER
-   ============================================================ */
-.minute-picker{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));
-  gap:8px;margin-top:10px;
-}
-.minute-option{
-  background:rgba(0,0,0,.4);border:2px solid var(--border);border-radius:10px;
-  padding:10px;text-align:center;cursor:pointer;transition:.2s;
-  font-size:.75rem;font-weight:800;
-}
-.minute-option:hover{border-color:var(--border2);background:rgba(0,0,0,.6)}
-.minute-option.active{
-  border-color:var(--green);background:rgba(16,185,129,.15);color:var(--green);
-}
-.minute-option .mo-val{font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:2px}
-.minute-option.active .mo-val{color:var(--green)}
-.minute-option .mo-label{font-size:.6rem;color:var(--txt2);text-transform:uppercase}
-
-/* ============================================================
-   PER-ID PREFIX BADGE
-   ============================================================ */
-.id-prefix-list{
-  display:flex;flex-direction:column;gap:8px;margin-top:12px;
-}
-.id-prefix-item{
-  background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:10px;
-  padding:10px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.id-prefix-item .id-badge{
-  background:rgba(96,165,250,.2);color:var(--blue);padding:4px 10px;
-  border-radius:8px;font-size:.7rem;font-weight:900;flex-shrink:0;
-}
-.id-prefix-item .id-title{flex:1;font-size:.8rem;color:var(--txt);font-weight:700;min-width:100px}
-.id-prefix-item .id-toggle{
-  padding:4px 10px;border-radius:8px;font-size:.65rem;font-weight:900;cursor:pointer;
-  border:1px solid transparent;transition:.2s;
-}
-.id-prefix-item .id-toggle.on{background:rgba(16,185,129,.2);color:var(--green);border-color:rgba(16,185,129,.3)}
-.id-prefix-item .id-toggle.off{background:rgba(245,158,11,.2);color:var(--amber);border-color:rgba(245,158,11,.3)}
-.id-prefix-item .id-toggle.global{background:rgba(255,255,255,.1);color:var(--txt2);border-color:var(--border2)}
-.id-prefix-item .id-toggle:hover{transform:scale(1.05)}
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media(max-width:768px){
-  body{padding:12px}
-  .global-bar{grid-template-columns:1fr}
-  .movie-preview{flex-direction:column;text-align:center;align-items:center}
-  .movie-preview .poster{width:110px;height:160px}
-  .mode-selector{grid-template-columns:1fr}
-  .countdown-container{flex-direction:column;padding:16px}
-  .countdown-ring{width:100px;height:100px}
-  .countdown-ring .num{font-size:1.8rem}
-  .card{padding:16px}
-  .card h2{font-size:.85rem}
-  button{padding:10px 16px;font-size:.75rem}
-  .source-item{flex-wrap:wrap}
-  .source-item .src-info{width:100%;order:2}
-  .source-item .src-actions{width:100%;order:3;margin-top:8px}
-  .source-item .src-actions button{flex:1}
-  .episode-row{flex-wrap:wrap}
-  .episode-row .ep-url-input{width:100%}
-}
+.minute-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:8px}
+.minute-option{background:rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;cursor:pointer;transition:.2s;font-size:.72rem;font-weight:800}
+.minute-option:hover{border-color:rgba(255,255,255,.2);background:rgba(0,0,0,.6)}
+.minute-option.active{border-color:#10b981;background:rgba(16,185,129,.15);color:#10b981}
+.minute-option .mo-val{font-size:1rem;font-weight:900;color:#fff}
+.minute-option.active .mo-val{color:#10b981}
 </style>
 </head>
 <body>
-
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="spinner-big"></div>
-  <div class="msg" id="loadingMsg">Processando...</div>
-</div>
-
 <div class="wrap">
-  <!-- HEADER -->
-  <div class="header">
-    <h1>🚀 KiraFlix Super Extractor <span class="version">v5.0</span></h1>
-    <p class="subtitle">Sistema Definitivo — Todos os Sistemas Consolidados</p>
-  </div>
+  <h1>⚙️ KiraFlix Admin — ALL Seekee + Uqload Auto 🕷️</h1>
+  <p class="sub">Sistema de raspagem profunda + Auto-Refresh Uqload a cada 1 minuto</p>
 
-  <!-- GLOBAL SETTINGS -->
-  <div class="global-bar">
-    <div class="global-toggle active" id="prefixToggleCard">
-      <div class="toggle-icon" id="prefixIcon">🌐</div>
-      <div class="toggle-info">
-        <div class="toggle-label">Prefixo mgeb.space (Global)</div>
-        <div class="toggle-value" id="prefixValue">ATIVADO</div>
-        <div class="toggle-desc" id="prefixDesc">Links recebem https://mgeb.space/mp4.php?url=</div>
-      </div>
-      <div class="toggle-switch on" id="prefixSwitch" onclick="toggleGlobalPrefix()"></div>
-    </div>
-    <div class="global-toggle active" style="border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(168,85,247,.02))">
-      <div class="toggle-icon" style="background:rgba(168,85,247,.2);color:var(--purple)">🎯</div>
-      <div class="toggle-info">
-        <div class="toggle-label">Modo Padrão</div>
-        <div class="toggle-value" id="defaultModeValue">EXTRAÇÃO</div>
-        <div class="toggle-desc">Escolha abaixo no momento de adicionar</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- GITHUB CONFIG -->
+  <!-- GitHub -->
   <div class="card">
-    <h2><div class="icon">🔑</div>Configuração GitHub <span class="badge-tag" id="ghTag" style="display:none">✔ Configurado</span></h2>
+    <h2>🔑 GitHub (salvar catálogo)</h2>
     <div class="row">
       <div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva"></div>
       <div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix"></div>
-      <div style="flex:2;min-width:300px"><label>Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..."></div>
+      <div style="flex:2;min-width:300px"><label>Personal Access Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..."></div>
     </div>
     <div class="row mt">
-      <button class="ghost" onclick="saveGithubConfig()">💾 Salvar</button>
-      <button class="ghost" onclick="testGithubConnection()" id="btnTest">🧪 Testar</button>
-      <button class="ghost" onclick="loadCatalogManually()">📥 Carregar Catálogo</button>
+      <button class="ghost" onclick="saveGithubConfig()">💾 Salvar Configuração</button>
+      <button class="ghost" onclick="testGithubConnection()" id="btnTest">🧪 Testar Conexão</button>
     </div>
+    <span class="status" id="ghStatus" style="display:none;margin-top:10px;">✔ Configurado</span>
   </div>
 
-  <!-- TMDB SEARCH -->
-  <div class="card">
-    <h2><div class="icon">🎬</div>Adicionar via TMDB</h2>
-    <div class="row">
-      <div><label>Tipo</label>
-        <select id="tmdbType">
-          <option value="movie">🎬 Filme</option>
-          <option value="series">📺 Série</option>
-        </select>
-      </div>
-      <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" placeholder="ex: 969681"></div>
-      <div style="flex:0;display:flex;align-items:flex-end"><button onclick="fetchFromTMDB()">🔍 Buscar</button></div>
-    </div>
-  </div>
-
-  <!-- PREVIEW -->
-  <div class="card hidden" id="moviePreviewCard">
-    <h2><div class="icon">📽️</div>Conteúdo Selecionado <span class="badge-tag" id="perIdPrefixBadge">Prefixo: Global</span></h2>
-    <div class="movie-preview">
-      <img class="poster" id="previewPoster" src="" alt="">
-      <div class="info">
-        <h3 id="previewTitle">—</h3>
-        <div class="meta" id="previewMeta"></div>
-        <p class="overview" id="previewOverview"></p>
-      </div>
-    </div>
-    <div class="flex-between mt">
-      <div style="font-size:.75rem;color:var(--txt2)">
-        ID TMDB: <b id="previewTmdbId" style="color:var(--cyan)">—</b> • Tipo: <b id="previewType" style="color:var(--cyan)">—</b>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="purple mini" onclick="togglePerIdPrefix()" id="btnPerIdPrefix">🌐 Prefixo por ID</button>
-        <button class="ghost mini" onclick="closePreview()">✕ Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- PER-ID PREFIX OVERRIDE -->
-  <div class="card hidden" id="perIdPrefixCard">
-    <h2><div class="icon">🌐</div>Prefixo por ID</h2>
-    <p style="font-size:.75rem;color:var(--txt2);margin-bottom:12px">
-      Escolha IDs específicos que terão prefixo ON/OFF diferente do global. Útil quando Uqload funciona sem prefixo mas outros não.
+  <!-- 🔄 AUTO-REFRESH UQLOAD (NOVO) -->
+  <div class="card" style="border-color:rgba(16,185,129,.3);background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(16,185,129,.01))">
+    <h2>🔄 Auto-Refresh Uqload (1 minuto)</h2>
+    <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:14px">
+      Cole a URL do Uqload + ID do TMDB. O sistema extrai o link <code>.mp4</code> real e salva no catálogo <b>a cada 1 minuto</b>. Se o link expirar, o próximo ciclo captura o novo automaticamente.
     </p>
-    <div class="row tight">
-      <div><label>ID TMDB</label><input id="perIdPrefixInput" placeholder="ex: 969681"></div>
-      <div><label>Prefixo neste ID</label>
-        <select id="perIdPrefixValue">
-          <option value="on">🌐 Com prefixo (mgeb)</option>
-          <option value="off">🔗 Sem prefixo (direto)</option>
-        </select>
-      </div>
-      <div style="flex:0;display:flex;align-items:flex-end"><button class="purple mini" onclick="addPerIdPrefix()">➕ Adicionar</button></div>
-    </div>
-    <div class="id-prefix-list" id="perIdPrefixList"></div>
-  </div>
-
-  <!-- MOVIE MODE SELECTOR -->
-  <div class="card hidden" id="modeSelectorCard">
-    <h2><div class="icon">⚙️</div>Escolha o Modo</h2>
-    <div class="mode-selector">
-      <div class="mode-option active" id="modeExtract" onclick="selectMode('extract')">
-        <div class="mode-icon">🔍</div>
-        <div class="mode-info">
-          <div class="mode-name">Extração Automática</div>
-          <div class="mode-desc">Busca o link real do vídeo (.mp4, iframe, JSON, etc.)</div>
-        </div>
-      </div>
-      <div class="mode-option" id="modeDirect" onclick="selectMode('direct')">
-        <div class="mode-icon">🔗</div>
-        <div class="mode-info">
-          <div class="mode-name">URL Direta</div>
-          <div class="mode-desc">Usa a URL colada como está</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOVIE INPUT -->
-  <div class="card hidden" id="movieInputCard">
-    <h2><div class="icon">🎬</div>Link do Filme</h2>
+    
     <div class="row">
-      <div style="flex:3"><label>URL do Vídeo</label><input id="movieUrlInput" placeholder="https://uqload.vc/xxxxx.html ou https://peliculaplay.com/..."></div>
+      <div style="flex:3"><label>URL do Uqload</label><input id="autoUqloadUrl" placeholder="https://uqload.vc/p56fa88d06qv.html"></div>
+      <div><label>ID TMDB</label><input id="autoTmdbId" placeholder="ex: 969681"></div>
+      <div><label>Tipo</label><select id="autoType"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
     </div>
+
     <div class="row mt">
-      <button class="success" onclick="processMovie()" id="btnProcessMovie">🚀 Processar Filme</button>
-      <button class="ghost" onclick="saveMovieDirect()">💾 Salvar Direto</button>
-    </div>
-
-    <!-- AUTO-REFRESH CONFIG -->
-    <div class="tool-card highlight-purple mt">
-      <h3>⏱️ Auto-Refresh (Atualização Automática)</h3>
-      <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-        Configure de quantos em quantos <b>minutos</b> o sistema deve re-extrair o link. Se o link expirar, o próximo ciclo captura novo automaticamente.
-      </p>
-      <div class="minute-picker" id="movieRefreshMinutes">
-        <div class="minute-option" data-min="1"><div class="mo-val">1</div><div class="mo-label">min</div></div>
-        <div class="minute-option" data-min="2"><div class="mo-val">2</div><div class="mo-label">min</div></div>
-        <div class="minute-option active" data-min="5"><div class="mo-val">5</div><div class="mo-label">min</div></div>
-        <div class="minute-option" data-min="10"><div class="mo-val">10</div><div class="mo-label">min</div></div>
-        <div class="minute-option" data-min="15"><div class="mo-val">15</div><div class="mo-label">min</div></div>
-        <div class="minute-option" data-min="30"><div class="mo-val">30</div><div class="mo-label">min</div></div>
-        <div class="minute-option" data-min="60"><div class="mo-val">60</div><div class="mo-label">min</div></div>
-      </div>
-      <div class="row mt">
-        <div><label>Ou personalizado (minutos)</label><input type="number" id="movieCustomMinutes" placeholder="Ex: 7" min="1" max="1440"></div>
-        <div style="flex:0;display:flex;align-items:flex-end">
-          <button class="purple" onclick="activateMovieAutoRefresh()" id="btnActivateMovieAuto">⏱️ Ativar Auto-Refresh</button>
-        </div>
-      </div>
-      <div id="movieAutoStatus" class="mt" style="font-size:.75rem;padding:10px;border-radius:8px;background:rgba(0,0,0,.4);display:none"></div>
-    </div>
-
-    <div class="log-box" id="movieLogBox"></div>
-  </div>
-
-  <!-- SERIES INPUT -->
-  <div class="card hidden" id="seriesInputCard">
-    <h2><div class="icon">📺</div>Configuração da Série</h2>
-
-    <div class="tabs">
-      <button class="tab active" data-tab="tpl" onclick="switchSeriesTab('tpl')">🔗 Template</button>
-      <button class="tab" data-tab="season" onclick="switchSeriesTab('season')">📺 Sistema 1: Temporada</button>
-      <button class="tab" data-tab="detect" onclick="switchSeriesTab('detect')">🎯 Sistema 2: Detectar</button>
-      <button class="tab" data-tab="manual" onclick="switchSeriesTab('manual')">✏️ Sistema 3: Manual</button>
-      <button class="tab" data-tab="noseason" onclick="switchSeriesTab('noseason')">🔍 Sistema 4: Sem Temporada</button>
-      <button class="tab" data-tab="auto" onclick="switchSeriesTab('auto')">⏱️ Auto-Refresh</button>
-    </div>
-
-    <!-- TAB: TEMPLATE -->
-    <div id="tab_tpl">
-      <div class="tool-card highlight-green">
-        <h3>🔗 URL Template</h3>
-        <input id="seriesUrlTemplate" placeholder="https://.../{season}/{episode} OU https://.../{episode}">
-        <p style="font-size:.72rem;color:var(--txt2);margin-top:8px">
-          ✅ Use <code style="background:rgba(245,158,11,.2);padding:2px 6px;border-radius:4px;color:var(--amber)">{season}</code> e
-          <code style="background:rgba(245,158,11,.2);padding:2px 6px;border-radius:4px;color:var(--amber)">{episode}</code> •
-          Se série de 1 temporada, use só <code style="background:rgba(6,182,212,.2);padding:2px 6px;border-radius:4px;color:var(--cyan)">{episode}</code>
-        </p>
-        <div id="templateStatus" class="mt" style="font-size:.72rem;padding:8px;border-radius:6px;display:none"></div>
-      </div>
-
-      <div class="tool-card">
-        <h3>🎯 Modo de Processamento</h3>
-        <div class="mode-selector" style="margin:0">
-          <div class="mode-option active" id="seriesModeExtract" onclick="selectSeriesMode('extract')">
-            <div class="mode-icon">🔍</div>
-            <div class="mode-info">
-              <div class="mode-name">Extração Automática</div>
-              <div class="mode-desc">Extrai o link real do vídeo</div>
-            </div>
-          </div>
-          <div class="mode-option" id="seriesModeDirect" onclick="selectSeriesMode('direct')">
-            <div class="mode-icon">🔗</div>
-            <div class="mode-info">
-              <div class="mode-name">URL Direta</div>
-              <div class="mode-desc">Usa a URL do template</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <button class="success" onclick="processSeries()" id="btnProcessSeries">🚀 Processar Todos</button>
-        <button class="ghost" onclick="saveSeriesDirect()">💾 Salvar Série Direto</button>
-      </div>
-    </div>
-
-    <!-- TAB: SEASON -->
-    <div id="tab_season" class="hidden">
-      <div class="tool-card highlight-blue">
-        <h3>📺 Sistema 1: Aplicar em Temporada Específica</h3>
-        <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-          Escolha <b>qual temporada</b> receberá o link. Assim você aplica link diferente em cada uma.
-        </p>
-        <div class="row">
-          <div><label>Temporada Alvo</label><select id="seriesSeasonSelect"></select></div>
-          <div><label>Modo de Aplicação</label>
-            <select id="seriesApplyMode">
-              <option value="selected">Apenas Temporada Selecionada</option>
-              <option value="all">Todas as Temporadas</option>
-            </select>
-          </div>
-          <div style="flex:0;display:flex;align-items:flex-end"><button class="blue" onclick="applyTemplateToSeasons()">⚡ Aplicar Template</button></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB: DETECT -->
-    <div id="tab_detect" class="hidden">
-      <div class="tool-card highlight-purple">
-        <h3>🎯 Sistema 2: Detectar Variáveis Automaticamente</h3>
-        <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-          Cole <b>um</b> link de episódio. O sistema vai reconhecer o padrão e perguntar se quer converter para template.
-        </p>
-        <div class="row">
-          <div style="flex:3"><label>Link de Exemplo</label><input id="seriesExampleUrl" placeholder="https://latino.solo-latino.com/.../Dexter-Resurrection/1"></div>
-          <div style="flex:0;display:flex;align-items:flex-end"><button class="purple" onclick="detectarVariaveisSeries()">🔍 Detectar</button></div>
-        </div>
-        <div id="detectedInfo" class="hidden mt" style="padding:10px;background:rgba(0,0,0,.4);border-radius:8px;font-size:.75rem;font-family:ui-monospace,monospace;color:var(--cyan)"></div>
-      </div>
-    </div>
-
-    <!-- TAB: MANUAL -->
-    <div id="tab_manual" class="hidden">
-      <div class="tool-card highlight-green">
-        <h3>✏️ Sistema 3: Edição Manual dos Episódios</h3>
-        <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-          Edite o link de cada episódio individualmente. Cole o link que quiser em qualquer campo abaixo.
-        </p>
-        <div class="row">
-          <button class="ghost mini" onclick="fillAllEmptyFromTemplate()">⚡ Preencher Vazios</button>
-          <button class="ghost mini" onclick="clearAllEpisodeInputs()">🗑️ Limpar Todos</button>
-          <button class="ghost mini" onclick="saveSeriesFromInputs()">💾 Salvar dos Inputs</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB: NO SEASON -->
-    <div id="tab_noseason" class="hidden">
-      <div class="tool-card highlight-cyan">
-        <h3>🔍 Sistema 4: Detectar Série de 1 Temporada</h3>
-        <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-          Se o link <b>não tem número de temporada</b> (só <code>/{episode}</code>), o sistema aplica automaticamente na T1.
-        </p>
-        <div class="row">
-          <div style="flex:3"><label>Link sem temporada (ex: .../Serie/1)</label><input id="seriesNoSeasonUrl" placeholder="https://.../Overflow/1"></div>
-          <div style="flex:0;display:flex;align-items:flex-end"><button class="ghost" onclick="detectarNoSeason()">🔍 Detectar</button></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB: AUTO REFRESH -->
-    <div id="tab_auto" class="hidden">
-      <div class="tool-card highlight-amber">
-        <h3>⏱️ Auto-Refresh (Atualização Automática)</h3>
-        <p style="font-size:.72rem;color:var(--txt2);margin-bottom:10px">
-          Configure de quantos em quantos <b>minutos</b> o sistema deve re-extrair os links de TODOS os episódios.
-        </p>
-        <div class="minute-picker" id="seriesRefreshMinutes">
-          <div class="minute-option" data-min="1"><div class="mo-val">1</div><div class="mo-label">min</div></div>
+      <div>
+        <label>Intervalo de Atualização</label>
+        <div class="minute-picker" id="autoIntervalPicker">
+          <div class="minute-option active" data-min="1"><div class="mo-val">1</div><div class="mo-label">min</div></div>
           <div class="minute-option" data-min="2"><div class="mo-val">2</div><div class="mo-label">min</div></div>
-          <div class="minute-option active" data-min="5"><div class="mo-val">5</div><div class="mo-label">min</div></div>
+          <div class="minute-option" data-min="5"><div class="mo-val">5</div><div class="mo-label">min</div></div>
           <div class="minute-option" data-min="10"><div class="mo-val">10</div><div class="mo-label">min</div></div>
-          <div class="minute-option" data-min="15"><div class="mo-val">15</div><div class="mo-label">min</div></div>
           <div class="minute-option" data-min="30"><div class="mo-val">30</div><div class="mo-label">min</div></div>
-          <div class="minute-option" data-min="60"><div class="mo-val">60</div><div class="mo-label">min</div></div>
         </div>
+      </div>
+    </div>
+
+    <div class="row mt">
+      <div><label>Prefixo mgeb neste ID?</label>
+        <select id="autoPrefix"><option value="yes">🌐 Sim (mgeb.space)</option><option value="no">🔗 Não (link direto)</option></select>
+      </div>
+      <div style="flex:0;display:flex;align-items:flex-end">
+        <button onclick="addAutoUqload()" id="btnAddAuto">➕ Adicionar Auto-Refresh</button>
+      </div>
+    </div>
+
+    <!-- Lista de fontes monitoradas -->
+    <div id="autoListContainer" class="mt" style="display:none">
+      <h3 style="font-size:.9rem;color:#10b981;margin-bottom:10px">📡 Fontes em Auto-Refresh:</h3>
+      <div id="autoList"></div>
+    </div>
+
+    <div class="progress-log" id="autoLog"></div>
+  </div>
+
+  <!-- TMDB -->
+  <div class="card">
+    <h2>🆕 Adicionar Conteúdo (TMDB)</h2>
+    <div class="row">
+      <div><label>Tipo</label><select id="type"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+      <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" placeholder="ex: 969681"></div>
+      <div style="flex:0;display:flex;align-items:flex-end"><button onclick="fetchContent()">Buscar</button></div>
+    </div>
+  </div>
+
+  <!-- Resultado -->
+  <div class="card hidden" id="resultCard">
+    <h2 id="resultTitle">📝 Conteúdo carregado</h2>
+    <div class="preview" id="preview"></div>
+
+    <div id="seriesTools" class="hidden">
+      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px;border:1px solid rgba(229,57,53,.5);">
+        <h2>🕷️ ALL Seekee (Turbo)</h2>
+        <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
+          Cole <b>qualquer link</b> da série (T1 ou T2+). O sistema lerá o HTML, tentará todos os proxies, extrairá links de temporadas, fará força bruta se necessário e buscará cada episódio.
+        </p>
+        
+        <div class="row">
+          <div style="flex:3"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://latino.solo-latino.com/.../Dexter-Resurrection/1"></div>
+          <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrapeTudo()" id="btnScrapeAll">🕷️ Varrer Tudo</button></div>
+        </div>
+        
         <div class="row mt">
-          <div><label>Ou personalizado (minutos)</label><input type="number" id="seriesCustomMinutes" placeholder="Ex: 7" min="1" max="1440"></div>
-          <div style="flex:0;display:flex;align-items:flex-end">
-            <button class="amber" onclick="activateSeriesAutoRefresh()" id="btnActivateSeriesAuto">⏱️ Ativar Auto-Refresh</button>
+          <div>
+            <label>Prefixar links?</label>
+            <select id="bulkPrefix"><option value="yes">Sim (mgeb.space)</option><option value="no">Não</option></select>
+          </div>
+          <div>
+            <label>Limite Temporadas (TMDB)</label>
+            <input type="number" id="tmdbMaxSeasons" value="10" readonly style="background:rgba(0,0,0,.2);cursor:not-allowed;color:#a1a1aa;">
           </div>
         </div>
-        <div id="seriesAutoStatus" class="mt" style="font-size:.75rem;padding:10px;border-radius:8px;background:rgba(0,0,0,.4);display:none"></div>
+        
+        <div class="progress-log" id="scrapeLog"></div>
+      </div>
+
+      <!-- Manual -->
+      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px;">
+        <details>
+          <summary style="font-size:1rem;color:#e53935;font-weight:700;text-transform:uppercase;">⚡ Gerador Manual por Temporada</summary>
+          <div style="padding-top:10px" class="mt">
+            <div class="row">
+              <div style="flex:1;min-width:150px;"><label>Modo</label>
+                <select id="applyMode"><option value="single">Apenas Temporada Selecionada</option><option value="all">Em Todas as Temporadas</option></select>
+              </div>
+              <div style="flex:1;min-width:150px;" id="seasonSelectWrap"><label>Temporada Alvo</label><select id="targetSeason"></select></div>
+              <div style="flex:2"><label>Link de Exemplo</label><input id="exampleUrl" placeholder="https://peliculaplay.com/.../Slime/1"></div>
+              <div style="flex:0;display:flex;align-items:flex-end"><button class="ghost" onclick="detectarVariaveis()">🔍 Detectar</button></div>
+            </div>
+            <div class="row mt"><div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{episode}"></div></div>
+            <button class="mt" onclick="aplicarLinks()">⚡ Aplicar Links</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <!-- LISTA EDITÁVEL DE EPISÓDIOS (SEMPRE VISÍVEL) -->
-    <div class="tool-card mt">
-      <h3>📋 Lista de Episódios (Clique para Editar)</h3>
-      <div id="seriesEpisodesList" class="episode-list">
-        <div style="text-align:center;padding:20px;color:var(--txt3)">Carregue uma série do TMDB primeiro</div>
-      </div>
-    </div>
+    <div id="episodesArea" class="mt"></div>
 
-    <div class="log-box" id="seriesLogBox"></div>
-  </div>
-
-  <!-- MONITOR -->
-  <div class="card hidden" id="monitorCard">
-    <h2><div class="icon">📊</div>Monitor em Tempo Real</h2>
-    <div class="status-monitor">
-      <div class="status-item" id="stSource"><span class="label">Status</span><span class="value" id="stSourceValue">—</span></div>
-      <div class="status-item" id="stLink"><span class="label">Link Final</span><span class="value" id="stLinkValue">—</span></div>
-      <div class="status-item" id="stProxy"><span class="label">Proxy</span><span class="value" id="stProxyValue">—</span></div>
-      <div class="status-item" id="stMode"><span class="label">Modo</span><span class="value" id="stModeValue">—</span></div>
-    </div>
-    <div class="countdown-container">
-      <div class="countdown-ring" id="countdownRing" style="--pct:0deg">
-        <div class="inner">
-          <div class="num" id="countdownNum">--</div>
-          <div class="unit">segundos</div>
-        </div>
-      </div>
-      <div class="countdown-info">
-        <h4>⏱️ Próxima Atualização Auto-Refresh</h4>
-        <p>
-          Última: <span class="last-run" id="lastRun">—</span><br>
-          Próxima: <span class="next-run" id="nextRun">—</span>
-        </p>
-        <p style="margin-top:8px;font-size:.72rem;color:var(--txt3)">
-          Configure o intervalo na seção de Auto-Refresh acima
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODES GRID -->
-  <div class="card hidden" id="modesCard">
-    <h2><div class="icon">🎯</div>Modos de Extração (Cascata)</h2>
-    <div class="modes-grid" id="modesGrid"></div>
-  </div>
-
-  <!-- PROXIES -->
-  <div class="card hidden" id="proxiesCard">
-    <h2><div class="icon">🌐</div>Proxies <span class="badge-tag" id="proxyCount">0/12</span></h2>
-    <div class="proxy-grid" id="proxyGrid"></div>
-    <div class="row mt"><button class="ghost" onclick="checkAllProxies()" id="btnCheckProxies">🔍 Verificar Todos</button></div>
-  </div>
-
-  <!-- SOURCES MONITORADAS -->
-  <div class="card hidden" id="sourcesCard">
-    <h2><div class="icon">📡</div>Fontes Monitoradas <span class="badge-tag" id="sourcesCount">0</span></h2>
-    <div class="sources-list" id="sourcesList"></div>
     <div class="row mt">
-      <button class="ghost" onclick="forceRefreshAllSources()">🔄 Refresh Todas</button>
-      <button class="ghost" onclick="clearAllSources()">🗑️ Limpar Todas</button>
-    </div>
-  </div>
-
-  <!-- SAVE -->
-  <div class="card hidden" id="saveCard">
-    <h2><div class="icon">💾</div>Ações Finais</h2>
-    <div class="row">
-      <button class="success" onclick="saveToCatalog()">💾 Salvar no Catálogo</button>
+      <button onclick="saveToCatalog()" id="btnSave">💾 Salvar no catálogo</button>
       <button class="ghost" onclick="downloadCatalog()">📥 Baixar catalog.json</button>
-      <button class="ghost" onclick="resetAll()">🗑️ Limpar Tudo</button>
+      <button class="ghost" onclick="resetForm()">🗑️ Limpar</button>
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="card hidden" id="statsCard">
-    <h2><div class="icon">📈</div>Estatísticas</h2>
-    <div class="stats-grid">
-      <div class="stat-box"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total</div></div>
-      <div class="stat-box"><div class="stat-value" id="statSuccess">0</div><div class="stat-label">Sucessos</div></div>
-      <div class="stat-box"><div class="stat-value" id="statFailed">0</div><div class="stat-label">Falhas</div></div>
-      <div class="stat-box"><div class="stat-value" id="statExtracted">0</div><div class="stat-label">Extraídos</div></div>
-      <div class="stat-box"><div class="stat-value" id="statDirect">0</div><div class="stat-label">Diretos</div></div>
-      <div class="stat-box"><div class="stat-value" id="statAutoRefresh">0</div><div class="stat-label">Auto-Refresh</div></div>
-    </div>
-  </div>
-
-  <!-- LOG -->
-  <div class="card hidden" id="logCard">
-    <h2><div class="icon">📋</div>Log Global</h2>
-    <div class="log-box show" id="logBox"></div>
-    <div class="row mt">
-      <button class="ghost mini" onclick="clearLog()">🗑️ Limpar</button>
-      <button class="ghost mini" onclick="downloadLog()">📥 Baixar</button>
+  <!-- Editar -->
+  <div class="card">
+    <h2>✏️ Editar Conteúdo</h2>
+    <div class="row">
+      <div><label>Tipo</label><select id="editType"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+      <div style="flex:2"><label>ID do TMDB</label><input id="editId" placeholder="ex: 969681"></div>
+      <div style="flex:0;display:flex;align-items:flex-end"><button onclick="loadForEdit()">Carregar</button></div>
     </div>
   </div>
 </div>
@@ -1010,187 +227,66 @@ button.icon-btn{padding:8px;width:36px;height:36px;border-radius:8px;display:inl
 <div class="toast" id="toast"></div>
 
 <script>
-// ================================================================
+// ============================================================
 // CONFIGURAÇÕES GLOBAIS
-// ================================================================
+// ============================================================
 const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
 const HEADERS_TMDB = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
 const LANG = "pt-BR";
 const PREFIX = "https://mgeb.space/mp4.php?url=";
-const STORAGE_KEYS = {
-  github: "kiraflix_gh_v5",
-  stats: "kiraflix_stats_v5",
-  log: "kiraflix_log_v5",
-  settings: "kiraflix_settings_v5",
-  sources: "kiraflix_sources_v5",
-  perIdPrefix: "kiraflix_perid_v5"
-};
 
-// ================================================================
-// ESTADO GLOBAL
-// ================================================================
-const state = {
-  current: null,
-  catalog: { movies: {}, series: {} },
-  catalogSha: null,
-  stats: { total: 0, success: 0, failed: 0, extracted: 0, direct: 0, autoRefresh: 0, modes: {} },
-  proxies: [],
-  log: [],
-  activeModes: ["uqload", "generic", "json", "base64", "js_var", "iframe", "video_tag", "data_attr", "source_tag", "meta_tag", "unpacker", "hex_decode"],
-  currentProxy: null,
-  prefixEnabled: true,
-  movieMode: "extract",
-  seriesMode: "extract",
-  // v5 NOVOS:
-  perIdPrefix: {},          // { tmdbId: true/false }
-  movieRefreshMinutes: 5,
-  seriesRefreshMinutes: 5,
-  activeMovieRefresh: null, // { timerId, source, nextRun }
-  activeSeriesRefresh: null,
-  sources: [],              // Fontes monitoradas
-  countdownTimers: {}
-};
-
-// ================================================================
-// 12 PROXIES
-// ================================================================
-const PROXIES_DEFAULT = [
-  { id: "allorigins", name: "AllOrigins", url: "https://api.allorigins.win/raw?url=", alive: null, priority: 1, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "corsproxy_io", name: "CORSProxy.io", url: "https://corsproxy.io/?", alive: null, priority: 2, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "codetabs", name: "CodeTabs", url: "https://api.codetabs.com/v1/proxy?quest=", alive: null, priority: 3, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "thingproxy", name: "ThingProxy", url: "https://thingproxy.freeboard.io/fetch/", alive: null, priority: 4, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "yacdn", name: "Yacdn", url: "https://yacdn.org/proxy/", alive: null, priority: 5, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "cors_anywhere", name: "CORS Anywhere", url: "https://cors-anywhere.herokuapp.com/", alive: null, priority: 6, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "cors_sh", name: "Proxy.cors.sh", url: "https://proxy.cors.sh/", alive: null, priority: 7, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "cors_lol", name: "API.cors.lol", url: "https://api.cors.lol/?url=", alive: null, priority: 8, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "cors_proxy_org", name: "CORS Proxy Org", url: "https://corsproxy.org/?", alive: null, priority: 9, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "whateverorigin", name: "WhateverOrigin", url: "http://www.whateverorigin.org/get?url=", alive: null, priority: 10, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "crossorigin", name: "CrossOrigin.me", url: "https://crossorigin.me/", alive: null, priority: 11, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 },
-  { id: "jsonp_afeld", name: "JSONP.afeld", url: "https://jsonp.afeld.me/?url=", alive: null, priority: 12, lastCheck: 0, avgTime: 0, successCount: 0, failCount: 0 }
+const PROXIES = [
+  { name: "allorigins", url: "https://api.allorigins.win/raw?url=" },
+  { name: "corsproxy.io", url: "https://corsproxy.io/?" },
+  { name: "codetabs", url: "https://api.codetabs.com/v1/proxy?quest=" },
+  { name: "thingproxy", url: "https://thingproxy.freeboard.io/fetch/" },
+  { name: "yacdn", url: "https://yacdn.org/proxy/" },
+  { name: "cors-anywhere", url: "https://cors-anywhere.herokuapp.com/" }
 ];
+let currentProxyIndex = 0;
 
-// ================================================================
-// 12 MODOS DE EXTRAÇÃO
-// ================================================================
-const EXTRACTION_MODES = [
-  { id: "uqload", icon: "🎯", name: "Uqload", desc: "Padrões customizados Uqload", fn: extractModeUqload },
-  { id: "generic", icon: "🔍", name: "Genérico", desc: "Qualquer .mp4/.m3u8", fn: extractModeGeneric },
-  { id: "json", icon: "📦", name: "JSON", desc: "__NEXT_DATA__, __NUXT__", fn: extractModeJson },
-  { id: "base64", icon: "🔐", name: "Base64", desc: "Decodifica atob()", fn: extractModeBase64 },
-  { id: "js_var", icon: "📜", name: "JS Var", desc: "video_url, file_url", fn: extractModeJsVar },
-  { id: "iframe", icon: "🖼️", name: "Iframe", desc: "src de player externo", fn: extractModeIframe },
-  { id: "video_tag", icon: "📹", name: "Video Tag", desc: "<video src> e <source>", fn: extractModeVideoTag },
-  { id: "data_attr", icon: "🏷️", name: "Data Attr", desc: "data-src, data-url", fn: extractModeDataAttr },
-  { id: "source_tag", icon: "🎞️", name: "Source", desc: "<source src>", fn: extractModeSourceTag },
-  { id: "meta_tag", icon: "🔖", name: "Meta Tag", desc: "og:video, twitter:stream", fn: extractModeMetaTag },
-  { id: "unpacker", icon: "📦", name: "JS Unpacker", desc: "eval(p,a,c,k,e,d)", fn: extractModeUnpacker },
-  { id: "hex_decode", icon: "🔢", name: "Hex Decode", desc: "Strings \\xNN", fn: extractModeHexDecode }
-];
+let current = null;
+let catalog = { movies: {}, series: {} };
+let catalogSha = null;
 
-// ================================================================
-// UTILITÁRIOS
-// ================================================================
+// Auto-refresh Uqload
+let autoSources = []; // { id, uqloadUrl, tmdbId, type, interval, prefix, timerId, lastRun, nextRun, currentLink }
+let autoLogEntries = [];
+let autoIntervalDefault = 1;
+let currentProxyForAuto = 0;
+
 const $ = id => document.getElementById(id);
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-function showLoading(msg) { $("loadingMsg").textContent = msg || "Processando..."; $("loadingOverlay").classList.add("show"); }
-function hideLoading() { $("loadingOverlay").classList.remove("show"); }
-
-function toast(msg, type) {
+// ============================================================
+// UTILS
+// ============================================================
+function toast(msg, err) {
   const t = $("toast");
   t.textContent = msg;
-  t.className = "toast show" + (type ? " " + type : "");
+  t.classList.toggle("err", !!err);
+  t.classList.add("show");
   clearTimeout(t._t);
   t._t = setTimeout(() => t.classList.remove("show"), 4000);
 }
 
-function log(msg, type) {
-  const el = { text: msg, type: type || "info", ts: Date.now() };
-  state.log.push(el);
-  if (state.log.length > 1000) state.log.shift();
-  renderLog();
-}
-
-function renderLog() {
-  const box = $("logBox");
-  if (!box) return;
-  box.innerHTML = state.log.slice(-150).map(l => {
-    const time = new Date(l.ts).toLocaleTimeString();
-    return `<div class="log-line ${l.type}">[${time}] ${escapeHtml(l.text)}</div>`;
-  }).join("");
-  box.scrollTop = box.scrollHeight;
-}
-
-function logBox(msg, type, boxId) {
-  const box = $(boxId);
-  if (!box) return;
-  box.classList.add("show");
-  const time = new Date().toLocaleTimeString();
+function logMsg(msg, type, logId = "scrapeLog") {
+  const log = $(logId);
+  if (!log) return;
+  log.classList.add("show");
   const div = document.createElement("div");
-  div.className = "log-line " + (type || "info");
-  div.textContent = `[${time}] ${msg}`;
-  box.appendChild(div);
-  box.scrollTop = box.scrollHeight;
+  if (type === 'success') div.className = 'log-success';
+  else if (type === 'error') div.className = 'log-error';
+  else if (type === 'warn') div.className = 'log-warn';
+  else if (type === 'info') div.className = 'log-info';
+  else if (type === 'title') div.className = 'log-title';
+  div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
 }
 
-function clearLog() { state.log = []; renderLog(); toast("Log limpo"); }
-
-function downloadLog() {
-  const txt = state.log.map(l => `[${new Date(l.ts).toISOString()}] [${l.type.toUpperCase()}] ${l.text}`).join("\n");
-  const blob = new Blob([txt], { type: "text/plain" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `kiraflix-log-${Date.now()}.txt`;
-  a.click();
-}
-
-function saveState() {
-  try {
-    localStorage.setItem(STORAGE_KEYS.stats, JSON.stringify(state.stats));
-    localStorage.setItem(STORAGE_KEYS.log, JSON.stringify(state.log.slice(-500)));
-    localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify({
-      prefixEnabled: state.prefixEnabled,
-      movieMode: state.movieMode,
-      seriesMode: state.seriesMode,
-      movieRefreshMinutes: state.movieRefreshMinutes,
-      seriesRefreshMinutes: state.seriesRefreshMinutes
-    }));
-    localStorage.setItem(STORAGE_KEYS.perIdPrefix, JSON.stringify(state.perIdPrefix));
-  } catch(e) {}
-}
-
-function loadState() {
-  try {
-    const stats = JSON.parse(localStorage.getItem(STORAGE_KEYS.stats) || "null");
-    if (stats) state.stats = stats;
-    const log = JSON.parse(localStorage.getItem(STORAGE_KEYS.log) || "[]");
-    if (log.length) state.log = log;
-    const settings = JSON.parse(localStorage.getItem(STORAGE_KEYS.settings) || "null");
-    if (settings) {
-      state.prefixEnabled = settings.prefixEnabled !== false;
-      state.movieMode = settings.movieMode || "extract";
-      state.seriesMode = settings.seriesMode || "extract";
-      state.movieRefreshMinutes = settings.movieRefreshMinutes || 5;
-      state.seriesRefreshMinutes = settings.seriesRefreshMinutes || 5;
-    }
-    const perId = JSON.parse(localStorage.getItem(STORAGE_KEYS.perIdPrefix) || "{}");
-    state.perIdPrefix = perId;
-  } catch(e) {}
-}
-
-// ================================================================
-// BUILD FINAL URL (Com per-ID override)
-// ================================================================
-function buildFinalUrl(url, tmdbId = null) {
+function buildFinalUrl(url, prefixOn) {
   if (!url) return "";
-  // Verifica override por ID
-  let usePrefix = state.prefixEnabled;
-  if (tmdbId && state.perIdPrefix[tmdbId] !== undefined) {
-    usePrefix = state.perIdPrefix[tmdbId];
-  }
-
-  if (!usePrefix) {
+  if (!prefixOn) {
     if (url.startsWith(PREFIX)) return url.substring(PREFIX.length);
     return url;
   }
@@ -1198,115 +294,12 @@ function buildFinalUrl(url, tmdbId = null) {
   return PREFIX + url;
 }
 
-// ================================================================
-// PREFIXO GLOBAL
-// ================================================================
-function toggleGlobalPrefix() {
-  state.prefixEnabled = !state.prefixEnabled;
-  updatePrefixUI();
-  saveState();
-  toast(state.prefixEnabled ? "🌐 Prefixo GLOBAL ATIVADO" : "🔗 Prefixo GLOBAL DESATIVADO", "success");
-}
-
-function updatePrefixUI() {
-  const card = $("prefixToggleCard"), sw = $("prefixSwitch"), icon = $("prefixIcon"), value = $("prefixValue"), desc = $("prefixDesc");
-  if (state.prefixEnabled) {
-    card.className = "global-toggle active";
-    sw.className = "toggle-switch on";
-    icon.textContent = "🌐"; icon.style.color = "var(--green)"; icon.style.background = "rgba(16,185,129,.2)";
-    value.textContent = "ATIVADO";
-    desc.textContent = "Links recebem https://mgeb.space/mp4.php?url=";
-  } else {
-    card.className = "global-toggle inactive";
-    sw.className = "toggle-switch off";
-    icon.textContent = "🔗"; icon.style.color = "var(--amber)"; icon.style.background = "rgba(245,158,11,.2)";
-    value.textContent = "DESATIVADO";
-    desc.textContent = "Links são usados puros, sem wrapper";
-  }
-}
-
-// ================================================================
-// PREFIXO POR ID
-// ================================================================
-function togglePerIdPrefix() {
-  $("perIdPrefixCard").classList.toggle("hidden");
-}
-
-function addPerIdPrefix() {
-  const id = $("perIdPrefixInput").value.trim();
-  const val = $("perIdPrefixValue").value;
-  if (!id) return toast("Informe o ID do TMDB", "err");
-  state.perIdPrefix[id] = (val === "on");
-  saveState();
-  renderPerIdPrefixList();
-  $("perIdPrefixInput").value = "";
-  toast(`✔ ID ${id}: prefixo ${val === "on" ? "ON" : "OFF"}`);
-}
-
-function removePerIdPrefix(id) {
-  delete state.perIdPrefix[id];
-  saveState();
-  renderPerIdPrefixList();
-  updatePerIdBadge();
-  toast(`Removido: ${id}`);
-}
-
-function renderPerIdPrefixList() {
-  const list = $("perIdPrefixList");
-  const entries = Object.entries(state.perIdPrefix);
-  if (entries.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:12px;color:var(--txt3);font-size:.8rem">Nenhum override configurado</div>';
-    return;
-  }
-  list.innerHTML = entries.map(([id, enabled]) => `
-    <div class="id-prefix-item">
-      <span class="id-badge">ID ${escapeHtml(id)}</span>
-      <span class="id-title">Prefixo ${enabled ? "ATIVADO" : "DESATIVADO"}</span>
-      <span class="id-toggle ${enabled ? 'on' : 'off'}">${enabled ? "🌐 ON" : "🔗 OFF"}</span>
-      <button class="ghost mini" onclick="removePerIdPrefix('${escapeHtml(id)}')">🗑️</button>
-    </div>
-  `).join("");
-}
-
-function updatePerIdBadge() {
-  const badge = $("perIdPrefixBadge");
-  if (!badge || !state.current) return;
-  const id = state.current.id;
-  if (state.perIdPrefix[id] !== undefined) {
-    badge.textContent = state.perIdPrefix[id] ? "Prefixo: ID ON" : "Prefixo: ID OFF";
-    badge.style.background = state.perIdPrefix[id] ? "rgba(16,185,129,.2)" : "rgba(245,158,11,.2)";
-    badge.style.color = state.perIdPrefix[id] ? "var(--green)" : "var(--amber)";
-  } else {
-    badge.textContent = "Prefixo: Global";
-    badge.style.background = "rgba(255,255,255,.1)";
-    badge.style.color = "var(--txt2)";
-  }
-}
-
-// ================================================================
-// MODE SELECTORS
-// ================================================================
-function selectMode(mode) {
-  state.movieMode = mode;
-  $("modeExtract").className = "mode-option" + (mode === "extract" ? " active" : "");
-  $("modeDirect").className = "mode-option" + (mode === "direct" ? " active-blue" : "");
-  $("defaultModeValue").textContent = mode === "extract" ? "EXTRAÇÃO" : "URL DIRETA";
-  saveState();
-}
-
-function selectSeriesMode(mode) {
-  state.seriesMode = mode;
-  $("seriesModeExtract").className = "mode-option" + (mode === "extract" ? " active" : "");
-  $("seriesModeDirect").className = "mode-option" + (mode === "direct" ? " active-blue" : "");
-  saveState();
-}
-
-// ================================================================
-// GITHUB
-// ================================================================
+// ============================================================
+// GITHUB CONFIG
+// ============================================================
 function getGithubConfig() {
   try {
-    const cfg = JSON.parse(localStorage.getItem(STORAGE_KEYS.github) || "null");
+    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
     if (!cfg || !cfg.owner || !cfg.repo || !cfg.token) return null;
     return cfg;
   } catch(e) { return null; }
@@ -1314,33 +307,33 @@ function getGithubConfig() {
 
 function saveGithubConfig() {
   const cfg = { owner: $("ghOwner").value.trim(), repo: $("ghRepo").value.trim(), token: $("ghToken").value.trim() };
-  if (!cfg.owner || !cfg.repo || !cfg.token) return toast("Preencha os 3 campos", "err");
-  localStorage.setItem(STORAGE_KEYS.github, JSON.stringify(cfg));
-  $("ghTag").style.display = "inline-block";
+  if (!cfg.owner || !cfg.repo || !cfg.token) return toast("Preencha os 3 campos", true);
+  localStorage.setItem("kiraflix_gh", JSON.stringify(cfg));
+  $("ghStatus").style.display = "inline-block";
   toast("✔ GitHub configurado");
 }
 
 async function testGithubConnection() {
   const cfg = getGithubConfig();
-  if (!cfg) return toast("Salve primeiro", "err");
-  const btn = $("btnTest");
-  btn.innerHTML = 'Testando<span class="spinner"></span>';
-  btn.disabled = true;
+  if (!cfg) return toast("Salve a configuração primeiro.", true);
+  $("btnTest").innerHTML = 'Testando...<span class="spinner"></span>';
   try {
     const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}`, {
       headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
     });
-    if (res.status === 401) throw new Error("Token inválido");
-    if (res.status === 404) throw new Error("Repo não encontrado");
+    if (res.status === 401) throw new Error("Token inválido (401).");
+    if (res.status === 404) throw new Error("Repositório não encontrado (404).");
     if (!res.ok) throw new Error(`Erro ${res.status}`);
-    toast("✔ Conexão OK!");
-    log("GitHub conectado", "success");
+    const catRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+    });
+    if (catRes.status === 404) toast("✔ Repo encontrado! O catalog.json será criado.");
+    else if (!catRes.ok) throw new Error(`Erro ao ler catalog.json: ${catRes.status}`);
+    else toast("✔ Tudo certo!");
   } catch (err) {
-    toast("❌ " + err.message, "err");
-    log("GitHub erro: " + err.message, "error");
+    toast("❌ " + err.message, true);
   } finally {
-    btn.innerHTML = '🧪 Testar';
-    btn.disabled = false;
+    $("btnTest").innerHTML = '🧪 Testar Conexão';
   }
 }
 
@@ -1350,23 +343,22 @@ function loadGithubConfig() {
     $("ghOwner").value = cfg.owner;
     $("ghRepo").value = cfg.repo;
     $("ghToken").value = cfg.token;
-    $("ghTag").style.display = "inline-block";
+    $("ghStatus").style.display = "inline-block";
   }
 }
+loadGithubConfig();
 
-// ================================================================
-// TMDB
-// ================================================================
-async function fetchFromTMDB() {
-  const type = $("tmdbType").value;
+// ============================================================
+// TMDB FETCH
+// ============================================================
+async function fetchContent() {
+  const type = $("type").value;
   const id = $("tmdbId").value.trim();
-  if (!id) return toast("Informe o ID do TMDB", "err");
-  showLoading(`Buscando ${type === "movie" ? "filme" : "série"} #${id}...`);
-  log(`Buscando TMDB: ${type}/${id}`, "info");
+  if (!id) return toast("Informe o ID do TMDB", true);
   try {
     const endpoint = type === "movie" ? "movie" : "tv";
     const res = await fetch(`https://api.themoviedb.org/3/${endpoint}/${id}?language=${LANG}`, { headers: HEADERS_TMDB });
-    if (!res.ok) throw new Error("TMDB " + res.status);
+    if (!res.ok) throw new Error("Não encontrado");
     const data = await res.json();
 
     let ageRating = "";
@@ -1379,7 +371,6 @@ async function fetchFromTMDB() {
     } catch(e){}
 
     const base = {
-      id, type,
       title: data.title || data.name || "",
       overview: data.overview || "",
       poster: data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "",
@@ -1391,10 +382,11 @@ async function fetchFromTMDB() {
     };
 
     if (type === "movie") {
-      state.current = { ...base, source: "", subtitles: {} };
+      current = { type: "movie", id, data: base, source: "", subtitles: {} };
     } else {
       const seasons = [];
       const seasonList = (data.seasons || []).filter(s => s.season_number > 0);
+      toast(`Carregando ${seasonList.length} temporadas do TMDB...`);
       for (const s of seasonList) {
         const sr = await fetch(`https://api.themoviedb.org/3/tv/${id}/season/${s.season_number}?language=${LANG}`, { headers: HEADERS_TMDB });
         const sd = await sr.json();
@@ -1405,204 +397,614 @@ async function fetchFromTMDB() {
             number: ep.episode_number,
             label: `Episódio ${ep.episode_number}`,
             title: ep.name || "",
-            source: "", sourceMode: "pending", subtitles: {}
+            source: "",
+            subtitles: {}
           }))
         });
       }
-      state.current = { ...base, seasons };
+      current = { type: "series", id, data: base, seasons };
+      updateSeasonSelect();
+      $("tmdbMaxSeasons").value = Math.max(...current.seasons.map(s => s.number));
     }
 
     renderPreview();
-    showMainCards();
-    updatePerIdBadge();
-    log(`TMDB: ${base.title}`, "success");
-    toast(`✔ ${base.title}`);
+    $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
+    toast("✔ Conteúdo carregado");
   } catch (err) {
-    log("Erro TMDB: " + err.message, "error");
-    toast("Erro: " + err.message, "err");
-  } finally { hideLoading(); }
-}
-
-function renderPreview() {
-  if (!state.current) return;
-  const c = state.current;
-  $("moviePreviewCard").classList.remove("hidden");
-  $("previewPoster").src = c.poster || "";
-  $("previewPoster").alt = c.title;
-  $("previewTitle").textContent = c.title;
-  $("previewTmdbId").textContent = c.id;
-  $("previewType").textContent = c.type === "movie" ? "Filme" : "Série";
-  const meta = [];
-  if (c.year) meta.push(`<span class="tag year">${c.year}</span>`);
-  if (c.rating) meta.push(`<span class="tag rating">★ ${c.rating.toFixed(1)}</span>`);
-  if (c.ageRating) meta.push(`<span class="tag age">${c.ageRating}</span>`);
-  if (c.genres?.length) meta.push(`<span class="tag">${c.genres.slice(0, 3).join(", ")}</span>`);
-  $("previewMeta").innerHTML = meta.join("");
-  $("previewOverview").textContent = c.overview || "Sem sinopse disponível.";
-}
-
-function showMainCards() {
-  const isMovie = state.current.type === "movie";
-  $("modeSelectorCard").classList.remove("hidden");
-  $("movieInputCard").classList.toggle("hidden", !isMovie);
-  $("seriesInputCard").classList.toggle("hidden", isMovie);
-  ["monitorCard", "modesCard", "proxiesCard", "sourcesCard", "saveCard", "statsCard", "logCard"].forEach(id => $(id).classList.remove("hidden"));
-  if (isMovie) {
-    selectMode(state.movieMode);
-    updateMovieRefreshUI();
-  } else {
-    selectSeriesMode(state.seriesMode);
-    populateSeasonSelect();
-    updateSeriesList();
-    updateSeriesRefreshUI();
+    toast("Erro: " + err.message, true);
   }
-  renderModes();
-  renderProxies();
-  renderSources();
-  renderStats();
-  renderLog();
 }
 
-function closePreview() {
-  ["moviePreviewCard", "modeSelectorCard", "movieInputCard", "seriesInputCard", "monitorCard", "modesCard", "proxiesCard", "sourcesCard", "saveCard", "statsCard", "logCard"].forEach(id => $(id).classList.add("hidden"));
+// ============================================================
+// FETCH COM PROXIES
+// ============================================================
+async function fetchWithProxy(url, retries = 3) {
+  for (let i = 0; i < PROXIES.length; i++) {
+    const idx = (currentProxyIndex + i) % PROXIES.length;
+    const proxy = PROXIES[idx];
+    for (let r = 0; r < retries; r++) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(proxy.url + encodeURIComponent(url), {
+          headers: { 'Accept': 'text/html,application/xhtml+xml,application/xml' },
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          currentProxyIndex = idx;
+          return res;
+        }
+      } catch(e) {}
+      await new Promise(r => setTimeout(r, 500));
+    }
+  }
+  return null;
 }
 
-// ================================================================
-// SEASON SELECT
-// ================================================================
-function populateSeasonSelect() {
-  if (!state.current || state.current.type !== "series") return;
-  const sel = $("seriesSeasonSelect");
+// ============================================================
+// EXTRAÇÃO DE VÍDEO (10 padrões)
+// ============================================================
+function extrairVideoDoHtml(html, fallbackUrl) {
+  // 1. Uqload - sources[]
+  let m1 = html.match(/sources\s*:\s*\[\s*["']([^"']+\.mp4[^"']*)["']\s*\]/i);
+  if (m1) return { url: m1[1].replace(/\\\//g, '/'), tipo: "Uqload sources[]" };
+
+  // 2. Uqload - sources [{file}]
+  let m2 = html.match(/sources\s*:\s*\[\s*\{\s*["']?file["']?\s*:\s*["']([^"']+\.mp4[^"']*)["']/i);
+  if (m2) return { url: m2[1].replace(/\\\//g, '/'), tipo: "Uqload sources[{file}]" };
+
+  // 3. file: "..."
+  let m3 = html.match(/file\s*:\s*["']([^"']+\.mp4[^"']*)["']/i);
+  if (m3) return { url: m3[1].replace(/\\\//g, '/'), tipo: "file:" };
+
+  // 4. "file": "..."
+  let m4 = html.match(/"file"\s*:\s*"([^"]+\.mp4[^"]*)"/i);
+  if (m4) return { url: m4[1].replace(/\\\//g, '/'), tipo: '"file":' };
+
+  // 5. .mp4 genérico
+  let m5 = html.match(/https?:\/\/[^"'\s\\]+?\.(?:mp4|m3u8)(?:\?[^"'\s\\]*)?/i);
+  if (m5) return { url: m5[0], tipo: "MP4/HLS Direto" };
+
+  // 6. Iframe
+  let m6 = html.match(/<iframe[^>]+(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i);
+  if (m6) {
+    let u = m6[1];
+    if (u.startsWith('//')) u = 'https:' + u;
+    return { url: u, tipo: "Iframe Embed" };
+  }
+
+  // 7. JSON interno
+  let m7 = html.match(/["'](?:video_url|file_url|stream_url|source_url|videoUrl|fileUrl)["']\s*:\s*["']([^"']+)["']/i);
+  if (m7) return { url: m7[1].replace(/\\\//g, '/'), tipo: "JSON Interno" };
+
+  // 8. data-* attributes
+  let m8 = html.match(/data-(?:src|url|video|file|stream|source)\s*=\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+  if (m8) return { url: m8[1], tipo: "Data Attribute" };
+
+  // 9. <source src>
+  let m9 = html.match(/<source[^>]+src\s*=\s*["']([^"']+)["']/i);
+  if (m9) return { url: m9[1], tipo: "Source Tag" };
+
+  // 10. Fallback: página
+  return { url: fallbackUrl, tipo: "Fallback Página" };
+}
+
+// ============================================================
+// 🆕 AUTO-REFRESH UQLOAD
+// ============================================================
+
+// Setup interval picker
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#autoIntervalPicker .minute-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('#autoIntervalPicker .minute-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      autoIntervalDefault = parseInt(opt.dataset.min, 10);
+    });
+  });
+
+  // Load auto sources do localStorage
+  try {
+    const saved = JSON.parse(localStorage.getItem('kiraflix_auto_uqload') || '[]');
+    autoSources = saved.map(s => ({ ...s, timerId: null }));
+    if (autoSources.length > 0) {
+      renderAutoList();
+      startAllTimers();
+    }
+  } catch(e) {}
+});
+
+function saveAutoSources() {
+  const toSave = autoSources.map(s => ({
+    id: s.id, uqloadUrl: s.uqloadUrl, tmdbId: s.tmdbId, type: s.type,
+    interval: s.interval, prefix: s.prefix, lastRun: s.lastRun, nextRun: s.nextRun
+  }));
+  localStorage.setItem('kiraflix_auto_uqload', JSON.stringify(toSave));
+}
+
+async function addAutoUqload() {
+  const url = $("autoUqloadUrl").value.trim();
+  const tmdbId = $("autoTmdbId").value.trim();
+  const type = $("autoType").value;
+  const prefix = $("autoPrefix").value === "yes";
+
+  if (!url) return toast("Cole a URL do Uqload", true);
+  if (!tmdbId) return toast("Informe o ID do TMDB", true);
+  if (!url.includes("uqload")) return toast("URL inválida (use Uqload)", true);
+
+  if (autoSources.some(s => s.uqloadUrl === url && s.tmdbId === tmdbId)) {
+    return toast("Já existe essa fonte monitorada", true);
+  }
+
+  const source = {
+    id: 'auto_' + Date.now(),
+    uqloadUrl: url,
+    tmdbId: tmdbId,
+    type: type,
+    interval: autoIntervalDefault,
+    prefix: prefix,
+    timerId: null,
+    lastRun: 0,
+    nextRun: 0,
+    currentLink: null,
+    status: 'pending'
+  };
+
+  autoSources.push(source);
+  saveAutoSources();
+  renderAutoList();
+  $("autoUqloadUrl").value = "";
+  $("autoTmdbId").value = "";
+  $("autoListContainer").style.display = "block";
+  $("autoLog").classList.add("show");
+
+  logMsg(`➕ Auto-Refresh adicionado: ${tmdbId} (a cada ${source.interval} min)`, "success", "autoLog");
+
+  // Executa primeira vez IMEDIATAMENTE
+  await runAutoRefresh(source);
+
+  // Inicia timer
+  startTimerForSource(source);
+
+  toast(`✔ Auto-Refresh ativo para ID ${tmdbId}`);
+}
+
+function startTimerForSource(source) {
+  if (source.timerId) clearInterval(source.timerId);
+
+  const intervalMs = source.interval * 60 * 1000;
+
+  // Agenda próxima execução
+  const scheduleNext = () => {
+    source.nextRun = Date.now() + intervalMs;
+    saveAutoSources();
+    updateCountdownUI(source);
+  };
+
+  scheduleNext();
+
+  // Timer com Date.now() (corrige bug de congelamento)
+  source.timerId = setInterval(async () => {
+    if (Date.now() >= source.nextRun) {
+      await runAutoRefresh(source);
+      scheduleNext();
+    } else {
+      updateCountdownUI(source);
+    }
+  }, 1000);
+}
+
+function startAllTimers() {
+  autoSources.forEach(source => {
+    if (!source.timerId) startTimerForSource(source);
+  });
+}
+
+function updateCountdownUI(source) {
+  const el = document.querySelector(`.auto-item[data-id="${source.id}"] .ai-countdown`);
+  if (!el) return;
+  const remaining = Math.max(0, Math.ceil((source.nextRun - Date.now()) / 1000));
+  el.textContent = remaining + "s";
+}
+
+async function runAutoRefresh(source) {
+  logMsg(`🔄 Atualizando ID ${source.tmdbId}...`, "title", "autoLog");
+  source.status = "checking";
+  renderAutoList();
+
+  try {
+    // Busca HTML do Uqload
+    let proxyIdx = currentProxyForAuto;
+    let html = null;
+
+    for (let i = 0; i < PROXIES.length; i++) {
+      const idx = (proxyIdx + i) % PROXIES.length;
+      const proxy = PROXIES[idx];
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        const res = await fetch(proxy.url + encodeURIComponent(source.uqloadUrl), {
+          headers: { 'Accept': 'text/html' },
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          html = await res.text();
+          currentProxyForAuto = idx;
+          logMsg(`✓ Proxy ${proxy.name} respondeu`, "success", "autoLog");
+          break;
+        }
+      } catch(e) {}
+    }
+
+    if (!html) throw new Error("Todos os proxies falharam");
+
+    logMsg(`HTML: ${html.length} bytes`, "info", "autoLog");
+
+    // Extrai link
+    const extracted = extrairVideoDoHtml(html, source.uqloadUrl);
+    logMsg(`✓ Extraído via: ${extracted.tipo}`, "success", "autoLog");
+
+    // Aplica prefixo se necessário
+    const finalLink = buildFinalUrl(extracted.url, source.prefix);
+    source.currentLink = finalLink;
+    source.status = "active";
+    source.lastRun = Date.now();
+
+    logMsg(`🔗 Link: ${finalLink.slice(0, 80)}...`, "success", "autoLog");
+
+    // Salva no catalog.json
+    await saveAutoToCatalog(source, finalLink);
+
+    renderAutoList();
+    updateCountdownUI(source);
+  } catch (err) {
+    source.status = "error";
+    logMsg(`❌ Erro: ${err.message}`, "error", "autoLog");
+    renderAutoList();
+  }
+}
+
+async function saveAutoToCatalog(source, link) {
+  const cfg = getGithubConfig();
+  if (!cfg) {
+    logMsg(`⚠ GitHub não configurado - link não salvo`, "warn", "autoLog");
+    return;
+  }
+
+  try {
+    // Carrega catalog.json atualizado
+    const catUrl = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`;
+    const res = await fetch(catUrl, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+    });
+
+    let catData = { movies: {}, series: {} };
+    let sha = null;
+
+    if (res.ok) {
+      const file = await res.json();
+      try {
+        const raw = file.content.replace(/\n/g, "");
+        catData = JSON.parse(decodeURIComponent(escape(atob(raw))));
+        sha = file.sha;
+      } catch(e) {}
+    }
+
+    // Atualiza
+    if (source.type === "movie") {
+      if (!catData.movies[source.tmdbId]) catData.movies[source.tmdbId] = {};
+      catData.movies[source.tmdbId].source = link;
+      catData.movies[source.tmdbId].lastAutoUpdate = new Date().toISOString();
+    } else {
+      if (!catData.series[source.tmdbId]) catData.series[source.tmdbId] = { seasons: [] };
+      let s1 = catData.series[source.tmdbId].seasons.find(x => x.number === 1);
+      if (!s1) {
+        s1 = { number: 1, label: "Temporada 1", episodes: [] };
+        catData.series[source.tmdbId].seasons.push(s1);
+      }
+      let e1 = s1.episodes.find(x => x.number === 1);
+      if (!e1) {
+        e1 = { number: 1, label: "Episódio 1", source: link };
+        s1.episodes.push(e1);
+      } else {
+        e1.source = link;
+      }
+    }
+
+    // Salva
+    const jsonStr = JSON.stringify(catData, null, 2);
+    const content = btoa(unescape(encodeURIComponent(jsonStr)));
+    const body = { message: `Auto-refresh ${source.tmdbId} (${new Date().toLocaleTimeString()})`, content };
+    if (sha) body.sha = sha;
+
+    const put = await fetch(catUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${cfg.token}`,
+        Accept: "application/vnd.github.v3+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (put.ok) {
+      logMsg(`✅ Salvo no catalog.json (ID ${source.tmdbId})`, "success", "autoLog");
+    } else {
+      throw new Error("GitHub PUT falhou");
+    }
+  } catch (err) {
+    logMsg(`⚠ Erro ao salvar no GitHub: ${err.message}`, "warn", "autoLog");
+  }
+}
+
+function renderAutoList() {
+  const list = $("autoList");
+  if (!list) return;
+
+  if (autoSources.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:15px;color:#71717a;font-size:.85rem">Nenhuma fonte em auto-refresh</div>';
+    return;
+  }
+
+  list.innerHTML = autoSources.map(s => {
+    const remaining = Math.max(0, Math.ceil((s.nextRun - Date.now()) / 1000));
+    const statusClass = s.status === 'active' ? 'active' : s.status === 'error' ? 'error' : '';
+    const statusLabel = s.status === 'active' ? '✔ Ativa' : s.status === 'error' ? '✗ Erro' : '⏳ Aguardando';
+    const statusColor = s.status === 'active' ? '#10b981' : s.status === 'error' ? '#ef4444' : '#f59e0b';
+    
+    return `
+      <div class="auto-item ${statusClass}" data-id="${s.id}">
+        <div class="ai-countdown" style="color:${statusColor}">${remaining}s</div>
+        <div class="ai-info">
+          <div class="ai-title">ID ${s.tmdbId} • ${s.type === 'movie' ? '🎬 Filme' : '📺 Série'}</div>
+          <div class="ai-url">${escapeHtml(s.uqloadUrl)}</div>
+          <div class="ai-meta">
+            <span class="timer">⏱ ${s.interval} min</span>
+            <span class="link-status" style="color:${statusColor};background:${s.status === 'active' ? 'rgba(16,185,129,.2)' : s.status === 'error' ? 'rgba(239,68,68,.2)' : 'rgba(245,158,11,.2)'}">${statusLabel}</span>
+            <span class="next">🌐 ${s.prefix ? 'mgeb ON' : 'link puro'}</span>
+            ${s.currentLink ? `<span class="link-status" style="background:rgba(96,165,250,.2);color:#60a5fa" title="${escapeHtml(s.currentLink)}">🔗 ${s.currentLink.slice(0,30)}...</span>` : ''}
+          </div>
+        </div>
+        <div class="ai-actions">
+          <button class="ghost" onclick="forceRefreshAuto('${s.id}')" title="Forçar atualização">🔄</button>
+          <button class="ghost" onclick="removeAutoSource('${s.id}')" style="color:#ef4444" title="Remover">✕</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function forceRefreshAuto(id) {
+  const source = autoSources.find(s => s.id === id);
+  if (!source) return;
+  logMsg(`🔄 Forçando atualização manual: ${source.tmdbId}`, "info", "autoLog");
+  await runAutoRefresh(source);
+  source.nextRun = Date.now() + source.interval * 60 * 1000;
+  saveAutoSources();
+  updateCountdownUI(source);
+}
+
+function removeAutoSource(id) {
+  const idx = autoSources.findIndex(s => s.id === id);
+  if (idx < 0) return;
+  const source = autoSources[idx];
+  if (source.timerId) clearInterval(source.timerId);
+  autoSources.splice(idx, 1);
+  saveAutoSources();
+  renderAutoList();
+  logMsg(`🗑 Removido: ID ${source.tmdbId}`, "warn", "autoLog");
+  if (autoSources.length === 0) {
+    $("autoListContainer").style.display = "none";
+  }
+  toast("Auto-Refresh removido");
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Atualiza countdowns a cada 1 segundo
+setInterval(() => {
+  autoSources.forEach(s => {
+    if (s.nextRun > 0) updateCountdownUI(s);
+  });
+}, 1000);
+
+// ============================================================
+// ALL SEEKEE (mantido)
+// ============================================================
+async function autoScrapeTudo() {
+  let initialUrl = $("scrapeUrl").value.trim();
+  if (!initialUrl) return toast("Cole o link da série", true);
+  if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro.", true);
+
+  if (initialUrl.includes("mgeb.space/mp4.php?url=")) {
+    initialUrl = initialUrl.split("mgeb.space/mp4.php?url=")[1];
+  }
+
+  const maxSeasonsTMDB = parseInt($("tmdbMaxSeasons").value, 10) || 1;
+  const shouldPrefix = $("bulkPrefix").value === "yes";
+
+  $("scrapeLog").innerHTML = "";
+  const btn = $("btnScrapeAll");
+  btn.disabled = true;
+  btn.innerHTML = 'Raspando...<span class="spinner"></span>';
+
+  const domain = new URL(initialUrl).origin;
+  let urlBase = initialUrl.replace(/\/\d+\/?$/, "").replace(/-Season-\d+$/i, "").replace(/-Temporada-\d+$/i, "");
+  const slugMatch = urlBase.match(/\/([^\/]+)$/);
+  const slug = slugMatch ? slugMatch[1] : "";
+  const hashPrefix = slug.substring(0, 8);
+
+  logMsg(`🕷️ Iniciando raspagem em: ${domain}`, 'title');
+  logMsg(`📌 Slug base: ${slug}`, 'info');
+
+  let seasonUrls = {};
+
+  // Passo 1: HTML
+  try {
+    const res = await fetchWithProxy(initialUrl);
+    if (res) {
+      const html = await res.text();
+      logMsg(`✅ HTML baixado (${html.length} bytes)`, 'success');
+
+      const linkRegex = /href=["']([^"']+)["']/gi;
+      let match;
+      while ((match = linkRegex.exec(html)) !== null) {
+        let url = match[1];
+        if (url.startsWith('/')) url = domain + url;
+        if (!url.startsWith('http')) continue;
+        let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
+        if (cleanUrl.includes(hashPrefix)) {
+          let sNum = 1;
+          const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
+          if (sMatch) sNum = parseInt(sMatch[1], 10);
+          if (sNum <= maxSeasonsTMDB && !seasonUrls[sNum]) {
+            seasonUrls[sNum] = cleanUrl;
+            logMsg(`🔗 T${sNum}: ${cleanUrl}`, 'success');
+          }
+        }
+      }
+    }
+  } catch(e) {
+    logMsg(`⚠️ Falha ao ler HTML: ${e.message}`, 'warn');
+  }
+
+  // Passo 2: Força bruta
+  logMsg(`💪 Força bruta para temporadas faltantes...`, 'title');
+  const patterns = [
+    (s) => s === 1 ? urlBase : `${urlBase}-Season-${s}`,
+    (s) => s === 1 ? urlBase : `${urlBase}-Temporada-${s}`,
+    (s) => `${urlBase}/${s}`,
+    (s) => `${urlBase}/temporada-${s}`,
+    (s) => `${urlBase}/tp/${s}`
+  ];
+
+  for (let s = 1; s <= maxSeasonsTMDB; s++) {
+    if (seasonUrls[s]) continue;
+    for (const p of patterns) {
+      let testUrl = p(s) + "/1";
+      try {
+        const res = await fetchWithProxy(testUrl);
+        if (res) {
+          const text = await res.text();
+          if (text.length > 1000 && !text.match(/<title>.*404.*<\/title>/i)) {
+            seasonUrls[s] = p(s);
+            logMsg(`✔️ T${s}: ${p(s)}`, 'success');
+            break;
+          }
+        }
+      } catch(e) {}
+    }
+  }
+
+  // Passo 3: Episódios
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let totalEpisodios = 0;
+
+  for (let s = 1; s <= maxSeasonsTMDB; s++) {
+    if (!seasonUrls[s]) continue;
+    logMsg(`📺 T${s}: ${seasonUrls[s]}`, 'title');
+    let epNum = 1;
+    let fails = 0;
+
+    while (epNum <= 200) {
+      let epUrl = `${seasonUrls[s]}/${epNum}`;
+      try {
+        const res = await fetchWithProxy(epUrl);
+        if (!res) { fails++; if (fails >= 3) break; continue; }
+
+        const html = await res.text();
+        if (html.match(/<title>.*404.*<\/title>/i)) break;
+
+        const videoData = extrairVideoDoHtml(html, epUrl);
+        let finalUrl = videoData.url;
+        if (shouldPrefix && !finalUrl.startsWith(PREFIX)) finalUrl = PREFIX + finalUrl;
+
+        let sObj = current.seasons.find(x => x.number === s);
+        if (!sObj) { sObj = { number: s, label: `Temporada ${s}`, episodes: [] }; current.seasons.push(sObj); }
+
+        let eObj = sObj.episodes.find(x => x.number === epNum);
+        if (eObj) eObj.source = finalUrl;
+        else sObj.episodes.push({ number: epNum, label: `Episódio ${epNum}`, title: "", source: finalUrl, subtitles: {} });
+
+        totalEpisodios++;
+        logMsg(`✔️ T${s} E${epNum} [${videoData.tipo}]`, 'success');
+        fails = 0;
+        epNum++;
+        await sleep(150);
+      } catch (err) { break; }
+    }
+  }
+
+  if (totalEpisodios > 0) {
+    current.seasons.sort((a,b) => a.number - b.number);
+    renderPreview();
+    toast(`✔️ ${totalEpisodios} episódios encontrados`);
+    logMsg(`✅ FIM! ${totalEpisodios} eps`, 'success');
+  } else {
+    toast("Nenhum episódio encontrado", true);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '🕷️ Varrer Tudo';
+}
+
+// ============================================================
+// PREVIEW / EDIÇÃO / CATALOG
+// ============================================================
+function updateSeasonSelect() {
+  const sel = $("targetSeason");
+  if (!sel) return;
   sel.innerHTML = "";
-  state.current.seasons.forEach(s => {
+  if (!current || current.type !== "series") return;
+  current.seasons.forEach((s, idx) => {
     const opt = document.createElement("option");
-    opt.value = s.number;
-    opt.textContent = `${s.label} (${s.episodes.length} eps)`;
+    opt.value = idx;
+    opt.textContent = s.label;
     sel.appendChild(opt);
   });
 }
 
-// ================================================================
-// SISTEMA 2: DETECTAR VARIÁVEIS
-// ================================================================
-function detectarVariaveisSeries() {
-  let url = $("seriesExampleUrl").value.trim();
-  if (!url) return toast("Cole um link de exemplo", "err");
+function detectarVariaveis() {
+  let url = $("exampleUrl").value.trim();
+  if (!url) return toast("Cole um link de exemplo", true);
   if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
 
-  const info = $("detectedInfo");
   const original = url;
   let template = "";
-  let type = "";
 
-  const patternA = url.match(/^(.*(?:Season|Temporada)[-_ ]?)(\d+)(\/)(\d+)(\/?.*)$/i);
-  if (patternA) {
-    template = patternA[1] + "{season}" + patternA[3] + "{episode}" + patternA[5];
-    type = "Múltiplas temporadas (Season-X/{ep})";
+  const regexSeasonText = /((?:Season|Temporada)[-_ ]?)(\d+)(\/)(\d+)/i;
+  if (regexSeasonText.test(url)) {
+    url = url.replace(regexSeasonText, '$1{season}$3{episode}');
   } else {
-    const patternB = url.match(/^(.*\/)(\d+)(\/)(\d+)(\/?.*)$/);
-    if (patternB) {
-      template = patternB[1] + "{season}" + patternB[3] + "{episode}" + patternB[5];
-      type = "Múltiplas temporadas (/{season}/{ep})";
+    const regexNumbers = /\/(\d+)\/(\d+)(\/|$|\?)/;
+    if (regexNumbers.test(url)) {
+      url = url.replace(regexNumbers, '/{season}/{episode}$3');
     } else {
-      const patternC = url.match(/^(.*\/)(\d+)(\/?.*)$/);
-      if (patternC) {
-        template = patternC[1] + "{episode}" + patternC[3];
-        type = "1 temporada só (/{ep})";
-      }
+      const regexEp = /\/(\d+)(\/|$|\?)/;
+      if (regexEp.test(url)) url = url.replace(regexEp, '/{episode}$2');
     }
   }
 
-  if (!template) {
-    info.style.display = "block";
-    info.style.background = "rgba(239,68,68,.15)";
-    info.style.color = "var(--red2)";
-    info.innerHTML = "❌ Não foi possível detectar o padrão.";
-    return;
-  }
-
-  info.style.display = "block";
-  info.style.background = "rgba(16,185,129,.15)";
-  info.style.color = "var(--green)";
-  info.innerHTML = `✅ <b>Padrão:</b> ${type}<br><b>Template:</b> <code style="background:rgba(0,0,0,.4);padding:2px 6px;border-radius:4px">${escapeHtml(template)}</code>`;
-
-  if (confirm(`✅ Padrão detectado: ${type}\n\nTemplate:\n${template}\n\nDeseja aplicar?`)) {
-    $("seriesUrlTemplate").value = template;
-    updateTemplateStatus();
-    updateSeriesList();
-    toast("✔ Template aplicado!");
-  }
+  if (url === original) toast("⚠️ Não detectado", true);
+  else { $("bulkTemplate").value = url; toast("✔️ Variáveis detectadas!"); }
 }
 
-function updateTemplateStatus() {
-  const tpl = $("seriesUrlTemplate").value.trim();
-  const status = $("templateStatus");
-  if (!tpl) { status.style.display = "none"; return; }
-  status.style.display = "block";
-  if (tpl.includes("{season}") && tpl.includes("{episode}")) {
-    status.style.background = "rgba(16,185,129,.15)";
-    status.style.color = "var(--green)";
-    status.innerHTML = "✅ Template completo: substitui {season} e {episode}";
-  } else if (tpl.includes("{episode}")) {
-    status.style.background = "rgba(6,182,212,.15)";
-    status.style.color = "var(--cyan)";
-    status.innerHTML = "ℹ️ Template de 1 temporada: só substitui {episode}";
-  } else {
-    status.style.background = "rgba(239,68,68,.15)";
-    status.style.color = "var(--red2)";
-    status.innerHTML = "❌ Template inválido: falta {episode}";
-  }
-}
+function aplicarLinks() {
+  if (!current || current.type !== "series") return;
+  const mode = $("applyMode").value;
+  const seasonIdx = parseInt($("targetSeason").value, 10);
+  const template = $("bulkTemplate").value.trim();
+  const shouldPrefix = $("bulkPrefix").value === "yes";
 
-// ================================================================
-// SISTEMA 4: LINK SEM TEMPORADA
-// ================================================================
-function detectarNoSeason() {
-  let url = $("seriesNoSeasonUrl").value.trim();
-  if (!url) return toast("Cole o link", "err");
-  if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+  if (!template) return toast("Cole a URL Template", true);
+  if (!template.includes("{episode}")) return toast("Falta {episode}", true);
 
-  const m = url.match(/^(.*\/)(\d+)(\/?.*)$/);
-  if (!m) return toast("Link não reconhecido", "err");
-
-  const template = m[1] + "{episode}" + m[3];
-  $("seriesUrlTemplate").value = template;
-  updateTemplateStatus();
-
-  if (!state.current || state.current.type !== "series") return toast("Carregue uma série primeiro", "err");
-  const season1 = state.current.seasons.find(s => s.number === 1);
-  if (!season1) return toast("Série não tem temporada 1", "err");
-
-  season1.episodes.forEach(ep => {
-    ep.source = buildFinalUrl(template.replace(/{episode}/g, ep.number), state.current.id);
-    ep.sourceMode = "direct";
-  });
-  updateSeriesList();
-  toast(`✔ Aplicado na Temporada 1 (${season1.episodes.length} eps)`);
-  log(`Sistema 4: ${season1.episodes.length} eps preenchidos na T1`, "success");
-}
-
-// ================================================================
-// SISTEMA 1: APLICAR EM TEMPORADA
-// ================================================================
-function applyTemplateToSeasons() {
-  if (!state.current || state.current.type !== "series") return toast("Carregue uma série", "err");
-  const template = $("seriesUrlTemplate").value.trim();
-  if (!template) return toast("Cole um template", "err");
-  if (!template.includes("{episode}")) return toast("Template precisa ter {episode}", "err");
-
-  const applyMode = $("seriesApplyMode").value;
-  const targetSeason = parseInt($("seriesSeasonSelect").value, 10);
-
-  let seasonsToApply = [];
-  if (applyMode === "all") {
-    seasonsToApply = state.current.seasons;
-  } else {
-    const s = state.current.seasons.find(x => x.number === targetSeason);
-    if (!s) return toast("Temporada não encontrada", "err");
-    seasonsToApply = [s];
-  }
-
+  let seasonsToApply = mode === "all" ? current.seasons : [current.seasons[seasonIdx]];
   const hasSeasonVar = template.includes("{season}");
   let count = 0;
 
@@ -1611,855 +1013,15 @@ function applyTemplateToSeasons() {
       let url = template;
       if (hasSeasonVar) url = url.replace(/{season}/g, season.number);
       url = url.replace(/{episode}/g, ep.number);
-      ep.source = buildFinalUrl(url, state.current.id);
-      ep.sourceMode = "direct";
+      if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+      if (shouldPrefix) url = PREFIX + url;
+      ep.source = url;
       count++;
     });
   });
 
-  updateSeriesList();
-  if (applyMode === "all") {
-    toast(`✔ ${seasonsToApply.length} temporadas (${count} eps)`);
-  } else {
-    toast(`✔ ${seasonsToApply[0].label}: ${count} episódios`);
-  }
-  log(`Sistema 1: ${count} eps em ${seasonsToApply.length} temp`, "success");
-}
-
-// ================================================================
-// SISTEMA 3: EDIÇÃO MANUAL
-// ================================================================
-function updateSeriesList() {
-  if (!state.current || state.current.type !== "series") return;
-  const container = $("seriesEpisodesList");
-  if (!container) return;
-
-  const template = $("seriesUrlTemplate").value.trim();
-  let html = "";
-
-  state.current.seasons.forEach((s, si) => {
-    html += `<div class="season-header">
-      <span>${escapeHtml(s.label)}</span>
-      <span style="font-size:.7rem;color:var(--txt2)">${s.episodes.length} eps</span>
-    </div>`;
-    s.episodes.forEach((ep, ei) => {
-      const currentSrc = ep.source || "";
-      const placeholder = template ? template.replace(/{season}/g, s.number).replace(/{episode}/g, ep.number) : "";
-      const modeLabel = ep.sourceMode === "extracted" ? "🔍 Extraído" : ep.sourceMode === "direct" ? "🔗 Direto" : ep.sourceMode === "failed" ? "❌ Falhou" : "⏳ Pendente";
-      const modeClass = ep.sourceMode === "extracted" ? "extract" : ep.sourceMode === "direct" ? "direct" : ep.sourceMode === "failed" ? "failed" : "pending";
-      html += `
-        <div class="episode-row" data-si="${si}" data-ei="${ei}">
-          <span class="ep-badge">S${s.number} E${ep.number}</span>
-          <input type="text" class="ep-url-input" data-si="${si}" data-ei="${ei}" value="${escapeHtml(currentSrc)}" placeholder="${escapeHtml(placeholder || 'Cole a URL do episódio')}">
-          <span class="ep-mode ${modeClass}">${modeLabel}</span>
-        </div>
-      `;
-    });
-  });
-
-  container.innerHTML = html || '<div style="text-align:center;padding:20px;color:var(--txt3)">Cole o template acima</div>';
-
-  container.querySelectorAll(".ep-url-input").forEach(input => {
-    input.addEventListener("input", () => {
-      const si = parseInt(input.dataset.si, 10);
-      const ei = parseInt(input.dataset.ei, 10);
-      const season = state.current.seasons[si];
-      if (season && season.episodes[ei]) {
-        season.episodes[ei].source = input.value.trim();
-        season.episodes[ei].sourceMode = input.value.trim() ? "direct" : "pending";
-      }
-    });
-  });
-}
-
-function fillAllEmptyFromTemplate() {
-  if (!state.current || state.current.type !== "series") return;
-  const template = $("seriesUrlTemplate").value.trim();
-  if (!template) return toast("Cole um template", "err");
-
-  const hasSeasonVar = template.includes("{season}");
-  let count = 0;
-
-  state.current.seasons.forEach(season => {
-    season.episodes.forEach(ep => {
-      if (!ep.source || !ep.source.trim()) {
-        let url = template;
-        if (hasSeasonVar) url = url.replace(/{season}/g, season.number);
-        url = url.replace(/{episode}/g, ep.number);
-        ep.source = buildFinalUrl(url, state.current.id);
-        ep.sourceMode = "direct";
-        count++;
-      }
-    });
-  });
-
-  updateSeriesList();
-  toast(`✔ ${count} episódios preenchidos`);
-}
-
-function clearAllEpisodeInputs() {
-  if (!state.current || state.current.type !== "series") return;
-  if (!confirm("Limpar todos os links?")) return;
-  state.current.seasons.forEach(season => {
-    season.episodes.forEach(ep => {
-      ep.source = "";
-      ep.sourceMode = "pending";
-    });
-  });
-  updateSeriesList();
-  toast("Todos os links limpos");
-}
-
-function saveSeriesFromInputs() {
-  if (!state.current || state.current.type !== "series") return toast("Carregue uma série", "err");
-  const inputs = document.querySelectorAll(".ep-url-input");
-  let count = 0;
-  inputs.forEach(input => {
-    const si = parseInt(input.dataset.si, 10);
-    const ei = parseInt(input.dataset.ei, 10);
-    const season = state.current.seasons[si];
-    if (season && season.episodes[ei]) {
-      const val = input.value.trim();
-      season.episodes[ei].source = val;
-      season.episodes[ei].sourceMode = val ? "direct" : "pending";
-      if (val) count++;
-    }
-  });
-  toast(`✔ ${count} eps salvos`);
-}
-
-// ================================================================
-// TAB SWITCH
-// ================================================================
-function switchSeriesTab(tab) {
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add("active");
-  ["tpl", "season", "detect", "manual", "noseason", "auto"].forEach(t => {
-    const el = $("tab_" + t);
-    if (el) el.classList.toggle("hidden", t !== tab);
-  });
-}
-
-// ================================================================
-// MINUTE PICKER
-// ================================================================
-function setupMinutePicker(pickerId, stateKey, customInputId) {
-  const picker = $(pickerId);
-  if (!picker) return;
-  picker.querySelectorAll(".minute-option").forEach(opt => {
-    opt.addEventListener("click", () => {
-      picker.querySelectorAll(".minute-option").forEach(o => o.classList.remove("active"));
-      opt.classList.add("active");
-      state[stateKey] = parseInt(opt.dataset.min, 10);
-      if (customInputId) $(customInputId).value = "";
-      saveState();
-      toast(`⏱️ Intervalo: ${state[stateKey]} min`);
-    });
-  });
-}
-
-// ================================================================
-// AUTO-REFRESH MOVIE (v5 NOVO)
-// ================================================================
-async function activateMovieAutoRefresh() {
-  if (!state.current || state.current.type !== "movie") return toast("Busque um filme", "err");
-  const url = $("movieUrlInput").value.trim();
-  if (!url) return toast("Cole a URL do vídeo", "err");
-
-  const custom = parseInt($("movieCustomMinutes").value, 10);
-  const minutes = (custom >= 1 && custom <= 1440) ? custom : state.movieRefreshMinutes;
-
-  if (state.activeMovieRefresh && state.activeMovieRefresh.timerId) {
-    clearInterval(state.activeMovieRefresh.timerId);
-  }
-
-  // Primeira execução imediata
-  await runMovieRefresh(url);
-
-  // Configura timer
-  const intervalMs = minutes * 60 * 1000;
-  const timerId = setInterval(async () => {
-    await runMovieRefresh(url);
-  }, intervalMs);
-
-  state.activeMovieRefresh = {
-    timerId,
-    url,
-    minutes,
-    nextRun: Date.now() + intervalMs,
-    lastRun: Date.now()
-  };
-
-  $("btnActivateMovieAuto").classList.add("success");
-  $("btnActivateMovieAuto").innerHTML = "✅ Auto-Refresh ATIVO";
-  $("movieAutoStatus").style.display = "block";
-  $("movieAutoStatus").innerHTML = `⏱️ <b>Auto-Refresh ativo:</b> a cada <b>${minutes} minuto(s)</b> o link será re-extraído.`;
-  $("movieAutoStatus").style.background = "rgba(16,185,129,.15)";
-  $("movieAutoStatus").style.color = "var(--green)";
-
-  startCountdown("movie_" + state.current.id, minutes * 60);
-  log(`Auto-Refresh filme ATIVO: ${minutes} min`, "success");
-  toast(`⏱️ Auto-Refresh ativo a cada ${minutes} min`);
-  saveState();
-}
-
-async function runMovieRefresh(url) {
-  if (!state.current || state.current.type !== "movie") return;
-  log(`⏱️ Auto-Refresh filme: ${state.current.title}`, "title");
-  state.stats.autoRefresh++;
-  const finalUrl = await extractLinkFromUrl(url, "movieLogBox");
-
-  if (finalUrl) {
-    state.current.source = finalUrl;
-    $("stSourceValue").textContent = "✔ Atualizado";
-    $("stSourceValue").className = "value ok";
-    $("stSource").className = "status-item ok";
-    $("stLinkValue").textContent = finalUrl.slice(0, 50) + "...";
-    $("stLinkValue").className = "value ok";
-    $("stLink").className = "status-item ok";
-    log(`⏱️ Link atualizado: ${finalUrl.slice(0, 60)}`, "success");
-
-    // Auto-save no catálogo se configurado
-    if (state.catalog.movies[state.current.id]) {
-      state.catalog.movies[state.current.id].source = finalUrl;
-      await pushToGithub();
-    }
-  } else {
-    $("stSourceValue").textContent = "✗ Falhou";
-    $("stSourceValue").className = "value err";
-    $("stSource").className = "status-item err";
-  }
-  renderStats();
-  saveState();
-}
-
-// ================================================================
-// AUTO-REFRESH SERIES (v5 NOVO)
-// ================================================================
-async function activateSeriesAutoRefresh() {
-  if (!state.current || state.current.type !== "series") return toast("Busque uma série", "err");
-  const template = $("seriesUrlTemplate").value.trim();
-  if (!template) return toast("Cole o template", "err");
-
-  const custom = parseInt($("seriesCustomMinutes").value, 10);
-  const minutes = (custom >= 1 && custom <= 1440) ? custom : state.seriesRefreshMinutes;
-
-  if (state.activeSeriesRefresh && state.activeSeriesRefresh.timerId) {
-    clearInterval(state.activeSeriesRefresh.timerId);
-  }
-
-  // Primeira execução imediata
-  await runSeriesRefresh(template);
-
-  const intervalMs = minutes * 60 * 1000;
-  const timerId = setInterval(async () => {
-    await runSeriesRefresh(template);
-  }, intervalMs);
-
-  state.activeSeriesRefresh = {
-    timerId,
-    template,
-    minutes,
-    nextRun: Date.now() + intervalMs,
-    lastRun: Date.now()
-  };
-
-  $("btnActivateSeriesAuto").classList.add("success");
-  $("btnActivateSeriesAuto").innerHTML = "✅ Auto-Refresh ATIVO";
-  $("seriesAutoStatus").style.display = "block";
-  $("seriesAutoStatus").innerHTML = `⏱️ <b>Auto-Refresh ativo:</b> a cada <b>${minutes} minuto(s)</b> todos os eps serão re-extraídos.`;
-  $("seriesAutoStatus").style.background = "rgba(16,185,129,.15)";
-  $("seriesAutoStatus").style.color = "var(--green)";
-
-  startCountdown("series_" + state.current.id, minutes * 60);
-  log(`Auto-Refresh série ATIVO: ${minutes} min`, "success");
-  toast(`⏱️ Auto-Refresh série ativo: ${minutes} min`);
-  saveState();
-}
-
-async function runSeriesRefresh(template) {
-  if (!state.current || state.current.type !== "series") return;
-  log(`⏱️ Auto-Refresh série: ${state.current.title}`, "title");
-  const hasSeasonVar = template.includes("{season}");
-  let successCount = 0;
-  let totalCount = 0;
-
-  for (const s of state.current.seasons) {
-    for (const ep of s.episodes) {
-      totalCount++;
-      let epUrl = template;
-      if (hasSeasonVar) epUrl = epUrl.replace(/{season}/g, s.number);
-      epUrl = epUrl.replace(/{episode}/g, ep.number);
-
-      try {
-        if (state.seriesMode === "extract") {
-          const res = await fetchWithProxy(epUrl);
-          if (res) {
-            const html = await res.text();
-            const result = await tryAllExtractionModes(html, epUrl, "seriesLogBox");
-            if (result && result.url) {
-              ep.source = buildFinalUrl(result.url, state.current.id);
-              ep.sourceMode = "extracted";
-              successCount++;
-            }
-          }
-        } else {
-          ep.source = buildFinalUrl(epUrl, state.current.id);
-          ep.sourceMode = "direct";
-          successCount++;
-        }
-      } catch (err) {
-        log(`Erro S${s.number}E${ep.number}: ${err.message}`, "error");
-      }
-      state.stats.autoRefresh++;
-      await sleep(80);
-    }
-  }
-
-  updateSeriesList();
-  state.stats.success += successCount;
-  log(`⏱️ Série atualizada: ${successCount}/${totalCount} eps`, successCount > 0 ? "success" : "warn");
-
-  // Auto-save no GitHub
-  if (state.catalog.series[state.current.id]) {
-    state.catalog.series[state.current.id].seasons = state.current.seasons;
-    await pushToGithub();
-  }
-  renderStats();
-  saveState();
-}
-
-function updateMovieRefreshUI() {
-  setupMinutePicker("movieRefreshMinutes", "movieRefreshMinutes", "movieCustomMinutes");
-}
-
-function updateSeriesRefreshUI() {
-  setupMinutePicker("seriesRefreshMinutes", "seriesRefreshMinutes", "seriesCustomMinutes");
-}
-
-// ================================================================
-// COUNTDOWN
-// ================================================================
-function startCountdown(sourceId, intervalSeconds) {
-  if (state.countdownTimers[sourceId]) clearInterval(state.countdownTimers[sourceId]);
-  const startTime = Date.now();
-  const endTime = startTime + intervalSeconds * 1000;
-
-  function tick() {
-    const now = Date.now();
-    const remaining = Math.max(0, Math.ceil((endTime - now) / 1000));
-    const pct = Math.min(360, (remaining / intervalSeconds) * 360);
-    $("countdownNum").textContent = remaining;
-    $("countdownRing").style.setProperty("--pct", pct + "deg");
-    $("lastRun").textContent = new Date(startTime).toLocaleTimeString();
-    $("nextRun").textContent = new Date(endTime).toLocaleTimeString();
-  }
-  tick();
-  state.countdownTimers[sourceId] = setInterval(tick, 1000);
-}
-
-// ================================================================
-// PROXIES
-// ================================================================
-function renderProxies() {
-  const grid = $("proxyGrid");
-  if (!grid) return;
-  grid.innerHTML = state.proxies.map(p => `
-    <div class="proxy-item ${p.alive === true ? "alive" : p.alive === false ? "dead" : "checking"}">
-      <div class="dot"></div>
-      <div class="name">${p.name}</div>
-    </div>
-  `).join("");
-  const alive = state.proxies.filter(p => p.alive === true).length;
-  $("proxyCount").textContent = `${alive}/${state.proxies.length}`;
-}
-
-async function checkAllProxies() {
-  const btn = $("btnCheckProxies");
-  btn.innerHTML = 'Verificando<span class="spinner"></span>';
-  btn.disabled = true;
-  log("Verificando proxies...", "title");
-  for (const proxy of state.proxies) {
-    proxy.alive = null;
-    renderProxies();
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
-      const start = Date.now();
-      const res = await fetch(proxy.url + encodeURIComponent("https://httpbin.org/get"), { signal: controller.signal });
-      clearTimeout(timeout);
-      proxy.alive = res.ok;
-      proxy.avgTime = Date.now() - start;
-      proxy.lastCheck = Date.now();
-      if (res.ok) { proxy.successCount++; log(`✓ ${proxy.name}`, "success"); }
-      else { proxy.failCount++; log(`✗ ${proxy.name}`, "error"); }
-    } catch (err) {
-      proxy.alive = false;
-      proxy.failCount++;
-      log(`✗ ${proxy.name}`, "error");
-    }
-    renderProxies();
-  }
-  btn.innerHTML = '🔍 Verificar Todos';
-  btn.disabled = false;
-  toast("Proxies verificados");
-}
-
-async function fetchWithProxy(url) {
-  const sorted = [...state.proxies].sort((a, b) => {
-    if (a.alive === true && b.alive !== true) return -1;
-    if (a.alive !== true && b.alive === true) return 1;
-    return a.priority - b.priority;
-  });
-  for (const proxy of sorted) {
-    if (proxy.alive === false && proxy.failCount > 3 && Date.now() - proxy.lastCheck < 300000) continue;
-    for (let r = 0; r < 2; r++) {
-      try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 15000);
-        const start = Date.now();
-        const res = await fetch(proxy.url + encodeURIComponent(url), { signal: controller.signal });
-        clearTimeout(timer);
-        if (res.ok) {
-          proxy.alive = true; proxy.successCount++; proxy.avgTime = Date.now() - start;
-          state.currentProxy = proxy;
-          updateProxyStatus(proxy);
-          return res;
-        } else proxy.failCount++;
-      } catch (err) { proxy.failCount++; }
-      await sleep(200);
-    }
-    proxy.alive = false;
-    proxy.lastCheck = Date.now();
-  }
-  state.currentProxy = null;
-  updateProxyStatus(null);
-  return null;
-}
-
-function updateProxyStatus(proxy) {
-  const el = $("stProxyValue"), item = $("stProxy");
-  if (!el) return;
-  if (proxy) { el.textContent = proxy.name; el.className = "value ok"; item.className = "status-item ok"; }
-  else { el.textContent = "Nenhum"; el.className = "value err"; item.className = "status-item err"; }
-}
-
-// ================================================================
-// MODES
-// ================================================================
-function renderModes() {
-  const grid = $("modesGrid");
-  if (!grid) return;
-  grid.innerHTML = EXTRACTION_MODES.map(m => `
-    <div class="mode-card ${state.activeModes.includes(m.id) ? 'active' : ''}" data-id="${m.id}">
-      <div class="mode-icon">${m.icon}</div>
-      <div class="mode-name">${m.name}</div>
-      <div class="mode-desc">${m.desc}</div>
-    </div>
-  `).join("");
-  grid.querySelectorAll(".mode-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const id = card.dataset.id;
-      const idx = state.activeModes.indexOf(id);
-      if (idx >= 0) state.activeModes.splice(idx, 1);
-      else state.activeModes.push(id);
-      renderModes();
-    });
-  });
-}
-
-// ================================================================
-// EXTRACTION FUNCTIONS
-// ================================================================
-function extractModeUqload(html) {
-  const patterns = [
-    /sources\s*:\s*\[\s*["']([^"']+\.mp4[^"']*)["']\s*\]/i,
-    /sources\s*:\s*\[\s*\{\s*["']?file["']?\s*:\s*["']([^"']+\.mp4[^"']*)["']/i,
-    /file\s*:\s*["']([^"']+\.mp4[^"']*)["']/i,
-    /"file"\s*:\s*["']([^"']+\.mp4[^"']*)["']/i,
-    /src\s*:\s*["']([^"']+\.mp4[^"']*)["']/i
-  ];
-  for (const p of patterns) {
-    const m = html.match(p);
-    if (m) return { url: (m[1] || m[0]).replace(/\\\//g, "/"), mode: "uqload" };
-  }
-  return null;
-}
-
-function extractModeGeneric(html) {
-  const m = html.match(/https?:\/\/[^"'\s\\<>]+?\.(?:mp4|m3u8)(?:\?[^"'\s\\<>]*)?/i);
-  if (m) return { url: m[0].replace(/\\\//g, "/"), mode: "generic" };
-  return null;
-}
-
-function extractModeJson(html) {
-  const regex = /<script[^>]*(?:type=["']application\/(?:ld\+)?json["']|id=["']__NEXT_DATA__["']|id=["']__NUXT__["'])[^>]*>([\s\S]*?)<\/script>/gi;
-  let match;
-  while ((match = regex.exec(html)) !== null) {
-    try {
-      const json = JSON.parse(match[1]);
-      const found = findVideoUrlInJson(json);
-      if (found) return { url: found, mode: "json" };
-    } catch(e){}
-  }
-  return null;
-}
-
-function findVideoUrlInJson(obj, depth = 0) {
-  if (depth > 15 || !obj) return null;
-  if (typeof obj === "string") return obj.match(/^https?:\/\/.+\.(?:mp4|m3u8)/i) ? obj : null;
-  if (Array.isArray(obj)) { for (const i of obj) { const f = findVideoUrlInJson(i, depth+1); if (f) return f; } }
-  else if (typeof obj === "object") { for (const k of Object.keys(obj)) { const f = findVideoUrlInJson(obj[k], depth+1); if (f) return f; } }
-  return null;
-}
-
-function extractModeBase64(html) {
-  for (const m of html.matchAll(/atob\s*\(\s*["']([A-Za-z0-9+\/=]{20,})["']\s*\)/g)) {
-    try { const d = atob(m[1]); if (d.match(/^https?:\/\/.+\.(?:mp4|m3u8)/i)) return { url: d, mode: "base64" }; } catch(e){}
-  }
-  return null;
-}
-
-function extractModeJsVar(html) {
-  const patterns = [
-    /(?:video_url|videoUrl|file_url|fileUrl|stream_url|streamUrl|source_url|sourceUrl)\s*[=:]\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i,
-    /var\s+\w+\s*=\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i
-  ];
-  for (const p of patterns) {
-    const m = html.match(p);
-    if (m) return { url: m[1].replace(/\\\//g, "/"), mode: "js_var" };
-  }
-  return null;
-}
-
-function extractModeIframe(html) {
-  const m = html.match(/<iframe[^>]+(?:src|data-src|data-lazy-src)\s*=\s*["']([^"']+)["']/i);
-  if (m) {
-    let u = m[1];
-    if (u.startsWith("//")) u = "https:" + u;
-    return { url: u, mode: "iframe" };
-  }
-  return null;
-}
-
-function extractModeVideoTag(html) {
-  let m = html.match(/<video[^>]+src\s*=\s*["']([^"']+)["']/i);
-  if (m) return { url: m[1], mode: "video_tag" };
-  m = html.match(/<video[^>]*>[\s\S]*?<source[^>]+src\s*=\s*["']([^"']+)["']/i);
-  if (m) return { url: m[1], mode: "video_tag" };
-  return null;
-}
-
-function extractModeDataAttr(html) {
-  const m = html.match(/data-(?:src|url|video|file|stream|source)\s*=\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
-  if (m) return { url: m[1], mode: "data_attr" };
-  return null;
-}
-
-function extractModeSourceTag(html) {
-  const m = html.match(/<source[^>]+src\s*=\s*["']([^"']+)["']/i);
-  if (m) return { url: m[1], mode: "source_tag" };
-  return null;
-}
-
-function extractModeMetaTag(html) {
-  const patterns = [
-    /<meta[^>]+property=["']og:video["'][^>]+content=["']([^"']+)["']/i,
-    /<meta[^>]+property=["']og:video:url["'][^>]+content=["']([^"']+)["']/i,
-    /<meta[^>]+property=["']twitter:player:stream["'][^>]+content=["']([^"']+)["']/i
-  ];
-  for (const p of patterns) {
-    const m = html.match(p);
-    if (m) return { url: m[1], mode: "meta_tag" };
-  }
-  return null;
-}
-
-function extractModeUnpacker(html) {
-  const m = html.match(/eval\(function\(p,a,c,k,e,[dr]\)\{[\s\S]+?\}\s*\(['"]([\s\S]+?)['"],(\d+),(\d+),['"]([\s\S]+?)['"]\.split\(['"]\|['"]\)/);
-  if (m) {
-    try {
-      const unpacked = unpackJs(m[1], parseInt(m[2]), parseInt(m[3]), m[4].split("|"));
-      const found = extractModeGeneric(unpacked);
-      if (found) return { url: found.url, mode: "unpacker" };
-    } catch(e){}
-  }
-  return null;
-}
-
-function unpackJs(p, a, c, k) {
-  while (c--) if (k[c]) p = p.replace(new RegExp("\\b" + c.toString(a) + "\\b", "g"), k[c]);
-  return p;
-}
-
-function extractModeHexDecode(html) {
-  for (const m of html.matchAll(/["']((?:\\x[0-9a-f]{2}){10,})["']/gi)) {
-    try {
-      const d = m[1].replace(/\\x([0-9a-f]{2})/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
-      if (d.match(/^https?:\/\/.+\.(?:mp4|m3u8)/i)) return { url: d, mode: "hex_decode" };
-    } catch(e){}
-  }
-  return null;
-}
-
-async function tryAllExtractionModes(html, url, logBoxId) {
-  const modes = state.activeModes.map(id => EXTRACTION_MODES.find(m => m.id === id)).filter(Boolean);
-  logBox(`Tentando ${modes.length} modos...`, "title", logBoxId);
-  for (const mode of modes) {
-    try {
-      const result = mode.fn(html);
-      if (result && result.url) {
-        logBox(`✓ ${mode.name}: ${result.url.slice(0, 80)}`, "success", logBoxId);
-        state.stats.modes[mode.id] = (state.stats.modes[mode.id] || 0) + 1;
-        return result;
-      }
-    } catch (err) {
-      logBox(`✗ ${mode.name}: ${err.message}`, "error", logBoxId);
-    }
-  }
-  logBox("Todos os modos falharam", "warn", logBoxId);
-  return { url: url, mode: "fallback" };
-}
-
-async function extractLinkFromUrl(url, logBoxId) {
-  logBox(`Extraindo: ${url.slice(0, 100)}`, "title", logBoxId);
-  state.stats.total++;
-  try {
-    const res = await fetchWithProxy(url);
-    if (!res) throw new Error("Todos os proxies falharam");
-    const html = await res.text();
-    logBox(`HTML: ${html.length} bytes`, "info", logBoxId);
-    const result = await tryAllExtractionModes(html, url, logBoxId);
-    const tmdbId = state.current ? state.current.id : null;
-    const finalUrl = buildFinalUrl(result.url, tmdbId);
-    if (result.mode === "fallback") logBox(`⚠ Fallback`, "warn", logBoxId);
-    else { state.stats.extracted++; logBox(`✅ Extraído via ${result.mode}`, "success", logBoxId); }
-    state.stats.success++;
-    return finalUrl;
-  } catch (err) {
-    state.stats.failed++;
-    logBox(`❌ ${err.message}`, "error", logBoxId);
-    return null;
-  }
-}
-
-// ================================================================
-// PROCESSAR FILME
-// ================================================================
-async function processMovie() {
-  if (!state.current || state.current.type !== "movie") return toast("Busque um filme", "err");
-  const url = $("movieUrlInput").value.trim();
-  if (!url) return toast("Cole a URL", "err");
-  showLoading(`Processando (${state.movieMode === "extract" ? "Extração" : "Direta"})...`);
-  $("btnProcessMovie").disabled = true;
-  $("btnProcessMovie").innerHTML = 'Processando<span class="spinner"></span>';
-  $("movieLogBox").innerHTML = "";
-  try {
-    let finalUrl;
-    if (state.movieMode === "extract") {
-      finalUrl = await extractLinkFromUrl(url, "movieLogBox");
-    } else {
-      finalUrl = buildFinalUrl(url, state.current.id);
-      logBox(`URL Direta: ${finalUrl.slice(0, 80)}`, "success", "movieLogBox");
-      state.stats.direct++;
-      state.stats.success++;
-    }
-    if (finalUrl) {
-      state.current.source = finalUrl;
-      $("stSourceValue").textContent = "✔ Sucesso";
-      $("stSourceValue").className = "value ok";
-      $("stSource").className = "status-item ok";
-      $("stLinkValue").textContent = finalUrl.slice(0, 50) + "...";
-      $("stLinkValue").className = "value ok";
-      $("stLink").className = "status-item ok";
-      $("stModeValue").textContent = state.movieMode === "extract" ? "Extração" : "Direto";
-      $("stModeValue").className = "value ok";
-      $("stMode").className = "status-item ok";
-      toast("✔ Processado!");
-    }
-  } finally {
-    hideLoading();
-    $("btnProcessMovie").disabled = false;
-    $("btnProcessMovie").innerHTML = '🚀 Processar Filme';
-    renderStats();
-    saveState();
-  }
-}
-
-function saveMovieDirect() {
-  if (!state.current || state.current.type !== "movie") return toast("Busque um filme", "err");
-  const url = $("movieUrlInput").value.trim();
-  if (!url) return toast("Cole a URL", "err");
-  state.current.source = buildFinalUrl(url, state.current.id);
-  state.stats.direct++;
-  state.stats.total++;
-  toast("✔ Salvo");
-}
-
-// ================================================================
-// PROCESSAR SÉRIE
-// ================================================================
-async function processSeries() {
-  if (!state.current || state.current.type !== "series") return toast("Busque uma série", "err");
-  const template = $("seriesUrlTemplate").value.trim();
-  if (!template) return toast("Cole o template", "err");
-
-  showLoading(`Processando (${state.seriesMode === "extract" ? "Extração" : "Direta"})...`);
-  $("btnProcessSeries").disabled = true;
-  $("btnProcessSeries").innerHTML = 'Processando<span class="spinner"></span>';
-  $("seriesLogBox").innerHTML = "";
-
-  let totalEps = 0, successEps = 0;
-  const hasSeasonVar = template.includes("{season}");
-
-  try {
-    for (const s of state.current.seasons) {
-      for (const ep of s.episodes) {
-        totalEps++;
-        let epUrl = template;
-        if (hasSeasonVar) epUrl = epUrl.replace(/{season}/g, s.number);
-        epUrl = epUrl.replace(/{episode}/g, ep.number);
-
-        logBox(`S${s.number}E${ep.number}: ${epUrl.slice(0, 70)}`, "info", "seriesLogBox");
-        try {
-          if (state.seriesMode === "extract") {
-            const extracted = await extractLinkFromUrl(epUrl, "seriesLogBox");
-            if (extracted) { ep.source = extracted; ep.sourceMode = "extracted"; successEps++; }
-            else { ep.sourceMode = "failed"; }
-          } else {
-            ep.source = buildFinalUrl(epUrl, state.current.id);
-            ep.sourceMode = "direct";
-            state.stats.direct++;
-            state.stats.success++;
-            successEps++;
-          }
-        } catch (err) {
-          logBox(`S${s.number}E${ep.number} falhou: ${err.message}`, "error", "seriesLogBox");
-          ep.sourceMode = "failed";
-        }
-        updateSeriesList();
-        await sleep(100);
-      }
-    }
-    if (successEps > 0) {
-      toast(`✔ ${successEps}/${totalEps} processados`);
-      $("stSourceValue").textContent = "✔";
-      $("stSourceValue").className = "value ok";
-      $("stSource").className = "status-item ok";
-      $("stModeValue").textContent = state.seriesMode === "extract" ? "Extração" : "Direto";
-      $("stModeValue").className = "value ok";
-    } else {
-      toast("❌ Nenhum processado", "err");
-    }
-  } finally {
-    hideLoading();
-    $("btnProcessSeries").disabled = false;
-    $("btnProcessSeries").innerHTML = '🚀 Processar Todos';
-    renderStats();
-    saveState();
-  }
-}
-
-function saveSeriesDirect() {
-  if (!state.current || state.current.type !== "series") return toast("Busque uma série", "err");
-  const template = $("seriesUrlTemplate").value.trim();
-  if (!template) return toast("Cole o template", "err");
-  const hasSeasonVar = template.includes("{season}");
-  let count = 0;
-  state.current.seasons.forEach(s => {
-    s.episodes.forEach(ep => {
-      let url = template;
-      if (hasSeasonVar) url = url.replace(/{season}/g, s.number);
-      url = url.replace(/{episode}/g, ep.number);
-      ep.source = buildFinalUrl(url, state.current.id);
-      ep.sourceMode = "direct";
-      state.stats.direct++;
-      state.stats.total++;
-      count++;
-    });
-  });
-  updateSeriesList();
-  toast(`✔ ${count} eps salvos`);
-}
-
-// ================================================================
-// SOURCES MONITORADAS (para monitoramento contínuo)
-// ================================================================
-function renderSources() {
-  const list = $("sourcesList");
-  if (!list) return;
-  $("sourcesCount").textContent = state.sources.length;
-  if (state.sources.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--txt3)">Nenhuma fonte monitorada ainda. Ative o Auto-Refresh acima.</div>';
-    return;
-  }
-  list.innerHTML = state.sources.map(s => `
-    <div class="source-item ${s.status === 'active' ? 'active-source' : ''}">
-      <div class="src-info">
-        <div class="src-title">${escapeHtml(s.title || "Sem título")}</div>
-        <div class="src-url">${escapeHtml(s.url)}</div>
-        <div class="src-status">
-          <span class="${s.status === 'active' ? 'active' : 'checking'}">${s.status === 'active' ? "✔ Ativa" : "⏳ Verificando"}</span>
-          <span class="${s.mode === 'extract' ? 'mode-extract' : 'mode-direct'}">${s.mode === 'extract' ? "🔍 Extração" : "🔗 Direto"}</span>
-          <span>⏱ ${s.minutes} min</span>
-        </div>
-      </div>
-    </div>
-  `).join("");
-}
-
-function forceRefreshAllSources() {
-  if (state.activeMovieRefresh) runMovieRefresh(state.activeMovieRefresh.url);
-  if (state.activeSeriesRefresh) runSeriesRefresh(state.activeSeriesRefresh.template);
-  toast("Refreshing todas...");
-}
-
-function clearAllSources() {
-  if (!confirm("Parar todos os Auto-Refreshes ativos?")) return;
-  if (state.activeMovieRefresh && state.activeMovieRefresh.timerId) {
-    clearInterval(state.activeMovieRefresh.timerId);
-  }
-  if (state.activeSeriesRefresh && state.activeSeriesRefresh.timerId) {
-    clearInterval(state.activeSeriesRefresh.timerId);
-  }
-  state.activeMovieRefresh = null;
-  state.activeSeriesRefresh = null;
-  state.sources = [];
-  Object.values(state.countdownTimers).forEach(clearInterval);
-  state.countdownTimers = {};
-  renderSources();
-  $("btnActivateMovieAuto").classList.remove("success");
-  $("btnActivateMovieAuto").innerHTML = "⏱️ Ativar Auto-Refresh";
-  $("btnActivateSeriesAuto").classList.remove("success");
-  $("btnActivateSeriesAuto").innerHTML = "⏱️ Ativar Auto-Refresh";
-  $("movieAutoStatus").style.display = "none";
-  $("seriesAutoStatus").style.display = "none";
-  toast("Todos os Auto-Refreshes parados");
-}
-
-// ================================================================
-// STATS
-// ================================================================
-function renderStats() {
-  $("statTotal").textContent = state.stats.total;
-  $("statSuccess").textContent = state.stats.success;
-  $("statFailed").textContent = state.stats.failed;
-  $("statExtracted").textContent = state.stats.extracted || 0;
-  $("statDirect").textContent = state.stats.direct || 0;
-  $("statAutoRefresh").textContent = state.stats.autoRefresh || 0;
-}
-
-// ================================================================
-// GITHUB CATALOG
-// ================================================================
-async function loadCatalogManually() {
-  showLoading("Carregando catálogo...");
-  try {
-    await loadCatalog();
-    toast(`✔ Catálogo: ${Object.keys(state.catalog.movies).length + Object.keys(state.catalog.series).length} itens`);
-  } catch (err) {
-    toast("Erro: " + err.message, "err");
-  } finally { hideLoading(); }
+  renderPreview();
+  toast(`✔️ ${count} links aplicados`);
 }
 
 async function loadCatalog() {
@@ -2467,134 +1029,154 @@ async function loadCatalog() {
   if (!cfg) throw new Error("GitHub não configurado");
   const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`;
   const res = await fetch(url, { headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" } });
-  if (res.status === 404) {
-    state.catalog = { movies: {}, series: {} };
-    state.catalogSha = null;
-    return;
-  }
+  if (res.status === 404) { catalog = { movies: {}, series: {} }; catalogSha = null; return; }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const file = await res.json();
-  try {
-    const raw = file.content.replace(/\n/g, "");
-    const decoded = decodeURIComponent(escape(atob(raw)));
-    state.catalog = JSON.parse(decoded);
-    state.catalogSha = file.sha;
-  } catch (e) {
-    throw new Error("Erro ao decodificar");
-  }
+  const raw = file.content.replace(/\n/g, "");
+  catalog = JSON.parse(decodeURIComponent(escape(atob(raw))));
+  catalogSha = file.sha;
 }
 
-async function pushToGithub() {
-  const cfg = getGithubConfig();
-  if (!cfg) return false;
+async function saveToCatalog() {
+  if (!current) return toast("Nada para salvar", true);
+  collectCurrent();
+  const btn = $("btnSave");
+  btn.disabled = true;
+  btn.innerHTML = 'Salvando...<span class="spinner"></span>';
+
   try {
-    const jsonStr = JSON.stringify(state.catalog, null, 2);
+    await loadCatalog();
+    const base = {
+      title: current.data.title, overview: current.data.overview,
+      poster: current.data.poster, backdrop: current.data.backdrop,
+      year: current.data.year, rating: current.data.rating,
+      genres: current.data.genres, ageRating: current.data.ageRating
+    };
+
+    if (current.type === "movie") {
+      catalog.movies[current.id] = { ...base, source: current.source };
+    } else {
+      catalog.series[current.id] = { ...base, seasons: current.seasons };
+    }
+
+    const cfg = getGithubConfig();
+    if (!cfg) throw new Error("GitHub não configurado");
+
+    const jsonStr = JSON.stringify(catalog, null, 2);
     const content = btoa(unescape(encodeURIComponent(jsonStr)));
-    const body = { message: `Update ${new Date().toISOString()}`, content };
-    if (state.catalogSha) body.sha = state.catalogSha;
-    const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+    const body = { message: `Update ${current.data.title}`, content };
+    if (catalogSha) body.sha = catalogSha;
+
+    const put = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
       method: "PUT",
       headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
       body: JSON.stringify(body)
     });
-    if (!res.ok) throw new Error("Push falhou");
-    const result = await res.json();
-    state.catalogSha = result.content.sha;
-    log("Catálogo atualizado no GitHub", "success");
-    return true;
+
+    if (!put.ok) throw new Error(`GitHub ${put.status}`);
+    toast("✔ Salvo no GitHub!");
   } catch (err) {
-    log("Erro ao salvar GitHub: " + err.message, "error");
-    return false;
+    toast("Erro: " + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💾 Salvar no catálogo';
   }
 }
 
-async function saveToCatalog() {
-  if (!state.current) return toast("Nada para salvar", "err");
-  showLoading("Salvando...");
+async function loadForEdit() {
+  const type = $("editType").value;
+  const id = $("editId").value.trim();
+  if (!id) return toast("Informe o ID", true);
   try {
     await loadCatalog();
-    const c = state.current;
-    const base = {
-      title: c.title, overview: c.overview, poster: c.poster, backdrop: c.backdrop,
-      year: c.year, rating: c.rating, genres: c.genres, ageRating: c.ageRating
-    };
-    if (c.type === "movie") {
-      state.catalog.movies[c.id] = { ...base, source: c.source || "" };
-    } else {
-      state.catalog.series[c.id] = { ...base, seasons: c.seasons };
+    const bucket = type === "movie" ? catalog.movies : catalog.series;
+    const existing = bucket?.[id];
+    if (!existing) {
+      $("type").value = type; $("tmdbId").value = id;
+      await fetchContent();
+      $("resultTitle").innerHTML = '📝 Editando novo <span class="edit-badge">EDIÇÃO</span>';
+      return;
     }
-    const ok = await pushToGithub();
-    if (ok) {
-      toast("✔ Salvo!");
-      log("Salvo: " + c.title, "success");
+    if (type === "movie") {
+      current = { type: "movie", id, data: { ...existing }, source: existing.source || "", subtitles: {} };
     } else {
-      toast("Erro ao salvar no GitHub", "err");
+      current = { type: "series", id, data: { ...existing }, seasons: existing.seasons || [] };
+      updateSeasonSelect();
     }
-  } catch (err) {
-    toast("Erro: " + err.message, "err");
-  } finally { hideLoading(); }
+    renderPreview();
+    $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
+    $("resultTitle").innerHTML = '📝 Editando <span class="edit-badge">EDIÇÃO</span>';
+  } catch (err) { toast("Erro: " + err.message, true); }
+}
+
+function renderPreview() {
+  if (!current) return;
+  const c = current;
+  const d = c.data;
+  $("preview").innerHTML = `
+    ${d.poster ? `<img src="${d.poster}" alt="">` : ""}
+    <div class="preview-info">
+      <h3>${d.title} <span class="badge">${c.type === "movie" ? "FILME" : "SÉRIE"}</span></h3>
+      <div class="meta">${d.year} • ⭐ ${(d.rating || 0).toFixed(1)} ${d.ageRating ? "• " + d.ageRating : ""}</div>
+      <p>${d.overview || "Sem sinopse"}</p>
+    </div>`;
+
+  const area = $("episodesArea");
+  if (c.type === "movie") {
+    const src = c.source || "";
+    const rawSrc = src.startsWith(PREFIX) ? src.slice(PREFIX.length) : src;
+    area.innerHTML = `
+      <div class="ep"><h4>🎬 Fonte do filme</h4>
+        <div class="sources">
+          <div><label>URL do vídeo</label><input id="movieSourceRaw" value="${rawSrc}"></div>
+        </div>
+      </div>`;
+  } else {
+    let html = "";
+    c.seasons.forEach((s, si) => {
+      html += `<details ${si === 0 ? "open" : ""}><summary><b>${s.label}</b> (${s.episodes.length} eps)</summary>`;
+      s.episodes.forEach((ep, ei) => {
+        const src = ep.source || "";
+        const rawSrc = src.startsWith(PREFIX) ? src.slice(PREFIX.length) : src;
+        html += `<div class="ep"><h4>${ep.label} — ${ep.title || ""}</h4><div class="sources"><input id="src_${si}_${ei}" value="${rawSrc}"></div></div>`;
+      });
+      html += `</details>`;
+    });
+    area.innerHTML = html;
+  }
+}
+
+function collectCurrent() {
+  if (current.type === "movie") {
+    const raw = $("movieSourceRaw")?.value.trim() || "";
+    current.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
+  } else {
+    current.seasons.forEach((s, si) => {
+      s.episodes.forEach((ep, ei) => {
+        const raw = ($("src_" + si + "_" + ei)?.value || "").trim();
+        ep.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
+      });
+    });
+  }
+}
+
+function resetForm() {
+  current = null;
+  $("resultCard").classList.add("hidden");
 }
 
 function downloadCatalog() {
-  const blob = new Blob([JSON.stringify(state.catalog, null, 2)], { type: "application/json" });
+  collectCurrent();
+  if (current?.type === "movie") catalog.movies[current.id] = { ...current.data, source: current.source };
+  else if (current?.type === "series") catalog.series[current.id] = { ...current.data, seasons: current.seasons };
+
+  const blob = new Blob([JSON.stringify(catalog, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "catalog.json";
   a.click();
-  toast("📥 catalog.json baixado");
 }
-
-function resetAll() {
-  if (!confirm("Limpar tudo?")) return;
-  clearAllSources();
-  state.current = null;
-  state.stats = { total: 0, success: 0, failed: 0, extracted: 0, direct: 0, autoRefresh: 0, modes: {} };
-  state.log = [];
-  saveState();
-  closePreview();
-  renderStats();
-  renderLog();
-  toast("Tudo limpo");
-}
-
-// ================================================================
-// INIT
-// ================================================================
-async function init() {
-  log("🚀 KiraFlix Super Extractor v5.0 iniciado", "title");
-  loadState();
-  loadGithubConfig();
-  state.proxies = PROXIES_DEFAULT.map(p => ({ ...p }));
-
-  updatePrefixUI();
-  selectMode(state.movieMode);
-  selectSeriesMode(state.seriesMode);
-  renderModes();
-  renderProxies();
-  renderSources();
-  renderStats();
-  renderLog();
-  renderPerIdPrefixList();
-
-  updateMovieRefreshUI();
-  updateSeriesRefreshUI();
-
-  // Listeners
-  const tplInput = $("seriesUrlTemplate");
-  if (tplInput) {
-    tplInput.addEventListener("input", () => {
-      updateTemplateStatus();
-      updateSeriesList();
-    });
-  }
-
-  log("Sistema pronto", "success");
-  log(`Prefixo Global: ${state.prefixEnabled ? "ATIVADO" : "DESATIVADO"}`, "info");
-  log(`Overrides por ID: ${Object.keys(state.perIdPrefix).length}`, "info");
-  toast("🚀 Sistema v5.0 pronto!");
-}
-
-init();
 </script>
 </body>
 </html>
