@@ -12251,6 +12251,56 @@
           ]
         }
       ]
+    },
+    "328010": {
+      "title": "Devils' Crest",
+      "overview": "Enquanto \"Sword Art Online\" traz a realidade virtual e \"Sword Art Online the Movie: Ordinal Scale\" explora a realidade aumentada, \"Devils' Crest\" mergulha na realidade mista. Quando Actual Magic, o primeiro VRMMO-RPG de imersão total, se funde com o mundo real, um jogo mortal se inicia. Um jogo que também é real.",
+      "poster": "https://image.tmdb.org/t/p/w500/kimx6VeIKhNQH0sqyT2OXfWUO07.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/fA6eLsm6xEBK90IK3UNWoVPZBn7.jpg",
+      "year": "2026",
+      "rating": 6,
+      "genres": [
+        "Action & Adventure",
+        "Sci-Fi & Fantasy",
+        "Animação"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Invasão",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/yAvCDXbw5kUCm1cCll5F7-Devils-Crest/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Transformação",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/yAvCDXbw5kUCm1cCll5F7-Devils-Crest/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Despertar",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/yAvCDXbw5kUCm1cCll5F7-Devils-Crest/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/drama/yAvCDXbw5kUCm1cCll5F7-Devils-Crest/4",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
     }
   }
 }
