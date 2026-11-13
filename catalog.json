@@ -1,5 +1,22 @@
 {
   "movies": {
+    "808": {
+      "title": "Shrek",
+      "overview": "Em um pântano distante vive Shrek, um ogro solitário que vê, sem mais nem menos, sua vida ser invadida por uma série de personagens de contos de fada. Todos eles foram expulsos de suas casas pelo maligno Lorde Farquaad. Determinado a recuperar a tranquilidade, Shrek faz um acordo com Farquaad: todos os personagens poderão retornar aos seus lares se ele e seu amigo Burro resgatarem uma princesa que foi aprisionada por um dragão.",
+      "poster": "https://image.tmdb.org/t/p/w500/wxeqfC221YMptRRdzxlijAh7q8l.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/2Biv1mSzaaxWOqvcnDZn4GcYEAb.jpg",
+      "year": "2001",
+      "rating": 7.781,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Fantasia",
+        "Aventura",
+        "Família"
+      ],
+      "ageRating": "L",
+      "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/movie/6XQk0NOP327v3Ty0w3Aik-Shrek"
+    },
     "920": {
       "title": "Carros",
       "overview": "Ao viajar para a Califórnia, o famoso carro de corridas Relâmpago McQueen se perde e vai parar em Radiator Springs, uma cidadezinha na Rota 66. Ele conhece novos amigos e aprende lições que mudam sua forma de encarar a vida.",
