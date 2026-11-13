@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin — KiraFlix</title>
+<title>Admin — KiraFlix ALL Seekee</title>
 <style>
+/* CSS resumido para o layout */
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(circle at top,#1a1a2e,#0a0a14);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;padding:20px}
-.wrap{max-width:1100px;margin:0 auto}
+body{background:#0a0a14;color:#fff;font-family:system-ui,sans-serif;padding:20px;min-height:100vh}
+.wrap{max-width:1200px;margin:0 auto}
 h1{font-size:2rem;background:linear-gradient(90deg,#e53935,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .sub{color:#71717a;font-size:.9rem;margin-bottom:24px}
-.card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px}
-.card h2{font-size:1rem;color:#e53935;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px}
+.card h2{font-size:1rem;color:#e53935;margin-bottom:14px;text-transform:uppercase}
 label{display:block;font-size:.75rem;color:#a1a1aa;margin-bottom:6px;text-transform:uppercase;font-weight:600}
-input,select,textarea{width:100%;padding:10px 14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;outline:none;font-family:inherit}
+input,select{width:100%;padding:10px 14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;outline:none}
 input:focus,select:focus{border-color:#e53935}
 .row{display:flex;gap:10px;flex-wrap:wrap}
 .row>*{flex:1;min-width:180px}
-button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;transition:.2s;white-space:nowrap}
+button{background:linear-gradient(90deg,#e53935,#f97316);color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem;text-transform:uppercase;transition:.2s;white-space:nowrap}
 button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(229,57,53,.35)}
 button.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
 button.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
@@ -41,18 +42,24 @@ button:disabled{opacity:.5;pointer-events:none}
 details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user-select:none}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-left:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.progress-log{font-size:.8rem;color:#a1a1aa;margin-top:8px;max-height:200px;overflow-y:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;display:none;font-family:ui-monospace,monospace}
+.progress-log{font-size:.78rem;color:#a1a1aa;margin-top:8px;max-height:350px;overflow-y:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;display:none;font-family:ui-monospace,monospace;line-height:1.6;border:1px solid rgba(255,255,255,.05)}
 .progress-log.show{display:block}
+.log-success{color:#10b981;font-weight:600}
+.log-error{color:#ef4444;font-weight:600}
+.log-warn{color:#f59e0b;font-weight:600}
+.log-info{color:#60a5fa}
+.log-title{color:#e53935;font-weight:800;text-transform:uppercase;margin-top:8px;border-top:1px dashed rgba(255,255,255,.1);padding-top:6px}
 .edit-badge{background:rgba(59,130,246,.2);color:#60a5fa;padding:2px 8px;border-radius:6px;font-size:.7rem;margin-left:6px;font-weight:700}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>⚙️ KiraFlix Admin</h1>
-  <p class="sub">Adicione filmes/séries pelo TMDB ou edite o catálogo existente.</p>
+  <h1>⚙️ KiraFlix Admin — ALL Seekee 🕷️</h1>
+  <p class="sub">Sistema de raspagem profunda com fallback de proxies, extração de JSON, força bruta e parsing de DOM.</p>
 
+  <!-- GitHub -->
   <div class="card">
-    <h2>🔑 GitHub (salvar catálogo automaticamente)</h2>
+    <h2>🔑 GitHub (salvar catálogo)</h2>
     <div class="row">
       <div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva"></div>
       <div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix"></div>
@@ -65,8 +72,9 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     <span class="status" id="ghStatus" style="display:none;margin-top:10px;">✔ Configurado</span>
   </div>
 
+  <!-- TMDB -->
   <div class="card">
-    <h2>🆕 Adicionar novo conteúdo (via TMDB)</h2>
+    <h2>🆕 Adicionar Conteúdo (TMDB)</h2>
     <div class="row">
       <div><label>Tipo</label><select id="type"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
       <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" placeholder="ex: 969681"></div>
@@ -74,15 +82,16 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     </div>
   </div>
 
+  <!-- Resultado -->
   <div class="card hidden" id="resultCard">
     <h2 id="resultTitle">📝 Conteúdo carregado</h2>
     <div class="preview" id="preview"></div>
 
     <div id="seriesTools" class="hidden">
-      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px; border: 1px solid rgba(229,57,53,.5);">
-        <h2>🕷️ Raspagem Profunda (Seekee / Solo-Latino)</h2>
+      <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px;border:1px solid rgba(229,57,53,.5);">
+        <h2>🕷️ ALL Seekee (Turbo)</h2>
         <p style="font-size:.8rem;color:#a1a1aa;margin-bottom:10px">
-          Cole o link de <b>qualquer</b> episódio ou temporada. O sistema vai varrer a página, extrair os padrões, chutar URLs de temporadas e raspar o vídeo do HTML.
+          Cole <b>qualquer link</b> da série (T1 ou T2+). O sistema lerá o HTML, tentará todos os proxies, extrairá links de temporadas, fará força bruta se necessário e buscará cada episódio.
         </p>
         
         <div class="row">
@@ -95,38 +104,29 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
             <label>Prefixar links?</label>
             <select id="bulkPrefix"><option value="yes">Sim (mgeb.space)</option><option value="no">Não</option></select>
           </div>
+          <div>
+            <label>Limite Temporadas (TMDB)</label>
+            <input type="number" id="tmdbMaxSeasons" value="10" readonly style="background:rgba(0,0,0,.2);cursor:not-allowed;color:#a1a1aa;">
+          </div>
         </div>
         
         <div class="progress-log" id="scrapeLog"></div>
       </div>
 
+      <!-- Manual -->
       <div class="card" style="background:rgba(0,0,0,.3);margin-top:16px;">
         <details>
           <summary style="font-size:1rem;color:#e53935;font-weight:700;text-transform:uppercase;">⚡ Gerador Manual por Temporada</summary>
           <div style="padding-top:10px" class="mt">
             <div class="row">
-              <div style="flex:1; min-width:150px;">
-                <label>Modo</label>
-                <select id="applyMode">
-                  <option value="single">Apenas Temporada Selecionada</option>
-                  <option value="all">Em Todas as Temporadas</option>
-                </select>
+              <div style="flex:1;min-width:150px;"><label>Modo</label>
+                <select id="applyMode"><option value="single">Apenas Temporada Selecionada</option><option value="all">Em Todas as Temporadas</option></select>
               </div>
-              <div style="flex:1; min-width:150px;" id="seasonSelectWrap">
-                <label>Temporada Alvo</label>
-                <select id="targetSeason"></select>
-              </div>
-              <div style="flex:2">
-                <label>Link de Exemplo</label>
-                <input id="exampleUrl" placeholder="https://peliculaplay.com/.../Slime/1">
-              </div>
-              <div style="flex:0;display:flex;align-items:flex-end">
-                <button class="ghost" onclick="detectarVariaveis()">🔍 Detectar</button>
-              </div>
+              <div style="flex:1;min-width:150px;" id="seasonSelectWrap"><label>Temporada Alvo</label><select id="targetSeason"></select></div>
+              <div style="flex:2"><label>Link de Exemplo</label><input id="exampleUrl" placeholder="https://peliculaplay.com/.../Slime/1"></div>
+              <div style="flex:0;display:flex;align-items:flex-end"><button class="ghost" onclick="detectarVariaveis()">🔍 Detectar</button></div>
             </div>
-            <div class="row mt">
-              <div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{episode}"></div>
-            </div>
+            <div class="row mt"><div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{episode}"></div></div>
             <button class="mt" onclick="aplicarLinks()">⚡ Aplicar Links</button>
           </div>
         </details>
@@ -142,11 +142,12 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
     </div>
   </div>
 
+  <!-- Editar -->
   <div class="card">
-    <h2>✏️ Editar conteúdo existente</h2>
+    <h2>✏️ Editar Conteúdo</h2>
     <div class="row">
       <div><label>Tipo</label><select id="editType"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
-      <div style="flex:2"><label>ID do TMDB (ou ID salvo)</label><input id="editId" placeholder="ex: 969681"></div>
+      <div style="flex:2"><label>ID do TMDB</label><input id="editId" placeholder="ex: 969681"></div>
       <div style="flex:0;display:flex;align-items:flex-end"><button onclick="loadForEdit()">Carregar</button></div>
     </div>
   </div>
@@ -155,20 +156,26 @@ details summary{cursor:pointer;padding:8px 0;color:#a1a1aa;font-size:.85rem;user
 <div class="toast" id="toast"></div>
 
 <script>
+// ============================================================
+// CONFIGURAÇÕES GLOBAIS
+// ============================================================
 const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
 const HEADERS_TMDB = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
 const LANG = "pt-BR";
 const PREFIX = "https://mgeb.space/mp4.php?url=";
 
-// Lista de proxies para fallback
+// Lista massiva de proxies (ordem de tentativa)
 const PROXIES = [
-  "https://api.allorigins.win/raw?url=",
-  "https://corsproxy.io/?",
-  "https://api.codetabs.com/v1/proxy?quest="
+  { name: "allorigins", url: "https://api.allorigins.win/raw?url=" },
+  { name: "corsproxy.io", url: "https://corsproxy.io/?" },
+  { name: "codetabs", url: "https://api.codetabs.com/v1/proxy?quest=" },
+  { name: "thingproxy", url: "https://thingproxy.freeboard.io/fetch/" },
+  { name: "yacdn", url: "https://yacdn.org/proxy/" },
+  { name: "cors-anywhere", url: "https://cors-anywhere.herokuapp.com/" }
 ];
 let currentProxyIndex = 0;
 
-let current = null;
+let current = null; // { type, id, data, source, seasons, ... }
 let catalog = { movies: {}, series: {} };
 let catalogSha = null;
 
@@ -182,6 +189,23 @@ function toast(msg, err) {
   t._t = setTimeout(() => t.classList.remove("show"), 4000);
 }
 
+function logMsg(msg, type) {
+  const log = $("scrapeLog");
+  log.classList.add("show");
+  const div = document.createElement("div");
+  if (type === 'success') div.className = 'log-success';
+  else if (type === 'error') div.className = 'log-error';
+  else if (type === 'warn') div.className = 'log-warn';
+  else if (type === 'info') div.className = 'log-info';
+  else if (type === 'title') div.className = 'log-title';
+  div.textContent = msg;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+// ============================================================
+// GITHUB CONFIG
+// ============================================================
 function getGithubConfig() {
   try {
     const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
@@ -189,7 +213,6 @@ function getGithubConfig() {
     return cfg;
   } catch(e) { return null; }
 }
-
 function saveGithubConfig() {
   const cfg = { owner: $("ghOwner").value.trim(), repo: $("ghRepo").value.trim(), token: $("ghToken").value.trim() };
   if (!cfg.owner || !cfg.repo || !cfg.token) return toast("Preencha os 3 campos", true);
@@ -197,7 +220,6 @@ function saveGithubConfig() {
   $("ghStatus").style.display = "inline-block";
   toast("✔ GitHub configurado");
 }
-
 async function testGithubConnection() {
   const cfg = getGithubConfig();
   if (!cfg) return toast("Salve a configuração primeiro.", true);
@@ -209,11 +231,9 @@ async function testGithubConnection() {
     if (res.status === 401) throw new Error("Token inválido (401).");
     if (res.status === 404) throw new Error("Repositório não encontrado (404).");
     if (!res.ok) throw new Error(`Erro ${res.status}`);
-    
     const catRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
       headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
     });
-    
     if (catRes.status === 404) toast("✔ Repo encontrado! O catalog.json será criado.");
     else if (!catRes.ok) throw new Error(`Erro ao ler catalog.json: ${catRes.status}`);
     else toast("✔ Tudo certo!");
@@ -223,18 +243,20 @@ async function testGithubConnection() {
     $("btnTest").innerHTML = '🧪 Testar Conexão';
   }
 }
-
 function loadGithubConfig() {
   const cfg = getGithubConfig();
-  if (cfg) { 
-    $("ghOwner").value = cfg.owner; 
-    $("ghRepo").value = cfg.repo; 
-    $("ghToken").value = cfg.token; 
-    $("ghStatus").style.display = "inline-block"; 
+  if (cfg) {
+    $("ghOwner").value = cfg.owner;
+    $("ghRepo").value = cfg.repo;
+    $("ghToken").value = cfg.token;
+    $("ghStatus").style.display = "inline-block";
   }
 }
 loadGithubConfig();
 
+// ============================================================
+// TMDB FETCH
+// ============================================================
 async function fetchContent() {
   const type = $("type").value;
   const id = $("tmdbId").value.trim();
@@ -288,6 +310,7 @@ async function fetchContent() {
       }
       current = { type: "series", id, data: base, seasons };
       updateSeasonSelect();
+      $("tmdbMaxSeasons").value = Math.max(...current.seasons.map(s => s.number));
     }
 
     renderPreview();
@@ -299,50 +322,87 @@ async function fetchContent() {
   }
 }
 
-// ================== SISTEMA DE RASPAGEM PROFUNDA ==================
+// ============================================================
+// ALL SEEKEE - RASPAGEM PROFUNDA
+// ============================================================
 
-// Função que testa todos os proxies até um funcionar
-async function fetchWithProxy(url) {
+async function fetchWithProxy(url, retries = 3) {
+  // Tenta múltiplos proxies em sequência
   for (let i = 0; i < PROXIES.length; i++) {
     const idx = (currentProxyIndex + i) % PROXIES.length;
     const proxy = PROXIES[idx];
-    try {
-      const res = await fetch(proxy + encodeURIComponent(url));
-      if (res.ok) {
-        currentProxyIndex = idx; // fixa o proxy que deu certo
-        return res;
-      }
-    } catch(e) {}
+    for (let r = 0; r < retries; r++) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(proxy.url + encodeURIComponent(url), {
+          headers: { 'Accept': 'text/html,application/xhtml+xml,application/xml' },
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          currentProxyIndex = idx;
+          return res;
+        }
+      } catch(e) {}
+      await new Promise(r => setTimeout(r, 500));
+    }
   }
   return null;
 }
 
-// Extrai o link do vídeo do HTML com 5 níveis de profundidade
 function extrairVideoDoHtml(html, fallbackUrl) {
-  // 1. Tenta achar mp4 ou m3u8 direto no HTML
-  let m1 = html.match(/https?:\/\/[^"'\s\\]+?\.(?:mp4|m3u8)[^"'\s\\]*/i);
+  // 1. Busca .mp4 ou .m3u8 direto no HTML (mais comum)
+  let m1 = html.match(/https?:\/\/[^"'\s\\]+?\.(?:mp4|m3u8)(?:\?[^"'\s\\]*)?/i);
   if (m1) return { url: m1[0], tipo: "MP4/HLS Direto" };
 
-  // 2. Tenta achar no iframe
-  let m2 = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
+  // 2. Busca dentro de iframes (pode ter player externo)
+  let m2 = html.match(/<iframe[^>]+(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i);
   if (m2) {
     let u = m2[1];
     if (u.startsWith('//')) u = 'https:' + u;
     return { url: u, tipo: "Iframe Embed" };
   }
 
-  // 3. Tenta achar em JSON interno (__NEXT_DATA__, __NUXT__, etc)
-  let m3 = html.match(/["'](?:file|url|src|video_url|link|stream)["']\s*:\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+  // 3. Busca em JSON interno (__NEXT_DATA__, __NUXT__, etc)
+  let m3 = html.match(/["'](?:file|url|src|video_url|link|stream|source|video)["']\s*:\s*["'](https?:[^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
   if (m3) {
     let u = m3[1].replace(/\\\//g, '/');
     return { url: u, tipo: "JSON Interno" };
   }
 
-  // 4. Tenta achar links do mgeb já prontos
+  // 4. Busca links do mgeb já prontos
   let m4 = html.match(/(https?:\/\/mgeb\.space\/mp4\.php\?url=[^"'\s\\]+)/i);
   if (m4) return { url: m4[0], tipo: "mgeb Direto" };
 
-  // 5. Fallback: usa a URL da própria página (o mgeb resolve)
+  // 5. Busca em atributos data-* (data-url, data-video, data-src)
+  let m5 = html.match(/data-(?:url|video|src|file)=["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+  if (m5) return { url: m5[1], tipo: "Data Attribute" };
+
+  // 6. Busca em <video><source src="..."></video>
+  let m6 = html.match(/<source[^>]+src=["']([^"']+)["']/i);
+  if (m6) return { url: m6[1], tipo: "Source Tag" };
+
+  // 7. Busca em <video src="...">
+  let m7 = html.match(/<video[^>]+src=["']([^"']+)["']/i);
+  if (m7) return { url: m7[1], tipo: "Video Tag" };
+
+  // 8. Busca base64 embutido em algum script
+  let m8 = html.match(/atob\(["']([^"']+)["']\)/i);
+  if (m8) {
+    try {
+      let decoded = atob(m8[1]);
+      if (decoded.match(/https?:\/\/.*\.(?:mp4|m3u8)/i)) {
+        return { url: decoded, tipo: "Base64 Decodificado" };
+      }
+    } catch(e) {}
+  }
+
+  // 9. Busca links em scripts inline (var video_url = "...")
+  let m9 = html.match(/(?:video_url|videoUrl|file_url|fileUrl|stream_url|streamUrl)\s*[=:]\s*["']([^"']+)["']/i);
+  if (m9) return { url: m9[1], tipo: "JS Variable" };
+
+  // 10. Fallback: usa a URL da página (mgeb resolve)
   return { url: fallbackUrl, tipo: "Fallback Página" };
 }
 
@@ -355,140 +415,239 @@ async function autoScrapeTudo() {
     initialUrl = initialUrl.split("mgeb.space/mp4.php?url=")[1];
   }
 
-  const maxSeasonsTMDB = Math.max(...current.seasons.map(s => s.number));
+  const maxSeasonsTMDB = parseInt($("tmdbMaxSeasons").value, 10) || 1;
   const shouldPrefix = $("bulkPrefix").value === "yes";
-  const log = $("scrapeLog");
-  
-  log.classList.add("show");
-  log.innerHTML = "";
+
+  $("scrapeLog").innerHTML = "";
   const btn = $("btnScrapeAll");
   btn.disabled = true;
   btn.innerHTML = 'Raspando...<span class="spinner"></span>';
 
   const domain = new URL(initialUrl).origin;
-  
-  // Limpa a URL base (remove episódio e sufixo de temporada)
+
+  // Limpa URL base (remove episódio e sufixo de temporada)
   let urlBase = initialUrl.replace(/\/\d+\/?$/, "").replace(/-Season-\d+$/i, "").replace(/-Temporada-\d+$/i, "");
-  
-  // Extrai o slug para usar como base no regex
   const slugMatch = urlBase.match(/\/([^\/]+)$/);
   const slug = slugMatch ? slugMatch[1] : "";
+  const hashPrefix = slug.substring(0, 8);
 
-  log.innerHTML += `<div>🔎 Iniciando raspagem profunda em: ${domain}</div>`;
+  logMsg(`🕷️ Iniciando raspagem profunda em: ${domain}`, 'title');
+  logMsg(`📌 Slug base: ${slug}`, 'info');
+  logMsg(`📌 Hash prefix: ${hashPrefix}`, 'info');
+  logMsg(`📌 Limite de temporadas (TMDB): ${maxSeasonsTMDB}`, 'info');
 
-  // PASSO 1: TENTAR ACHAR LINKS NO HTML
   let seasonUrls = {};
+
+  // ============================================================
+  // PASSO 1: Baixar HTML e extrair links de temporadas
+  // ============================================================
+  logMsg(`🌐 Baixando HTML da página inicial...`, 'title');
   try {
-    log.innerHTML += `<div>🌐 Baixando HTML da página inicial...</div>`;
     const res = await fetchWithProxy(initialUrl);
     if (res) {
       const html = await res.text();
+      logMsg(`✅ HTML baixado (${html.length} bytes).`, 'success');
+
+      // 1.1: Extrair via regex de links
       const linkRegex = /href=["']([^"']+)["']/gi;
       let match;
-      
       while ((match = linkRegex.exec(html)) !== null) {
         let url = match[1];
         if (url.startsWith('/')) url = domain + url;
         if (!url.startsWith('http')) continue;
-        
-        // Limpa episódio final da URL
         let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
-        
-        // Verifica se pertence a mesma série
-        if (slug && cleanUrl.includes(slug.substring(0, 10))) {
+        if (cleanUrl.includes(hashPrefix)) {
+          let sNum = 1;
+          const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
+          if (sMatch) sNum = parseInt(sMatch[1], 10);
+          if (sNum <= maxSeasonsTMDB && !seasonUrls[sNum]) {
+            seasonUrls[sNum] = cleanUrl;
+            logMsg(`🔗 Link real encontrado para T${sNum}: ${cleanUrl}`, 'success');
+          }
+        }
+      }
+
+      // 1.2: Extrair via opções de select
+      const optionRegex = /<option[^>]+value=["']([^"']+)["'][^>]*>[^<]*<\/option>/gi;
+      while ((match = optionRegex.exec(html)) !== null) {
+        let url = match[1];
+        if (url.startsWith('/')) url = domain + url;
+        if (!url.startsWith('http')) continue;
+        let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
+        if (cleanUrl.includes(hashPrefix)) {
+          let sNum = 1;
+          const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
+          if (sMatch) sNum = parseInt(sMatch[1], 10);
+          if (sNum <= maxSeasonsTMDB && !seasonUrls[sNum]) {
+            seasonUrls[sNum] = cleanUrl;
+            logMsg(`🔗 Link (select) para T${sNum}: ${cleanUrl}`, 'success');
+          }
+        }
+      }
+
+      // 1.3: Extrair via JSON __NEXT_DATA__ ou __NUXT__
+      const jsonMatch = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i);
+      if (jsonMatch) {
+        try {
+          const json = JSON.parse(jsonMatch[1]);
+          logMsg(`📦 __NEXT_DATA__ encontrado, buscando links...`, 'info');
+          const urls = extrairLinksDoJSON(json, domain, hashPrefix, maxSeasonsTMDB);
+          urls.forEach(({ season, url }) => {
+            if (!seasonUrls[season]) {
+              seasonUrls[season] = url;
+              logMsg(`🔗 Link (JSON) para T${season}: ${url}`, 'success');
+            }
+          });
+        } catch(e) {}
+      }
+
+      // 1.4: Extrair via scripts inline que tenham arrays de temporadas
+      const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/gi;
+      while ((match = scriptRegex.exec(html)) !== null) {
+        const scriptContent = match[1];
+        if (!scriptContent.includes('season')) continue;
+        const urlsInScript = scriptContent.match(/https?:\/\/[^"'\s\\]+/g) || [];
+        urlsInScript.forEach(url => {
+          if (url.includes(hashPrefix) && (url.includes('Season') || url.includes('Temporada'))) {
+            let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
             let sNum = 1;
             const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
             if (sMatch) sNum = parseInt(sMatch[1], 10);
-            
-            if (sNum <= maxSeasonsTMDB) {
-                seasonUrls[sNum] = cleanUrl;
+            if (sNum <= maxSeasonsTMDB && !seasonUrls[sNum]) {
+              seasonUrls[sNum] = cleanUrl;
+              logMsg(`🔗 Link (script) para T${sNum}: ${cleanUrl}`, 'success');
             }
-        }
+          }
+        });
       }
-      log.innerHTML += `<div>✅ Links encontrados no HTML: ${Object.keys(seasonUrls).length} temporadas.</div>`;
     }
   } catch(e) {
-    log.innerHTML += `<div>⚠️ Falha ao ler HTML, usando força bruta.</div>`;
+    logMsg(`⚠️ Falha ao ler HTML: ${e.message}`, 'warn');
   }
 
-  // PASSO 2: FORÇA BRUTA - Testar todas as combinações possíveis
-  log.innerHTML += `<div>💪 Testando padrões de URL manualmente...</div>`;
+  // ============================================================
+  // PASSO 2: FORÇA BRUTA - Tentar padrões para temporadas faltantes
+  // ============================================================
+  logMsg(`💪 Iniciando força bruta para temporadas faltantes...`, 'title');
   
-  const patterns = [
-      (s) => s === 1 ? urlBase : `${urlBase}-Season-${s}`,
-      (s) => s === 1 ? urlBase : `${urlBase}-Temporada-${s}`,
-      (s) => s === 1 ? urlBase : `${urlBase}-season-${s}`,
-      (s) => `${urlBase}/temporada-${s}`,
-      (s) => `${urlBase}/tp/${s}`
+  const patternGenerators = [
+    // Padrão 1: -Season-X (o mais comum)
+    (s) => s === 1 ? urlBase : `${urlBase}-Season-${s}`,
+    // Padrão 2: -Temporada-X
+    (s) => s === 1 ? urlBase : `${urlBase}-Temporada-${s}`,
+    // Padrão 3: -season-X (minúsculo)
+    (s) => s === 1 ? urlBase : `${urlBase}-season-${s}`,
+    // Padrão 4: /X (direto)
+    (s) => `${urlBase}/${s}`,
+    // Padrão 5: /temporada-X
+    (s) => `${urlBase}/temporada-${s}`,
+    // Padrão 6: /tp/X
+    (s) => `${urlBase}/tp/${s}`,
+    // Padrão 7: /season/X
+    (s) => `${urlBase}/season/${s}`,
+    // Padrão 8: -Season-X/1 (com episódio)
+    (s) => s === 1 ? `${urlBase}/1` : `${urlBase}-Season-${s}/1`,
   ];
 
   for (let s = 1; s <= maxSeasonsTMDB; s++) {
-      if (seasonUrls[s]) continue; // Se já achou no HTML, pula a força bruta
+    if (seasonUrls[s]) continue;
+    
+    logMsg(`🔎 Testando padrões para T${s}...`, 'info');
+    let found = false;
+
+    for (let p = 0; p < patternGenerators.length; p++) {
+      let testUrl = patternGenerators[p](s);
+      // Se não tem episódio no final, adiciona /1 para testar
+      if (!testUrl.match(/\/\d+$/)) testUrl += '/1';
       
-      for (let p of patterns) {
-          let testUrl = p(s) + "/1"; // Testa o episódio 1
-          const res = await fetchWithProxy(testUrl);
-          if (res) {
-              const text = await res.text();
-              if (text.length > 1000 && !text.includes("404 Not Found") && !text.includes("Page Not Found")) {
-                  seasonUrls[s] = p(s);
-                  log.innerHTML += `<div>✔️ Padrão encontrado para T${s}: ${p(s).split('/').pop()}</div>`;
-                  break;
-              }
+      try {
+        const res = await fetchWithProxy(testUrl);
+        if (res) {
+          const text = await res.text();
+          // Se não for página de erro e tiver tamanho razoável
+          if (text.length > 1000 && 
+              !text.match(/<title>.*404.*<\/title>/i) && 
+              !text.includes("Not Found") &&
+              !text.includes("Página não encontrada")) {
+            // Remove o /1 para obter a base
+            let baseUrl = testUrl.replace(/\/\d+$/, "");
+            seasonUrls[s] = baseUrl;
+            logMsg(`✔️ Padrão ${p+1} funcionou para T${s}: ${baseUrl}`, 'success');
+            found = true;
+            break;
           }
-      }
+        }
+      } catch(e) {}
+      await new Promise(r => setTimeout(r, 300));
+    }
+    if (!found) {
+      logMsg(`❌ Nenhum padrão funcionou para T${s}.`, 'error');
+    }
   }
 
-  // PASSO 3: EXTRAIR EPISÓDIOS
+  // ============================================================
+  // PASSO 3: Iterar episódios de cada temporada
+  // ============================================================
+  logMsg(`🎬 Iniciando extração de episódios...`, 'title');
+  
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   let totalEpisodios = 0;
+  let temporadasComSucesso = 0;
 
   for (let s = 1; s <= maxSeasonsTMDB; s++) {
-    if (!seasonUrls[s]) {
-        log.innerHTML += `<div>❌ Temporada ${s} não encontrada em nenhum padrão.</div>`;
-        continue;
-    }
+    if (!seasonUrls[s]) continue;
 
-    log.innerHTML += `<div>🔎 Buscando episódios da T${s}...</div>`;
+    logMsg(`📺 Buscando episódios da T${s}...`, 'title');
     let epNum = 1;
     let fails = 0;
     const seasonBase = seasonUrls[s];
+    let epsFound = 0;
 
     while (epNum <= 200) {
       let epUrl = `${seasonBase}/${epNum}`;
+
       try {
         const res = await fetchWithProxy(epUrl);
-        if (!res) { fails++; if(fails >= 3) break; continue; }
-        
-        const html = await res.text();
-        
-        // Verifica se a página realmente existe
-        if (html.includes("404") && html.includes("Not Found")) {
-            if (epNum === 1) log.innerHTML += `<div>❌ T${s} não encontrada.</div>`;
+        if (!res) {
+          fails++;
+          if (fails >= 3) {
+            logMsg(`⚠️ 3 falhas seguidas, pulando T${s}.`, 'warn');
             break;
+          }
+          epNum++;
+          continue;
         }
 
-        // Extrai o vídeo com o sistema profundo
+        const html = await res.text();
+
+        // Verifica se é página de erro
+        if (html.match(/<title>.*404.*<\/title>/i) || html.length < 500) {
+          if (epNum === 1) logMsg(`❌ T${s} não tem episódios válidos.`, 'error');
+          break;
+        }
+
+        // Extrai vídeo
         const videoData = extrairVideoDoHtml(html, epUrl);
-        
+
         let finalUrl = videoData.url;
         if (shouldPrefix && !finalUrl.startsWith(PREFIX)) {
-            finalUrl = PREFIX + finalUrl;
+          finalUrl = PREFIX + finalUrl;
         }
-        
-        // Injeta no objeto
+
+        // Injeta no current
         let sObj = current.seasons.find(x => x.number === s);
         if (!sObj) {
-            sObj = { number: s, label: `Temporada ${s}`, episodes: [] };
-            current.seasons.push(sObj);
+          sObj = { number: s, label: `Temporada ${s}`, episodes: [] };
+          current.seasons.push(sObj);
         }
-        
+
         let eObj = sObj.episodes.find(x => x.number === epNum);
         if (eObj) eObj.source = finalUrl;
         else sObj.episodes.push({ number: epNum, label: `Episódio ${epNum}`, title: "", source: finalUrl, subtitles: {} });
 
         totalEpisodios++;
-        log.innerHTML += `<div>✔️ T${s} E${epNum} [${videoData.tipo}]</div>`;
+        epsFound++;
+        logMsg(`✔️ T${s} E${epNum} [${videoData.tipo}]`, 'success');
         fails = 0;
         epNum++;
         await sleep(150);
@@ -496,26 +655,58 @@ async function autoScrapeTudo() {
         break;
       }
     }
+
+    if (epsFound > 0) {
+      temporadasComSucesso++;
+      logMsg(`✅ T${s}: ${epsFound} episódios encontrados.`, 'success');
+    }
   }
 
+  // ============================================================
   // FINALIZAÇÃO
+  // ============================================================
+  logMsg(`🏁 Finalizando...`, 'title');
+
   if (totalEpisodios > 0) {
     current.seasons.sort((a,b) => a.number - b.number);
     current.seasons.forEach(s => s.episodes.sort((a,b) => a.number - b.number));
     renderPreview();
-    toast(`✔️ Raspagem concluída! ${totalEpisodios} episódios encontrados.`);
-    log.innerHTML += `<div style="color:#10b981;font-weight:700;margin-top:8px">✅ FIM! ${totalEpisodios} episódios salvos no catálogo.</div>`;
+    toast(`✔️ Raspagem concluída! ${totalEpisodios} episódios em ${temporadasComSucesso} temporadas.`);
+    logMsg(`✅ FIM! ${totalEpisodios} episódios encontrados em ${temporadasComSucesso} temporadas.`, 'success');
   } else {
     toast("Nenhum episódio encontrado.", true);
-    log.innerHTML += `<div style="color:#ef4444">❌ Nenhum episódio encontrado.</div>`;
+    logMsg(`❌ Nenhum episódio encontrado em nenhuma temporada.`, 'error');
   }
 
   btn.disabled = false;
   btn.innerHTML = '🕷️ Varrer Tudo';
-  log.scrollTop = log.scrollHeight;
 }
 
-// === CONTROLES E OUTRAS FUNÇÕES ===
+// Função auxiliar para extrair links de um JSON
+function extrairLinksDoJSON(obj, domain, hashPrefix, maxSeasons, resultado = [], nivel = 0) {
+  if (nivel > 10) return resultado;
+  if (typeof obj === 'string') {
+    if (obj.startsWith('http') && obj.includes(hashPrefix)) {
+      const cleanUrl = obj.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
+      const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
+      if (sMatch) {
+        const sNum = parseInt(sMatch[1], 10);
+        if (sNum <= maxSeasons) {
+          resultado.push({ season: sNum, url: cleanUrl });
+        }
+      }
+    }
+  } else if (Array.isArray(obj)) {
+    obj.forEach(item => extrairLinksDoJSON(item, domain, hashPrefix, maxSeasons, resultado, nivel + 1));
+  } else if (obj && typeof obj === 'object') {
+    Object.values(obj).forEach(val => extrairLinksDoJSON(val, domain, hashPrefix, maxSeasons, resultado, nivel + 1));
+  }
+  return resultado;
+}
+
+// ============================================================
+// CONTROLES E OUTRAS FUNÇÕES
+// ============================================================
 $("applyMode").addEventListener("change", function() {
   $("seasonSelectWrap").style.display = this.value === "all" ? "none" : "block";
 });
@@ -587,7 +778,9 @@ function aplicarLinks() {
   toast(`✔️ Links aplicados em ${seasonsToApply.length} temporada(s)!`);
 }
 
-// === GITHUB CATALOG E SAVE ===
+// ============================================================
+// GITHUB CATALOG
+// ============================================================
 async function loadCatalog() {
   const cfg = getGithubConfig();
   if (!cfg) throw new Error("GitHub não configurado.");
