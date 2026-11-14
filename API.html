@@ -10,20 +10,18 @@
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#fff}
 
-/* ---------- player ---------- */
 .player{position:relative;width:100vw;height:100vh;height:100dvh;background:#000;overflow:hidden;color:#fff;--u:1px;user-select:none;-webkit-user-select:none;font-family:inherit}
 .player:fullscreen{width:100vw;height:100vh}
 .player:-webkit-full-screen{width:100vw;height:100vh}
 .player.pseudo{position:fixed;inset:0;z-index:9999;width:100%;height:100%}
 
-/* ⚠️ AQUI ESTÁ A PROTEÇÃO CONTRA O PLAYER NATIVO DO CHROME */
+/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 .player video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;background:#000;z-index:1;
-  pointer-events:none; /* ⬅️ Bloqueia interação direta */
+  pointer-events:none;
 }
 
-/* Esconde TODOS os controles nativos do Chrome/Safari */
 video::-webkit-media-controls,
 video::-webkit-media-controls-enclosure,
 video::-webkit-media-controls-panel,
@@ -40,7 +38,6 @@ video::-webkit-media-controls-mute-button,
 video::-webkit-media-controls-toggle-closed-captions-button,
 video::-webkit-media-controls-volume-control-container,
 video::-webkit-media-controls-rewind-button,
-video::-webkit-media-controls-return-to-realtime-button,
 video::-webkit-media-controls-return-to-realtime-button {
   display: none !important;
   -webkit-appearance: none !important;
@@ -49,11 +46,7 @@ video::-webkit-media-controls-return-to-realtime-button {
   width: 0 !important;
   height: 0 !important;
 }
-
-/* Firefox */
 video::-moz-media-controls { display: none !important; }
-
-/* Legendas nativas - manter (são as do track) */
 .player video::cue{background:rgba(0,0,0,.6);color:#fff;font-family:inherit}
 
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:1;background:#000}
@@ -62,12 +55,12 @@ video::-moz-media-controls { display: none !important; }
 
 .dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2}
 
-/* ⚠️ OVERLAY INVISÍVEL QUE CAPTURA TODOS OS CLIQUES */
+/* ⚠️ OVERLAY DE GESTOS - SEMPRE RECEBE CLIQUE */
 .gest{
   position:absolute;inset:0;
   z-index:3;
   touch-action:none;
-  pointer-events:auto; /* ⬅️ Garantir que captura cliques */
+  pointer-events:auto;
   cursor:pointer;
   background:transparent;
 }
@@ -94,7 +87,19 @@ video::-moz-media-controls { display: none !important; }
 .is-full .ui.compact{display:none}
 .locked .ui{display:none!important}
 
-/* range */
+/* Estado SEM VÍDEO - mostra mensagem */
+.player.novideo .c-big::after {
+  content: '⚠️';
+  position: absolute;
+  font-size: calc(var(--u)*30);
+  bottom: calc(var(--u)*-20);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.player.novideo .c-time {
+  color: #ff6b6b;
+}
+
 .seek{-webkit-appearance:none;appearance:none;background:transparent;margin:0;width:100%;cursor:pointer;height:var(--tb);outline:none}
 .seek.cs{--tb:calc(var(--u)*17);--tk:calc(var(--u)*3)}
 .seek.fs{--tb:calc(var(--u)*24);--tk:calc(var(--u)*4)}
@@ -104,7 +109,6 @@ video::-moz-media-controls { display: none !important; }
 .seek::-moz-range-progress{height:var(--tk);background:#fff;border-radius:4px}
 .seek::-moz-range-thumb{width:var(--tb);height:var(--tb);border:0;border-radius:50%;background:#fff}
 
-/* modo compacto */
 .c-top{position:absolute;top:calc(var(--u)*68);right:calc(var(--u)*30);display:flex;gap:calc(var(--u)*46)}
 .c-top .ic{width:calc(var(--u)*40);height:calc(var(--u)*40)}
 .c-big{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(var(--u)*72);height:calc(var(--u)*72)}
@@ -115,7 +119,6 @@ video::-moz-media-controls { display: none !important; }
 .c-bar .seek{flex:1;min-width:0}
 .c-time{font-size:calc(var(--u)*19.5);white-space:nowrap;font-variant-numeric:tabular-nums;color:#f1f1f1}
 
-/* modo tela cheia */
 .f-top{position:absolute;top:0;left:0;right:0;height:calc(var(--u)*98);padding:0 calc(var(--u)*50) 0 calc(var(--u)*28);display:flex;align-items:center}
 .f-back .ic{width:calc(var(--u)*38);height:calc(var(--u)*38)}
 .f-title{margin-left:calc(var(--u)*14);font-size:calc(var(--u)*28);font-weight:500;white-space:pre;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
@@ -141,7 +144,6 @@ video::-moz-media-controls { display: none !important; }
 .f-opt .ic{width:calc(var(--u)*28);height:calc(var(--u)*28)}
 .f-opt.dis,.show .f-opt.dis,.paused .f-opt.dis{color:#5e5e60;pointer-events:none!important}
 
-/* painéis */
 .panel{position:absolute;inset:0;background:#000;z-index:10;display:none;overflow:auto}
 .panel.open{display:block}
 .p-title{position:absolute;left:calc(var(--u)*84);top:calc(var(--u)*56);font-size:calc(var(--u)*36);font-weight:700;line-height:1.2}
@@ -161,7 +163,6 @@ video::-moz-media-controls { display: none !important; }
 .ep{width:calc(var(--u)*91);height:calc(var(--u)*94);border-radius:calc(var(--u)*18);background:#2a2a2a;color:#fff;border:0;font-family:inherit;font-size:calc(var(--u)*27);font-weight:500;cursor:pointer}
 .ep.sel{background:#4f4f4f}
 
-/* Configurações de Legenda */
 .sub-btn-settings{position:absolute;bottom:calc(var(--u)*30);left:50%;transform:translateX(-50%);background:#2a2a2a;border:none;color:#fff;padding:calc(var(--u)*12) calc(var(--u)*24);border-radius:calc(var(--u)*10);font-size:calc(var(--u)*24);display:flex;align-items:center;gap:calc(var(--u)*10);cursor:pointer;z-index:15}
 .cs-row{margin-bottom:calc(var(--u)*40);width:80%;max-width:calc(var(--u)*600);margin-left:auto;margin-right:auto}
 .cs-row label{display:block;font-size:calc(var(--u)*24);color:#fff;margin-bottom:calc(var(--u)*15)}
@@ -190,7 +191,6 @@ video::-moz-media-controls { display: none !important; }
 .fb-box textarea{width:100%;height:calc(var(--u)*220);background:#111;border:1px solid #2b2b2e;border-radius:calc(var(--u)*16);color:#fff;font:inherit;font-size:calc(var(--u)*26);padding:calc(var(--u)*18);resize:none;outline:none}
 .fb-box button{margin-top:calc(var(--u)*22);background:#fff;color:#000;border:0;border-radius:calc(var(--u)*14);font:inherit;font-weight:600;font-size:calc(var(--u)*26);padding:calc(var(--u)*14) calc(var(--u)*36);cursor:pointer}
 
-/* transmitir */
 .cast-head{position:absolute;left:calc(var(--u)*56);right:calc(var(--u)*60);top:calc(var(--u)*34);display:flex;align-items:center;gap:calc(var(--u)*20);font-size:calc(var(--u)*34);font-weight:700}
 .cast-head .btn{width:calc(var(--u)*44);height:calc(var(--u)*44)}
 .cast-head .ic{width:100%;height:100%;stroke-width:2.2}
@@ -209,7 +209,6 @@ video::-moz-media-controls { display: none !important; }
 .cast-card .wf .ck{margin-left:auto}
 #castNote{margin-top:calc(var(--u)*18);font-size:calc(var(--u)*22);color:#ffb86b;display:none}
 
-/* tela bloqueada */
 .lockov{position:absolute;inset:0;z-index:20;display:none;pointer-events:none}
 .locked .lockov{display:block}
 .lk{position:absolute;left:50%;bottom:calc(var(--u)*26);transform:translateX(-50%);background:none;border:0;color:#fff;font-family:inherit;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s;cursor:pointer}
@@ -219,7 +218,6 @@ video::-moz-media-controls { display: none !important; }
 .lk-t{font-size:calc(var(--u)*30);font-weight:500;line-height:1.2}
 .lk-s{font-size:calc(var(--u)*23);color:#8c8c90;margin-top:calc(var(--u)*6);white-space:nowrap}
 
-/* guia de gestos */
 .guide{position:absolute;inset:0;background:#000;z-index:30;display:none;cursor:pointer}
 .guide.on{display:block}
 .g-row{position:absolute;top:51%;left:0;right:0;transform:translateY(-50%);display:flex;justify-content:center}
@@ -236,7 +234,6 @@ video::-moz-media-controls { display: none !important; }
 .toast{position:absolute;left:50%;bottom:calc(var(--u)*120);transform:translateX(-50%);background:rgba(30,30,32,.94);padding:calc(var(--u)*11) calc(var(--u)*24);border-radius:calc(var(--u)*30);font-size:calc(var(--u)*22);opacity:0;pointer-events:none;transition:opacity .25s;z-index:25;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
 .toast.on{opacity:1}
 
-/* Custom Subtitle Overlay */
 #sub-overlay {
   position: absolute;
   left: 50%;
@@ -260,7 +257,6 @@ video::-moz-media-controls { display: none !important; }
 </head>
 <body>
 
-<!-- ícones -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5.2v13.6c0 .8.9 1.3 1.6.8l10.4-6.8c.6-.4.6-1.2 0-1.6L8.6 4.4C7.9 3.9 7 4.4 7 5.2z" fill="currentColor" stroke="none"/></symbol>
@@ -298,7 +294,6 @@ video::-moz-media-controls { display: none !important; }
 </svg>
 
 <div class="player paused" id="player">
-  <!-- ⚠️ SEM CONTROLS, SEM PLAYSINLINE NATIVO, APENAS ATRIBUTOS QUE IMPEDEM O CHROME -->
   <video 
     id="v" 
     playsinline 
@@ -318,7 +313,6 @@ video::-moz-media-controls { display: none !important; }
   <div class="dim" id="dim"></div>
   <div class="spin"></div>
   
-  <!-- ⚠️ OVERLAY DE GESTOS (CAPTURA TUDO) -->
   <div class="gest" id="gest"></div>
   
   <div id="sub-overlay"><span></span></div>
@@ -508,37 +502,20 @@ const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
 
-/* ⚠️ PROTEÇÃO MÁXIMA CONTRA CONTROLES NATIVOS */
+/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 function killNativeControls(){
-  // Remove atributo controls
   V.controls = false;
   V.removeAttribute('controls');
   V.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback nospeed nopictureinpicture');
-  V.setAttribute('disablepictureinpicture', '');
-  V.setAttribute('disableremoteplayback', '');
-  V.setAttribute('tabindex', '-1');
   V.style.pointerEvents = 'none';
 }
 killNativeControls();
 
-// MutationObserver: se alguém (extensão do Chrome) tentar adicionar controls
 new MutationObserver(() => {
   if (V.hasAttribute('controls')) killNativeControls();
 }).observe(V, { attributes: true, attributeFilter: ['controls'] });
 
-// Reforço ao carregar metadata
 V.addEventListener('loadedmetadata', killNativeControls);
-
-/* ⚠️ GARANTIR QUE O PLAYER CUSTOMIZADO FIQUE SEMPRE VISÍVEL */
-const uiObserver = new MutationObserver(() => {
-  // Se o player está pausado, garantir .ui visível
-  if (P.classList.contains('paused')) {
-    P.classList.add('show');
-  }
-});
-uiObserver.observe(P, { attributes: true, attributeFilter: ['class'] });
-
-/* Resto do código normal */
 
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 const pad=n=>String(n).padStart(2,'0');
@@ -752,10 +729,9 @@ let wl=null;
 async function wlOn(){try{if('wakeLock' in navigator&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){}}
 function wlOff(){try{wl&&wl.release()}catch(e){}wl=null}
 
-V.addEventListener('play',()=>{P.classList.add('playing');P.classList.remove('paused');showUI();wlOn()});
+V.addEventListener('play',()=>{P.classList.add('playing');P.classList.remove('paused','novideo');showUI();wlOn()});
 V.addEventListener('pause',()=>{
   P.classList.remove('playing');P.classList.add('paused');wlOff();
-  P.classList.add('show'); // ⚠️ Garantir que o UI fique visível quando pausado
   if(document.hidden&&S.bg&&!V.ended){V.play().catch(()=>{})}
 });
 V.addEventListener('ended',()=>{
@@ -770,14 +746,23 @@ V.addEventListener('ended',()=>{
 });
 V.addEventListener('waiting',()=>P.classList.add('loading'));
 ['playing','canplay','pause'].forEach(e=>V.addEventListener(e,()=>P.classList.remove('loading')));
-V.addEventListener('error',()=>{if(S.cur&&!P.classList.contains('embed'))fallback()});
+V.addEventListener('error',()=>{
+  console.warn('[Player] Erro no vídeo');
+  if(S.cur&&!P.classList.contains('embed'))fallback();
+});
 
 function toggle(){
   if (!S.cur || P.classList.contains('embed')) {
     if (P.classList.contains('embed')) toast('Controle pelo player embed');
+    else toast('Nenhum vídeo carregado');
     return;
   }
-  if(V.paused) V.play().catch(()=>toast('Erro')); else V.pause();
+  if(V.paused) {
+    V.play().catch(e => {
+      console.error('[Player] Erro ao tocar:', e);
+      toast('Erro ao reproduzir: ' + e.message);
+    });
+  } else V.pause();
 }
 function seekBy(s){
   if (!S.cur || !isFinite(V.duration) || P.classList.contains('embed')) return;
@@ -1084,31 +1069,50 @@ function applyHlsQuality(){
   hls.currentLevel=best;
 }
 
+/* ⚠️ DETECTA MGEB E FORÇA VÍDEO DIRETO (st=0) */
 function loadVideo(resume,auto,forceStage){
   const u=srcFor();S.cur=u;
   if(hls){hls.destroy();hls=null}
   if(V._go){V.removeEventListener('loadedmetadata',V._go);V._go=null}
-  if(!u){P.classList.remove('embed');V.removeAttribute('src');V.load();return false}
+  if(!u){
+    P.classList.remove('embed');
+    P.classList.add('novideo');
+    V.removeAttribute('src');
+    V.load();
+    P.classList.add('paused');
+    P.classList.add('show');
+    return false;
+  }
+  P.classList.remove('novideo');
+  
   const hlsOk=!!(window.Hls&&Hls.isSupported());
+  const isM3=/\.m3u8/i.test(u);
+  const isFile=/\.(mp4|m4v|webm|ogv|mov|mkv|mp3)(\?|#|$)/i.test(u)||/^blob:/.test(u);
+  const isMgeb=/mgeb\.space\/mp4\.php/i.test(u);
+  const prox=!!(CONFIG.USAR_PROXY&&CONFIG.PROXY&&u.startsWith(CONFIG.PROXY));
+  
   let st=forceStage;
   if(st==null){
-    const isM3=/\.m3u8/i.test(u);
-    const isFile=/\.(mp4|m4v|webm|ogv|mov|mkv|mp3)(\?|#|$)/i.test(u)||/^blob:/.test(u);
-    const prox=!!(CONFIG.USAR_PROXY&&CONFIG.PROXY&&u.startsWith(CONFIG.PROXY));
     if(CONFIG.MODO==='embed')st=2;
     else if(isM3&&hlsOk)st=1;
-    else if(CONFIG.MODO==='video'||isFile||isM3||prox)st=0;
+    // ⚠️ mgeb.space SERVE MP4 DIRETO, NÃO É EMBED
+    else if(isMgeb||CONFIG.MODO==='video'||isFile||isM3||prox)st=0;
     else st=2;
   }
   S.stage=st;
+  
   if(st===2){
-    P.classList.add('embed');V.pause();V.removeAttribute('src');V.load();EMB.src=u;return true;
+    P.classList.add('embed');V.pause();V.removeAttribute('src');V.load();EMB.src=u;
+    return true;
   }
+  
   P.classList.remove('embed');EMB.src='about:blank';
   const go=()=>{
     if(resume){try{V.currentTime=resume}catch(e){}}
     V.playbackRate=S.speed;
-    killNativeControls(); // Reforça após loadedmetadata
+    killNativeControls();
+    P.classList.add('paused');
+    P.classList.add('show');
     if(auto)V.play().catch(()=>{});
   };
   V._go=go;
@@ -1118,7 +1122,9 @@ function loadVideo(resume,auto,forceStage){
     hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyHlsQuality();go()});
     hls.on(Hls.Events.ERROR,(_,d)=>{if(d&&d.fatal)fallback()});
   }else{
-    V.src=u;V.addEventListener('loadedmetadata',go,{once:true});V.load();
+    V.src=u;
+    V.addEventListener('loadedmetadata',go,{once:true});
+    V.load();
   }
   return true;
 }
@@ -1198,21 +1204,31 @@ async function loadFromCatalog(){
   const params = new URLSearchParams(location.search);
   const id = params.get('id') || params.get('tmdb') || CONFIG.TMDB_ID;
   const typeParam = params.get('type') || params.get('tipo') || CONFIG.TIPO;
-  if (!id) return false;
+  if (!id) {
+    console.warn('[Player] Sem ID na URL');
+    return false;
+  }
   try {
     const res = await fetch('/catalog.json?t=' + Date.now());
-    if (!res.ok) return false;
+    if (!res.ok) {
+      console.warn('[Player] catalog.json não encontrado (HTTP ' + res.status + ')');
+      return false;
+    }
     const catalog = await res.json();
     const type = typeParam === 'tv' || typeParam === 'series' ? 'tv' : 'movie';
     const bucket = type === 'tv' ? catalog.series : catalog.movies;
     const item = bucket?.[id];
-    if (!item) return false;
+    if (!item) {
+      console.warn('[Player] ID ' + id + ' não encontrado no catálogo');
+      return false;
+    }
     CONFIG.TMDB_ID = String(id);
     CONFIG.TIPO = type === 'tv' ? 'tv' : 'movie';
     if (item.title) CONFIG.TITULO = item.title;
     if (type === 'movie') {
       CONFIG.VIDEO = item.source || '';
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
+      console.log('[Player] Filme carregado:', item.title, '| Fonte:', CONFIG.VIDEO);
     } else {
       const season = parseInt(params.get('season') || params.get('temp') || '1');
       const ep = parseInt(params.get('episode') || params.get('ep') || '1');
@@ -1271,10 +1287,18 @@ async function start(){
     if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
     const ok = loadVideo(saved, false);
     tick();
+    
+    // ⚠️ FORÇA UI VISÍVEL NO INÍCIO
+    P.classList.add('paused');
+    P.classList.add('show');
+    
     if(!ok && !fromCatalog) toast('Coloque o link no catálogo ou em CONFIG.VIDEO');
+    else if(!ok && fromCatalog) toast('Erro: link não encontrado');
   } catch(err) {
     console.error('[Player] Erro fatal:', err);
     toast('Erro: ' + err.message);
+    P.classList.add('paused');
+    P.classList.add('show');
   }
 }
 
