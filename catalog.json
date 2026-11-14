@@ -18462,6 +18462,705 @@
         }
       ]
     },
+    "86031": {
+      "title": "Dr. Stone",
+      "overview": "Ao acordar em um mundo onde a humanidade foi transformada em pedra, Senku, um gênio da ciência, e seu amigo Taiju usam suas habilidades para reconstruir a civilização.",
+      "poster": "https://image.tmdb.org/t/p/w500/xEbnuDJXA0MYVV1zjizGWgOhSPE.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/lN13BPAEnc5iXmoxxBQHOZ1ScfZ.jpg",
+      "year": "2019",
+      "rating": 8.529,
+      "genres": [
+        "Animação",
+        "Action & Adventure",
+        "Comédia",
+        "Sci-Fi & Fantasy"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Stone World",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "King of the Stone World",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Armas da Ciência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Dispare o Sinal de Fumaça",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Stone World The Beginning",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Duas Nações do Mundo de Pedra",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Onde se passaram 2 milhões de anos",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Stone Road",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Faça-se a luz da ciência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Tênue Aliança",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Clear World",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Amigos de Costas contra Costas",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Guerreiro Mascarado",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Master of Flame",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Culminar de 2 Milhões de Anos",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Um Conto de Milhares de Anos",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Cem Noites e Mil Céus",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Stone Wars",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "E em Direção à Modernidade",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Era da Potência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Clube de Artesanato Espartano",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Tesouro",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Onda de Ciência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/23",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Vozes a uma Distância Infinita",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/LP9Dose58pCaw4sugjsb9-Dr-Stone-Season-1[Audio-pt-BR]/24",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "STONE WARS",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "As Stone Wars começam",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Hot Line",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Telefone dos Mortos",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Ataque com Força Total",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Steam Gorilla",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Prison Break",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Missão Confidencial",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Final Battle",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Para destruir e salvar",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Dupla Mais Poderosa da Humanidade",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Prologue of Dr. Stone",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/wE95r8C9ccdL4G0GPPFMI-Dr-Stone-Season-2[Audio-pt-BR]/11",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "NEW WORLD",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Mapa do Novo Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Querer = Justiça",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Primeiro Contato",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Olhos da Ciência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Navio Científico Perseu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Baú do Tesouro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Luz do Desespero e da Esperança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Carta na Manga Dentro do Navio da Ciência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Bela Ciência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Guerras Científicas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Com Este Punho, Um Milagre",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Reino da Ciência Contra-Ataca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Verdadeiro Rosto da Medusa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Deal Game, Batalha de Cérebros",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Batalha em Três Dimensões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Guerra Total",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Coringa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Brilho da Destruição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Último Homem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Primeiro Sonho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Ilha do Tesouro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Além do Novo Mundo",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "SCIENCE FUTURE",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Ryusui vs. Senku",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Science Journey",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Armadilha de Luz na Escuridão",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Dr. X",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Doctor VS Doctor",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A ciência é elegante",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Os dois cientistas",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Lock On",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/8",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Luz da Ciência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/9",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Por estradas cheias de terra",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/10",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Os que sabem as regras e os que fazem as regras",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/11",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Reencontro",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/12",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Olhando a mesma lua",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/13",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Earth Race",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/14",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Escapando do Cerco Inimigo",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/15",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Medusa Mechanism",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/16",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Nojento, mas belo",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/17",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Diamond Heart",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/18",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Stone Sanctuary",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/19",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O que no passado tentamos destruir",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/20",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Our Dr. Stone",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/21",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Até o nosso reencontro",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/22",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Uma cientista solitária",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/23",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Whole New World",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/24",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Future Engine",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/25",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "FIRE",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/26",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "O universo é escrito na língua da matemática",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/27",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "O alvorecer do computador",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/28",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "A verdade sobre o foguete",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/29",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Stone to Space",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/30",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Unknown Known",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/31",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Desafiantes da Ciência",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/32",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Querendo tudo",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/33",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "COUNT DOWN",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/34",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Giant Step",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/35",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Why-Man",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/36",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Coisas que empolgam no futuro",
+              "source": "https://mgeb.space/mp4.php?url=https://play.cuevana19.com/pt/detail/drama/5awFVnCNjXjz0tWooCodW-Dr-Stone-Science-Future/37",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
+    },
     "89313": {
       "title": "おやすみせっくす",
       "overview": "",
