@@ -1,5 +1,20 @@
 {
   "movies": {
+    "155": {
+      "title": "Batman: O Cavaleiro das Trevas",
+      "overview": "Após dois anos desde o surgimento do Batman, os criminosos de Gotham City têm muito o que temer. Com a ajuda do tenente James Gordon e do promotor público Harvey Dent, Batman luta contra o crime organizado. Acuados com o combate, os chefes do crime aceitam a proposta feita pelo Coringa e o contratam para combater o Homem-Morcego.",
+      "poster": "https://image.tmdb.org/t/p/w500/dutnVGV9ljCZh84bkTE1TVZ4s4Y.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/cfT29Im5VDvjE0RpyKOSdCKZal7.jpg",
+      "year": "2008",
+      "rating": 8.54,
+      "genres": [
+        "Ação",
+        "Thriller",
+        "Crime"
+      ],
+      "ageRating": "12",
+      "source": "https://mgeb.space/mp4.php?url=https://peliculaplay.com/pt/detail/movie/RACMgsEjPBb3mp724UxVR-Batman-The-Dark-Knight-Returns-Part-2"
+    },
     "808": {
       "title": "Shrek",
       "overview": "Em um pântano distante vive Shrek, um ogro solitário que vê, sem mais nem menos, sua vida ser invadida por uma série de personagens de contos de fada. Todos eles foram expulsos de suas casas pelo maligno Lorde Farquaad. Determinado a recuperar a tranquilidade, Shrek faz um acordo com Farquaad: todos os personagens poderão retornar aos seus lares se ele e seu amigo Burro resgatarem uma princesa que foi aprisionada por um dragão.",
