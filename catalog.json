@@ -21102,6 +21102,83 @@
         }
       ]
     },
+    "289517": {
+      "title": "Um Trabalho do Inferno",
+      "overview": "Endividado, um jovem aceita empregos lucrativos em uma agência misteriosa, mas logo descobre que sua busca por dinheiro vai se tornar um pesadelo.",
+      "poster": "https://image.tmdb.org/t/p/w500/sb7uyzV8re3uSvogl6jn8KjLbAH.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/gWedDgBsZkuOho2qe3q2sTQmbpO.jpg",
+      "year": "2026",
+      "rating": 7.571,
+      "genres": [
+        "Mistério",
+        "Drama"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Minissérie",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Regras da loja de conveniência",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Trabalhando com o Palhaço Pierrô",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Vlog do leiteiro",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Cinema noturno misterioso",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/4",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Teste clínico",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/5",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Paredes não falam",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/6",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Novo Mundo após o anoitecer",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/7",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Último Espetáculo",
+              "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/drama/FV2R3n92VRL57Y8qfDUPr-Dead-End-Job/8",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
+    },
     "292554": {
       "title": "デキちゃうまで婚",
       "overview": "",
