@@ -15,14 +15,63 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 .player:fullscreen{width:100vw;height:100vh}
 .player:-webkit-full-screen{width:100vw;height:100vh}
 .player.pseudo{position:fixed;inset:0;z-index:9999;width:100%;height:100%}
-.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;z-index:1}
-.player video::-webkit-media-controls { display: none !important; }
+
+/* ⚠️ AQUI ESTÁ A PROTEÇÃO CONTRA O PLAYER NATIVO DO CHROME */
+.player video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;background:#000;z-index:1;
+  pointer-events:none; /* ⬅️ Bloqueia interação direta */
+}
+
+/* Esconde TODOS os controles nativos do Chrome/Safari */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-overflow-button,
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-current-time-display,
+video::-webkit-media-controls-time-remaining-display,
+video::-webkit-media-controls-timeline,
+video::-webkit-media-controls-volume-slider,
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-toggle-closed-captions-button,
+video::-webkit-media-controls-volume-control-container,
+video::-webkit-media-controls-rewind-button,
+video::-webkit-media-controls-return-to-realtime-button,
+video::-webkit-media-controls-return-to-realtime-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Firefox */
+video::-moz-media-controls { display: none !important; }
+
+/* Legendas nativas - manter (são as do track) */
 .player video::cue{background:rgba(0,0,0,.6);color:#fff;font-family:inherit}
+
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:1;background:#000}
 .player.embed iframe{display:block}
 .player.embed video,.player.embed .gest,.player.embed .ui,.player.embed .spin{display:none!important}
+
 .dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2}
-.gest{position:absolute;inset:0;z-index:3;touch-action:none}
+
+/* ⚠️ OVERLAY INVISÍVEL QUE CAPTURA TODOS OS CLIQUES */
+.gest{
+  position:absolute;inset:0;
+  z-index:3;
+  touch-action:none;
+  pointer-events:auto; /* ⬅️ Garantir que captura cliques */
+  cursor:pointer;
+  background:transparent;
+}
+
 .spin{position:absolute;left:50%;top:50%;width:calc(var(--u)*64);height:calc(var(--u)*64);margin:calc(var(--u)*-32) 0 0 calc(var(--u)*-32);border:calc(var(--u)*4) solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:none;z-index:5;pointer-events:none}
 .loading .spin{display:block}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -249,12 +298,27 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 </svg>
 
 <div class="player paused" id="player">
-  <!-- ATENÇÃO: A TAG VIDEO NÃO TEM O ATRIBUTO 'controls' AQUI -->
-  <video id="v" playsinline webkit-playsinline preload="metadata"><track id="trk" kind="subtitles" srclang="pt" label="Português"></video>
+  <!-- ⚠️ SEM CONTROLS, SEM PLAYSINLINE NATIVO, APENAS ATRIBUTOS QUE IMPEDEM O CHROME -->
+  <video 
+    id="v" 
+    playsinline 
+    webkit-playsinline
+    x5-playsinline
+    x5-video-player-type="h5"
+    x5-video-player-fullscreen="false"
+    disablepictureinpicture
+    disableremoteplayback
+    preload="metadata"
+    controlslist="nodownload nofullscreen noremoteplayback nospeed nopictureinpicture"
+    tabindex="-1"
+    style="pointer-events:none"
+  ><track id="trk" kind="subtitles" srclang="pt" label="Português"></video>
   
   <iframe id="embed" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
   <div class="dim" id="dim"></div>
   <div class="spin"></div>
+  
+  <!-- ⚠️ OVERLAY DE GESTOS (CAPTURA TUDO) -->
   <div class="gest" id="gest"></div>
   
   <div id="sub-overlay"><span></span></div>
@@ -421,25 +485,11 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 (()=>{
 'use strict';
 
-/* ==========================================================================
-   CONFIG PADRÃO
-   ========================================================================== */
 const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
-  TMDB_ID:'',
-  TIPO:'movie',
-  TEMPORADA:1,
-  EPISODIO:1,
-  VIDEO:'',
-  PROXY:'https://mgeb.space/mp4.php?url=',
-  USAR_PROXY:false,
-  MODO:'auto',
-  VIDEO_EN:'',
-  VIDEO_ES:'',
-  VIDEO_540:'',
-  VIDEO_360:'',
-  LEGENDA:'',
-  TITULO:'',
+  TMDB_ID:'', TIPO:'movie', TEMPORADA:1, EPISODIO:1, VIDEO:'',
+  PROXY:'https://mgeb.space/mp4.php?url=', USAR_PROXY:false, MODO:'auto',
+  VIDEO_EN:'', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
   OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
 };
 
@@ -458,9 +508,37 @@ const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
 
-// FORÇA A REMOÇÃO DOS CONTROLES NATIVOS DO CHROME VIA JS
-V.controls = false;
-V.removeAttribute('controls');
+/* ⚠️ PROTEÇÃO MÁXIMA CONTRA CONTROLES NATIVOS */
+function killNativeControls(){
+  // Remove atributo controls
+  V.controls = false;
+  V.removeAttribute('controls');
+  V.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback nospeed nopictureinpicture');
+  V.setAttribute('disablepictureinpicture', '');
+  V.setAttribute('disableremoteplayback', '');
+  V.setAttribute('tabindex', '-1');
+  V.style.pointerEvents = 'none';
+}
+killNativeControls();
+
+// MutationObserver: se alguém (extensão do Chrome) tentar adicionar controls
+new MutationObserver(() => {
+  if (V.hasAttribute('controls')) killNativeControls();
+}).observe(V, { attributes: true, attributeFilter: ['controls'] });
+
+// Reforço ao carregar metadata
+V.addEventListener('loadedmetadata', killNativeControls);
+
+/* ⚠️ GARANTIR QUE O PLAYER CUSTOMIZADO FIQUE SEMPRE VISÍVEL */
+const uiObserver = new MutationObserver(() => {
+  // Se o player está pausado, garantir .ui visível
+  if (P.classList.contains('paused')) {
+    P.classList.add('show');
+  }
+});
+uiObserver.observe(P, { attributes: true, attributeFilter: ['class'] });
+
+/* Resto do código normal */
 
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 const pad=n=>String(n).padStart(2,'0');
@@ -503,42 +581,33 @@ const SubManager = {
     if(!CONFIG.TMDB_ID) return;
     const listEl = g('l-c');
     listEl.innerHTML = '<div style="color:#aaa;text-align:center;padding:20px">Buscando legendas...</div>';
-    
     try {
       const url = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${CONFIG.TMDB_ID}&languages=pt-br,en,es&type=${S.type === 'tv' ? 'episode' : 'movie'}${S.type==='tv' ? `&season_number=${S.season}&episode_number=${S.ep}` : ''}`;
-      
       const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`, {
         headers: { 'Api-Key': CONFIG.OS_API_KEY, 'Content-Type': 'application/json' }
       });
-      
       const data = await res.json();
       S.subList = data.data || [];
-      
       listEl.innerHTML = '';
-      
       const btnOff = document.createElement('button');
       btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
       btnOff.textContent = 'Desativado';
       btnOff.onclick = () => { this.setSub(-1); closePanels(); };
       listEl.appendChild(btnOff);
-
       if(S.subList.length === 0) {
         listEl.innerHTML += '<div style="color:#aaa;text-align:center;padding:20px">Nenhuma legenda encontrada.</div>';
         return;
       }
-
       S.subList.forEach((sub, idx) => {
         const attrs = sub.attributes;
         const lang = attrs.language;
         const name = attrs.release || attrs.feature_details?.title || `Legenda ${lang}`;
-        
         const btn = document.createElement('button');
         btn.className = 'opt' + (S.subIdx === idx ? ' sel' : '');
         btn.innerHTML = `<span>${lang.toUpperCase()} - ${name.substring(0,30)}...</span>`;
         btn.onclick = () => this.setSub(idx);
         listEl.appendChild(btn);
       });
-      
     } catch(e) {
       console.error(e);
       listEl.innerHTML = '<div style="color:#ff4444;text-align:center;padding:20px">Erro ao buscar legendas.</div>';
@@ -548,27 +617,22 @@ const SubManager = {
   async setSub(idx) {
     S.subIdx = idx;
     S.sub = idx !== -1;
-    
     if(idx === -1) {
       g('sub-overlay').style.display = 'none';
       g('o-c').classList.remove('sel');
       closePanels();
       return;
     }
-
     closePanels();
     toast('Baixando legenda...');
-    
     try {
       const sub = S.subList[idx];
       const fileId = sub.attributes.files[0].file_id;
-      
       const dlRes = await fetch(`https://corsproxy.io/?${encodeURIComponent('https://api.opensubtitles.com/api/v1/download')}`, {
         method: 'POST',
         headers: { 'Api-Key': CONFIG.OS_API_KEY, 'Content-Type': 'application/json' },
         body: JSON.stringify({ file_id: fileId })
       });
-      
       const dlData = await dlRes.json();
       if(dlData.link) {
         const subRes = await fetch(dlData.link);
@@ -587,7 +651,6 @@ const SubManager = {
     let vtt = "WEBVTT\n\n";
     const lines = srtText.replace(/\r/g, '').split('\n');
     let isTime = false;
-    
     for(let i=0; i<lines.length; i++) {
       let line = lines[i];
       if(line.includes('-->')) {
@@ -601,12 +664,10 @@ const SubManager = {
         vtt += line + '\n';
       }
     }
-    
     const blob = new Blob([vtt], { type: 'text/vtt' });
     const url = URL.createObjectURL(blob);
     TRK.src = url;
     S.sub = true;
-    
     this.renderCustomSubs(vtt);
     g('o-c').classList.add('sel');
     toast('Legenda ativada');
@@ -639,9 +700,7 @@ const SubManager = {
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
-
     if(!S.subData || !S.sub || V.paused) { span.textContent = ''; return; }
-
     const t = V.currentTime;
     const active = S.subData.find(c => t >= c.start && t <= c.end);
     span.innerHTML = active ? active.text.replace(/\n/g, '<br>') : '';
@@ -696,6 +755,7 @@ function wlOff(){try{wl&&wl.release()}catch(e){}wl=null}
 V.addEventListener('play',()=>{P.classList.add('playing');P.classList.remove('paused');showUI();wlOn()});
 V.addEventListener('pause',()=>{
   P.classList.remove('playing');P.classList.add('paused');wlOff();
+  P.classList.add('show'); // ⚠️ Garantir que o UI fique visível quando pausado
   if(document.hidden&&S.bg&&!V.ended){V.play().catch(()=>{})}
 });
 V.addEventListener('ended',()=>{
@@ -764,7 +824,6 @@ gest.addEventListener('pointerdown',e=>{
   if(S.locked){showLock();return}
   gs={x:e.clientX,y:e.clientY,mode:null,c:V.currentTime||0,b:S.bri,v:S.vol,r:gest.getBoundingClientRect(),target:0};
   try{gest.setPointerCapture(e.pointerId)}catch(_){}
-  
   if (!P.classList.contains('embed') && !V.paused) {
     holdTimer = setTimeout(() => {
       if (gs && !gs.mode) {
@@ -1049,6 +1108,7 @@ function loadVideo(resume,auto,forceStage){
   const go=()=>{
     if(resume){try{V.currentTime=resume}catch(e){}}
     V.playbackRate=S.speed;
+    killNativeControls(); // Reforça após loadedmetadata
     if(auto)V.play().catch(()=>{});
   };
   V._go=go;
@@ -1139,21 +1199,17 @@ async function loadFromCatalog(){
   const id = params.get('id') || params.get('tmdb') || CONFIG.TMDB_ID;
   const typeParam = params.get('type') || params.get('tipo') || CONFIG.TIPO;
   if (!id) return false;
-
   try {
     const res = await fetch('/catalog.json?t=' + Date.now());
     if (!res.ok) return false;
     const catalog = await res.json();
-
     const type = typeParam === 'tv' || typeParam === 'series' ? 'tv' : 'movie';
     const bucket = type === 'tv' ? catalog.series : catalog.movies;
     const item = bucket?.[id];
     if (!item) return false;
-
     CONFIG.TMDB_ID = String(id);
     CONFIG.TIPO = type === 'tv' ? 'tv' : 'movie';
     if (item.title) CONFIG.TITULO = item.title;
-
     if (type === 'movie') {
       CONFIG.VIDEO = item.source || '';
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
@@ -1162,31 +1218,23 @@ async function loadFromCatalog(){
       const ep = parseInt(params.get('episode') || params.get('ep') || '1');
       CONFIG.TEMPORADA = season;
       CONFIG.EPISODIO = ep;
-
       S.episodeSources = {};
       if (item.seasons && Array.isArray(item.seasons)) {
         item.seasons.forEach(s => {
           if (s.episodes && Array.isArray(s.episodes)) {
             s.episodes.forEach(e => {
-              if (e.source) {
-                S.episodeSources[`${s.number}_${e.number}`] = e.source;
-              }
+              if (e.source) S.episodeSources[`${s.number}_${e.number}`] = e.source;
             });
           }
         });
       }
-
       const direct = S.episodeSources[`${season}_${ep}`];
-      if (direct) {
-        CONFIG.VIDEO = direct;
-      } else {
+      if (direct) CONFIG.VIDEO = direct;
+      else {
         const firstEp = S.episodeSources[`${season}_1`];
-        if (firstEp) {
-          CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
-        }
+        if (firstEp) CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
       }
     }
-
     return true;
   } catch(e) {
     console.warn('[Player] Erro ao carregar catálogo:', e);
@@ -1195,49 +1243,45 @@ async function loadFromCatalog(){
 }
 
 async function start(){
-  const fromCatalog = await loadFromCatalog();
-
-  S.type=CONFIG.TIPO==='tv'?'tv':'movie';
-  S.id=String(CONFIG.TMDB_ID||'').trim();
-  S.season=parseInt(CONFIG.TEMPORADA)||1;
-  S.ep=parseInt(CONFIG.EPISODIO)||1;
-  S.links={pt:CONFIG.VIDEO,en:CONFIG.VIDEO_EN,es:CONFIG.VIDEO_ES};
-  S.q={'540':CONFIG.VIDEO_540,'360':CONFIG.VIDEO_360};
-  S.subUrl=CONFIG.LEGENDA;
-  S.audio='pt';S.quality='720';
-  S.runtime=0;S.eps=[{n:1}];S.poster='';
-
-  updateTitle();
-  g('o-q-t').textContent='Qualidade (720P)';
-
-  if(S.id){
-    if(!CONFIG.TMDB_TOKEN){
-      console.warn('[Player] Sem TMDB_TOKEN.');
-    } else {
-      try{ await fetchMeta() }
-      catch(e){ console.warn('[Player] TMDB:', e); }
+  try {
+    const fromCatalog = await loadFromCatalog();
+    S.type=CONFIG.TIPO==='tv'?'tv':'movie';
+    S.id=String(CONFIG.TMDB_ID||'').trim();
+    S.season=parseInt(CONFIG.TEMPORADA)||1;
+    S.ep=parseInt(CONFIG.EPISODIO)||1;
+    S.links={pt:CONFIG.VIDEO,en:CONFIG.VIDEO_EN,es:CONFIG.VIDEO_ES};
+    S.q={'540':CONFIG.VIDEO_540,'360':CONFIG.VIDEO_360};
+    S.subUrl=CONFIG.LEGENDA;
+    S.audio='pt';S.quality='720';
+    S.runtime=0;S.eps=[{n:1}];S.poster='';
+    updateTitle();
+    g('o-q-t').textContent='Qualidade (720P)';
+    if(S.id){
+      if(!CONFIG.TMDB_TOKEN) console.warn('[Player] Sem TMDB_TOKEN.');
+      else { try{ await fetchMeta() } catch(e){ console.warn('[Player] TMDB:', e) } }
     }
+    if(CONFIG.TITULO) S.title = CONFIG.TITULO;
+    applySub();
+    updateTitle();
+    setNextState();
+    updateMedia();
+    setMediaHandlers();
+    if(!V.paused) V.pause();
+    const saved = PROG.get();
+    if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
+    const ok = loadVideo(saved, false);
+    tick();
+    if(!ok && !fromCatalog) toast('Coloque o link no catálogo ou em CONFIG.VIDEO');
+  } catch(err) {
+    console.error('[Player] Erro fatal:', err);
+    toast('Erro: ' + err.message);
   }
-
-  if(CONFIG.TITULO) S.title = CONFIG.TITULO;
-
-  applySub();
-  updateTitle();
-  setNextState();
-  updateMedia();
-  setMediaHandlers();
-
-  if(!V.paused) V.pause();
-
-  const saved = PROG.get();
-  if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
-
-  const ok = loadVideo(saved, false);
-  tick();
-  if(!ok && !fromCatalog) toast('Coloque o link no catálogo ou em CONFIG.VIDEO');
 }
 
 window.KiraPlayer={ load(o){Object.assign(CONFIG,o||{});return start()}, config:CONFIG, link:montarLink };
+
+// ⚠️ GARANTIR VISIBILIDADE DO UI
+P.classList.add('show');
 
 resize();tick();start();
 })();
