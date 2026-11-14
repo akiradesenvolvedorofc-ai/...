@@ -16,6 +16,7 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 .player:-webkit-full-screen{width:100vw;height:100vh}
 .player.pseudo{position:fixed;inset:0;z-index:9999;width:100%;height:100%}
 .player video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;z-index:1}
+.player video::-webkit-media-controls { display: none !important; }
 .player video::cue{background:rgba(0,0,0,.6);color:#fff;font-family:inherit}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:1;background:#000}
 .player.embed iframe{display:block}
@@ -248,8 +249,9 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 </svg>
 
 <div class="player paused" id="player">
-  <video id="v" playsinline webkit-playsinline preload="metadata">
-  <track id="trk" kind="subtitles" srclang="pt" label="Português"> </video>
+  <!-- ATENÇÃO: A TAG VIDEO NÃO TEM O ATRIBUTO 'controls' AQUI -->
+  <video id="v" playsinline webkit-playsinline preload="metadata"><track id="trk" kind="subtitles" srclang="pt" label="Português"></video>
+  
   <iframe id="embed" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
   <div class="dim" id="dim"></div>
   <div class="spin"></div>
@@ -420,7 +422,7 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 'use strict';
 
 /* ==========================================================================
-   CONFIG PADRÃO (fallback se o catálogo não tiver o ID)
+   CONFIG PADRÃO
    ========================================================================== */
 const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
@@ -441,7 +443,6 @@ const CONFIG={
   OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
 };
 
-/* Params da URL: sobrescrevem CONFIG */
 (function params(){
   const q=new URLSearchParams(location.search);
   const t=q.get('tipo')||q.get('type');
@@ -456,6 +457,11 @@ const CONFIG={
 const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
+
+// FORÇA A REMOÇÃO DOS CONTROLES NATIVOS DO CHROME VIA JS
+V.controls = false;
+V.removeAttribute('controls');
+
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 const pad=n=>String(n).padStart(2,'0');
 const LS={
@@ -474,12 +480,11 @@ const S={type:'movie',id:'',title:'Título do filme',runtime:0,season:1,ep:1,eps
   audio:'pt',quality:'720',speed:1,bri:50,vol:100,locked:false,
   bg:LS.get('bg',false),pip:LS.get('autopip',false),sub:false,subUrl:'',
   links:{},q:{},poster:'',cur:'',stage:0,
-  episodeSources:{}, // NOVO: { "temporada_episodio": "url" }
+  episodeSources:{},
   subData:null, subIdx:-1, subList:[],
   subSize: LS.get('subSize', 20), subColor: LS.get('subColor', '#fff'), subBg: LS.get('subBg', true), subPos: LS.get('subPos', 10)};
 let hls=null;
 
-/* --- Salvar Progresso --- */
 const PROG = {
   key: () => `prog_${CONFIG.TMDB_ID || CONFIG.VIDEO || 'default'}_${S.season}_${S.ep}`,
   save: (time) => {
@@ -493,7 +498,6 @@ const PROG = {
 };
 let lastSave = 0;
 
-/* --- Legendas OpenSubtitles --- */
 const SubManager = {
   async fetchSubs() {
     if(!CONFIG.TMDB_ID) return;
@@ -647,7 +651,6 @@ const SubManager = {
 V.addEventListener('timeupdate', () => SubManager.updateOverlay());
 V.addEventListener('play', () => SubManager.updateOverlay());
 
-/* ---------- utilidades ---------- */
 function fmt(s,h){s=Math.max(0,Math.floor(s||0));const H=Math.floor(s/3600),M=Math.floor(s%3600/60),X=s%60;return (h||H>0)?`${pad(H)}:${pad(M)}:${pad(X)}`:`${pad(M)}:${pad(X)}`}
 const dur=()=>(isFinite(V.duration)&&V.duration>0)?V.duration:S.runtime;
 let toastT,indT,hideT,lockT;
@@ -1002,18 +1005,12 @@ function montarLink(raw){
   return CONFIG.PROXY+raw;
 }
 
-/* ============================================================
-   srcFor() MODIFICADO — usa episodeSources quando disponível
-   ============================================================ */
 function srcFor(){
-  // Se for série e tiver source direto no mapa, usa
   if (S.type === 'tv' && S.episodeSources && S.episodeSources[`${S.season}_${S.ep}`]) {
     const raw = S.episodeSources[`${S.season}_${S.ep}`];
-    // Se já for URL completa (mp4 direto), não aplica prefixo
     if (/^https?:\/\/.+\.(mp4|m3u8)/i.test(raw)) return raw;
     return montarLink(raw);
   }
-  // Senão usa o template normal
   let url = S.links[S.audio] || S.links['pt'] || '';
   if(S.quality !== '720' && S.q[S.quality]){
     url = S.q[S.quality];
@@ -1137,9 +1134,6 @@ async function fetchMeta(){
   }
 }
 
-/* ============================================================
-   NOVO: Carrega dados do catalog.json
-   ============================================================ */
 async function loadFromCatalog(){
   const params = new URLSearchParams(location.search);
   const id = params.get('id') || params.get('tmdb') || CONFIG.TMDB_ID;
@@ -1156,7 +1150,6 @@ async function loadFromCatalog(){
     const item = bucket?.[id];
     if (!item) return false;
 
-    // Preenche CONFIG
     CONFIG.TMDB_ID = String(id);
     CONFIG.TIPO = type === 'tv' ? 'tv' : 'movie';
     if (item.title) CONFIG.TITULO = item.title;
@@ -1165,13 +1158,11 @@ async function loadFromCatalog(){
       CONFIG.VIDEO = item.source || '';
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
     } else {
-      // Série: pega episódio atual
       const season = parseInt(params.get('season') || params.get('temp') || '1');
       const ep = parseInt(params.get('episode') || params.get('ep') || '1');
       CONFIG.TEMPORADA = season;
       CONFIG.EPISODIO = ep;
 
-      // Popula episodeSources
       S.episodeSources = {};
       if (item.seasons && Array.isArray(item.seasons)) {
         item.seasons.forEach(s => {
@@ -1185,15 +1176,12 @@ async function loadFromCatalog(){
         });
       }
 
-      // Tenta achar source do episódio atual
       const direct = S.episodeSources[`${season}_${ep}`];
       if (direct) {
         CONFIG.VIDEO = direct;
       } else {
-        // Usa como template o source do episódio 1 da temporada (com substituição)
         const firstEp = S.episodeSources[`${season}_1`];
         if (firstEp) {
-          // Detecta padrão e substitui episódio atual
           CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
         }
       }
@@ -1206,14 +1194,9 @@ async function loadFromCatalog(){
   }
 }
 
-/* ============================================================
-   start() MODIFICADO — chama loadFromCatalog() primeiro
-   ============================================================ */
 async function start(){
-  // 1. Tenta carregar do catálogo (prioritário)
   const fromCatalog = await loadFromCatalog();
 
-  // 2. Aplica configs
   S.type=CONFIG.TIPO==='tv'?'tv':'movie';
   S.id=String(CONFIG.TMDB_ID||'').trim();
   S.season=parseInt(CONFIG.TEMPORADA)||1;
@@ -1227,17 +1210,15 @@ async function start(){
   updateTitle();
   g('o-q-t').textContent='Qualidade (720P)';
 
-  // 3. TMDB: pega metadados extras (título, pôster, episódios)
   if(S.id){
     if(!CONFIG.TMDB_TOKEN){
-      console.warn('[Player] Sem TMDB_TOKEN. Pulando metadados extras.');
+      console.warn('[Player] Sem TMDB_TOKEN.');
     } else {
       try{ await fetchMeta() }
       catch(e){ console.warn('[Player] TMDB:', e); }
     }
   }
 
-  // 4. Sobrescreve título se o catálogo forneceu
   if(CONFIG.TITULO) S.title = CONFIG.TITULO;
 
   applySub();
@@ -1248,11 +1229,9 @@ async function start(){
 
   if(!V.paused) V.pause();
 
-  // 5. Resume
   const saved = PROG.get();
   if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
 
-  // 6. Load video
   const ok = loadVideo(saved, false);
   tick();
   if(!ok && !fromCatalog) toast('Coloque o link no catálogo ou em CONFIG.VIDEO');
