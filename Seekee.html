@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Seekee - Filme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════ RESET E CONFIGURAÇÕES ═══════════ */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: #000; color: #fff;
+      overflow-x: hidden; padding-bottom: 90px;
+    }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══════════ PLAYER ═══════════ */
+    .player-section {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw; /* 16:9 */
+      max-height: 100vh;
+      background: #000;
+      margin-bottom: 16px;
+    }
+    .player-section iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ═══════════ CONTEÚDO ═══════════ */
+    .content { padding: 0 16px; max-width: 800px; margin: 0 auto; }
+
+    .title-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; margin-bottom: 16px;
+    }
+    .title-row h1 {
+      font-size: 1.1rem; font-weight: 700; line-height: 1.3;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .title-row svg { flex-shrink: 0; width: 20px; height: 20px; fill: #fff; opacity: 0.8; }
+
+    /* ── Ações ── */
+    .action-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+    .flag-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .flag-btn svg { width: 18px; height: 18px; fill: #fff; opacity: 0.9; }
+    .speed-badge {
+      flex: 1; background: rgba(30, 60, 120, 0.6);
+      border-radius: 24px; padding: 0 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; font-weight: 500; color: #dbeafe;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .speed-badge .cloud-icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #2563eb; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-left: 8px;
+    }
+    .speed-badge .cloud-icon svg { width: 14px; height: 14px; fill: #fff; }
+
+    /* ── Grade de Recursos ── */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+      margin-bottom: 24px; background: rgba(255, 255, 255, 0.06);
+      border-radius: 16px; padding: 12px 8px;
+    }
+    .feature-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; color: #d1d5db; font-size: 0.65rem; text-align: center;
+      transition: opacity 0.2s;
+    }
+    .feature-item:active { opacity: 0.6; }
+    .feature-item svg { width: 22px; height: 22px; fill: #d1d5db; }
+    .feature-item.fav-active svg { fill: #fbbf24; }
+
+    /* ── Seções ── */
+    .section-header {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 12px; cursor: pointer;
+    }
+    .section-header h2 { font-size: 1.1rem; font-weight: 700; }
+    .section-header svg { width: 16px; height: 16px; fill: #fff; }
+
+    .section-sub { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .section-sub h2 { font-size: 1rem; font-weight: 600; }
+    .section-sub .count { font-size: 0.8rem; color: #9ca3af; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .section-sub .count svg { width: 14px; height: 14px; fill: #9ca3af; }
+
+    /* ── Cards de Episódios ── */
+    .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
+    .episodes-row::-webkit-scrollbar { display: none; }
+    .episode-card {
+      flex: 0 0 56px; height: 56px; border-radius: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 600; color: #d1d5db;
+      cursor: pointer;
+    }
+    .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
+
+    /* ═══════════ TÍTULOS SEMELHANTES (GRID 3 COLUNAS) ═══════════ */
+    .similar-section { margin-bottom: 40px; }
+    .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    
+    .similar-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 12px; 
+    }
+    
+    .similar-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+    
+    .similar-card .img-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1e1e2a;
+    }
+    
+    .similar-card img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .similar-card .rating {
+      position: absolute; top: 6px; left: 6px;
+      background: rgba(0, 0, 0, 0.85); border-radius: 4px;
+      padding: 2px 6px; font-size: 0.65rem; font-weight: 600; color: #fbbf24;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .similar-card .rating svg { width: 10px; height: 10px; fill: #fbbf24; }
+    
+    .similar-card .title {
+      font-size: 0.75rem;
+      color: #e5e7eb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+
+    /* ═══════════ BANNER VIP ═══════════ */
+    .vip-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(30, 30, 40, 0.95); backdrop-filter: blur(12px);
+      padding: 14px 16px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; z-index: 100;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .vip-banner .vip-text { font-size: 0.85rem; line-height: 1.3; color: #e5e7eb; }
+    .vip-banner .vip-text strong { font-size: 1rem; display: block; margin-bottom: 2px; color: #fff; }
+    .vip-banner button {
+      flex-shrink: 0; background: #4b3f8a; color: #fff;
+      border-radius: 24px; padding: 10px 20px;
+      font-size: 0.85rem; font-weight: 700; white-space: nowrap;
+    }
+
+    /* ═══════════ MODAL DE PARTES ═══════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; background: #000;
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; flex-direction: column;
+    }
+    .modal-overlay.active { display: flex; }
+
+    .parts-list {
+      display: flex; flex-direction: column; align-items: center; gap: 28px;
+      text-align: center; margin-bottom: 40px;
+    }
+    .part-item {
+      font-size: 1.6rem; font-weight: 700; color: #555;
+      cursor: pointer; transition: color 0.2s, transform 0.2s;
+    }
+    .part-item.active { color: #fff; }
+
+    .modal-close-btn {
+      width: 65px; height: 65px; border-radius: 50%;
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: absolute; bottom: 40px;
+    }
+    .modal-close-btn svg { width: 28px; height: 28px; fill: #000; }
+
+    /* ═══════════ MODAL DE ÁUDIO ═══════════ */
+    .audio-sheet {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #1a1a1a; border-radius: 20px 20px 0 0;
+      padding: 20px 16px 30px; max-height: 60vh; overflow-y: auto;
+      z-index: 1001; display: none; animation: slideUp 0.3s ease;
+    }
+    .audio-sheet.active { display: block; }
+    
+    .audio-sheet .header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+    }
+    .audio-sheet .header h2 { font-size: 1.2rem; font-weight: 700; }
+    .audio-sheet .close-btn { font-size: 1.5rem; color: #fff; }
+    .audio-option {
+      padding: 16px; background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer;
+    }
+    .audio-option.selected { background: #fff; color: #000; font-weight: 700; }
+    .audio-option svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ═══════════ MODAL DE FEEDBACK ═══════════ */
+    .feedback-sheet {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #141414; border-radius: 20px 20px 0 0;
+      padding: 20px 16px 30px; max-height: 90vh; overflow-y: auto;
+      z-index: 1002; display: none; animation: slideUp 0.3s ease;
+    }
+    .feedback-sheet.active { display: block; }
+    
+    .feedback-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+    }
+    .feedback-header h2 { font-size: 1.2rem; font-weight: 500; color: #e5e7eb; }
+    .feedback-header .close-btn { font-size: 1.5rem; color: #fff; }
+    
+    .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+    .feedback-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.95rem; color: #e5e7eb; cursor: pointer; line-height: 1.4;
+    }
+    .feedback-item input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; border: 2px solid #fff;
+      border-radius: 4px; background: transparent;
+      cursor: pointer; flex-shrink: 0; margin-top: 2px;
+      position: relative;
+    }
+    .feedback-item input[type="checkbox"]:checked::after {
+      content: '✔'; position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: 14px; color: #fff;
+    }
+    
+    .feedback-textarea {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1px solid #333; color: #fff;
+      padding: 10px 0; font-family: inherit; font-size: 0.95rem;
+      resize: none; margin-bottom: 24px; outline: none;
+    }
+    .feedback-textarea::placeholder { color: #666; }
+    
+    .btn-submit-feedback {
+      width: 100%; background: #294373; color: #fff;
+      padding: 16px; border-radius: 8px;
+      font-size: 1rem; font-weight: 600; margin-bottom: 20px;
+      transition: opacity 0.2s;
+    }
+    .btn-submit-feedback:active { opacity: 0.8; }
+    
+    .feedback-footer {
+      font-size: 0.8rem; color: #9ca3af; line-height: 1.4;
+    }
+    .feedback-footer a { color: #60a5fa; text-decoration: none; }
+
+    /* Animações */
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    /* ═══════════ AVISOS ═══════════ */
+    .alert-msg {
+      color: #fff; background: #eab308;
+      padding: 12px; border-radius: 8px; font-size: 0.85rem;
+      margin-bottom: 16px; display: none; text-align: center;
+      font-weight: 600; color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ PLAYER (Kiraflix) ═══════════ -->
+  <div class="player-section">
+    <iframe
+      id="video-player"
+      src="https://kiraflix.qd.je/filme/808"
+      title="Player do Filme"
+      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+      allowfullscreen
+      referrerpolicy="no-referrer"
+    ></iframe>
+  </div>
+
+  <div class="content">
+    <!-- ── Aviso de API ── -->
+    <div id="api-alert" class="alert-msg"></div>
+
+    <!-- ── Título ── -->
+    <div class="title-row">
+      <h1 id="movie-title">Carregando título…</h1>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+
+    <!-- ── Ações ── -->
+    <div class="action-bar">
+      <button class="flag-btn" onclick="openFeedback()">
+        <svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+      </button>
+      <div class="speed-badge">
+        <span>Usando benefícios da reprodução acelerada na Drive</span>
+        <div class="cloud-icon">
+          <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Grade ── -->
+    <div class="feature-grid">
+      <button class="feature-item" onclick="alert('Download iniciado (simulação).')">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <span>Baixar</span>
+      </button>
+      <button class="feature-item" onclick="openAudio()">
+        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg>
+        <span>Áudio</span>
+      </button>
+      <button class="feature-item" onclick="alert('Você será notificado quando houver novos episódios.')">
+        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        <span>Avisos</span>
+      </button>
+      <button class="feature-item" id="btn-fav" onclick="toggleFav(this)">
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <span>Adicionar Favorito</span>
+      </button>
+    </div>
+
+    <!-- ── Parte ── -->
+    <div class="section-header" onclick="openParts()">
+      <h2 id="part-title">Parte</h2>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+
+    <!-- ── Episódios ── -->
+    <div class="section-sub">
+      <h2>Episódios</h2>
+      <div class="count" onclick="openParts()">
+        <span id="episodes-count">0 filmes</span>
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </div>
+    </div>
+    <div class="episodes-row" id="episodes-preview"></div>
+
+    <!-- ── Semelhantes ── -->
+    <div class="similar-section">
+      <h2>Títulos semelhantes</h2>
+      <div class="similar-grid" id="similar-grid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ BANNER VIP ═══════════ -->
+  <div class="vip-banner">
+    <div class="vip-text">
+      <strong>Seu VIP expirou</strong>
+      Renove o VIP para assistir em HD sem anúncios
+    </div>
+    <button onclick="alert('Redirecionando para pagamento…')">Renovar agora</button>
+  </div>
+
+  <!-- ═══════════ MODAL DE PARTES ═══════════ -->
+  <div class="modal-overlay" id="modal-parts">
+    <div class="parts-list" id="parts-list"></div>
+    <button class="modal-close-btn" onclick="closeParts()">
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+
+  <!-- ═══════════ MODAL DE ÁUDIO ═══════════ -->
+  <div class="audio-sheet" id="audio-sheet">
+    <div class="header">
+      <h2>Áudio</h2>
+      <button class="close-btn" onclick="closeAudio()">✕</button>
+    </div>
+    <div id="audio-options">
+      <div class="audio-option" onclick="selectAudio(this)">Áudio em inglês - Múltiplas Legendas</div>
+      <div class="audio-option" onclick="selectAudio(this)">Áudio Espanhol - LATAM</div>
+      <div class="audio-option selected" onclick="selectAudio(this)">Português Dublado <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MODAL DE FEEDBACK ═══════════ -->
+  <div class="feedback-sheet" id="feedback-sheet">
+    <div class="feedback-header">
+      <h2>Conteúdo do Feedback</h2>
+      <button class="close-btn" onclick="closeFeedback()">✕</button>
+    </div>
+    
+    <div class="feedback-list">
+      <label class="feedback-item"><input type="checkbox"> Reprodução interrompida ou não carregando</label>
+      <label class="feedback-item"><input type="checkbox"> Falta dublagem em português</label>
+      <label class="feedback-item"><input type="checkbox"> As legendas estão incorretas e não correspondem ao áudio</label>
+      <label class="feedback-item"><input type="checkbox"> Faltam legendas em português</label>
+      <label class="feedback-item"><input type="checkbox"> Temporadas ausentes</label>
+      <label class="feedback-item"><input type="checkbox"> Episódios ausentes</label>
+      <label class="feedback-item"><input type="checkbox"> Áudio e vídeo fora de sincronia</label>
+      <label class="feedback-item"><input type="checkbox"> Falha no download do vídeo</label>
+    </div>
+
+    <textarea class="feedback-textarea" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
+
+    <button class="btn-submit-feedback" onclick="enviarFeedback()">Enviar Feedback</button>
+
+    <p class="feedback-footer">
+      Se seus direitos de propriedade intelectual, privacidade ou outros foram violados, clique para ver <a href="#">Guia de Reclamação de Violação do Seekee</a>
+    </p>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       ⚠️ COLOQUE SUA CHAVE DO TMDB AQUI ⚠️
+       Você pode colocar a sua API Key (v3) curta OU o Token (v4) longo.
+       O código vai identificar automaticamente qual é qual.
+       ═══════════════════════════════════════════════════════════ */
+    const TMDB_KEY = '6ee0d0ca3e4a734a36f15d8802a5cc4b'; 
+    
+    // ID inicial se não tiver nada na URL
+    const FILME_INICIAL_ID = 808; 
+
+    /* ═══════════════════════════════════════════════════════════
+       LÓGICA DO SISTEMA
+       ═══════════════════════════════════════════════════════════ */
+    const TMDB_BASE = 'https://api.themoviedb.org/3';
+    const IMG_BASE = 'https://image.tmdb.org/t/p/w200';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentMovieId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
+    
+    let allParts = [];
+
+    // Função Inteligente: Detecta se é chave v3 ou token v4
+    async function tmdbFetch(path) {
+      if (TMDB_KEY === 'COLE_SUA_CHAVE_AQUI' || TMDB_KEY.trim() === '') {
+        throw new Error("Chave não configurada");
+      }
+
+      const isV4Token = TMDB_KEY.startsWith('eyJ') || TMDB_KEY.length > 50;
+      const sep = path.includes('?') ? '&' : '?';
+      let url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
+      let options = { method: 'GET', headers: { accept: 'application/json' } };
+
+      if (isV4Token) {
+        options.headers.Authorization = `Bearer ${TMDB_KEY}`;
+      } else {
+        url += `&api_key=${TMDB_KEY}`;
+      }
+
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error("Falha na API");
+      return res.json();
+    }
+
+    function showAlert(msg) {
+      const alertEl = document.getElementById('api-alert');
+      alertEl.textContent = msg;
+      alertEl.style.display = 'block';
+    }
+
+    function hideAlert() {
+      document.getElementById('api-alert').style.display = 'none';
+    }
+
+    async function loadMovie(movieId) {
+      currentMovieId = movieId;
+      hideAlert();
+      
+      document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
+      window.history.pushState({}, '', `?id=${movieId}`);
+
+      const titleEl = document.getElementById('movie-title');
+      titleEl.textContent = "Carregando...";
+      document.getElementById('similar-grid').innerHTML = '';
+      document.getElementById('episodes-preview').innerHTML = '';
+      closeParts();
+
+      try {
+        const movie = await tmdbFetch(`/movie/${movieId}`);
+        titleEl.textContent = movie.title || movie.original_title;
+
+        if (movie.belongs_to_collection) {
+          const collection = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
+          allParts = collection.parts || [];
+          document.getElementById('part-title').textContent = collection.name || 'Partes';
+        } else {
+          allParts = [movie]; 
+          document.getElementById('part-title').textContent = 'Filme Único';
+        }
+
+        document.getElementById('episodes-count').textContent = `${allParts.length} filme${allParts.length > 1 ? 's' : ''}`;
+        renderPreview(allParts, movie.id);
+        renderPartsModal(allParts, movie.id);
+
+        const similarData = await tmdbFetch(`/movie/${movieId}/similar`);
+        renderSimilar(similarData.results || []);
+
+      } catch (err) {
+        console.error(err);
+        // FALLBACK: Se der erro, puxa dados falsos só pra não quebrar a tela
+        loadMockData();
+        showAlert("⚠️ API não configurada ou com erro. Exibindo dados de exemplo para você ver o layout.");
+      }
+    }
+
+    // DADOS FALSOS (Caso a API falhe para o site não ficar em branco)
+    function loadMockData() {
+      document.getElementById('movie-title').textContent = "Shrek (Exemplo)";
+      document.getElementById('part-title').textContent = "Coleção Shrek";
+      document.getElementById('episodes-count').textContent = "4 filmes";
+      
+      const mockParts = [1, 2, 3, 4];
+      renderPreview(mockParts, 1);
+      renderPartsModal(mockParts, 1);
+
+      const mockSimilar = [
+        { id: 1, title: "The Quintessential...", vote_average: 7.6, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
+        { id: 2, title: "Please Put Them...", vote_average: 5.8, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
+        { id: 3, title: "Blue Box", vote_average: 8.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
+        { id: 4, title: "Girlfriend, Girlfriend", vote_average: 6.5, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
+        { id: 5, title: "Gabriela", vote_average: 8.1, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
+        { id: 6, title: "Amor da Minha Vida", vote_average: 7.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" }
+      ];
+      renderSimilar(mockSimilar);
+    }
+
+    function renderPreview(parts, currentId) {
+      const container = document.getElementById('episodes-preview');
+      container.innerHTML = '';
+      parts.forEach((part, index) => {
+        const card = document.createElement('div');
+        card.className = `episode-card ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
+        card.textContent = index + 1;
+        card.onclick = () => {
+           if (part.id) loadMovie(part.id);
+           else alert("Simulação: Botão clicado!");
+        }; 
+        container.appendChild(card);
+      });
+    }
+
+    function renderPartsModal(parts, currentId) {
+      const container = document.getElementById('parts-list');
+      container.innerHTML = '';
+      parts.forEach((part, index) => {
+        const div = document.createElement('div');
+        div.className = `part-item ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
+        div.textContent = `Parte ${index + 1}`;
+        div.onclick = () => {
+           if (part.id) loadMovie(part.id);
+           else closeParts();
+        };
+        container.appendChild(div);
+      });
+    }
+
+    function renderSimilar(movies) {
+      const container = document.getElementById('similar-grid');
+      container.innerHTML = '';
+      
+      movies.slice(0, 9).forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'similar-card';
+        card.onclick = () => {
+          if (movie.id) loadMovie(movie.id);
+        }; 
+        
+        // Se não tiver poster_path, usa um placeholder cinza
+        const imgUrl = movie.poster_path && movie.poster_path !== "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" 
+          ? IMG_BASE + movie.poster_path 
+          : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
+
+        card.innerHTML = `
+          <div class="img-wrapper">
+            <img src="${imgUrl}" alt="${movie.title}" loading="lazy">
+            <div class="rating">
+              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}
+            </div>
+          </div>
+          <div class="title">${movie.title || movie.original_title}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* ═══════════ INTERAÇÕES ═══════════ */
+    function openParts() { document.getElementById('modal-parts').classList.add('active'); }
+    function closeParts() { document.getElementById('modal-parts').classList.remove('active'); }
+    
+    function openAudio() { document.getElementById('audio-sheet').classList.add('active'); }
+    function closeAudio() { document.getElementById('audio-sheet').classList.remove('active'); }
+    function selectAudio(el) {
+      document.querySelectorAll('.audio-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      setTimeout(closeAudio, 300);
+    }
+
+    function openFeedback() { document.getElementById('feedback-sheet').classList.add('active'); }
+    function closeFeedback() { document.getElementById('feedback-sheet').classList.remove('active'); }
+    function enviarFeedback() {
+      closeFeedback();
+      setTimeout(() => alert('Obrigado! Seu feedback foi enviado com sucesso.'), 300);
+    }
+
+    function toggleFav(btn) {
+      btn.classList.toggle('fav-active');
+      const span = btn.querySelector('span');
+      if (btn.classList.contains('fav-active')) {
+        span.textContent = 'Remover Favorito';
+      } else {
+        span.textContent = 'Adicionar Favorito';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMovie(currentMovieId);
+    });
+  </script>
+</body>
+</html>
