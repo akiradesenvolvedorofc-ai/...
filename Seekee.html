@@ -2,63 +2,55 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Seekee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #000000;
-      --bg-card: #141414;
-      --bg-card-light: #1e1e24;
-      --text: #ffffff;
-      --text-dim: #9ca3af;
-      --blue: #3b82f6;
-      --red: #ef4444;
-      --gold: #fbbf24;
-    }
+    /* ── RESET E CONFIGURAÇÕES GERAIS ── */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
-    body { background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-bottom: 80px; }
+    body { background: #000; color: #fff; overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-bottom: 80px; }
+    button { cursor: pointer; border: none; background: none; color: inherit; font-family: inherit; }
+    img { display: block; max-width: 100%; }
     
-    /* ── UTILITÁRIOS ── */
-    .hidden { display: none !important; }
+    /* ── CONTROLE DE TELAS (SPA) ── */
     .screen { display: none; min-height: 100vh; animation: fadeIn 0.2s ease; }
     .screen.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    
-    /* ── BARRA DE NAVEGAÇÃO INFERIOR ── */
+
+    /* ═══════════ BARRA DE NAVEGAÇÃO INFERIOR ═══════════ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0;
       background: #111; border-top: 1px solid #222;
       display: flex; justify-content: space-around; align-items: center;
-      padding: 12px 0; z-index: 999;
+      padding: 10px 0 15px; z-index: 9999;
     }
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #666; font-size: 0.65rem; cursor: pointer; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #666; font-size: 0.65rem; transition: color 0.2s; }
     .nav-item.active { color: #fff; }
     .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
-    
+
     /* ═══════════ TELA 1: HOME ═══════════ */
     .home-container { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; }
-    .logo-area { margin: 40px 0 30px; text-align: center; position: relative; }
+    .logo-area { margin: 30px 0 20px; text-align: center; position: relative; }
     .logo-area h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; display: flex; align-items: center; justify-content: center; gap: 5px;}
     .logo-area h1 span { font-size: 1.8rem; }
-    .btn-search-all { background: var(--blue); color: #fff; border: none; padding: 6px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; cursor: pointer; }
+    .btn-search-all { background: #3b82f6; color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
     
     .search-bar-home {
       width: 100%; background: #1e222d; border-radius: 30px; padding: 14px 20px;
-      display: flex; align-items: center; gap: 10px; color: var(--text-dim); margin-bottom: 30px;
-      cursor: text; border: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 10px; color: #9ca3af; margin-bottom: 30px;
+      border: 1px solid rgba(255,255,255,0.05); cursor: text;
     }
-    .search-bar-home input { background: transparent; border: none; color: #fff; outline: none; flex: 1; font-size: 0.95rem; }
+    .search-bar-home input { background: transparent; border: none; color: #fff; outline: none; flex: 1; font-size: 0.95rem; pointer-events: none; }
     
-    .home-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-bottom: 30px; text-align: center; }
-    .home-icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .home-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; margin-bottom: 25px; text-align: center; }
+    .home-icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .icon-box { width: 50px; height: 50px; border-radius: 14px; background: #fff; display: flex; align-items: center; justify-content: center; }
     .icon-box svg { width: 28px; height: 28px; }
     .home-icon-item span { font-size: 0.7rem; color: #e5e7eb; font-weight: 500; }
     
-    .home-circle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; text-align: center; margin-bottom: 30px;}
+    .home-circle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; text-align: center; margin-bottom: 80px;}
     .circle-icon { width: 50px; height: 50px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
     .circle-icon svg { width: 22px; height: 22px; fill: #fff; }
     .home-circle-grid span { font-size: 0.7rem; color: #e5e7eb; }
@@ -68,20 +60,26 @@
       background: #2a2a30; border-radius: 16px; padding: 10px;
       display: flex; align-items: center; gap: 12px; z-index: 998;
     }
-    .mini-player img { width: 40px; height: 50px; border-radius: 6px; object-fit: cover; }
-    .mini-player-info { flex: 1; }
-    .mini-player-info h4 { font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .mini-player-info p { font-size: 0.65rem; color: var(--text-dim); }
+    .mini-player img { width: 45px; height: 55px; border-radius: 6px; object-fit: cover; }
+    .mini-player-info { flex: 1; overflow: hidden; }
+    .mini-player-info h4 { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-player-info p { font-size: 0.65rem; color: #9ca3af; }
     .mini-progress { width: 100%; height: 3px; background: #555; border-radius: 2px; margin-top: 4px; }
-    .mini-progress div { width: 20%; height: 100%; background: var(--blue); border-radius: 2px; }
-    .mini-play { width: 40px; height: 40px; border-radius: 12px; background: var(--blue); display: flex; align-items: center; justify-content: center; }
+    .mini-progress div { width: 20%; height: 100%; background: #3b82f6; border-radius: 2px; }
+    .mini-play { width: 40px; height: 40px; border-radius: 12px; background: #3b82f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .mini-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
 
-    /* ═══════════ TELA 2 & 3: PESQUISA ═══════════ */
-    .header-nav { display: flex; align-items: center; gap: 16px; padding: 16px; }
-    .header-nav svg { width: 24px; height: 24px; fill: #fff; cursor: pointer; }
+    /* ═══════════ TELAS DE HEADER (Pesquisa, Populares) ═══════════ */
+    .header-nav { display: flex; align-items: center; gap: 16px; padding: 16px; position: sticky; top: 0; background: #000; z-index: 10; }
+    .header-nav svg.back { width: 24px; height: 24px; fill: #fff; cursor: pointer; }
     .header-nav h1 { font-size: 1.2rem; font-weight: 700; flex: 1; }
     
+    .tabs-row { display: flex; gap: 10px; padding: 16px; overflow-x: auto; white-space: nowrap; }
+    .tabs-row::-webkit-scrollbar { display: none; }
+    .tab-btn { padding: 8px 16px; border-radius: 20px; background: transparent; color: #9ca3af; font-size: 0.9rem; border: none; }
+    .tab-btn.active { background: #3b82f6; color: #fff; }
+
+    /* ═══════════ TELA 3: PESQUISA ═══════════ */
     .search-input-wrap { padding: 0 16px; margin-bottom: 20px; }
     .search-input-wrap input { width: 100%; background: #1e1e24; border: none; border-radius: 8px; padding: 14px; color: #fff; font-size: 1rem; outline: none; }
     
@@ -95,18 +93,13 @@
     .web-result .url svg { width: 16px; height: 16px; fill: #fff; }
 
     .app-result { display: flex; gap: 12px; padding: 16px; border-bottom: 1px solid #222; }
-    .app-result img { width: 80px; height: 110px; border-radius: 8px; object-fit: cover; }
+    .app-result img { width: 85px; height: 120px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
     .app-result-info { flex: 1; display: flex; flex-direction: column; }
     .app-result-info h2 { color: #60a5fa; font-size: 1rem; margin-bottom: 4px; line-height: 1.3; }
-    .app-result-info p { font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px; }
-    .btn-assistir { background: #2a2a30; color: #fff; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: auto; cursor: pointer; }
+    .app-result-info p { font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .btn-assistir { background: #2a2a30; color: #fff; text-align: center; padding: 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: auto; }
 
     /* ═══════════ TELA 4: POPULARES (RANKING) ═══════════ */
-    .tabs-row { display: flex; gap: 10px; padding: 16px; overflow-x: auto; }
-    .tabs-row::-webkit-scrollbar { display: none; }
-    .tab-btn { padding: 8px 16px; border-radius: 20px; background: transparent; color: #9ca3af; font-size: 0.9rem; border: none; white-space: nowrap; cursor: pointer; }
-    .tab-btn.active { background: var(--blue); color: #fff; }
-    
     .rank-list { padding: 0 16px; background: #141414; border-radius: 16px; margin: 0 16px; padding-bottom: 16px; }
     .rank-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #222; position: relative; cursor: pointer; }
     .rank-item:last-child { border-bottom: none; }
@@ -114,34 +107,33 @@
     .rank-item:nth-child(1) .rank-num { background: #ef4444; }
     .rank-item:nth-child(2) .rank-num { background: #f97316; }
     .rank-item:nth-child(3) .rank-num { background: #eab308; }
-    .rank-item img { width: 70px; height: 100px; border-radius: 6px; object-fit: cover; margin-left: 10px; }
-    .rank-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .rank-title-row { display: flex; justify-content: space-between; align-items: flex-start; }
-    .rank-title-row h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
-    .rank-rating { color: #f97316; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
-    .rank-meta { font-size: 0.75rem; color: #9ca3af; margin-bottom: 4px; }
+    .rank-item img { width: 70px; height: 100px; border-radius: 6px; object-fit: cover; margin-left: 10px; flex-shrink: 0; }
+    .rank-info { flex: 1; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+    .rank-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .rank-title-row h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rank-rating { color: #f97316; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+    .rank-meta { font-size: 0.75rem; color: #9ca3af; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .rank-type { font-size: 0.7rem; color: #9ca3af; }
 
     /* ═══════════ TELA 5: FAVORITOS ═══════════ */
     .fav-header { display: flex; justify-content: space-around; padding: 16px; border-bottom: 1px solid #222; margin-bottom: 20px; }
-    .fav-tab { font-size: 1.1rem; font-weight: 600; color: #666; cursor: pointer; position: relative; padding-bottom: 8px; }
+    .fav-tab { font-size: 1.1rem; font-weight: 600; color: #666; position: relative; padding-bottom: 8px; }
     .fav-tab.active { color: #fff; }
     .fav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 3px; background: #fff; border-radius: 2px; }
     .fav-search { margin: 0 16px 20px; background: #1e1e24; padding: 12px; border-radius: 8px; color: #666; font-size: 0.9rem; }
     .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh; text-align: center; color: #9ca3af; }
     .empty-state svg { width: 80px; height: 80px; fill: #2a2a30; margin-bottom: 16px; }
-    .btn-new-folder { position: fixed; bottom: 80px; left: 0; right: 0; padding: 20px; background: #111; border-top: 1px solid #222; text-align: center; font-size: 1.1rem; font-weight: 600; color: #fff; cursor: pointer; }
+    .btn-new-folder { position: fixed; bottom: 70px; left: 0; right: 0; padding: 20px; background: #111; border-top: 1px solid #222; text-align: center; font-size: 1.1rem; font-weight: 600; color: #fff; z-index: 998; }
 
-    /* ═══════════ TELA 6: PERFIL/DRIVE ═══════════ */
+    /* ═══════════ TELA 6: PERFIL / DRIVE ═══════════ */
     .profile-header { display: flex; align-items: center; gap: 16px; padding: 20px 16px; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0ea5e9; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0ea5e9; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
     .profile-header h1 { font-size: 1.2rem; }
     
-    .vip-banner { margin: 0 16px 20px; background: linear-gradient(135deg, #fef3c7, #f59e0b); border-radius: 12px; padding: 16px; color: #000; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
+    .vip-banner { margin: 0 16px 16px; background: linear-gradient(135deg, #fef3c7, #f59e0b); border-radius: 12px; padding: 16px; color: #000; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
     .vip-banner h2 { font-size: 1.5rem; font-weight: 800; font-style: italic; }
     .vip-banner p { font-size: 0.75rem; margin-top: 4px; }
-    .vip-banner button { background: #fff; color: #000; border: none; padding: 8px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; z-index: 2; }
-    .vip-banner img { position: absolute; right: 10px; top: 10px; width: 60px; opacity: 0.8; }
+    .vip-banner button { background: #fff; color: #000; padding: 8px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; z-index: 2; }
 
     .profile-section { background: #141414; margin: 0 16px 16px; border-radius: 16px; padding: 16px; }
     .profile-section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 1rem; font-weight: 700; }
@@ -158,77 +150,96 @@
     .stats-grid h3 { font-size: 1.2rem; font-weight: 700; }
     .stats-grid p { font-size: 0.7rem; color: #9ca3af; }
     
-    .drive-storage { margin-bottom: 16px; }
     .drive-storage-header { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; }
     .drive-storage-header span { color: #ef4444; }
-    .drive-storage-bar { width: 100%; height: 4px; background: #333; border-radius: 2px; overflow: hidden; }
+    .drive-storage-bar { width: 100%; height: 4px; background: #333; border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
     .drive-storage-bar div { width: 100%; height: 100%; background: #ef4444; }
 
     .menu-list { display: flex; flex-direction: column; }
-    .menu-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid #222; cursor: pointer; }
+    .menu-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid #222; }
     .menu-item:last-child { border-bottom: none; }
-    .menu-item svg { width: 24px; height: 24px; fill: #fff; }
+    .menu-item svg { width: 24px; height: 24px; fill: #fff; flex-shrink: 0; }
     .menu-item span { flex: 1; font-size: 0.95rem; }
     .menu-item .arrow { width: 16px; height: 16px; fill: #666; }
 
-    /* ═══════════ TELA 7: FILME / PLAYER ═══════════ */
-    .player-section { position: relative; width: 100vw; height: 56.25vw; background: #000; margin-bottom: 16px; }
+    /* ═══════════ TELA 7: FILME / PLAYER (PRINTS 1 E 2) ═══════════ */
+    .player-section { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
     .player-section iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .movie-content { padding: 0 16px; max-width: 800px; margin: 0 auto; }
+    
+    .movie-content { padding: 16px; max-width: 800px; margin: 0 auto; }
     
     .title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
     .title-row h1 { font-size: 1.1rem; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .title-row svg { flex-shrink: 0; width: 20px; height: 20px; fill: #fff; }
     
     .action-bar { display: flex; gap: 8px; margin-bottom: 20px; }
-    .flag-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: none; color: #fff;}
-    .speed-badge { flex: 1; background: rgba(30, 60, 120, 0.6); border-radius: 24px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: #dbeafe; }
-    .cloud-icon { width: 24px; height: 24px; border-radius: 50%; background: #2563eb; display: flex; align-items: center; justify-content: center; margin-left: 8px; }
+    .flag-btn { width: 44px; height: 40px; border-radius: 20px; background: #1e1e24; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .flag-btn svg { width: 18px; height: 18px; fill: #fff; }
+    .speed-badge { flex: 1; background: #1e293b; border-radius: 20px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: #dbeafe; }
+    .cloud-icon { width: 28px; height: 28px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0; }
+    .cloud-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 24px; background: #141414; border-radius: 16px; padding: 12px 8px; }
+    .feature-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #d1d5db; font-size: 0.65rem; }
+    .feature-item svg { width: 24px; height: 24px; fill: #d1d5db; }
+    .feature-item.fav-active svg { fill: #fbbf24; }
     
-    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 24px; background: rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 12px 8px; }
-    .feature-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #d1d5db; font-size: 0.65rem; background: none; border: none; }
-    .feature-item svg { width: 22px; height: 22px; fill: #d1d5db; }
-    
-    .section-header { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; cursor: pointer; }
+    .section-header { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
     .section-header h2 { font-size: 1.1rem; font-weight: 700; }
-    .section-sub { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .section-sub h2 { font-size: 1rem; font-weight: 600; }
-    .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
-    .episode-card { flex: 0 0 56px; height: 56px; border-radius: 12px; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 600; color: #d1d5db; border: none; }
-    .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
+    .section-header svg { width: 16px; height: 16px; fill: #fff; }
     
+    .section-sub { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .section-sub h2 { font-size: 1.05rem; font-weight: 700; }
+    .section-sub .count { font-size: 0.8rem; color: #9ca3af; display: flex; align-items: center; gap: 4px; }
+    
+    .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; }
+    .episodes-row::-webkit-scrollbar { display: none; }
+    .episode-card { flex: 0 0 60px; height: 60px; border-radius: 12px; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 600; color: #d1d5db; }
+    .episode-card.active { background: #555; color: #fff; font-weight: 700; }
+    
+    /* CARROSSEL HORIZONTAL DE TÍTULOS SEMELHANTES (EXATO PRINT 1 E 2) */
     .similar-section { margin-bottom: 40px; }
-    .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
-    .similar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .similar-card { display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
+    .similar-section h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; }
+    .similar-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
+    .similar-scroll::-webkit-scrollbar { display: none; }
+    
+    .similar-card { flex: 0 0 140px; display: flex; flex-direction: column; gap: 6px; }
     .similar-card .img-wrapper { position: relative; width: 100%; aspect-ratio: 2 / 3; border-radius: 8px; overflow: hidden; background: #1e1e2a; }
     .similar-card img { width: 100%; height: 100%; object-fit: cover; }
-    .similar-card .rating { position: absolute; top: 6px; left: 6px; background: rgba(0, 0, 0, 0.85); border-radius: 4px; padding: 2px 6px; font-size: 0.65rem; font-weight: 600; color: #fbbf24; display: flex; align-items: center; gap: 3px; }
-    .similar-card .title { font-size: 0.75rem; color: #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .similar-card .rating { position: absolute; top: 6px; left: 6px; background: rgba(0, 0, 0, 0.85); border-radius: 4px; padding: 3px 6px; font-size: 0.65rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 3px; }
+    .similar-card .rating svg { width: 10px; height: 10px; fill: #fbbf24; }
+    .similar-card .title { font-size: 0.8rem; color: #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* ── MODAIS DO FILME ── */
-    .modal-overlay { position: fixed; inset: 0; background: #000; display: none; align-items: center; justify-content: center; z-index: 1000; flex-direction: column; }
+    /* BANNER VIP FIXO (PRINT 2) */
+    .vip-fixed-banner { position: fixed; bottom: 70px; left: 0; right: 0; background: #e5e5e5; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; z-index: 998; }
+    .vip-fixed-text h4 { color: #000; font-size: 0.95rem; font-weight: 800; margin-bottom: 2px; }
+    .vip-fixed-text p { color: #333; font-size: 0.75rem; }
+    .vip-fixed-btn { background: #4b3f8a; color: #fff; padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
+
+    /* ── MODAIS ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 10000; flex-direction: column; }
     .modal-overlay.active { display: flex; }
     .parts-list { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; margin-bottom: 40px; }
-    .part-item { font-size: 1.6rem; font-weight: 700; color: #555; cursor: pointer; }
+    .part-item { font-size: 1.6rem; font-weight: 700; color: #555; }
     .part-item.active { color: #fff; }
-    .modal-close-btn { width: 65px; height: 65px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; position: absolute; bottom: 40px; border: none; }
+    .modal-close-btn { width: 65px; height: 65px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; position: absolute; bottom: 40px; }
     .modal-close-btn svg { width: 28px; height: 28px; fill: #000; }
     
-    .bottom-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; border-radius: 20px 20px 0 0; padding: 20px 16px 30px; max-height: 80vh; overflow-y: auto; z-index: 1001; display: none; animation: slideUp 0.3s ease; }
+    .bottom-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; border-radius: 20px 20px 0 0; padding: 20px 16px 30px; max-height: 85vh; overflow-y: auto; z-index: 10001; display: none; animation: slideUp 0.3s ease; }
     .bottom-sheet.active { display: block; }
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .sheet-header h2 { font-size: 1.2rem; font-weight: 500; color: #e5e7eb; }
-    .sheet-header .close-btn { font-size: 1.5rem; color: #fff; background: none; border: none; }
+    .sheet-header .close-btn { font-size: 1.5rem; color: #fff; }
     
     .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
-    .feedback-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #e5e7eb; cursor: pointer; line-height: 1.4; }
-    .feedback-item input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid #fff; border-radius: 4px; background: transparent; cursor: pointer; flex-shrink: 0; margin-top: 2px; position: relative; }
+    .feedback-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #e5e7eb; line-height: 1.4; }
+    .feedback-item input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid #fff; border-radius: 4px; background: transparent; flex-shrink: 0; margin-top: 2px; position: relative; }
     .feedback-item input[type="checkbox"]:checked::after { content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #fff; }
-    .feedback-textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: #fff; padding: 10px 0; font-family: inherit; font-size: 0.95rem; resize: none; margin-bottom: 24px; outline: none; }
-    .btn-submit { width: 100%; background: #294373; color: #fff; padding: 16px; border-radius: 8px; font-size: 1rem; font-weight: 600; margin-bottom: 20px; border: none; }
+    .feedback-textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: #fff; padding: 10px 0; font-size: 0.95rem; resize: none; margin-bottom: 24px; outline: none; }
+    .btn-submit { width: 100%; background: #294373; color: #fff; padding: 16px; border-radius: 8px; font-size: 1rem; font-weight: 600; margin-bottom: 20px; }
     
-    .audio-option { padding: 16px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .audio-option { padding: 16px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; }
     .audio-option.selected { background: #fff; color: #000; font-weight: 700; }
     .audio-option svg { width: 20px; height: 20px; fill: currentColor; }
 
@@ -278,11 +289,11 @@
     </div>
 
     <!-- Mini Player -->
-    <div class="mini-player" onclick="openMovie(808)">
-      <img src="https://image.tmdb.org/t/p/w200/2LqaLq2wO3w...jpg" onerror="this.src='https://via.placeholder.com/40x50/333/fff?text=SP'">
+    <div class="mini-player" onclick="openMovie(634649)">
+      <img src="https://image.tmdb.org/t/p/w200/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg">
       <div class="mini-player-info">
-        <h4>[Português Dublado]Homem...</h4>
-        <p>Não assistidos · Parte 5</p>
+        <h4>[Português Dublado] Homem-Aranha...</h4>
+        <p>Não assistidos · Parte 3</p>
         <div class="mini-progress"><div></div></div>
       </div>
       <div class="mini-play">
@@ -294,7 +305,7 @@
   <!-- ═══════════ TELA 2: PESQUISAR ═══════════ -->
   <div id="screen-search" class="screen">
     <div class="header-nav">
-      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <svg class="back" viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       <h1>Pesquisar</h1>
     </div>
     
@@ -307,7 +318,7 @@
     
     <div style="padding: 20px 16px 10px; display: flex; justify-content: space-between; align-items: center;">
       <h2 style="font-size: 1rem;">Mais populares</h2>
-      <span style="color: #666; font-size: 0.8rem;">Ver tudo ></span>
+      <span style="color: #666; font-size: 0.8rem;" onclick="nav('screen-popular')">Ver tudo ></span>
     </div>
 
     <div class="tabs-row">
@@ -317,68 +328,55 @@
       <button class="tab-btn" onclick="nav('screen-popular')">Anime</button>
     </div>
 
-    <div class="rank-list" style="margin-bottom: 80px; background: #1a1a1a;">
-      <!-- Injetado via JS (mock rápido) -->
+    <div class="rank-list" style="margin-bottom: 80px; background: #1a1a1a;" id="search-popular-mock">
+      <!-- Mocks rápidos -->
       <div class="rank-item" onclick="openMovie(1)">
         <div class="rank-num" style="background:#ef4444;">1</div>
-        <img src="https://via.placeholder.com/70x100/333/fff?text=1" alt="Poster">
+        <img src="https://image.tmdb.org/t/p/w200/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg">
         <div class="rank-info">
           <div class="rank-title-row"><h3>A Imperatriz Se Casou Novamente</h3> <div class="rank-rating">🔥 95,423</div></div>
-          <div class="rank-meta">2026 · TBC · KR · History · Drama</div>
+          <div class="rank-meta">2026 · TBC · KR · History</div>
           <div class="rank-type">Séries</div>
-        </div>
-      </div>
-      <div class="rank-item" onclick="openMovie(808)">
-        <div class="rank-num" style="background:#f97316;">2</div>
-        <img src="https://via.placeholder.com/70x100/333/fff?text=SP" alt="Poster">
-        <div class="rank-info">
-          <div class="rank-title-row"><h3>Homem-Aranha: Um Novo Dia</h3> <div class="rank-rating">🔥 92,941</div></div>
-          <div class="rank-meta">2026 · PG-13 · US · Ficção científica</div>
-          <div class="rank-type">Filme</div>
         </div>
       </div>
     </div>
 
-    <div style="position: fixed; bottom: 70px; left: 0; right: 0; background: #111; padding: 12px 16px; display: flex; gap: 10px;">
+    <div style="position: fixed; bottom: 70px; left: 0; right: 0; background: #111; padding: 12px 16px; display: flex; gap: 10px; z-index: 999;">
       <input type="text" id="main-search-input" placeholder="Pesquise ou digite uma URL" style="flex: 1; background: #222; border: none; padding: 12px; border-radius: 8px; color: #fff; outline: none;">
-      <button onclick="performSearch()" style="background: #3b82f6; color: #fff; border: none; padding: 0 20px; border-radius: 8px; font-weight: 600;">Pesquisar</button>
+      <button onclick="performSearch()" style="background: #3b82f6; color: #fff; padding: 0 20px; border-radius: 8px; font-weight: 600;">Pesquisar</button>
     </div>
   </div>
 
   <!-- ═══════════ TELA 3: RESULTADOS DA PESQUISA ═══════════ -->
   <div id="screen-results" class="screen">
     <div class="header-nav">
-      <svg viewBox="0 0 24 24" onclick="nav('screen-search')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <svg class="back" viewBox="0 0 24 24" onclick="nav('screen-search')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
     </div>
-    <div id="search-results-container" style="padding-bottom: 80px;">
-      <!-- Injetado via JS -->
-    </div>
+    <div id="search-results-container" style="padding-bottom: 80px;"></div>
   </div>
 
   <!-- ═══════════ TELA 4: POPULARES ═══════════ -->
   <div id="screen-popular" class="screen">
     <div class="header-nav">
-      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <svg class="back" viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       <h1>Pesquisas populares</h1>
     </div>
     
-    <div class="tabs-row">
-      <button class="tab-btn active">Em alta</button>
-      <button class="tab-btn">Filmes</button>
-      <button class="tab-btn">Séries</button>
-      <button class="tab-btn">Anime</button>
-      <button class="tab-btn">Novelas Verticais</button>
+    <div class="tabs-row" id="popular-tabs">
+      <button class="tab-btn active" onclick="loadPopular('day', this)">Em alta</button>
+      <button class="tab-btn" onclick="loadPopular('week', this)">Filmes</button>
+      <button class="tab-btn" onclick="loadPopular('tv', this)">Séries</button>
     </div>
 
-    <div class="rank-list" id="popular-list">
+    <div class="rank-list" id="popular-list" style="padding-bottom: 80px;">
       <!-- Injetado via JS -->
     </div>
   </div>
 
   <!-- ═══════════ TELA 5: FAVORITOS ═══════════ -->
   <div id="screen-favorites" class="screen">
-    <div class="header-nav">
-      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    <div class="header-nav" style="justify-content: space-between;">
+      <svg class="back" viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       <h1 style="text-align: center; flex: 1;">Marcador</h1>
       <h1 style="color: #666; font-size: 1rem;">Histórico</h1>
     </div>
@@ -396,7 +394,7 @@
   <!-- ═══════════ TELA 6: PERFIL / DRIVE ═══════════ -->
   <div id="screen-profile" class="screen">
     <div class="profile-header">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff" onclick="nav('screen-home')" style="cursor: pointer;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <svg class="back" viewBox="0 0 24 24" onclick="nav('screen-home')" style="cursor: pointer;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       <div class="avatar">A</div>
       <h1>Akira Dosantos</h1>
     </div>
@@ -420,13 +418,13 @@
         <span>Todos ></span>
       </div>
       <div class="continue-scroll">
-        <div class="continue-card">
-          <img src="https://via.placeholder.com/120x70/333/fff?text=SP">
+        <div class="continue-card" onclick="openMovie(634649)">
+          <img src="https://image.tmdb.org/t/p/w200/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg">
           <h4>[Português Dubla...</h4>
-          <p>Não assistidos Parte 5</p>
+          <p>Não assistidos Parte 3</p>
         </div>
-        <div class="continue-card">
-          <img src="https://via.placeholder.com/120x70/333/fff?text=Aquaman">
+        <div class="continue-card" onclick="openMovie(11)">
+          <img src="https://image.tmdb.org/t/p/w200/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg">
           <h4>[Português Dubla...</h4>
           <p>Assistido 35% Parte 1</p>
         </div>
@@ -444,9 +442,7 @@
         <span>Minha Drive</span>
         <span style="color: #ef4444;">15,71GB / 15GB ></span>
       </div>
-      <div class="drive-storage">
-        <div class="drive-storage-bar"><div></div></div>
-      </div>
+      <div class="drive-storage-bar"><div></div></div>
       <div style="display: flex; justify-content: space-between; text-align: center; font-size: 0.75rem; color: #9ca3af;">
         <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Arquivos</div>
         <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Vídeo</div>
@@ -455,7 +451,7 @@
       </div>
     </div>
 
-    <div class="profile-section">
+    <div class="profile-section" style="margin-bottom: 80px;">
       <div class="menu-list">
         <div class="menu-item"><span>Entrar na TV com QR Code</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
         <div class="menu-item"><span>Proteção para menores</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
@@ -465,25 +461,25 @@
     </div>
   </div>
 
-  <!-- ═══════════ TELA 7: FILME / PLAYER ═══════════ -->
+  <!-- ═══════════ TELA 7: FILME / PLAYER (PRINTS 1 E 2) ═══════════ -->
   <div id="screen-movie" class="screen">
     <div class="player-section">
-      <iframe id="video-player" src="" allowfullscreen></iframe>
+      <iframe id="video-player" src="" allowfullscreen allow="autoplay; fullscreen; encrypted-media;"></iframe>
     </div>
 
     <div class="movie-content">
       <div class="title-row">
         <h1 id="movie-title">Carregando título…</h1>
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" onclick="nav('screen-home')" style="cursor: pointer;"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
       </div>
 
       <div class="action-bar">
         <button class="flag-btn" onclick="openModal('feedback-sheet')">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
         </button>
         <div class="speed-badge">
           <span>Usando benefícios da reprodução acelerada na Drive</span>
-          <div class="cloud-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="#fff"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div>
+          <div class="cloud-icon"><svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div>
         </div>
       </div>
 
@@ -494,53 +490,62 @@
         <button class="feature-item" onclick="openModal('audio-sheet')">
           <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg><span>Áudio</span>
         </button>
-        <button class="feature-item">
+        <button class="feature-item" onclick="alert('Avisos ativados.')">
           <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span>Avisos</span>
         </button>
-        <button class="feature-item">
+        <button class="feature-item" id="btn-fav" onclick="this.classList.toggle('fav-active')">
           <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span>Favorito</span>
         </button>
       </div>
 
       <div class="section-header" onclick="openModal('parts-modal')">
-        <h2 id="part-title">Parte</h2>
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        <h2 id="part-title">Parte 5</h2>
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
       </div>
 
       <div class="section-sub">
         <h2>Episódios</h2>
-        <div style="font-size: 0.8rem; color: #9ca3af; cursor: pointer;" onclick="openModal('parts-modal')">
-          <span id="episodes-count">0 filmes</span> >
+        <div class="count" onclick="openModal('parts-modal')">
+          <span id="episodes-count">1 filme</span> >
         </div>
       </div>
       <div class="episodes-row" id="episodes-preview"></div>
 
       <div class="similar-section">
         <h2>Títulos semelhantes</h2>
-        <div class="similar-grid" id="similar-grid"></div>
+        <div class="similar-scroll" id="similar-scroll"></div>
       </div>
+    </div>
+
+    <!-- BANNER VIP FIXO NO PLAYER -->
+    <div class="vip-fixed-banner" id="vip-banner" style="display: none;">
+      <div class="vip-fixed-text">
+        <h4>Seu VIP expirou</h4>
+        <p>Renove o VIP para assistir em HD sem anúncios</p>
+      </div>
+      <button class="vip-fixed-btn">Renovar agora</button>
     </div>
   </div>
 
   <!-- ═══════════ BARRA DE NAVEGAÇÃO INFERIOR ═══════════ -->
   <div class="bottom-nav">
-    <div class="nav-item active" onclick="nav('screen-home')">
+    <div class="nav-item active" onclick="nav('screen-home', this)">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
       <span>Abas</span>
     </div>
-    <div class="nav-item" onclick="nav('screen-favorites')">
+    <div class="nav-item" onclick="nav('screen-favorites', this)">
       <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
       <span>Favoritos</span>
     </div>
-    <div class="nav-item">
+    <div class="nav-item" onclick="alert('Chat com IA em breve.')">
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14v-4H8v-2h4V7h2v4h4v2h-4v4h-2z"/></svg>
       <span>Chat com IA</span>
     </div>
-    <div class="nav-item">
+    <div class="nav-item" onclick="alert('Nenhum download recente.')">
       <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
       <span>Baixar</span>
     </div>
-    <div class="nav-item" onclick="nav('screen-profile')">
+    <div class="nav-item" onclick="nav('screen-profile', this)">
       <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
       <span>Perfil</span>
     </div>
@@ -585,16 +590,32 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════════
-       ⚠️ COLOQUE SEU TOKEN DO TMDB AQUI ⚠️
+       TOKEN DO TMDB INTEGRADO AQUI
        ═══════════════════════════════════════════════════════════ */
     const TMDB_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM'; 
     const TMDB_BASE = 'https://api.themoviedb.org/3';
     const IMG_BASE = 'https://image.tmdb.org/t/p/w200';
 
     // ── SISTEMA DE NAVEGAÇÃO ──
-    function nav(screenId) {
+    function nav(screenId, navElement = null) {
+      // Remove active de todas as telas
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      // Adiciona na tela alvo
       document.getElementById(screenId).classList.add('active');
+      
+      // Atualiza barra inferior
+      if (navElement) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navElement.classList.add('active');
+      }
+      
+      // Controle do Banner VIP Fixo (Só aparece na tela de filmes)
+      if (screenId === 'screen-movie') {
+        document.getElementById('vip-banner').style.display = 'flex';
+      } else {
+        document.getElementById('vip-banner').style.display = 'none';
+      }
+
       window.scrollTo(0, 0);
     }
 
@@ -603,53 +624,64 @@
 
     // ── REQUISIÇÕES TMDB ──
     async function tmdbFetch(path) {
-      if (TMDB_TOKEN === 'COLE_SEU_TOKEN_AQUI' || TMDB_TOKEN.trim() === '') {
-        throw new Error("Token não configurado");
-      }
-      const isV4 = TMDB_TOKEN.startsWith('eyJ') || TMDB_TOKEN.length > 50;
       const sep = path.includes('?') ? '&' : '?';
-      let url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
-      let options = { method: 'GET', headers: { accept: 'application/json' } };
-      if (isV4) { options.headers.Authorization = `Bearer ${TMDB_TOKEN}`; } else { url += `&api_key=${TMDB_TOKEN}`; }
-      
+      const url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${TMDB_TOKEN}`
+        }
+      };
       const res = await fetch(url, options);
       if (!res.ok) throw new Error("Falha na API");
       return res.json();
     }
 
-    // ── POPULARES (HOME) ──
-    async function loadPopular() {
+    // ── CARREGAR POPULARES ──
+    async function loadPopular(type = 'day', btn = null) {
+      if (btn) {
+        document.querySelectorAll('#popular-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      
       const container = document.getElementById('popular-list');
+      container.innerHTML = '<p style="text-align:center; padding:20px;">Carregando...</p>';
+      
       try {
-        const data = await tmdbFetch('/trending/all/day');
+        let endpoint = '/trending/all/day';
+        if (type === 'week') endpoint = '/trending/movie/week';
+        if (type === 'tv') endpoint = '/trending/tv/week';
+
+        const data = await tmdbFetch(endpoint);
         const movies = data.results.slice(0, 15);
         container.innerHTML = '';
         
         movies.forEach((movie, index) => {
           const title = movie.title || movie.name;
           const date = (movie.release_date || movie.first_air_date || '').split('-')[0];
-          const type = movie.media_type === 'movie' ? 'Filme' : 'Série';
+          const typeLabel = movie.media_type === 'tv' || type === 'tv' ? 'Série' : 'Filme';
           const rankColor = index === 0 ? '#ef4444' : index === 1 ? '#f97316' : index === 2 ? '#eab308' : '#222';
           
           const el = document.createElement('div');
           el.className = 'rank-item';
-          el.onclick = () => openMovie(movie.id);
+          el.onclick = () => openMovie(movie.id, movie.media_type === 'tv' || type === 'tv');
           el.innerHTML = `
             <div class="rank-num" style="background:${rankColor};">${index + 1}</div>
-            <img src="${movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/70x100/333/fff?text=Sem+Capa'}" alt="Poster">
+            <img src="${movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/70x100/333/fff?text=Sem+Capa'}">
             <div class="rank-info">
               <div class="rank-title-row">
                 <h3>${title}</h3>
                 <div class="rank-rating" style="color:${index < 3 ? '#f97316' : '#9ca3af'};">🔥 ${Math.floor(Math.random() * 50000 + 50000).toLocaleString('pt-BR')}</div>
               </div>
-              <div class="rank-meta">${date ? date + ' · ' : ''}TBC · US · Ação</div>
-              <div class="rank-type">${type}</div>
+              <div class="rank-meta">${date ? date + ' · ' : ''}TBC · US · Drama</div>
+              <div class="rank-type">${typeLabel}</div>
             </div>
           `;
           container.appendChild(el);
         });
       } catch (e) {
-        container.innerHTML = '<p style="padding:20px; color:#666;">Coloque o Token do TMDB para carregar.</p>';
+        container.innerHTML = '<p style="padding:20px; color:#666; text-align:center;">Erro ao carregar. Verifique sua conexão.</p>';
       }
     }
 
@@ -666,7 +698,6 @@
         const data = await tmdbFetch(`/search/multi?query=${encodeURIComponent(query)}`);
         container.innerHTML = '';
         
-        // Falso resultado da Wikipedia
         container.innerHTML += `
           <div class="web-result">
             <h2>${query} - Wikpédia</h2>
@@ -688,52 +719,61 @@
               <h2>[Português Dublado] ${title}</h2>
               <p>${type} · ${date} · Ficção científica · Aventura</p>
               <p>${item.overview || 'Sem descrição disponível.'}</p>
-              <div class="btn-assistir" onclick="openMovie(${item.id})">Assistir ></div>
+              <div class="btn-assistir" onclick="openMovie(${item.id}, ${item.media_type === 'tv'})">Assistir ></div>
             </div>
           `;
           container.appendChild(el);
         });
 
       } catch (e) {
-        container.innerHTML = '<p style="padding:20px;">Erro na pesquisa. Verifique o token.</p>';
+        container.innerHTML = '<p style="padding:20px; text-align:center;">Erro na pesquisa.</p>';
       }
     }
 
     // ── ABRIR FILME / PLAYER ──
-    async function openMovie(movieId) {
+    async function openMovie(movieId, isTv = false) {
       nav('screen-movie');
+      
+      // O player espera o ID do Kiraflix (que segue o padrão do TMDB)
       document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
       document.getElementById('movie-title').textContent = "Carregando...";
-      document.getElementById('similar-grid').innerHTML = '';
+      document.getElementById('similar-scroll').innerHTML = '';
       document.getElementById('episodes-preview').innerHTML = '';
 
       try {
-        const movie = await tmdbFetch(`/movie/${movieId}`);
-        document.getElementById('movie-title').textContent = movie.title;
+        // Detalhes do Filme ou Série
+        const movie = await tmdbFetch(`/${isTv ? 'tv' : 'movie'}/${movieId}`);
+        document.getElementById('movie-title').textContent = movie.title || movie.name;
 
-        // Coleção (Partes)
-        if (movie.belongs_to_collection) {
+        // Coleção (Partes) - Apenas para filmes
+        if (!isTv && movie.belongs_to_collection) {
           const col = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
           document.getElementById('part-title').textContent = col.name;
           document.getElementById('episodes-count').textContent = `${col.parts.length} filmes`;
           renderParts(col.parts, movie.id);
-        } else {
+        } else if (!isTv) {
           document.getElementById('part-title').textContent = 'Filme Único';
           document.getElementById('episodes-count').textContent = `1 filme`;
           renderParts([movie], movie.id);
+        } else {
+          // Se for série, simula partes/eps
+          document.getElementById('part-title').textContent = 'Temporada 1';
+          document.getElementById('episodes-count').textContent = `10 eps`;
+          renderParts([{id: movieId, ep: 1}, {id: movieId, ep: 2}], 1);
         }
 
         // Semelhantes
-        const sim = await tmdbFetch(`/movie/${movieId}/similar`);
+        const sim = await tmdbFetch(`/${isTv ? 'tv' : 'movie'}/${movieId}/similar`);
         renderSimilar(sim.results);
 
       } catch (err) {
-        document.getElementById('movie-title').textContent = "Modo de Demonstração (Sem API)";
-        // Mock no player pra não ficar em branco
-        document.getElementById('part-title').textContent = "Coleção Shrek (Mock)";
-        document.getElementById('episodes-count').textContent = "4 filmes";
-        renderParts([1,2,3,4], 1);
-        renderSimilar([{id:1, title:'Sugestão 1', vote_average: 8.0}, {id:2, title:'Sugestão 2', vote_average: 7.2}, {id:3, title:'Sugestão 3', vote_average: 6.5}]);
+        console.error(err);
+        document.getElementById('movie-title').textContent = "Filme (Falha na API)";
+        // Mock se der erro para não quebrar a UI
+        document.getElementById('part-title').textContent = "Parte 5";
+        document.getElementById('episodes-count').textContent = "1 filme";
+        renderParts([1,2,3], 1);
+        renderSimilar([{id:1, title:'The Body', vote_average: 6.0, poster_path: '/x.jpg'}, {id:2, title:'Business', vote_average: 7.9, poster_path: '/y.jpg'}]);
       }
     }
 
@@ -759,18 +799,33 @@
       });
     }
 
+    // RENDERIZA O CARROSSEL HORIZONTAL DE SUGESTÕES
     function renderSimilar(movies) {
-      const container = document.getElementById('similar-grid');
+      const container = document.getElementById('similar-scroll');
       container.innerHTML = '';
-      movies.slice(0, 9).forEach(m => {
+      
+      // Se a API não retornar nada, coloca uns mocks só pra não ficar vazio
+      if (!movies || movies.length === 0) {
+        movies = [
+          { id: 1, title: 'O Grande Ataque', vote_average: 6.6, poster_path: '/a.jpg' },
+          { id: 2, title: 'Alatriste', vote_average: 5.9, poster_path: '/b.jpg' },
+          { id: 3, title: 'Kunoichi: Lady Ninja', vote_average: 4.5, poster_path: '/c.jpg' }
+        ];
+      }
+
+      movies.slice(0, 10).forEach(m => {
         const card = document.createElement('div');
         card.className = 'similar-card';
         card.onclick = () => openMovie(m.id);
-        const imgUrl = m.poster_path ? IMG_BASE + m.poster_path : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
+        const imgUrl = m.poster_path && m.poster_path !== '/a.jpg' ? IMG_BASE + m.poster_path : 'https://via.placeholder.com/140x210/222/666?text=Sem+Capa';
+        
         card.innerHTML = `
           <div class="img-wrapper">
             <img src="${imgUrl}">
-            <div class="rating">⭐ ${m.vote_average ? m.vote_average.toFixed(1) : 'N/A'}</div>
+            <div class="rating">
+              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              ${m.vote_average ? m.vote_average.toFixed(1) : 'N/A'}
+            </div>
           </div>
           <div class="title">${m.title}</div>
         `;
@@ -780,7 +835,7 @@
 
     // Inicialização do App
     document.addEventListener('DOMContentLoaded', () => {
-      loadPopular(); // Já tenta puxar os populares ao abrir
+      loadPopular('day'); // Carrega os populares na aba correspondente
     });
   </script>
 </body>
