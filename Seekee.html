@@ -10,69 +10,45 @@
   <style>
     /* ═══════════ RESET E CONFIGURAÇÕES ═══════════ */
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden; /* Corrige o bug de tela esticada */
+    }
+
     body {
       font-family: 'Outfit', system-ui, sans-serif;
       background: #000; color: #fff;
-      overflow-x: hidden; padding-bottom: 90px;
+      padding-bottom: 85px; /* Espaço para a barra de pesquisa no rodapé */
     }
+
     button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
     img { display: block; max-width: 100%; }
-
-    /* ═══════════ BARRA DE ID (NOVO) ═══════════ */
-    .id-search-bar {
-      display: flex;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #111;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .id-search-bar input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border 0.2s;
-    }
-    .id-search-bar input:focus {
-      border-color: #4b3f8a;
-    }
-    .id-search-bar button {
-      background: #4b3f8a;
-      color: #fff;
-      font-weight: 600;
-      padding: 0 20px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-    .id-search-bar button:active {
-      background: #3a306b;
-    }
 
     /* ═══════════ PLAYER ═══════════ */
     .player-section {
       position: relative;
-      width: 100vw;
-      height: 56.25vw; /* 16:9 */
-      max-height: 100vh;
+      width: 100%;
+      aspect-ratio: 16 / 9; /* Força a proporção correta independente da tela */
       background: #000;
       margin-bottom: 16px;
     }
     .player-section iframe {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       border: 0;
     }
 
     /* ═══════════ CONTEÚDO ═══════════ */
-    .content { padding: 0 16px; max-width: 800px; margin: 0 auto; }
+    .content { 
+      padding: 0 16px; 
+      max-width: 800px; 
+      margin: 0 auto; 
+      width: 100%;
+    }
 
     .title-row {
       display: flex; align-items: center; justify-content: space-between;
@@ -136,7 +112,7 @@
     .section-sub .count svg { width: 14px; height: 14px; fill: #9ca3af; }
 
     /* ── Cards de Episódios ── */
-    .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
+    .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; scrollbar-width: none; }
     .episodes-row::-webkit-scrollbar { display: none; }
     .episode-card {
       flex: 0 0 56px; height: 56px; border-radius: 12px;
@@ -147,7 +123,7 @@
     }
     .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
 
-    /* ═══════════ TÍTULOS SEMELHANTES (GRID 3 COLUNAS) ═══════════ */
+    /* ═══════════ TÍTULOS SEMELHANTES (GRID) ═══════════ */
     .similar-section { margin-bottom: 40px; }
     .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
     
@@ -155,6 +131,7 @@
       display: grid; 
       grid-template-columns: repeat(3, 1fr); 
       gap: 12px; 
+      width: 100%;
     }
     
     .similar-card {
@@ -162,6 +139,7 @@
       flex-direction: column;
       gap: 6px;
       cursor: pointer;
+      width: 100%;
     }
     
     .similar-card .img-wrapper {
@@ -184,95 +162,84 @@
     .similar-card .rating svg { width: 10px; height: 10px; fill: #fbbf24; }
     
     .similar-card .title {
-      font-size: 0.75rem;
-      color: #e5e7eb;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
+      font-size: 0.75rem; color: #e5e7eb;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
     }
 
-    /* ═══════════ BANNER VIP ═══════════ */
-    .vip-banner {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(30, 30, 40, 0.95); backdrop-filter: blur(12px);
-      padding: 14px 16px; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px; z-index: 100;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* ═══════════ BARRA DE PESQUISA NO RODAPÉ ═══════════ */
+    .bottom-search-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 900;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
     }
-    .vip-banner .vip-text { font-size: 0.85rem; line-height: 1.3; color: #e5e7eb; }
-    .vip-banner .vip-text strong { font-size: 1rem; display: block; margin-bottom: 2px; color: #fff; }
-    .vip-banner button {
-      flex-shrink: 0; background: #4b3f8a; color: #fff;
-      border-radius: 24px; padding: 10px 20px;
-      font-size: 0.85rem; font-weight: 700; white-space: nowrap;
+    
+    .bottom-search-bar input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
     }
+    .bottom-search-bar input:focus { border-color: #4b3f8a; }
+    
+    .bottom-search-bar button {
+      background: #4b3f8a; color: #fff;
+      font-weight: 600; padding: 0 20px;
+      border-radius: 8px; font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .bottom-search-bar button:active { background: #3a306b; }
 
-    /* ═══════════ MODAL DE PARTES ═══════════ */
+    /* ═══════════ MODAIS ═══════════ */
     .modal-overlay {
       position: fixed; inset: 0; background: #000;
       display: none; align-items: center; justify-content: center;
       z-index: 1000; flex-direction: column;
     }
     .modal-overlay.active { display: flex; }
-
-    .parts-list {
-      display: flex; flex-direction: column; align-items: center; gap: 28px;
-      text-align: center; margin-bottom: 40px;
-    }
-    .part-item {
-      font-size: 1.6rem; font-weight: 700; color: #555;
-      cursor: pointer; transition: color 0.2s, transform 0.2s;
-    }
+    .parts-list { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-bottom: 40px; }
+    .part-item { font-size: 1.6rem; font-weight: 700; color: #555; cursor: pointer; transition: color 0.2s; }
     .part-item.active { color: #fff; }
-
     .modal-close-btn {
-      width: 65px; height: 65px; border-radius: 50%;
-      background: #fff; display: flex; align-items: center; justify-content: center;
+      width: 65px; height: 65px; border-radius: 50%; background: #fff;
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer; position: absolute; bottom: 40px;
     }
     .modal-close-btn svg { width: 28px; height: 28px; fill: #000; }
 
-    /* ═══════════ MODAL DE ÁUDIO ═══════════ */
-    .audio-sheet {
+    .sheet {
       position: fixed; bottom: 0; left: 0; right: 0;
       background: #1a1a1a; border-radius: 20px 20px 0 0;
-      padding: 20px 16px 30px; max-height: 60vh; overflow-y: auto;
+      padding: 20px 16px 30px; max-height: 85vh; overflow-y: auto;
       z-index: 1001; display: none; animation: slideUp 0.3s ease;
     }
-    .audio-sheet.active { display: block; }
+    .sheet.active { display: block; }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     
-    .audio-sheet .header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px;
-    }
-    .audio-sheet .header h2 { font-size: 1.2rem; font-weight: 700; }
-    .audio-sheet .close-btn { font-size: 1.5rem; color: #fff; }
+    .sheet .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .sheet .header h2 { font-size: 1.2rem; font-weight: 700; }
+    .sheet .close-btn { font-size: 1.5rem; color: #fff; }
+    
     .audio-option {
       padding: 16px; background: rgba(255, 255, 255, 0.05);
       border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem;
-      display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
     }
     .audio-option.selected { background: #fff; color: #000; font-weight: 700; }
     .audio-option svg { width: 20px; height: 20px; fill: currentColor; }
 
-    /* ═══════════ MODAL DE FEEDBACK ═══════════ */
-    .feedback-sheet {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #141414; border-radius: 20px 20px 0 0;
-      padding: 20px 16px 30px; max-height: 90vh; overflow-y: auto;
-      z-index: 1002; display: none; animation: slideUp 0.3s ease;
-    }
-    .feedback-sheet.active { display: block; }
-    
-    .feedback-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px;
-    }
+    /* ── Feedback ── */
     .feedback-header h2 { font-size: 1.2rem; font-weight: 500; color: #e5e7eb; }
-    .feedback-header .close-btn { font-size: 1.5rem; color: #fff; }
-    
     .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
     .feedback-item {
       display: flex; align-items: flex-start; gap: 12px;
@@ -280,72 +247,38 @@
     }
     .feedback-item input[type="checkbox"] {
       appearance: none; -webkit-appearance: none;
-      width: 20px; height: 20px; border: 2px solid #fff;
-      border-radius: 4px; background: transparent;
-      cursor: pointer; flex-shrink: 0; margin-top: 2px;
-      position: relative;
+      width: 20px; height: 20px; border: 2px solid #fff; border-radius: 4px;
+      background: transparent; cursor: pointer; flex-shrink: 0; margin-top: 2px; position: relative;
     }
     .feedback-item input[type="checkbox"]:checked::after {
-      content: '✔'; position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      font-size: 14px; color: #fff;
+      content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #fff;
     }
-    
     .feedback-textarea {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid #333; color: #fff;
-      padding: 10px 0; font-family: inherit; font-size: 0.95rem;
-      resize: none; margin-bottom: 24px; outline: none;
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid #333;
+      color: #fff; padding: 10px 0; font-family: inherit; font-size: 0.95rem; resize: none; margin-bottom: 24px; outline: none;
     }
-    .feedback-textarea::placeholder { color: #666; }
-    
     .btn-submit-feedback {
-      width: 100%; background: #294373; color: #fff;
-      padding: 16px; border-radius: 8px;
+      width: 100%; background: #294373; color: #fff; padding: 16px; border-radius: 8px;
       font-size: 1rem; font-weight: 600; margin-bottom: 20px;
-      transition: opacity 0.2s;
     }
-    .btn-submit-feedback:active { opacity: 0.8; }
-    
-    .feedback-footer {
-      font-size: 0.8rem; color: #9ca3af; line-height: 1.4;
-    }
+    .feedback-footer { font-size: 0.8rem; color: #9ca3af; line-height: 1.4; }
     .feedback-footer a { color: #60a5fa; text-decoration: none; }
-
-    /* Animações */
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
     /* ═══════════ AVISOS ═══════════ */
     .alert-msg {
-      color: #fff; background: #eab308;
-      padding: 12px; border-radius: 8px; font-size: 0.85rem;
-      margin-bottom: 16px; display: none; text-align: center;
-      font-weight: 600; color: #000;
+      color: #fff; background: #eab308; padding: 12px; border-radius: 8px;
+      font-size: 0.85rem; margin-bottom: 16px; display: none; text-align: center; font-weight: 600; color: #000;
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════ BARRA DE BUSCA DE ID (NOVO) ═══════════ -->
-  <div class="id-search-bar">
-    <input type="number" id="input-id" placeholder="Digite o ID do filme (ex: 808)" onkeypress="if(event.key === 'Enter') carregarIdManual()">
-    <button onclick="carregarIdManual()">Carregar</button>
-  </div>
-
   <!-- ═══════════ PLAYER (Kiraflix) ═══════════ -->
   <div class="player-section">
-    <iframe
-      id="video-player"
-      src="https://kiraflix.qd.je/filme/808"
-      title="Player do Filme"
-      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-      allowfullscreen
-      referrerpolicy="no-referrer"
-    ></iframe>
+    <iframe id="video-player" src="https://kiraflix.qd.je/filme/808" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
   </div>
 
   <div class="content">
-    <!-- ── Aviso de API ── -->
     <div id="api-alert" class="alert-msg"></div>
 
     <!-- ── Título ── -->
@@ -410,13 +343,10 @@
     </div>
   </div>
 
-  <!-- ═══════════ BANNER VIP ═══════════ -->
-  <div class="vip-banner">
-    <div class="vip-text">
-      <strong>Seu VIP expirou</strong>
-      Renove o VIP para assistir em HD sem anúncios
-    </div>
-    <button onclick="alert('Redirecionando para pagamento…')">Renovar agora</button>
+  <!-- ═══════════ BARRA DE PESQUISA (RODAPÉ) ═══════════ -->
+  <div class="bottom-search-bar">
+    <input type="text" id="search-input" placeholder="Pesquisar filme pelo nome..." onkeypress="if(event.key === 'Enter') searchMovieByName()">
+    <button onclick="searchMovieByName()">Buscar</button>
   </div>
 
   <!-- ═══════════ MODAL DE PARTES ═══════════ -->
@@ -428,7 +358,7 @@
   </div>
 
   <!-- ═══════════ MODAL DE ÁUDIO ═══════════ -->
-  <div class="audio-sheet" id="audio-sheet">
+  <div class="sheet" id="audio-sheet">
     <div class="header">
       <h2>Áudio</h2>
       <button class="close-btn" onclick="closeAudio()">✕</button>
@@ -441,24 +371,17 @@
   </div>
 
   <!-- ═══════════ MODAL DE FEEDBACK ═══════════ -->
-  <div class="feedback-sheet" id="feedback-sheet">
-    <div class="feedback-header">
+  <div class="sheet" id="feedback-sheet">
+    <div class="header feedback-header">
       <h2>Conteúdo do Feedback</h2>
       <button class="close-btn" onclick="closeFeedback()">✕</button>
     </div>
     
-    <div class="feedback-list">
-      <label class="feedback-item"><input type="checkbox"> Reprodução interrompida ou não carregando</label>
-      <label class="feedback-item"><input type="checkbox"> Falta dublagem em português</label>
-      <label class="feedback-item"><input type="checkbox"> As legendas estão incorretas e não correspondem ao áudio</label>
-      <label class="feedback-item"><input type="checkbox"> Faltam legendas em português</label>
-      <label class="feedback-item"><input type="checkbox"> Temporadas ausentes</label>
-      <label class="feedback-item"><input type="checkbox"> Episódios ausentes</label>
-      <label class="feedback-item"><input type="checkbox"> Áudio e vídeo fora de sincronia</label>
-      <label class="feedback-item"><input type="checkbox"> Falha no download do vídeo</label>
+    <div class="feedback-list" id="feedback-options">
+      <!-- Opções preenchidas via JS para facilitar o webhook -->
     </div>
 
-    <textarea class="feedback-textarea" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
+    <textarea class="feedback-textarea" id="feedback-text" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
 
     <button class="btn-submit-feedback" onclick="enviarFeedback()">Enviar Feedback</button>
 
@@ -469,72 +392,92 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════════
-       ⚠️ COLOQUE SUA CHAVE DO TMDB AQUI ⚠️
+       ⚠️ CONFIGURAÇÕES DO SISTEMA ⚠️
        ═══════════════════════════════════════════════════════════ */
-    const TMDB_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM'; 
     
-    // ID inicial se não tiver nada na URL
-    const FILME_INICIAL_ID = 808; 
+    // 1. Chave da API do TMDB (v3 ou v4)
+    const TMDB_KEY = '6ee0d0ca3e4a734a36f15d8802a5cc4b'; 
+    
+    // 2. Link do Webhook do Discord (para receber os feedbacks)
+    // Ex: 'https://discord.com/api/webhooks/123456789/abcdefg...'
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu';
+
+    // ID inicial padrão caso a URL esteja vazia
+    const FILME_INICIAL_ID = 969681; 
 
     /* ═══════════════════════════════════════════════════════════
-       LÓGICA DO SISTEMA
+       LÓGICA PRINCIPAL
        ═══════════════════════════════════════════════════════════ */
     const TMDB_BASE = 'https://api.themoviedb.org/3';
     const IMG_BASE = 'https://image.tmdb.org/t/p/w200';
 
     const urlParams = new URLSearchParams(window.location.search);
     let currentMovieId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
+    let currentMovieTitle = "";
+
+    // Preenche a lista de feedback
+    const feedbackOptionsList = [
+      "Reprodução interrompida ou filme não carrega",
+      "Falta dublagem em português",
+      "As legendas estão incorretas ou fora de sincronia",
+      "Faltam legendas em português",
+      "Temporadas ausentes",
+      "Episódios ausentes",
+      "Áudio e vídeo com problemas",
+      "Falha no download do vídeo"
+    ];
     
-    let allParts = [];
+    document.addEventListener('DOMContentLoaded', () => {
+      const fbContainer = document.getElementById('feedback-options');
+      feedbackOptionsList.forEach(opt => {
+        const label = document.createElement('label');
+        label.className = 'feedback-item';
+        label.innerHTML = `<input type="checkbox" value="${opt}"> ${opt}`;
+        fbContainer.appendChild(label);
+      });
+      
+      loadMovie(currentMovieId);
+    });
 
-    // Função Inteligente: Detecta se é chave v3 ou token v4
     async function tmdbFetch(path) {
-      if (TMDB_KEY === 'COLE_SUA_CHAVE_AQUI' || TMDB_KEY.trim() === '') {
-        throw new Error("Chave não configurada");
-      }
-
+      if (TMDB_KEY === 'COLE_SUA_CHAVE_AQUI' || TMDB_KEY.trim() === '') throw new Error("Chave TMDB não configurada.");
+      
       const isV4Token = TMDB_KEY.startsWith('eyJ') || TMDB_KEY.length > 50;
       const sep = path.includes('?') ? '&' : '?';
       let url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
       let options = { method: 'GET', headers: { accept: 'application/json' } };
 
-      if (isV4Token) {
-        options.headers.Authorization = `Bearer ${TMDB_KEY}`;
-      } else {
-        url += `&api_key=${TMDB_KEY}`;
-      }
+      if (isV4Token) options.headers.Authorization = `Bearer ${TMDB_KEY}`;
+      else url += `&api_key=${TMDB_KEY}`;
 
       const res = await fetch(url, options);
-      if (!res.ok) throw new Error("Falha na API");
+      if (!res.ok) throw new Error("Falha na API do TMDB");
       return res.json();
     }
 
-    function showAlert(msg) {
-      const alertEl = document.getElementById('api-alert');
-      alertEl.textContent = msg;
-      alertEl.style.display = 'block';
-    }
+    // ── BUSCA POR NOME ──
+    async function searchMovieByName() {
+      const query = document.getElementById('search-input').value.trim();
+      if (!query) return alert("Digite o nome de um filme para buscar.");
 
-    function hideAlert() {
-      document.getElementById('api-alert').style.display = 'none';
-    }
-
-    // Função chamada pelo botão "Carregar" da barra de pesquisa
-    function carregarIdManual() {
-      const idInput = document.getElementById('input-id').value.trim();
-      if (idInput && !isNaN(idInput)) {
-        loadMovie(parseInt(idInput));
-      } else {
-        alert("Por favor, digite um ID de filme válido (apenas números).");
+      try {
+        const data = await tmdbFetch(`/search/movie?query=${encodeURIComponent(query)}`);
+        if (data.results && data.results.length > 0) {
+          // Pega o resultado mais relevante e carrega
+          loadMovie(data.results[0].id);
+        } else {
+          alert("Nenhum filme encontrado com esse nome.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao buscar. Verifique sua chave do TMDB.");
       }
     }
 
+    // ── CARREGAR FILME ──
     async function loadMovie(movieId) {
       currentMovieId = movieId;
       hideAlert();
-      
-      // Atualiza o input com o ID atual para manter a sincronia
-      document.getElementById('input-id').value = movieId;
       
       // Atualiza o Player
       document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
@@ -544,53 +487,49 @@
       titleEl.textContent = "Carregando...";
       document.getElementById('similar-grid').innerHTML = '';
       document.getElementById('episodes-preview').innerHTML = '';
+      document.getElementById('search-input').value = ''; // Limpa a busca após carregar
       closeParts();
 
       try {
         const movie = await tmdbFetch(`/movie/${movieId}`);
-        titleEl.textContent = movie.title || movie.original_title;
+        currentMovieTitle = movie.title || movie.original_title;
+        titleEl.textContent = currentMovieTitle;
 
         if (movie.belongs_to_collection) {
           const collection = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
-          allParts = collection.parts || [];
+          const parts = collection.parts || [];
           document.getElementById('part-title').textContent = collection.name || 'Partes';
+          document.getElementById('episodes-count').textContent = `${parts.length} filme${parts.length > 1 ? 's' : ''}`;
+          renderPreview(parts, movie.id);
+          renderPartsModal(parts, movie.id);
         } else {
-          allParts = [movie]; 
           document.getElementById('part-title').textContent = 'Filme Único';
+          document.getElementById('episodes-count').textContent = '1 filme';
+          renderPreview([movie], movie.id);
+          renderPartsModal([movie], movie.id);
         }
-
-        document.getElementById('episodes-count').textContent = `${allParts.length} filme${allParts.length > 1 ? 's' : ''}`;
-        renderPreview(allParts, movie.id);
-        renderPartsModal(allParts, movie.id);
 
         const similarData = await tmdbFetch(`/movie/${movieId}/similar`);
         renderSimilar(similarData.results || []);
 
       } catch (err) {
         console.error(err);
-        // FALLBACK: Se der erro, puxa dados falsos só pra não quebrar a tela
-        loadMockData();
-        showAlert("⚠️ API do TMDB não configurada ou com erro. Exibindo dados de exemplo para você ver o layout.");
+        loadMockData(); // Fallback visual
+        showAlert("⚠️ Erro na API do TMDB. Exibindo dados de exemplo.");
       }
     }
 
-    // DADOS FALSOS (Caso a API falhe para o site não ficar em branco)
     function loadMockData() {
       document.getElementById('movie-title').textContent = "Shrek (Exemplo)";
       document.getElementById('part-title').textContent = "Coleção Shrek";
       document.getElementById('episodes-count').textContent = "4 filmes";
-      
-      const mockParts = [1, 2, 3, 4];
-      renderPreview(mockParts, 1);
-      renderPartsModal(mockParts, 1);
+      renderPreview([1, 2, 3, 4], 1);
+      renderPartsModal([1, 2, 3, 4], 1);
 
       const mockSimilar = [
-        { id: 1, title: "The Quintessential...", vote_average: 7.6, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 2, title: "Please Put Them...", vote_average: 5.8, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 3, title: "Blue Box", vote_average: 8.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 4, title: "Girlfriend, Girlfriend", vote_average: 6.5, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 5, title: "Gabriela", vote_average: 8.1, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 6, title: "Amor da Minha Vida", vote_average: 7.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" }
+        { id: 1, title: "The Quintessential...", vote_average: 7.6, poster_path: null },
+        { id: 2, title: "Please Put Them...", vote_average: 5.8, poster_path: null },
+        { id: 3, title: "Blue Box", vote_average: 8.0, poster_path: null }
       ];
       renderSimilar(mockSimilar);
     }
@@ -598,14 +537,11 @@
     function renderPreview(parts, currentId) {
       const container = document.getElementById('episodes-preview');
       container.innerHTML = '';
-      parts.forEach((part, index) => {
+      parts.sort((a, b) => new Date(a.release_date) - new Date(b.release_date)).forEach((part, index) => {
         const card = document.createElement('div');
-        card.className = `episode-card ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
+        card.className = `episode-card ${part.id === currentId ? 'active' : ''}`;
         card.textContent = index + 1;
-        card.onclick = () => {
-           if (part.id) loadMovie(part.id);
-           else alert("Simulação: Botão clicado!");
-        }; 
+        card.onclick = () => part.id ? loadMovie(part.id) : alert("Simulação");
         container.appendChild(card);
       });
     }
@@ -613,14 +549,11 @@
     function renderPartsModal(parts, currentId) {
       const container = document.getElementById('parts-list');
       container.innerHTML = '';
-      parts.forEach((part, index) => {
+      parts.sort((a, b) => new Date(a.release_date) - new Date(b.release_date)).forEach((part, index) => {
         const div = document.createElement('div');
-        div.className = `part-item ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
+        div.className = `part-item ${part.id === currentId ? 'active' : ''}`;
         div.textContent = `Parte ${index + 1}`;
-        div.onclick = () => {
-           if (part.id) loadMovie(part.id);
-           else closeParts();
-        };
+        div.onclick = () => part.id ? loadMovie(part.id) : closeParts();
         container.appendChild(div);
       });
     }
@@ -628,18 +561,16 @@
     function renderSimilar(movies) {
       const container = document.getElementById('similar-grid');
       container.innerHTML = '';
-      
+      if (movies.length === 0) {
+        container.innerHTML = '<p style="color:#9ca3af;font-size:0.9rem;grid-column: span 3;">Nenhum filme semelhante.</p>';
+        return;
+      }
       movies.slice(0, 9).forEach(movie => {
         const card = document.createElement('div');
         card.className = 'similar-card';
-        card.onclick = () => {
-          if (movie.id) loadMovie(movie.id);
-        }; 
+        card.onclick = () => movie.id && loadMovie(movie.id); 
         
-        // Se não tiver poster_path, usa um placeholder cinza
-        const imgUrl = movie.poster_path && movie.poster_path !== "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" 
-          ? IMG_BASE + movie.poster_path 
-          : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
+        const imgUrl = movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
 
         card.innerHTML = `
           <div class="img-wrapper">
@@ -655,7 +586,7 @@
       });
     }
 
-    /* ═══════════ INTERAÇÕES ═══════════ */
+    /* ═══════════ INTERAÇÕES E WEBHOOK ═══════════ */
     function openParts() { document.getElementById('modal-parts').classList.add('active'); }
     function closeParts() { document.getElementById('modal-parts').classList.remove('active'); }
     
@@ -669,25 +600,75 @@
 
     function openFeedback() { document.getElementById('feedback-sheet').classList.add('active'); }
     function closeFeedback() { document.getElementById('feedback-sheet').classList.remove('active'); }
-    function enviarFeedback() {
-      closeFeedback();
-      setTimeout(() => alert('Obrigado! Seu feedback foi enviado com sucesso.'), 300);
+
+    // ENVIAR FEEDBACK PARA O DISCORD
+    async function enviarFeedback() {
+      if (DISCORD_WEBHOOK_URL === 'COLE_SEU_WEBHOOK_AQUI' || DISCORD_WEBHOOK_URL.trim() === '') {
+        alert("Você precisa configurar o Webhook do Discord no código para enviar feedback!");
+        return;
+      }
+
+      const checkedBoxes = document.querySelectorAll('#feedback-options input:checked');
+      const reasons = Array.from(checkedBoxes).map(cb => cb.value);
+      const extraDetails = document.getElementById('feedback-text').value.trim();
+
+      if (reasons.length === 0 && extraDetails === '') {
+        return alert("Por favor, marque pelo menos uma opção ou escreva um detalhe.");
+      }
+
+      const btn = document.querySelector('.btn-submit-feedback');
+      btn.textContent = "Enviando...";
+      btn.disabled = true;
+
+      // Monta a mensagem bonita pro Discord
+      const payload = {
+        username: "Seekee Feedback",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/5977/5977002.png",
+        embeds: [{
+          title: "🚨 Novo Feedback Recebido",
+          color: 3447003, // Azul
+          fields: [
+            { name: "🎬 Filme", value: `${currentMovieTitle} (ID: ${currentMovieId})`, inline: false },
+            { name: "⚠️ Problemas Marcados", value: reasons.length > 0 ? reasons.map(r => `• ${r}`).join('\n') : "Nenhum item marcado.", inline: false },
+            { name: "📝 Detalhes Adicionais", value: extraDetails || "Nenhum detalhe digitado.", inline: false }
+          ],
+          footer: { text: "Sistema de Feedback Seekee" },
+          timestamp: new Date().toISOString()
+        }]
+      };
+
+      try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        // Limpa o formulário
+        document.querySelectorAll('#feedback-options input:checked').forEach(cb => cb.checked = false);
+        document.getElementById('feedback-text').value = '';
+        closeFeedback();
+        setTimeout(() => alert('Obrigado! Seu feedback foi enviado e ajuda muito a melhorar o site.'), 300);
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao enviar feedback. Verifique sua internet ou o Webhook.");
+      } finally {
+        btn.textContent = "Enviar Feedback";
+        btn.disabled = false;
+      }
     }
 
     function toggleFav(btn) {
       btn.classList.toggle('fav-active');
-      const span = btn.querySelector('span');
-      if (btn.classList.contains('fav-active')) {
-        span.textContent = 'Remover Favorito';
-      } else {
-        span.textContent = 'Adicionar Favorito';
-      }
+      btn.querySelector('span').textContent = btn.classList.contains('fav-active') ? 'Remover Favorito' : 'Adicionar Favorito';
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Se tiver ID na URL, ele já pega. Se não, pega o 808 padrão.
-      loadMovie(currentMovieId);
-    });
+    function showAlert(msg) {
+      const el = document.getElementById('api-alert');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+    function hideAlert() { document.getElementById('api-alert').style.display = 'none'; }
   </script>
 </body>
 </html>
