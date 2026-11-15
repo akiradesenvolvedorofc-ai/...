@@ -3,408 +3,572 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Seekee - Filme</title>
+  <title>Seekee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════ RESET E CONFIGURAÇÕES ═══════════ */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      background: #000; color: #fff;
-      overflow-x: hidden; padding-bottom: 90px;
+    :root {
+      --bg: #000000;
+      --bg-card: #141414;
+      --bg-card-light: #1e1e24;
+      --text: #ffffff;
+      --text-dim: #9ca3af;
+      --blue: #3b82f6;
+      --red: #ef4444;
+      --gold: #fbbf24;
     }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-    img { display: block; max-width: 100%; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+    body { background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-bottom: 80px; }
+    
+    /* ── UTILITÁRIOS ── */
+    .hidden { display: none !important; }
+    .screen { display: none; min-height: 100vh; animation: fadeIn 0.2s ease; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    /* ── BARRA DE NAVEGAÇÃO INFERIOR ── */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #111; border-top: 1px solid #222;
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 12px 0; z-index: 999;
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #666; font-size: 0.65rem; cursor: pointer; }
+    .nav-item.active { color: #fff; }
+    .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
+    
+    /* ═══════════ TELA 1: HOME ═══════════ */
+    .home-container { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; }
+    .logo-area { margin: 40px 0 30px; text-align: center; position: relative; }
+    .logo-area h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; display: flex; align-items: center; justify-content: center; gap: 5px;}
+    .logo-area h1 span { font-size: 1.8rem; }
+    .btn-search-all { background: var(--blue); color: #fff; border: none; padding: 6px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; cursor: pointer; }
+    
+    .search-bar-home {
+      width: 100%; background: #1e222d; border-radius: 30px; padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px; color: var(--text-dim); margin-bottom: 30px;
+      cursor: text; border: 1px solid rgba(255,255,255,0.05);
+    }
+    .search-bar-home input { background: transparent; border: none; color: #fff; outline: none; flex: 1; font-size: 0.95rem; }
+    
+    .home-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-bottom: 30px; text-align: center; }
+    .home-icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .icon-box { width: 50px; height: 50px; border-radius: 14px; background: #fff; display: flex; align-items: center; justify-content: center; }
+    .icon-box svg { width: 28px; height: 28px; }
+    .home-icon-item span { font-size: 0.7rem; color: #e5e7eb; font-weight: 500; }
+    
+    .home-circle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; text-align: center; margin-bottom: 30px;}
+    .circle-icon { width: 50px; height: 50px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+    .circle-icon svg { width: 22px; height: 22px; fill: #fff; }
+    .home-circle-grid span { font-size: 0.7rem; color: #e5e7eb; }
 
-    /* ═══════════ PLAYER ═══════════ */
-    .player-section {
-      position: relative;
-      width: 100vw;
-      height: 56.25vw; /* 16:9 */
-      max-height: 100vh;
-      background: #000;
-      margin-bottom: 16px;
+    .mini-player {
+      position: fixed; bottom: 70px; left: 10px; right: 10px;
+      background: #2a2a30; border-radius: 16px; padding: 10px;
+      display: flex; align-items: center; gap: 12px; z-index: 998;
     }
-    .player-section iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
+    .mini-player img { width: 40px; height: 50px; border-radius: 6px; object-fit: cover; }
+    .mini-player-info { flex: 1; }
+    .mini-player-info h4 { font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-player-info p { font-size: 0.65rem; color: var(--text-dim); }
+    .mini-progress { width: 100%; height: 3px; background: #555; border-radius: 2px; margin-top: 4px; }
+    .mini-progress div { width: 20%; height: 100%; background: var(--blue); border-radius: 2px; }
+    .mini-play { width: 40px; height: 40px; border-radius: 12px; background: var(--blue); display: flex; align-items: center; justify-content: center; }
+    .mini-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
 
-    /* ═══════════ CONTEÚDO ═══════════ */
-    .content { padding: 0 16px; max-width: 800px; margin: 0 auto; }
+    /* ═══════════ TELA 2 & 3: PESQUISA ═══════════ */
+    .header-nav { display: flex; align-items: center; gap: 16px; padding: 16px; }
+    .header-nav svg { width: 24px; height: 24px; fill: #fff; cursor: pointer; }
+    .header-nav h1 { font-size: 1.2rem; font-weight: 700; flex: 1; }
+    
+    .search-input-wrap { padding: 0 16px; margin-bottom: 20px; }
+    .search-input-wrap input { width: 100%; background: #1e1e24; border: none; border-radius: 8px; padding: 14px; color: #fff; font-size: 1rem; outline: none; }
+    
+    .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #222; font-size: 0.95rem; }
+    .history-item svg { width: 18px; height: 18px; fill: #666; cursor: pointer; }
+    
+    .web-result { padding: 16px; border-bottom: 1px solid #222; }
+    .web-result h2 { color: #60a5fa; font-size: 1.1rem; margin-bottom: 6px; font-weight: 500; }
+    .web-result p { font-size: 0.85rem; color: #9ca3af; line-height: 1.4; margin-bottom: 10px; }
+    .web-result .url { font-size: 0.75rem; color: #fff; display: flex; align-items: center; gap: 6px; }
+    .web-result .url svg { width: 16px; height: 16px; fill: #fff; }
 
-    .title-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 8px; margin-bottom: 16px;
-    }
-    .title-row h1 {
-      font-size: 1.1rem; font-weight: 700; line-height: 1.3;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .title-row svg { flex-shrink: 0; width: 20px; height: 20px; fill: #fff; opacity: 0.8; }
+    .app-result { display: flex; gap: 12px; padding: 16px; border-bottom: 1px solid #222; }
+    .app-result img { width: 80px; height: 110px; border-radius: 8px; object-fit: cover; }
+    .app-result-info { flex: 1; display: flex; flex-direction: column; }
+    .app-result-info h2 { color: #60a5fa; font-size: 1rem; margin-bottom: 4px; line-height: 1.3; }
+    .app-result-info p { font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px; }
+    .btn-assistir { background: #2a2a30; color: #fff; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: auto; cursor: pointer; }
 
-    /* ── Ações ── */
+    /* ═══════════ TELA 4: POPULARES (RANKING) ═══════════ */
+    .tabs-row { display: flex; gap: 10px; padding: 16px; overflow-x: auto; }
+    .tabs-row::-webkit-scrollbar { display: none; }
+    .tab-btn { padding: 8px 16px; border-radius: 20px; background: transparent; color: #9ca3af; font-size: 0.9rem; border: none; white-space: nowrap; cursor: pointer; }
+    .tab-btn.active { background: var(--blue); color: #fff; }
+    
+    .rank-list { padding: 0 16px; background: #141414; border-radius: 16px; margin: 0 16px; padding-bottom: 16px; }
+    .rank-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #222; position: relative; cursor: pointer; }
+    .rank-item:last-child { border-bottom: none; }
+    .rank-num { position: absolute; top: 12px; left: 4px; background: #222; color: #fff; font-size: 0.75rem; font-weight: 700; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 4px; z-index: 2; }
+    .rank-item:nth-child(1) .rank-num { background: #ef4444; }
+    .rank-item:nth-child(2) .rank-num { background: #f97316; }
+    .rank-item:nth-child(3) .rank-num { background: #eab308; }
+    .rank-item img { width: 70px; height: 100px; border-radius: 6px; object-fit: cover; margin-left: 10px; }
+    .rank-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .rank-title-row { display: flex; justify-content: space-between; align-items: flex-start; }
+    .rank-title-row h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .rank-rating { color: #f97316; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+    .rank-meta { font-size: 0.75rem; color: #9ca3af; margin-bottom: 4px; }
+    .rank-type { font-size: 0.7rem; color: #9ca3af; }
+
+    /* ═══════════ TELA 5: FAVORITOS ═══════════ */
+    .fav-header { display: flex; justify-content: space-around; padding: 16px; border-bottom: 1px solid #222; margin-bottom: 20px; }
+    .fav-tab { font-size: 1.1rem; font-weight: 600; color: #666; cursor: pointer; position: relative; padding-bottom: 8px; }
+    .fav-tab.active { color: #fff; }
+    .fav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 3px; background: #fff; border-radius: 2px; }
+    .fav-search { margin: 0 16px 20px; background: #1e1e24; padding: 12px; border-radius: 8px; color: #666; font-size: 0.9rem; }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh; text-align: center; color: #9ca3af; }
+    .empty-state svg { width: 80px; height: 80px; fill: #2a2a30; margin-bottom: 16px; }
+    .btn-new-folder { position: fixed; bottom: 80px; left: 0; right: 0; padding: 20px; background: #111; border-top: 1px solid #222; text-align: center; font-size: 1.1rem; font-weight: 600; color: #fff; cursor: pointer; }
+
+    /* ═══════════ TELA 6: PERFIL/DRIVE ═══════════ */
+    .profile-header { display: flex; align-items: center; gap: 16px; padding: 20px 16px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0ea5e9; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+    .profile-header h1 { font-size: 1.2rem; }
+    
+    .vip-banner { margin: 0 16px 20px; background: linear-gradient(135deg, #fef3c7, #f59e0b); border-radius: 12px; padding: 16px; color: #000; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
+    .vip-banner h2 { font-size: 1.5rem; font-weight: 800; font-style: italic; }
+    .vip-banner p { font-size: 0.75rem; margin-top: 4px; }
+    .vip-banner button { background: #fff; color: #000; border: none; padding: 8px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; z-index: 2; }
+    .vip-banner img { position: absolute; right: 10px; top: 10px; width: 60px; opacity: 0.8; }
+
+    .profile-section { background: #141414; margin: 0 16px 16px; border-radius: 16px; padding: 16px; }
+    .profile-section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 1rem; font-weight: 700; }
+    .profile-section-title span { font-size: 0.8rem; color: #9ca3af; font-weight: normal; }
+    
+    .continue-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 16px; }
+    .continue-scroll::-webkit-scrollbar { display: none; }
+    .continue-card { flex: 0 0 120px; }
+    .continue-card img { width: 100%; height: 70px; border-radius: 8px; object-fit: cover; margin-bottom: 6px; }
+    .continue-card h4 { font-size: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .continue-card p { font-size: 0.65rem; color: #9ca3af; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-top: 1px solid #222; padding-top: 16px; }
+    .stats-grid h3 { font-size: 1.2rem; font-weight: 700; }
+    .stats-grid p { font-size: 0.7rem; color: #9ca3af; }
+    
+    .drive-storage { margin-bottom: 16px; }
+    .drive-storage-header { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; }
+    .drive-storage-header span { color: #ef4444; }
+    .drive-storage-bar { width: 100%; height: 4px; background: #333; border-radius: 2px; overflow: hidden; }
+    .drive-storage-bar div { width: 100%; height: 100%; background: #ef4444; }
+
+    .menu-list { display: flex; flex-direction: column; }
+    .menu-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid #222; cursor: pointer; }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item svg { width: 24px; height: 24px; fill: #fff; }
+    .menu-item span { flex: 1; font-size: 0.95rem; }
+    .menu-item .arrow { width: 16px; height: 16px; fill: #666; }
+
+    /* ═══════════ TELA 7: FILME / PLAYER ═══════════ */
+    .player-section { position: relative; width: 100vw; height: 56.25vw; background: #000; margin-bottom: 16px; }
+    .player-section iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .movie-content { padding: 0 16px; max-width: 800px; margin: 0 auto; }
+    
+    .title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
+    .title-row h1 { font-size: 1.1rem; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    
     .action-bar { display: flex; gap: 8px; margin-bottom: 20px; }
-    .flag-btn {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .flag-btn svg { width: 18px; height: 18px; fill: #fff; opacity: 0.9; }
-    .speed-badge {
-      flex: 1; background: rgba(30, 60, 120, 0.6);
-      border-radius: 24px; padding: 0 14px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 0.75rem; font-weight: 500; color: #dbeafe;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .speed-badge .cloud-icon {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: #2563eb; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-left: 8px;
-    }
-    .speed-badge .cloud-icon svg { width: 14px; height: 14px; fill: #fff; }
-
-    /* ── Grade de Recursos ── */
-    .feature-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
-      margin-bottom: 24px; background: rgba(255, 255, 255, 0.06);
-      border-radius: 16px; padding: 12px 8px;
-    }
-    .feature-item {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 6px; color: #d1d5db; font-size: 0.65rem; text-align: center;
-      transition: opacity 0.2s;
-    }
-    .feature-item:active { opacity: 0.6; }
+    .flag-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: none; color: #fff;}
+    .speed-badge { flex: 1; background: rgba(30, 60, 120, 0.6); border-radius: 24px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: #dbeafe; }
+    .cloud-icon { width: 24px; height: 24px; border-radius: 50%; background: #2563eb; display: flex; align-items: center; justify-content: center; margin-left: 8px; }
+    
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 24px; background: rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 12px 8px; }
+    .feature-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #d1d5db; font-size: 0.65rem; background: none; border: none; }
     .feature-item svg { width: 22px; height: 22px; fill: #d1d5db; }
-    .feature-item.fav-active svg { fill: #fbbf24; }
-
-    /* ── Seções ── */
-    .section-header {
-      display: flex; align-items: center; gap: 6px;
-      margin-bottom: 12px; cursor: pointer;
-    }
+    
+    .section-header { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; cursor: pointer; }
     .section-header h2 { font-size: 1.1rem; font-weight: 700; }
-    .section-header svg { width: 16px; height: 16px; fill: #fff; }
-
     .section-sub { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .section-sub h2 { font-size: 1rem; font-weight: 600; }
-    .section-sub .count { font-size: 0.8rem; color: #9ca3af; display: flex; align-items: center; gap: 4px; cursor: pointer; }
-    .section-sub .count svg { width: 14px; height: 14px; fill: #9ca3af; }
-
-    /* ── Cards de Episódios ── */
     .episodes-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
-    .episodes-row::-webkit-scrollbar { display: none; }
-    .episode-card {
-      flex: 0 0 56px; height: 56px; border-radius: 12px;
-      background: rgba(255, 255, 255, 0.12);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; font-weight: 600; color: #d1d5db;
-      cursor: pointer;
-    }
+    .episode-card { flex: 0 0 56px; height: 56px; border-radius: 12px; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 600; color: #d1d5db; border: none; }
     .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
-
-    /* ═══════════ TÍTULOS SEMELHANTES (GRID 3 COLUNAS) ═══════════ */
+    
     .similar-section { margin-bottom: 40px; }
     .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
-    
-    .similar-grid { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 12px; 
-    }
-    
-    .similar-card {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-    }
-    
-    .similar-card .img-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #1e1e2a;
-    }
-    
+    .similar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .similar-card { display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
+    .similar-card .img-wrapper { position: relative; width: 100%; aspect-ratio: 2 / 3; border-radius: 8px; overflow: hidden; background: #1e1e2a; }
     .similar-card img { width: 100%; height: 100%; object-fit: cover; }
-    
-    .similar-card .rating {
-      position: absolute; top: 6px; left: 6px;
-      background: rgba(0, 0, 0, 0.85); border-radius: 4px;
-      padding: 2px 6px; font-size: 0.65rem; font-weight: 600; color: #fbbf24;
-      display: flex; align-items: center; gap: 3px;
-    }
-    .similar-card .rating svg { width: 10px; height: 10px; fill: #fbbf24; }
-    
-    .similar-card .title {
-      font-size: 0.75rem;
-      color: #e5e7eb;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
-    }
+    .similar-card .rating { position: absolute; top: 6px; left: 6px; background: rgba(0, 0, 0, 0.85); border-radius: 4px; padding: 2px 6px; font-size: 0.65rem; font-weight: 600; color: #fbbf24; display: flex; align-items: center; gap: 3px; }
+    .similar-card .title { font-size: 0.75rem; color: #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* ═══════════ BANNER VIP ═══════════ */
-    .vip-banner {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(30, 30, 40, 0.95); backdrop-filter: blur(12px);
-      padding: 14px 16px; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px; z-index: 100;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .vip-banner .vip-text { font-size: 0.85rem; line-height: 1.3; color: #e5e7eb; }
-    .vip-banner .vip-text strong { font-size: 1rem; display: block; margin-bottom: 2px; color: #fff; }
-    .vip-banner button {
-      flex-shrink: 0; background: #4b3f8a; color: #fff;
-      border-radius: 24px; padding: 10px 20px;
-      font-size: 0.85rem; font-weight: 700; white-space: nowrap;
-    }
-
-    /* ═══════════ MODAL DE PARTES ═══════════ */
-    .modal-overlay {
-      position: fixed; inset: 0; background: #000;
-      display: none; align-items: center; justify-content: center;
-      z-index: 1000; flex-direction: column;
-    }
+    /* ── MODAIS DO FILME ── */
+    .modal-overlay { position: fixed; inset: 0; background: #000; display: none; align-items: center; justify-content: center; z-index: 1000; flex-direction: column; }
     .modal-overlay.active { display: flex; }
-
-    .parts-list {
-      display: flex; flex-direction: column; align-items: center; gap: 28px;
-      text-align: center; margin-bottom: 40px;
-    }
-    .part-item {
-      font-size: 1.6rem; font-weight: 700; color: #555;
-      cursor: pointer; transition: color 0.2s, transform 0.2s;
-    }
+    .parts-list { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; margin-bottom: 40px; }
+    .part-item { font-size: 1.6rem; font-weight: 700; color: #555; cursor: pointer; }
     .part-item.active { color: #fff; }
-
-    .modal-close-btn {
-      width: 65px; height: 65px; border-radius: 50%;
-      background: #fff; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; position: absolute; bottom: 40px;
-    }
+    .modal-close-btn { width: 65px; height: 65px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; position: absolute; bottom: 40px; border: none; }
     .modal-close-btn svg { width: 28px; height: 28px; fill: #000; }
-
-    /* ═══════════ MODAL DE ÁUDIO ═══════════ */
-    .audio-sheet {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #1a1a1a; border-radius: 20px 20px 0 0;
-      padding: 20px 16px 30px; max-height: 60vh; overflow-y: auto;
-      z-index: 1001; display: none; animation: slideUp 0.3s ease;
-    }
-    .audio-sheet.active { display: block; }
     
-    .audio-sheet .header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px;
-    }
-    .audio-sheet .header h2 { font-size: 1.2rem; font-weight: 700; }
-    .audio-sheet .close-btn { font-size: 1.5rem; color: #fff; }
-    .audio-option {
-      padding: 16px; background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem;
-      display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer;
-    }
+    .bottom-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; border-radius: 20px 20px 0 0; padding: 20px 16px 30px; max-height: 80vh; overflow-y: auto; z-index: 1001; display: none; animation: slideUp 0.3s ease; }
+    .bottom-sheet.active { display: block; }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .sheet-header h2 { font-size: 1.2rem; font-weight: 500; color: #e5e7eb; }
+    .sheet-header .close-btn { font-size: 1.5rem; color: #fff; background: none; border: none; }
+    
+    .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+    .feedback-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #e5e7eb; cursor: pointer; line-height: 1.4; }
+    .feedback-item input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid #fff; border-radius: 4px; background: transparent; cursor: pointer; flex-shrink: 0; margin-top: 2px; position: relative; }
+    .feedback-item input[type="checkbox"]:checked::after { content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #fff; }
+    .feedback-textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: #fff; padding: 10px 0; font-family: inherit; font-size: 0.95rem; resize: none; margin-bottom: 24px; outline: none; }
+    .btn-submit { width: 100%; background: #294373; color: #fff; padding: 16px; border-radius: 8px; font-size: 1rem; font-weight: 600; margin-bottom: 20px; border: none; }
+    
+    .audio-option { padding: 16px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .audio-option.selected { background: #fff; color: #000; font-weight: 700; }
     .audio-option svg { width: 20px; height: 20px; fill: currentColor; }
 
-    /* ═══════════ MODAL DE FEEDBACK ═══════════ */
-    .feedback-sheet {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #141414; border-radius: 20px 20px 0 0;
-      padding: 20px 16px 30px; max-height: 90vh; overflow-y: auto;
-      z-index: 1002; display: none; animation: slideUp 0.3s ease;
-    }
-    .feedback-sheet.active { display: block; }
-    
-    .feedback-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px;
-    }
-    .feedback-header h2 { font-size: 1.2rem; font-weight: 500; color: #e5e7eb; }
-    .feedback-header .close-btn { font-size: 1.5rem; color: #fff; }
-    
-    .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
-    .feedback-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      font-size: 0.95rem; color: #e5e7eb; cursor: pointer; line-height: 1.4;
-    }
-    .feedback-item input[type="checkbox"] {
-      appearance: none; -webkit-appearance: none;
-      width: 20px; height: 20px; border: 2px solid #fff;
-      border-radius: 4px; background: transparent;
-      cursor: pointer; flex-shrink: 0; margin-top: 2px;
-      position: relative;
-    }
-    .feedback-item input[type="checkbox"]:checked::after {
-      content: '✔'; position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      font-size: 14px; color: #fff;
-    }
-    
-    .feedback-textarea {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid #333; color: #fff;
-      padding: 10px 0; font-family: inherit; font-size: 0.95rem;
-      resize: none; margin-bottom: 24px; outline: none;
-    }
-    .feedback-textarea::placeholder { color: #666; }
-    
-    .btn-submit-feedback {
-      width: 100%; background: #294373; color: #fff;
-      padding: 16px; border-radius: 8px;
-      font-size: 1rem; font-weight: 600; margin-bottom: 20px;
-      transition: opacity 0.2s;
-    }
-    .btn-submit-feedback:active { opacity: 0.8; }
-    
-    .feedback-footer {
-      font-size: 0.8rem; color: #9ca3af; line-height: 1.4;
-    }
-    .feedback-footer a { color: #60a5fa; text-decoration: none; }
-
-    /* Animações */
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-    /* ═══════════ AVISOS ═══════════ */
-    .alert-msg {
-      color: #fff; background: #eab308;
-      padding: 12px; border-radius: 8px; font-size: 0.85rem;
-      margin-bottom: 16px; display: none; text-align: center;
-      font-weight: 600; color: #000;
-    }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════ PLAYER (Kiraflix) ═══════════ -->
-  <div class="player-section">
-    <iframe
-      id="video-player"
-      src="https://kiraflix.qd.je/filme/808"
-      title="Player do Filme"
-      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-      allowfullscreen
-      referrerpolicy="no-referrer"
-    ></iframe>
-  </div>
+  <!-- ═══════════ TELA 1: HOME ═══════════ -->
+  <div id="screen-home" class="screen active">
+    <div class="home-container">
+      <div class="logo-area">
+        <h1><span>☁️</span>Seekee</h1>
+        <button class="btn-search-all" onclick="nav('screen-search')">Pesquisar tudo</button>
+      </div>
+      
+      <div class="search-bar-home" onclick="nav('screen-search')">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#9ca3af"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" placeholder="Pesquise ou digite uma URL" readonly>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#9ca3af"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+      </div>
 
-  <div class="content">
-    <!-- ── Aviso de API ── -->
-    <div id="api-alert" class="alert-msg"></div>
+      <div class="home-icons-grid">
+        <div class="home-icon-item" onclick="nav('screen-popular')">
+          <div class="icon-box"><svg viewBox="0 0 24 24" fill="#ef4444"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg></div>
+          <span>Notícias</span>
+        </div>
+        <div class="home-icon-item" onclick="nav('screen-popular')">
+          <div class="icon-box" style="background:#000;"><svg viewBox="0 0 24 24" fill="#f97316"><path d="M13.5 0.67s0.74 2.65 0.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l0.03-0.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg></div>
+          <span>Filmes e Séries</span>
+        </div>
+        <div class="home-icon-item">
+          <div class="icon-box" style="background:#fff;"><svg viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg></div>
+          <span>Futebol</span>
+        </div>
+        <div class="home-icon-item">
+          <div class="icon-box" style="background:#a855f7;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14v-4H8v-2h4V7h2v4h4v2h-4v4h-2z"/></svg></div>
+          <span>Criar Imagem</span>
+        </div>
+      </div>
 
-    <!-- ── Título ── -->
-    <div class="title-row">
-      <h1 id="movie-title">Carregando título…</h1>
-      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+      <div class="home-circle-grid">
+        <div class="home-icon-item"><div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div><span>Histórico</span></div>
+        <div class="home-icon-item"><div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><span>VPN</span></div>
+        <div class="home-icon-item" onclick="nav('screen-profile')"><div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div><span>Drive</span></div>
+        <div class="home-icon-item"><div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z"/></svg></div><span>Ferramentas</span></div>
+      </div>
     </div>
 
-    <!-- ── Ações ── -->
-    <div class="action-bar">
-      <button class="flag-btn" onclick="openFeedback()">
-        <svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
-      </button>
-      <div class="speed-badge">
-        <span>Usando benefícios da reprodução acelerada na Drive</span>
-        <div class="cloud-icon">
-          <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+    <!-- Mini Player -->
+    <div class="mini-player" onclick="openMovie(808)">
+      <img src="https://image.tmdb.org/t/p/w200/2LqaLq2wO3w...jpg" onerror="this.src='https://via.placeholder.com/40x50/333/fff?text=SP'">
+      <div class="mini-player-info">
+        <h4>[Português Dublado]Homem...</h4>
+        <p>Não assistidos · Parte 5</p>
+        <div class="mini-progress"><div></div></div>
+      </div>
+      <div class="mini-play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TELA 2: PESQUISAR ═══════════ -->
+  <div id="screen-search" class="screen">
+    <div class="header-nav">
+      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <h1>Pesquisar</h1>
+    </div>
+    
+    <div style="padding: 0 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h2 style="font-size: 1rem;">Histórico</h2>
+      <span style="color: #666; font-size: 0.8rem;">Todo o Histórico ></span>
+    </div>
+    <div class="history-item"><span>Homem-Aranha: Um Novo Dia filme</span> <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></div>
+    <div class="history-item"><span>Aquaman</span> <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></div>
+    
+    <div style="padding: 20px 16px 10px; display: flex; justify-content: space-between; align-items: center;">
+      <h2 style="font-size: 1rem;">Mais populares</h2>
+      <span style="color: #666; font-size: 0.8rem;">Ver tudo ></span>
+    </div>
+
+    <div class="tabs-row">
+      <button class="tab-btn active" onclick="nav('screen-popular')">Em alta</button>
+      <button class="tab-btn" onclick="nav('screen-popular')">Filmes</button>
+      <button class="tab-btn" onclick="nav('screen-popular')">Séries</button>
+      <button class="tab-btn" onclick="nav('screen-popular')">Anime</button>
+    </div>
+
+    <div class="rank-list" style="margin-bottom: 80px; background: #1a1a1a;">
+      <!-- Injetado via JS (mock rápido) -->
+      <div class="rank-item" onclick="openMovie(1)">
+        <div class="rank-num" style="background:#ef4444;">1</div>
+        <img src="https://via.placeholder.com/70x100/333/fff?text=1" alt="Poster">
+        <div class="rank-info">
+          <div class="rank-title-row"><h3>A Imperatriz Se Casou Novamente</h3> <div class="rank-rating">🔥 95,423</div></div>
+          <div class="rank-meta">2026 · TBC · KR · History · Drama</div>
+          <div class="rank-type">Séries</div>
+        </div>
+      </div>
+      <div class="rank-item" onclick="openMovie(808)">
+        <div class="rank-num" style="background:#f97316;">2</div>
+        <img src="https://via.placeholder.com/70x100/333/fff?text=SP" alt="Poster">
+        <div class="rank-info">
+          <div class="rank-title-row"><h3>Homem-Aranha: Um Novo Dia</h3> <div class="rank-rating">🔥 92,941</div></div>
+          <div class="rank-meta">2026 · PG-13 · US · Ficção científica</div>
+          <div class="rank-type">Filme</div>
         </div>
       </div>
     </div>
 
-    <!-- ── Grade ── -->
-    <div class="feature-grid">
-      <button class="feature-item" onclick="alert('Download iniciado (simulação).')">
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        <span>Baixar</span>
-      </button>
-      <button class="feature-item" onclick="openAudio()">
-        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg>
-        <span>Áudio</span>
-      </button>
-      <button class="feature-item" onclick="alert('Você será notificado quando houver novos episódios.')">
-        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-        <span>Avisos</span>
-      </button>
-      <button class="feature-item" id="btn-fav" onclick="toggleFav(this)">
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <span>Adicionar Favorito</span>
-      </button>
+    <div style="position: fixed; bottom: 70px; left: 0; right: 0; background: #111; padding: 12px 16px; display: flex; gap: 10px;">
+      <input type="text" id="main-search-input" placeholder="Pesquise ou digite uma URL" style="flex: 1; background: #222; border: none; padding: 12px; border-radius: 8px; color: #fff; outline: none;">
+      <button onclick="performSearch()" style="background: #3b82f6; color: #fff; border: none; padding: 0 20px; border-radius: 8px; font-weight: 600;">Pesquisar</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ TELA 3: RESULTADOS DA PESQUISA ═══════════ -->
+  <div id="screen-results" class="screen">
+    <div class="header-nav">
+      <svg viewBox="0 0 24 24" onclick="nav('screen-search')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    </div>
+    <div id="search-results-container" style="padding-bottom: 80px;">
+      <!-- Injetado via JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════ TELA 4: POPULARES ═══════════ -->
+  <div id="screen-popular" class="screen">
+    <div class="header-nav">
+      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <h1>Pesquisas populares</h1>
+    </div>
+    
+    <div class="tabs-row">
+      <button class="tab-btn active">Em alta</button>
+      <button class="tab-btn">Filmes</button>
+      <button class="tab-btn">Séries</button>
+      <button class="tab-btn">Anime</button>
+      <button class="tab-btn">Novelas Verticais</button>
     </div>
 
-    <!-- ── Parte ── -->
-    <div class="section-header" onclick="openParts()">
-      <h2 id="part-title">Parte</h2>
-      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    <div class="rank-list" id="popular-list">
+      <!-- Injetado via JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════ TELA 5: FAVORITOS ═══════════ -->
+  <div id="screen-favorites" class="screen">
+    <div class="header-nav">
+      <svg viewBox="0 0 24 24" onclick="nav('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <h1 style="text-align: center; flex: 1;">Marcador</h1>
+      <h1 style="color: #666; font-size: 1rem;">Histórico</h1>
+    </div>
+    
+    <div class="fav-search">Buscar Favoritos</div>
+
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      <p>Nenhum Conteúdo Disponível</p>
     </div>
 
-    <!-- ── Episódios ── -->
-    <div class="section-sub">
-      <h2>Episódios</h2>
-      <div class="count" onclick="openParts()">
-        <span id="episodes-count">0 filmes</span>
-        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+    <div class="btn-new-folder">Nova pasta</div>
+  </div>
+
+  <!-- ═══════════ TELA 6: PERFIL / DRIVE ═══════════ -->
+  <div id="screen-profile" class="screen">
+    <div class="profile-header">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff" onclick="nav('screen-home')" style="cursor: pointer;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <div class="avatar">A</div>
+      <h1>Akira Dosantos</h1>
+    </div>
+
+    <div class="vip-banner">
+      <div>
+        <h2>Pro VIP</h2>
+        <p>VIP válido até:</p>
+      </div>
+      <button>Renovar agora ></button>
+    </div>
+
+    <div class="profile-section" style="background: #0f172a; display: flex; justify-content: space-between; padding: 12px 16px; margin-bottom: 16px;">
+      <span style="color: #a855f7;">✦ Pontos de IA: 0</span>
+      <span style="color: #666;">Recarregar ></span>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">
+        <span>Continuar assistindo</span>
+        <span>Todos ></span>
+      </div>
+      <div class="continue-scroll">
+        <div class="continue-card">
+          <img src="https://via.placeholder.com/120x70/333/fff?text=SP">
+          <h4>[Português Dubla...</h4>
+          <p>Não assistidos Parte 5</p>
+        </div>
+        <div class="continue-card">
+          <img src="https://via.placeholder.com/120x70/333/fff?text=Aquaman">
+          <h4>[Português Dubla...</h4>
+          <p>Assistido 35% Parte 1</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div><h3>0</h3><p>Marcador</p></div>
+        <div><h3>99+</h3><p>Histórico</p></div>
+        <div><h3>0</h3><p>Baixar</p></div>
+        <div><h3>0</h3><p>Lembretes</p></div>
       </div>
     </div>
-    <div class="episodes-row" id="episodes-preview"></div>
 
-    <!-- ── Semelhantes ── -->
-    <div class="similar-section">
-      <h2>Títulos semelhantes</h2>
-      <div class="similar-grid" id="similar-grid"></div>
+    <div class="profile-section">
+      <div class="profile-section-title">
+        <span>Minha Drive</span>
+        <span style="color: #ef4444;">15,71GB / 15GB ></span>
+      </div>
+      <div class="drive-storage">
+        <div class="drive-storage-bar"><div></div></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 0.75rem; color: #9ca3af;">
+        <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Arquivos</div>
+        <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Vídeo</div>
+        <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Foto</div>
+        <div><div style="width:30px;height:30px;margin:0 auto 5px; background:#222; border-radius:8px;"></div>Documento</div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="menu-list">
+        <div class="menu-item"><span>Entrar na TV com QR Code</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+        <div class="menu-item"><span>Proteção para menores</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+        <div class="menu-item"><span>Configuração</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+        <div class="menu-item"><span>Ajuda</span> <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+      </div>
     </div>
   </div>
 
-  <!-- ═══════════ BANNER VIP ═══════════ -->
-  <div class="vip-banner">
-    <div class="vip-text">
-      <strong>Seu VIP expirou</strong>
-      Renove o VIP para assistir em HD sem anúncios
+  <!-- ═══════════ TELA 7: FILME / PLAYER ═══════════ -->
+  <div id="screen-movie" class="screen">
+    <div class="player-section">
+      <iframe id="video-player" src="" allowfullscreen></iframe>
     </div>
-    <button onclick="alert('Redirecionando para pagamento…')">Renovar agora</button>
+
+    <div class="movie-content">
+      <div class="title-row">
+        <h1 id="movie-title">Carregando título…</h1>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" onclick="nav('screen-home')" style="cursor: pointer;"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+      </div>
+
+      <div class="action-bar">
+        <button class="flag-btn" onclick="openModal('feedback-sheet')">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+        </button>
+        <div class="speed-badge">
+          <span>Usando benefícios da reprodução acelerada na Drive</span>
+          <div class="cloud-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="#fff"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <button class="feature-item" onclick="alert('Download iniciado.')">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span>Baixar</span>
+        </button>
+        <button class="feature-item" onclick="openModal('audio-sheet')">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg><span>Áudio</span>
+        </button>
+        <button class="feature-item">
+          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span>Avisos</span>
+        </button>
+        <button class="feature-item">
+          <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span>Favorito</span>
+        </button>
+      </div>
+
+      <div class="section-header" onclick="openModal('parts-modal')">
+        <h2 id="part-title">Parte</h2>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+      </div>
+
+      <div class="section-sub">
+        <h2>Episódios</h2>
+        <div style="font-size: 0.8rem; color: #9ca3af; cursor: pointer;" onclick="openModal('parts-modal')">
+          <span id="episodes-count">0 filmes</span> >
+        </div>
+      </div>
+      <div class="episodes-row" id="episodes-preview"></div>
+
+      <div class="similar-section">
+        <h2>Títulos semelhantes</h2>
+        <div class="similar-grid" id="similar-grid"></div>
+      </div>
+    </div>
   </div>
 
-  <!-- ═══════════ MODAL DE PARTES ═══════════ -->
-  <div class="modal-overlay" id="modal-parts">
+  <!-- ═══════════ BARRA DE NAVEGAÇÃO INFERIOR ═══════════ -->
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="nav('screen-home')">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      <span>Abas</span>
+    </div>
+    <div class="nav-item" onclick="nav('screen-favorites')">
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <span>Favoritos</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14v-4H8v-2h4V7h2v4h4v2h-4v4h-2z"/></svg>
+      <span>Chat com IA</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      <span>Baixar</span>
+    </div>
+    <div class="nav-item" onclick="nav('screen-profile')">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>Perfil</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ MODAIS DO PLAYER ═══════════ -->
+  <div class="modal-overlay" id="parts-modal">
     <div class="parts-list" id="parts-list"></div>
-    <button class="modal-close-btn" onclick="closeParts()">
+    <button class="modal-close-btn" onclick="closeModal('parts-modal')">
       <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
   </div>
 
-  <!-- ═══════════ MODAL DE ÁUDIO ═══════════ -->
-  <div class="audio-sheet" id="audio-sheet">
-    <div class="header">
+  <div class="bottom-sheet" id="audio-sheet">
+    <div class="sheet-header">
       <h2>Áudio</h2>
-      <button class="close-btn" onclick="closeAudio()">✕</button>
+      <button class="close-btn" onclick="closeModal('audio-sheet')">✕</button>
     </div>
-    <div id="audio-options">
-      <div class="audio-option" onclick="selectAudio(this)">Áudio em inglês - Múltiplas Legendas</div>
-      <div class="audio-option" onclick="selectAudio(this)">Áudio Espanhol - LATAM</div>
-      <div class="audio-option selected" onclick="selectAudio(this)">Português Dublado <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-    </div>
+    <div class="audio-option" onclick="this.classList.add('selected')">Áudio em inglês - Múltiplas Legendas</div>
+    <div class="audio-option" onclick="this.classList.add('selected')">Áudio Espanhol - LATAM</div>
+    <div class="audio-option selected" onclick="this.classList.add('selected')">Português Dublado <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
   </div>
 
-  <!-- ═══════════ MODAL DE FEEDBACK ═══════════ -->
-  <div class="feedback-sheet" id="feedback-sheet">
-    <div class="feedback-header">
+  <div class="bottom-sheet" id="feedback-sheet">
+    <div class="sheet-header">
       <h2>Conteúdo do Feedback</h2>
-      <button class="close-btn" onclick="closeFeedback()">✕</button>
+      <button class="close-btn" onclick="closeModal('feedback-sheet')">✕</button>
     </div>
-    
     <div class="feedback-list">
       <label class="feedback-item"><input type="checkbox"> Reprodução interrompida ou não carregando</label>
       <label class="feedback-item"><input type="checkbox"> Falta dublagem em português</label>
@@ -415,223 +579,208 @@
       <label class="feedback-item"><input type="checkbox"> Áudio e vídeo fora de sincronia</label>
       <label class="feedback-item"><input type="checkbox"> Falha no download do vídeo</label>
     </div>
-
     <textarea class="feedback-textarea" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
-
-    <button class="btn-submit-feedback" onclick="enviarFeedback()">Enviar Feedback</button>
-
-    <p class="feedback-footer">
-      Se seus direitos de propriedade intelectual, privacidade ou outros foram violados, clique para ver <a href="#">Guia de Reclamação de Violação do Seekee</a>
-    </p>
+    <button class="btn-submit" onclick="closeModal('feedback-sheet'); alert('Feedback enviado!')">Enviar Feedback</button>
   </div>
 
   <script>
     /* ═══════════════════════════════════════════════════════════
-       ⚠️ COLOQUE SUA CHAVE DO TMDB AQUI ⚠️
-       Você pode colocar a sua API Key (v3) curta OU o Token (v4) longo.
-       O código vai identificar automaticamente qual é qual.
+       ⚠️ COLOQUE SEU TOKEN DO TMDB AQUI ⚠️
        ═══════════════════════════════════════════════════════════ */
-    const TMDB_KEY = '6ee0d0ca3e4a734a36f15d8802a5cc4b'; 
-    
-    // ID inicial se não tiver nada na URL
-    const FILME_INICIAL_ID = 808; 
-
-    /* ═══════════════════════════════════════════════════════════
-       LÓGICA DO SISTEMA
-       ═══════════════════════════════════════════════════════════ */
+    const TMDB_TOKEN = 'COLE_SEU_TOKEN_AQUI'; 
     const TMDB_BASE = 'https://api.themoviedb.org/3';
     const IMG_BASE = 'https://image.tmdb.org/t/p/w200';
 
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentMovieId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
-    
-    let allParts = [];
+    // ── SISTEMA DE NAVEGAÇÃO ──
+    function nav(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
 
-    // Função Inteligente: Detecta se é chave v3 ou token v4
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    // ── REQUISIÇÕES TMDB ──
     async function tmdbFetch(path) {
-      if (TMDB_KEY === 'COLE_SUA_CHAVE_AQUI' || TMDB_KEY.trim() === '') {
-        throw new Error("Chave não configurada");
+      if (TMDB_TOKEN === 'COLE_SEU_TOKEN_AQUI' || TMDB_TOKEN.trim() === '') {
+        throw new Error("Token não configurado");
       }
-
-      const isV4Token = TMDB_KEY.startsWith('eyJ') || TMDB_KEY.length > 50;
+      const isV4 = TMDB_TOKEN.startsWith('eyJ') || TMDB_TOKEN.length > 50;
       const sep = path.includes('?') ? '&' : '?';
       let url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
       let options = { method: 'GET', headers: { accept: 'application/json' } };
-
-      if (isV4Token) {
-        options.headers.Authorization = `Bearer ${TMDB_KEY}`;
-      } else {
-        url += `&api_key=${TMDB_KEY}`;
-      }
-
+      if (isV4) { options.headers.Authorization = `Bearer ${TMDB_TOKEN}`; } else { url += `&api_key=${TMDB_TOKEN}`; }
+      
       const res = await fetch(url, options);
       if (!res.ok) throw new Error("Falha na API");
       return res.json();
     }
 
-    function showAlert(msg) {
-      const alertEl = document.getElementById('api-alert');
-      alertEl.textContent = msg;
-      alertEl.style.display = 'block';
-    }
-
-    function hideAlert() {
-      document.getElementById('api-alert').style.display = 'none';
-    }
-
-    async function loadMovie(movieId) {
-      currentMovieId = movieId;
-      hideAlert();
-      
-      document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
-      window.history.pushState({}, '', `?id=${movieId}`);
-
-      const titleEl = document.getElementById('movie-title');
-      titleEl.textContent = "Carregando...";
-      document.getElementById('similar-grid').innerHTML = '';
-      document.getElementById('episodes-preview').innerHTML = '';
-      closeParts();
-
+    // ── POPULARES (HOME) ──
+    async function loadPopular() {
+      const container = document.getElementById('popular-list');
       try {
-        const movie = await tmdbFetch(`/movie/${movieId}`);
-        titleEl.textContent = movie.title || movie.original_title;
-
-        if (movie.belongs_to_collection) {
-          const collection = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
-          allParts = collection.parts || [];
-          document.getElementById('part-title').textContent = collection.name || 'Partes';
-        } else {
-          allParts = [movie]; 
-          document.getElementById('part-title').textContent = 'Filme Único';
-        }
-
-        document.getElementById('episodes-count').textContent = `${allParts.length} filme${allParts.length > 1 ? 's' : ''}`;
-        renderPreview(allParts, movie.id);
-        renderPartsModal(allParts, movie.id);
-
-        const similarData = await tmdbFetch(`/movie/${movieId}/similar`);
-        renderSimilar(similarData.results || []);
-
-      } catch (err) {
-        console.error(err);
-        // FALLBACK: Se der erro, puxa dados falsos só pra não quebrar a tela
-        loadMockData();
-        showAlert("⚠️ API não configurada ou com erro. Exibindo dados de exemplo para você ver o layout.");
+        const data = await tmdbFetch('/trending/all/day');
+        const movies = data.results.slice(0, 15);
+        container.innerHTML = '';
+        
+        movies.forEach((movie, index) => {
+          const title = movie.title || movie.name;
+          const date = (movie.release_date || movie.first_air_date || '').split('-')[0];
+          const type = movie.media_type === 'movie' ? 'Filme' : 'Série';
+          const rankColor = index === 0 ? '#ef4444' : index === 1 ? '#f97316' : index === 2 ? '#eab308' : '#222';
+          
+          const el = document.createElement('div');
+          el.className = 'rank-item';
+          el.onclick = () => openMovie(movie.id);
+          el.innerHTML = `
+            <div class="rank-num" style="background:${rankColor};">${index + 1}</div>
+            <img src="${movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/70x100/333/fff?text=Sem+Capa'}" alt="Poster">
+            <div class="rank-info">
+              <div class="rank-title-row">
+                <h3>${title}</h3>
+                <div class="rank-rating" style="color:${index < 3 ? '#f97316' : '#9ca3af'};">🔥 ${Math.floor(Math.random() * 50000 + 50000).toLocaleString('pt-BR')}</div>
+              </div>
+              <div class="rank-meta">${date ? date + ' · ' : ''}TBC · US · Ação</div>
+              <div class="rank-type">${type}</div>
+            </div>
+          `;
+          container.appendChild(el);
+        });
+      } catch (e) {
+        container.innerHTML = '<p style="padding:20px; color:#666;">Coloque o Token do TMDB para carregar.</p>';
       }
     }
 
-    // DADOS FALSOS (Caso a API falhe para o site não ficar em branco)
-    function loadMockData() {
-      document.getElementById('movie-title').textContent = "Shrek (Exemplo)";
-      document.getElementById('part-title').textContent = "Coleção Shrek";
-      document.getElementById('episodes-count').textContent = "4 filmes";
+    // ── PESQUISA ──
+    async function performSearch() {
+      const query = document.getElementById('main-search-input').value;
+      if (!query) return;
       
-      const mockParts = [1, 2, 3, 4];
-      renderPreview(mockParts, 1);
-      renderPartsModal(mockParts, 1);
+      nav('screen-results');
+      const container = document.getElementById('search-results-container');
+      container.innerHTML = '<p style="padding:20px; text-align:center;">Buscando...</p>';
 
-      const mockSimilar = [
-        { id: 1, title: "The Quintessential...", vote_average: 7.6, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 2, title: "Please Put Them...", vote_average: 5.8, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 3, title: "Blue Box", vote_average: 8.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 4, title: "Girlfriend, Girlfriend", vote_average: 6.5, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 5, title: "Gabriela", vote_average: 8.1, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" },
-        { id: 6, title: "Amor da Minha Vida", vote_average: 7.0, poster_path: "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" }
-      ];
-      renderSimilar(mockSimilar);
+      try {
+        const data = await tmdbFetch(`/search/multi?query=${encodeURIComponent(query)}`);
+        container.innerHTML = '';
+        
+        // Falso resultado da Wikipedia
+        container.innerHTML += `
+          <div class="web-result">
+            <h2>${query} - Wikpédia</h2>
+            <p>${query} é um filme de super-herói estadunidense baseado no personagem da Marvel Comics...</p>
+            <div class="url"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/></svg> pt.wikipedia.org</div>
+          </div>
+        `;
+
+        data.results.slice(0, 10).forEach(item => {
+          const title = item.title || item.name;
+          const date = (item.release_date || item.first_air_date || '').split('-')[0];
+          const type = item.media_type === 'movie' ? 'Filme' : 'Série';
+          
+          const el = document.createElement('div');
+          el.className = 'app-result';
+          el.innerHTML = `
+            <img src="${item.poster_path ? IMG_BASE + item.poster_path : 'https://via.placeholder.com/80x110/333/fff?text=Sem+Capa'}">
+            <div class="app-result-info">
+              <h2>[Português Dublado] ${title}</h2>
+              <p>${type} · ${date} · Ficção científica · Aventura</p>
+              <p>${item.overview || 'Sem descrição disponível.'}</p>
+              <div class="btn-assistir" onclick="openMovie(${item.id})">Assistir ></div>
+            </div>
+          `;
+          container.appendChild(el);
+        });
+
+      } catch (e) {
+        container.innerHTML = '<p style="padding:20px;">Erro na pesquisa. Verifique o token.</p>';
+      }
     }
 
-    function renderPreview(parts, currentId) {
-      const container = document.getElementById('episodes-preview');
-      container.innerHTML = '';
+    // ── ABRIR FILME / PLAYER ──
+    async function openMovie(movieId) {
+      nav('screen-movie');
+      document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
+      document.getElementById('movie-title').textContent = "Carregando...";
+      document.getElementById('similar-grid').innerHTML = '';
+      document.getElementById('episodes-preview').innerHTML = '';
+
+      try {
+        const movie = await tmdbFetch(`/movie/${movieId}`);
+        document.getElementById('movie-title').textContent = movie.title;
+
+        // Coleção (Partes)
+        if (movie.belongs_to_collection) {
+          const col = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
+          document.getElementById('part-title').textContent = col.name;
+          document.getElementById('episodes-count').textContent = `${col.parts.length} filmes`;
+          renderParts(col.parts, movie.id);
+        } else {
+          document.getElementById('part-title').textContent = 'Filme Único';
+          document.getElementById('episodes-count').textContent = `1 filme`;
+          renderParts([movie], movie.id);
+        }
+
+        // Semelhantes
+        const sim = await tmdbFetch(`/movie/${movieId}/similar`);
+        renderSimilar(sim.results);
+
+      } catch (err) {
+        document.getElementById('movie-title').textContent = "Modo de Demonstração (Sem API)";
+        // Mock no player pra não ficar em branco
+        document.getElementById('part-title').textContent = "Coleção Shrek (Mock)";
+        document.getElementById('episodes-count').textContent = "4 filmes";
+        renderParts([1,2,3,4], 1);
+        renderSimilar([{id:1, title:'Sugestão 1', vote_average: 8.0}, {id:2, title:'Sugestão 2', vote_average: 7.2}, {id:3, title:'Sugestão 3', vote_average: 6.5}]);
+      }
+    }
+
+    function renderParts(parts, currentId) {
+      const preview = document.getElementById('episodes-preview');
+      const modal = document.getElementById('parts-list');
+      preview.innerHTML = ''; modal.innerHTML = '';
+
       parts.forEach((part, index) => {
+        const isActive = part.id === currentId || (index+1) === currentId;
+
         const card = document.createElement('div');
-        card.className = `episode-card ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
+        card.className = `episode-card ${isActive ? 'active' : ''}`;
         card.textContent = index + 1;
-        card.onclick = () => {
-           if (part.id) loadMovie(part.id);
-           else alert("Simulação: Botão clicado!");
-        }; 
-        container.appendChild(card);
-      });
-    }
+        card.onclick = () => { if(part.id) openMovie(part.id); };
+        preview.appendChild(card);
 
-    function renderPartsModal(parts, currentId) {
-      const container = document.getElementById('parts-list');
-      container.innerHTML = '';
-      parts.forEach((part, index) => {
-        const div = document.createElement('div');
-        div.className = `part-item ${(part.id === currentId || (index + 1) === currentId) ? 'active' : ''}`;
-        div.textContent = `Parte ${index + 1}`;
-        div.onclick = () => {
-           if (part.id) loadMovie(part.id);
-           else closeParts();
-        };
-        container.appendChild(div);
+        const mItem = document.createElement('div');
+        mItem.className = `part-item ${isActive ? 'active' : ''}`;
+        mItem.textContent = `Parte ${index + 1}`;
+        mItem.onclick = () => { closeModal('parts-modal'); if(part.id) openMovie(part.id); };
+        modal.appendChild(mItem);
       });
     }
 
     function renderSimilar(movies) {
       const container = document.getElementById('similar-grid');
       container.innerHTML = '';
-      
-      movies.slice(0, 9).forEach(movie => {
+      movies.slice(0, 9).forEach(m => {
         const card = document.createElement('div');
         card.className = 'similar-card';
-        card.onclick = () => {
-          if (movie.id) loadMovie(movie.id);
-        }; 
-        
-        // Se não tiver poster_path, usa um placeholder cinza
-        const imgUrl = movie.poster_path && movie.poster_path !== "/z2y0s1bX7jH8x0x0x0x0x0x0x0.jpg" 
-          ? IMG_BASE + movie.poster_path 
-          : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
-
+        card.onclick = () => openMovie(m.id);
+        const imgUrl = m.poster_path ? IMG_BASE + m.poster_path : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
         card.innerHTML = `
           <div class="img-wrapper">
-            <img src="${imgUrl}" alt="${movie.title}" loading="lazy">
-            <div class="rating">
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}
-            </div>
+            <img src="${imgUrl}">
+            <div class="rating">⭐ ${m.vote_average ? m.vote_average.toFixed(1) : 'N/A'}</div>
           </div>
-          <div class="title">${movie.title || movie.original_title}</div>
+          <div class="title">${m.title}</div>
         `;
         container.appendChild(card);
       });
     }
 
-    /* ═══════════ INTERAÇÕES ═══════════ */
-    function openParts() { document.getElementById('modal-parts').classList.add('active'); }
-    function closeParts() { document.getElementById('modal-parts').classList.remove('active'); }
-    
-    function openAudio() { document.getElementById('audio-sheet').classList.add('active'); }
-    function closeAudio() { document.getElementById('audio-sheet').classList.remove('active'); }
-    function selectAudio(el) {
-      document.querySelectorAll('.audio-option').forEach(opt => opt.classList.remove('selected'));
-      el.classList.add('selected');
-      setTimeout(closeAudio, 300);
-    }
-
-    function openFeedback() { document.getElementById('feedback-sheet').classList.add('active'); }
-    function closeFeedback() { document.getElementById('feedback-sheet').classList.remove('active'); }
-    function enviarFeedback() {
-      closeFeedback();
-      setTimeout(() => alert('Obrigado! Seu feedback foi enviado com sucesso.'), 300);
-    }
-
-    function toggleFav(btn) {
-      btn.classList.toggle('fav-active');
-      const span = btn.querySelector('span');
-      if (btn.classList.contains('fav-active')) {
-        span.textContent = 'Remover Favorito';
-      } else {
-        span.textContent = 'Adicionar Favorito';
-      }
-    }
-
+    // Inicialização do App
     document.addEventListener('DOMContentLoaded', () => {
-      loadMovie(currentMovieId);
+      loadPopular(); // Já tenta puxar os populares ao abrir
     });
   </script>
 </body>
