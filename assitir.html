@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>KiraFlix - Filme / Série</title>
+  <title>KiraFlix</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     body {
       font-family: 'Outfit', system-ui, sans-serif;
       background: #000; color: #fff;
-      padding-bottom: 100px; /* Espaço para a barra fixa no rodapé */
+      padding-bottom: 100px;
     }
 
     button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
@@ -52,13 +52,35 @@
 
     .title-row {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 8px; margin-bottom: 16px;
+      gap: 8px; margin-bottom: 16px; cursor: pointer;
     }
     .title-row h1 {
       font-size: 1.1rem; font-weight: 700; line-height: 1.3;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .title-row svg { flex-shrink: 0; width: 20px; height: 20px; fill: #fff; opacity: 0.8; }
+    .title-row svg { 
+      flex-shrink: 0; width: 20px; height: 20px; fill: #fff; opacity: 0.8; 
+      transition: transform 0.3s ease;
+    }
+    .title-row.expanded svg { transform: rotate(180deg); }
+
+    /* ── Descrição Expandida ── */
+    .expanded-info {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #d1d5db;
+      animation: fadeIn 0.3s ease;
+    }
+    .expanded-info.active { display: block; }
+    .expanded-info p { margin-bottom: 10px; }
+    .expanded-info strong { color: #fff; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ── Ações ── */
     .action-bar { display: flex; gap: 8px; margin-bottom: 20px; }
@@ -123,7 +145,7 @@
     }
     .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
 
-    /* ═══════════ TÍTULOS SEMELHANTES (CARROSSEL) ═══════════ */
+    /* ═══════════ TÍTULOS SEMELHANTES (CARROSSEL CORRIGIDO) ═══════════ */
     .similar-section { margin-bottom: 40px; }
     .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
     
@@ -138,7 +160,8 @@
     .similar-scroll::-webkit-scrollbar { display: none; }
     
     .similar-card {
-      flex: 0 0 130px; /* Largura fixa para o card */
+      flex: 0 0 130px; /* Largura fixa e impede de esticar */
+      width: 130px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -149,13 +172,17 @@
     .similar-card .img-wrapper {
       position: relative;
       width: 100%;
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 2 / 3; /* Força formato de pôster */
       border-radius: 8px;
       overflow: hidden;
       background: #1e1e2a;
     }
     
-    .similar-card img { width: 100%; height: 100%; object-fit: cover; }
+    .similar-card img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; /* Não deixa a imagem distorcer */
+    }
     
     .similar-card .rating {
       position: absolute; top: 6px; left: 6px;
@@ -167,7 +194,8 @@
     
     .similar-card .title {
       font-size: 0.75rem; color: #e5e7eb;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+      text-align: left; width: 100%;
     }
 
     /* ═══════════ BARRA DE PESQUISA NO RODAPÉ ═══════════ */
@@ -279,16 +307,23 @@
 
   <!-- ═══════════ PLAYER (Kiraflix) ═══════════ -->
   <div class="player-section">
-    <iframe id="video-player" src="https://kiraflix.qd.je/filme/808" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+    <iframe id="video-player" src="https://kiraflix.qd.je/filme/969681" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
   </div>
 
   <div class="content">
     <div id="api-alert" class="alert-msg"></div>
 
-    <!-- ── Título ── -->
-    <div class="title-row">
+    <!-- ── Título (Clicável para expandir) ── -->
+    <div class="title-row" onclick="toggleDetails()" id="title-click-area">
       <h1 id="movie-title">Carregando...</h1>
       <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+
+    <!-- ── Detalhes Expandidos ── -->
+    <div class="expanded-info" id="expanded-details">
+      <p><strong>Sinopse:</strong> <span id="detail-synopsis">Carregando...</span></p>
+      <p><strong>Elenco Principal:</strong> <span id="detail-cast">Carregando...</span></p>
+      <p><strong>Avaliações:</strong> <span id="detail-ratings">Carregando...</span></p>
     </div>
 
     <!-- ── Ações ── -->
@@ -304,11 +339,12 @@
       </div>
     </div>
 
-    <!-- ── Grade ── -->
+    <!-- ── Grade de Recursos ── -->
     <div class="feature-grid">
-      <button class="feature-item" onclick="alert('Download iniciado (simulação).')">
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        <span>Baixar</span>
+      <!-- Botão Baixar alterado para Pesquisar na Web -->
+      <button class="feature-item" onclick="searchOnWeb()">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span>Pesquisar</span>
       </button>
       <button class="feature-item" onclick="openAudio()">
         <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg>
@@ -326,21 +362,21 @@
 
     <!-- ── Parte ── -->
     <div class="section-header" onclick="openParts()">
-      <h2 id="part-title">Parte</h2>
+      <h2 id="part-title">Coleção</h2>
       <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
     </div>
 
     <!-- ── Episódios ── -->
     <div class="section-sub">
-      <h2>Episódios</h2>
+      <h2 id="episodes-label">Episódios</h2>
       <div class="count" onclick="openParts()">
-        <span id="episodes-count">0 filmes</span>
+        <span id="episodes-count">0 itens</span>
         <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </div>
     </div>
     <div class="episodes-row" id="episodes-preview"></div>
 
-    <!-- ── Semelhantes (CARROSSEL) ── -->
+    <!-- ── Semelhantes ── -->
     <div class="similar-section">
       <h2>Títulos semelhantes</h2>
       <div class="similar-scroll" id="similar-scroll"></div>
@@ -349,8 +385,8 @@
 
   <!-- ═══════════ BARRA DE PESQUISA (RODAPÉ) ═══════════ -->
   <div class="bottom-search-bar">
-    <input type="text" id="search-input" placeholder="Pesquisar filme ou série..." onkeypress="if(event.key === 'Enter') searchMediaByName()">
-    <button onclick="searchMediaByName()">Buscar</button>
+    <input type="text" id="search-input" placeholder="Pesquisar por nome ou ID..." onkeypress="if(event.key === 'Enter') handleSearch()">
+    <button onclick="handleSearch()">Buscar</button>
   </div>
 
   <!-- ═══════════ MODAL DE PARTES ═══════════ -->
@@ -381,9 +417,7 @@
       <button class="close-btn" onclick="closeFeedback()">✕</button>
     </div>
     
-    <div class="feedback-list" id="feedback-options">
-      <!-- Injetado via JS -->
-    </div>
+    <div class="feedback-list" id="feedback-options"></div>
 
     <textarea class="feedback-textarea" id="feedback-text" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
 
@@ -396,9 +430,8 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════════
-       ⚠️ CONFIGURAÇÕES DO SISTEMA ⚠️
+       CONFIGURAÇÕES DO SISTEMA
        ═══════════════════════════════════════════════════════════ */
-    
     const TMDB_KEY = '6ee0d0ca3e4a734a36f15d8802a5cc4b'; 
     const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu';
     const FILME_INICIAL_ID = 969681; 
@@ -413,7 +446,12 @@
     let currentMediaId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
     let currentMediaTitle = "";
     let currentPosterPath = "";
-    let currentMediaType = 'movie'; // 'movie' ou 'tv'
+    let currentMediaType = urlParams.get('type') || 'movie';
+    
+    // Variáveis de detalhes
+    let currentSynopsis = "";
+    let currentCast = "";
+    let currentVotes = "";
 
     const feedbackOptionsList = [
       "Reprodução interrompida ou mídia não carrega",
@@ -439,8 +477,6 @@
     });
 
     async function tmdbFetch(path) {
-      if (TMDB_KEY === 'COLE_SUA_CHAVE_AQUI' || TMDB_KEY.trim() === '') throw new Error("Chave TMDB não configurada.");
-      
       const isV4Token = TMDB_KEY.startsWith('eyJ') || TMDB_KEY.length > 50;
       const sep = path.includes('?') ? '&' : '?';
       let url = `${TMDB_BASE}${path}${sep}language=pt-BR`;
@@ -450,40 +486,61 @@
       else url += `&api_key=${TMDB_KEY}`;
 
       const res = await fetch(url, options);
-      if (!res.ok) throw new Error("Falha na API do TMDB");
+      if (!res.ok) throw new Error("Falha na API");
       return res.json();
     }
 
-    // ── BUSCA POR NOME (FILMES E SÉRIES) ──
-    async function searchMediaByName() {
+    // ── SISTEMA DE BUSCA (NOME OU ID) ──
+    async function handleSearch() {
       const query = document.getElementById('search-input').value.trim();
-      if (!query) return alert("Digite o nome de um filme ou série.");
+      if (!query) return alert("Digite algo para buscar.");
 
-      try {
-        const data = await tmdbFetch(`/search/multi?query=${encodeURIComponent(query)}`);
-        // Filtra para pegar apenas filmes e séries (ignora pessoas)
-        const validResults = data.results.filter(item => item.media_type === 'movie' || item.media_type === 'tv');
-
-        if (validResults.length > 0) {
-          const firstResult = validResults[0];
-          loadMedia(firstResult.id, firstResult.media_type);
-        } else {
-          alert("Nenhum filme ou série encontrado.");
+      // Verifica se é um número (ID)
+      if (/^\d+$/.test(query)) {
+        try {
+          // Tenta como filme primeiro
+          let res = await fetch(`${TMDB_BASE}/movie/${query}?api_key=${TMDB_KEY}&language=pt-BR`);
+          if (res.ok) {
+            document.getElementById('search-input').value = '';
+            return loadMedia(parseInt(query), 'movie');
+          }
+          
+          // Se não for filme, tenta como série
+          res = await fetch(`${TMDB_BASE}/tv/${query}?api_key=${TMDB_KEY}&language=pt-BR`);
+          if (res.ok) {
+            document.getElementById('search-input').value = '';
+            return loadMedia(parseInt(query), 'tv');
+          }
+          
+          alert("ID não encontrado no banco de dados.");
+        } catch (err) {
+          alert("Erro ao buscar ID.");
         }
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao buscar. Verifique sua chave do TMDB.");
+      } else {
+        // Busca por nome
+        try {
+          const data = await tmdbFetch(`/search/multi?query=${encodeURIComponent(query)}`);
+          const validResults = data.results.filter(item => item.media_type === 'movie' || item.media_type === 'tv');
+
+          if (validResults.length > 0) {
+            const firstResult = validResults[0];
+            document.getElementById('search-input').value = '';
+            loadMedia(firstResult.id, firstResult.media_type);
+          } else {
+            alert("Nenhum filme ou série encontrado com esse nome.");
+          }
+        } catch (err) {
+          alert("Erro na busca.");
+        }
       }
     }
 
-    // ── CARREGAR MÍDIA (FILME OU SÉRIE) ──
+    // ── CARREGAR MÍDIA ──
     async function loadMedia(id, type = 'movie') {
       currentMediaId = id;
       currentMediaType = type;
       hideAlert();
       
-      // O player do Kiraflix aceita o ID. Se for série, a URL base pode mudar, 
-      // mas aqui mantemos o padrão para carregar o conteúdo.
       document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${id}`;
       window.history.pushState({}, '', `?id=${id}&type=${type}`);
 
@@ -491,44 +548,60 @@
       titleEl.textContent = "Carregando...";
       document.getElementById('similar-scroll').innerHTML = '';
       document.getElementById('episodes-preview').innerHTML = '';
-      document.getElementById('search-input').value = ''; 
+      document.getElementById('expanded-details').classList.remove('active');
+      document.getElementById('title-click-area').classList.remove('expanded');
       closeParts();
 
       try {
-        // Puxa detalhes de acordo com o tipo
-        const media = await tmdbFetch(`/${type}/${id}`);
+        // Puxa detalhes com créditos (elenco)
+        const media = await tmdbFetch(`/${type}/${id}?append_to_response=credits`);
+        
         currentMediaTitle = media.title || media.name || media.original_title || media.original_name;
         currentPosterPath = media.poster_path;
         titleEl.textContent = currentMediaTitle;
 
-        // Se for FILME e tiver coleção (continuações)
+        // Preenche as variáveis de detalhes
+        currentSynopsis = media.overview || "Sinopse não disponível.";
+        currentVotes = media.vote_count ? `${media.vote_count} avaliações` : "Sem avaliações";
+        
+        if (media.credits && media.credits.cast && media.credits.cast.length > 0) {
+          currentCast = media.credits.cast.slice(0, 5).map(c => c.name).join(', ');
+        } else {
+          currentCast = "Elenco não disponível.";
+        }
+
+        // Preenche os dados na tela (Escondidos)
+        document.getElementById('detail-synopsis').textContent = currentSynopsis;
+        document.getElementById('detail-cast').textContent = currentCast;
+        document.getElementById('detail-ratings').textContent = currentVotes;
+
+        // Lógica de Partes / Temporadas
         if (type === 'movie' && media.belongs_to_collection) {
           const collection = await tmdbFetch(`/collection/${media.belongs_to_collection.id}`);
           const parts = collection.parts || [];
           document.getElementById('part-title').textContent = collection.name || 'Partes';
+          document.getElementById('episodes-label').textContent = 'Episódios';
           document.getElementById('episodes-count').textContent = `${parts.length} filme${parts.length > 1 ? 's' : ''}`;
           renderPreview(parts, media.id);
           renderPartsModal(parts, media.id);
         } 
-        // Se for SÉRIE, mostra as Temporadas
         else if (type === 'tv' && media.seasons) {
-          // Remove a temporada 0 (especiais) para não bugar
           const seasons = media.seasons.filter(s => s.season_number > 0);
           document.getElementById('part-title').textContent = 'Temporadas';
+          document.getElementById('episodes-label').textContent = 'Temporadas';
           document.getElementById('episodes-count').textContent = `${seasons.length} temporada${seasons.length > 1 ? 's' : ''}`;
           
-          // Passa as temporadas para o mesmo sistema de renderização (adaptado)
           const formattedSeasons = seasons.map(s => ({
-            id: s.season_number, // Usamos o número da temporada como ID falso
+            id: s.season_number,
             release_date: s.air_date || "2000-01-01"
           }));
           
-          renderPreview(formattedSeasons, 1); // Temporada 1 como ativa
+          renderPreview(formattedSeasons, 1);
           renderPartsModal(formattedSeasons, 1);
         } 
-        // Se for filme único ou série sem temporadas
         else {
           document.getElementById('part-title').textContent = type === 'movie' ? 'Filme Único' : 'Série';
+          document.getElementById('episodes-label').textContent = 'Episódios';
           document.getElementById('episodes-count').textContent = '1 item';
           renderPreview([{ id: media.id, release_date: "2000-01-01" }], media.id);
           renderPartsModal([{ id: media.id, release_date: "2000-01-01" }], media.id);
@@ -540,24 +613,25 @@
 
       } catch (err) {
         console.error(err);
-        loadMockData(); 
-        showAlert("⚠️ Erro na API do TMDB. Exibindo dados de exemplo.");
+        titleEl.textContent = "Erro ao carregar";
+        showAlert("⚠️ Erro na API do TMDB. Verifique o ID ou a chave.");
       }
     }
 
-    function loadMockData() {
-      document.getElementById('movie-title').textContent = "Shrek (Exemplo)";
-      document.getElementById('part-title').textContent = "Coleção Shrek";
-      document.getElementById('episodes-count').textContent = "4 filmes";
-      renderPreview([1, 2, 3, 4], 1);
-      renderPartsModal([1, 2, 3, 4], 1);
+    // ── FUNÇÕES AUXILIARES ──
+    function toggleDetails() {
+      const infoBox = document.getElementById('expanded-details');
+      const titleArea = document.getElementById('title-click-area');
+      
+      infoBox.classList.toggle('active');
+      titleArea.classList.toggle('expanded');
+    }
 
-      const mockSimilar = [
-        { id: 1, title: "The Quintessential...", vote_average: 7.6, poster_path: null },
-        { id: 2, title: "Please Put Them...", vote_average: 5.8, poster_path: null },
-        { id: 3, title: "Blue Box", vote_average: 8.0, poster_path: null }
-      ];
-      renderSimilar(mockSimilar);
+    function searchOnWeb() {
+      if (!currentMediaTitle) return;
+      const typeStr = currentMediaType === 'tv' ? 'série' : 'filme';
+      const query = encodeURIComponent(`${currentMediaTitle} ${typeStr} onde assistir`);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
     }
 
     function renderPreview(parts, currentId) {
@@ -567,10 +641,9 @@
         const card = document.createElement('div');
         card.className = `episode-card ${part.id === currentId ? 'active' : ''}`;
         card.textContent = index + 1;
-        // Se for temporada de série, recarrega passando o número. Se for filme, recarrega o ID.
         card.onclick = () => {
           if (currentMediaType === 'tv') {
-            alert(`Você clicou na Temporada ${index + 1}. O player abaixo pode precisar de outro formato de URL para séries.`);
+            alert(`Temporada ${index + 1} selecionada (Simulação).`);
           } else {
             loadMedia(part.id, 'movie');
           }
@@ -589,7 +662,7 @@
         div.onclick = () => {
           if (currentMediaType === 'tv') {
             closeParts();
-            alert(`Você clicou na Temporada ${index + 1}.`);
+            alert(`Temporada ${index + 1} selecionada.`);
           } else {
             loadMedia(part.id, 'movie');
           }
@@ -608,7 +681,6 @@
       movies.slice(0, 10).forEach(movie => {
         const card = document.createElement('div');
         card.className = 'similar-card';
-        // Descobre se o similar é filme ou série para carregar certo
         card.onclick = () => loadMedia(movie.id, movie.media_type || currentMediaType); 
         
         const imgUrl = movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/130x195/1e1e2a/6b7280?text=Sem+Capa';
@@ -644,7 +716,6 @@
     function openFeedback() { document.getElementById('feedback-sheet').classList.add('active'); }
     function closeFeedback() { document.getElementById('feedback-sheet').classList.remove('active'); }
 
-    // ENVIAR FEEDBACK PARA O DISCORD (Design Melhorado - Vermelho)
     async function enviarFeedback() {
       if (DISCORD_WEBHOOK_URL === 'COLE_SEU_WEBHOOK_AQUI' || DISCORD_WEBHOOK_URL.trim() === '') {
         alert("Você precisa configurar o Webhook do Discord no código!");
@@ -663,13 +734,12 @@
       btn.textContent = "Enviando...";
       btn.disabled = true;
 
-      // Monta a mensagem bonita pro Discord
       const payload = {
         username: "KiraFlix Feedback",
-        avatar_url: "https://cdn-icons-png.flaticon.com/512/5977/5977002.png", // Ícone de alerta
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/5977/5977002.png",
         embeds: [{
           title: "🚨 NOVA RECLAMAÇÃO / FEEDBACK",
-          color: 15548997, // Cor Vermelha (#ED4245)
+          color: 15548997, // Vermelho
           thumbnail: {
             url: currentPosterPath ? `https://image.tmdb.org/t/p/w200${currentPosterPath}` : "https://via.placeholder.com/150"
           },
@@ -703,14 +773,12 @@
           body: JSON.stringify(payload)
         });
         
-        // Limpa o formulário
         document.querySelectorAll('#feedback-options input:checked').forEach(cb => cb.checked = false);
         document.getElementById('feedback-text').value = '';
         closeFeedback();
         setTimeout(() => alert('Obrigado! Seu feedback foi enviado com sucesso.'), 300);
       } catch (err) {
-        console.error(err);
-        alert("Erro ao enviar feedback. Verifique sua internet ou o Webhook.");
+        alert("Erro ao enviar feedback.");
       } finally {
         btn.textContent = "Enviar Feedback";
         btn.disabled = false;
