@@ -1,1523 +1,737 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Seekee - Sua plataforma definitiva</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ═══════════════════════════════════════════════════════════
-       VARIÁVEIS E RESET GLOBAL
-       ═══════════════════════════════════════════════════════════ */
-    :root {
-      --bg-main: #000000;
-      --bg-card: #141414;
-      --bg-card-light: #1e1e24;
-      --bg-nav: #111111;
-      --text-main: #ffffff;
-      --text-muted: #9ca3af;
-      --accent-blue: #3b82f6;
-      --accent-blue-dark: #2563eb;
-      --accent-red: #ef4444;
-      --accent-orange: #f97316;
-      --accent-gold: #fbbf24;
-      --accent-purple: #a855f7;
-      --accent-vip: #4b3f8a;
-      --font-main: 'Outfit', sans-serif;
-      --nav-height: 65px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090a10">
+<title>Seekee Web</title>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
-    body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      overflow-x: hidden;
-      -webkit-tap-highlight-color: transparent;
-      padding-bottom: var(--nav-height);
-    }
-    button { cursor: pointer; border: none; background: none; color: inherit; font-family: inherit; outline: none; }
-    img { display: block; max-width: 100%; object-fit: cover; }
-    
-    /* Scrollbar Customizada */
-    ::-webkit-scrollbar { width: 0px; background: transparent; }
-
-    /* Utilitários */
-    .hidden { display: none !important; }
-    .flex-row { display: flex; align-items: center; }
-    .flex-col { display: flex; flex-direction: column; }
-    .text-ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    /* ═══════════════════════════════════════════════════════════
-       SISTEMA DE TELAS (SPA)
-       ═══════════════════════════════════════════════════════════ */
-    .screen {
-      display: none;
-      min-height: 100vh;
-      padding-bottom: 20px;
-      animation: fadeIn 0.25s ease-out;
-    }
-    .screen.active { display: block; }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       BARRA DE NAVEGAÇÃO INFERIOR
-       ═══════════════════════════════════════════════════════════ */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-height);
-      background-color: var(--bg-nav);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 9999;
-      padding: 0 5px;
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: #666666;
-      font-size: 0.65rem;
-      font-weight: 500;
-      width: 20%;
-      height: 100%;
-      transition: color 0.2s ease;
-      cursor: pointer;
-    }
-    .nav-item.active { color: var(--text-main); }
-    .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 1: HOME (INÍCIO)
-       ═══════════════════════════════════════════════════════════ */
-    .home-header { padding: 40px 20px 20px; text-align: center; }
-    .home-logo {
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: #fff;
-    }
-    .home-logo span { font-size: 2rem; }
-    .btn-search-all {
-      background-color: var(--accent-blue);
-      color: #fff;
-      padding: 6px 18px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      margin-top: 10px;
-      display: inline-block;
-    }
-    
-    .home-search-bar {
-      margin: 0 20px 30px;
-      background-color: #1e222d;
-      border-radius: 30px;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: text;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .home-search-bar input {
-      background: transparent;
-      border: none;
-      color: #fff;
-      outline: none;
-      flex: 1;
-      font-size: 0.95rem;
-      pointer-events: none;
-    }
-    
-    .home-app-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      padding: 0 20px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    .app-grid-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-    .app-grid-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .app-grid-icon svg { width: 30px; height: 30px; }
-    .app-grid-item span { font-size: 0.7rem; font-weight: 500; color: #e5e7eb; }
-
-    .home-circle-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      padding: 0 20px;
-      text-align: center;
-      margin-bottom: 100px;
-    }
-    .circle-grid-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-    .circle-grid-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background-color: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .circle-grid-icon svg { width: 24px; height: 24px; fill: #fff; }
-    .circle-grid-item span { font-size: 0.7rem; font-weight: 500; color: #e5e7eb; }
-
-    /* Mini Player */
-    .mini-player {
-      position: fixed;
-      bottom: calc(var(--nav-height) + 10px);
-      left: 10px;
-      right: 10px;
-      background-color: #2a2a30;
-      border-radius: 16px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 998;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      cursor: pointer;
-    }
-    .mini-player img { width: 45px; height: 55px; border-radius: 8px; }
-    .mini-player-info { flex: 1; overflow: hidden; }
-    .mini-player-info h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
-    .mini-player-info p { font-size: 0.65rem; color: var(--text-muted); margin-bottom: 6px; }
-    .mini-progress { width: 100%; height: 3px; background-color: #555; border-radius: 2px; }
-    .mini-progress div { width: 25%; height: 100%; background-color: var(--accent-blue); border-radius: 2px; }
-    .mini-play-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background-color: var(--accent-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .mini-play-btn svg { width: 20px; height: 20px; fill: #fff; margin-left: 2px; }
-
-    /* ═══════════════════════════════════════════════════════════
-       HEADERS PADRÃO E TABS
-       ═══════════════════════════════════════════════════════════ */
-    .page-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      background-color: rgba(0,0,0,0.9);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-    }
-    .page-header svg.back-btn { width: 24px; height: 24px; fill: #fff; cursor: pointer; }
-    .page-header h1 { font-size: 1.25rem; font-weight: 700; flex: 1; }
-    
-    .tabs-container { display: flex; gap: 10px; padding: 10px 20px; overflow-x: auto; }
-    .tabs-container::-webkit-scrollbar { display: none; }
-    .tab-btn {
-      padding: 8px 18px;
-      border-radius: 20px;
-      background-color: transparent;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .tab-btn.active { background-color: var(--accent-blue); color: #fff; font-weight: 700; }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 2: PESQUISA E HISTÓRICO
-       ═══════════════════════════════════════════════════════════ */
-    .search-input-wrapper { padding: 0 20px 20px; }
-    .search-input-wrapper input {
-      width: 100%;
-      background-color: var(--bg-card-light);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 14px 16px;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .search-input-wrapper input:focus { border-color: var(--accent-blue); }
-
-    .section-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-    }
-    .section-title-row h2 { font-size: 1rem; font-weight: 700; }
-    .section-title-row span { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; }
-
-    .history-list { padding: 0 20px; }
-    .history-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-    .history-item svg { width: 18px; height: 18px; fill: #666; }
-    
-    .search-bottom-bar {
-      position: fixed;
-      bottom: var(--nav-height);
-      left: 0;
-      right: 0;
-      background-color: var(--bg-nav);
-      padding: 12px 20px;
-      display: flex;
-      gap: 10px;
-      z-index: 100;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .search-bottom-bar input {
-      flex: 1;
-      background-color: #222;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 10px;
-      color: #fff;
-      outline: none;
-      font-size: 0.95rem;
-    }
-    .search-bottom-bar button {
-      background-color: var(--accent-blue);
-      color: #fff;
-      padding: 0 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 3: RESULTADOS DE PESQUISA (WEB + TMDB)
-       ═══════════════════════════════════════════════════════════ */
-    .web-result {
-      padding: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .web-result h2 { color: #60a5fa; font-size: 1.1rem; font-weight: 500; margin-bottom: 6px; }
-    .web-result p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
-    .web-result .url { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #fff; }
-    .web-result .url svg { width: 16px; height: 16px; fill: #fff; }
-
-    .app-result-card {
-      display: flex;
-      gap: 14px;
-      padding: 16px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .app-result-card img { width: 85px; height: 125px; border-radius: 8px; flex-shrink: 0; }
-    .app-result-info { flex: 1; display: flex; flex-direction: column; }
-    .app-result-info h2 { color: #60a5fa; font-size: 1rem; font-weight: 500; margin-bottom: 6px; line-height: 1.3; }
-    .app-result-info .meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
-    .app-result-info .desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      line-height: 1.4;
-    }
-    .btn-assistir-mini {
-      background-color: #2a2a30;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: auto;
-      transition: background-color 0.2s;
-    }
-    .btn-assistir-mini:active { background-color: #444; }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 4: POPULARES / RANKING (ABAS)
-       ═══════════════════════════════════════════════════════════ */
-    .ranking-container {
-      background-color: var(--bg-card);
-      border-radius: 16px;
-      margin: 0 20px 80px;
-      padding: 10px 16px;
-    }
-    .rank-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      cursor: pointer;
-      position: relative;
-    }
-    .rank-item:last-child { border-bottom: none; }
-    .rank-num {
-      position: absolute;
-      top: 14px;
-      left: -6px;
-      width: 22px;
-      height: 22px;
-      background-color: #333;
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      z-index: 2;
-      border: 1px solid #000;
-    }
-    .rank-item:nth-child(1) .rank-num { background-color: #ef4444; }
-    .rank-item:nth-child(2) .rank-num { background-color: #f97316; }
-    .rank-item:nth-child(3) .rank-num { background-color: #eab308; }
-    
-    .rank-item img { width: 70px; height: 100px; border-radius: 8px; flex-shrink: 0; }
-    .rank-info { flex: 1; overflow: hidden; }
-    .rank-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
-    .rank-title { font-size: 0.95rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rank-fire { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 600; color: var(--accent-orange); }
-    .rank-meta { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
-    .rank-type { font-size: 0.7rem; color: var(--text-muted); }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 5: FAVORITOS (MARCADOR)
-       ═══════════════════════════════════════════════════════════ */
-    .fav-header-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .fav-tab {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #666;
-      padding-bottom: 8px;
-      position: relative;
-      cursor: pointer;
-    }
-    .fav-tab.active { color: #fff; }
-    .fav-tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 30px;
-      height: 3px;
-      background-color: #fff;
-      border-radius: 2px;
-    }
-    .fav-search-bar {
-      margin: 20px;
-      background-color: var(--bg-card-light);
-      padding: 14px 16px;
-      border-radius: 10px;
-      color: #666;
-      font-size: 0.9rem;
-    }
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 50vh;
-      color: var(--text-muted);
-      text-align: center;
-    }
-    .empty-state svg { width: 80px; height: 80px; fill: #2a2a30; margin-bottom: 16px; }
-    .btn-new-folder {
-      position: fixed;
-      bottom: var(--nav-height);
-      left: 0;
-      right: 0;
-      background-color: var(--bg-nav);
-      padding: 20px;
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 700;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      z-index: 100;
-    }
-    
-    /* Grid para Favoritos Salvos */
-    .favorites-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 20px; padding-bottom: 100px; }
-    .grid-card { cursor: pointer; }
-    .grid-card .img-wrapper { position: relative; aspect-ratio: 2/3; border-radius: 8px; overflow: hidden; background-color: var(--bg-card-light); margin-bottom: 6px; }
-    .grid-card .img-wrapper img { width: 100%; height: 100%; }
-    .grid-card .title { font-size: 0.75rem; color: #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 6: PERFIL / CONTA
-       ═══════════════════════════════════════════════════════════ */
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px;
-    }
-    .profile-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #0ea5e9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .profile-header h1 { font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
-    
-    .vip-card {
-      margin: 0 20px 16px;
-      background: linear-gradient(135deg, #fef3c7, #f59e0b);
-      border-radius: 16px;
-      padding: 20px;
-      color: #000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .vip-card h2 { font-size: 1.8rem; font-weight: 800; font-style: italic; letter-spacing: -0.5px; }
-    .vip-card p { font-size: 0.8rem; font-weight: 500; margin-top: 4px; }
-    .btn-vip { background-color: #fff; color: #000; padding: 10px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; z-index: 2; }
-    .vip-diamond { position: absolute; right: 10px; top: -10px; width: 80px; opacity: 0.9; }
-
-    .ai-points {
-      margin: 0 20px 16px;
-      background-color: #0f172a;
-      padding: 16px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
-    }
-    .ai-points span:first-child { color: var(--accent-purple); font-weight: 600; }
-    .ai-points span:last-child { color: #666; }
-
-    .profile-section {
-      background-color: var(--bg-card);
-      border-radius: 16px;
-      margin: 0 20px 16px;
-      padding: 16px;
-    }
-    .profile-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .profile-section-header h3 { font-size: 1rem; font-weight: 700; }
-    .profile-section-header span { font-size: 0.8rem; color: var(--text-muted); }
-
-    .continue-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 16px; }
-    .continue-scroll::-webkit-scrollbar { display: none; }
-    .continue-card { flex: 0 0 130px; cursor: pointer; }
-    .continue-card img { width: 100%; height: 75px; border-radius: 8px; margin-bottom: 6px; }
-    .continue-card h4 { font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .continue-card p { font-size: 0.65rem; color: var(--text-muted); }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; }
-    .stats-grid h3 { font-size: 1.3rem; font-weight: 800; }
-    .stats-grid p { font-size: 0.7rem; color: var(--text-muted); }
-
-    .storage-header { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 8px; }
-    .storage-header span { color: var(--accent-red); }
-    .storage-bar { width: 100%; height: 5px; background-color: #333; border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
-    .storage-bar div { width: 100%; height: 100%; background-color: var(--accent-red); }
-    .storage-icons { display: flex; justify-content: space-between; text-align: center; font-size: 0.7rem; color: var(--text-muted); }
-    .storage-icons svg { width: 24px; height: 24px; fill: #fff; margin-bottom: 6px; }
-
-    .menu-list { display: flex; flex-direction: column; }
-    .menu-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-    .menu-item:last-child { border-bottom: none; }
-    .menu-item svg.icon { width: 22px; height: 22px; fill: #fff; }
-    .menu-item span { flex: 1; font-size: 0.95rem; font-weight: 500; }
-    .menu-item svg.arrow { width: 16px; height: 16px; fill: #666; }
-
-    /* ═══════════════════════════════════════════════════════════
-       TELA 7: DETALHES DO FILME / PLAYER
-       ═══════════════════════════════════════════════════════════ */
-    .player-container { position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000; }
-    .player-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-    
-    .movie-info { padding: 20px; }
-    .movie-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
-    .movie-title-row h1 { font-size: 1.2rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .movie-title-row svg { width: 20px; height: 20px; fill: #fff; cursor: pointer; }
-
-    .action-bar { display: flex; gap: 10px; margin-bottom: 20px; }
-    .btn-flag { width: 45px; height: 42px; background-color: #1e1e24; border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .btn-flag svg { width: 18px; height: 18px; fill: #fff; }
-    .drive-badge { flex: 1; background-color: #1e293b; border-radius: 20px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: #dbeafe; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .drive-icon { width: 30px; height: 30px; border-radius: 50%; background-color: var(--accent-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 8px; }
-    .drive-icon svg { width: 16px; height: 16px; fill: #fff; }
-
-    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; background-color: var(--bg-card); border-radius: 16px; padding: 14px 10px; }
-    .feature-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.65rem; color: #d1d5db; font-weight: 500; }
-    .feature-btn svg { width: 24px; height: 24px; fill: #d1d5db; transition: fill 0.2s; }
-    .feature-btn.active svg { fill: var(--accent-gold); }
-
-    .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; cursor: pointer; }
-    .section-header h2 { font-size: 1.1rem; font-weight: 700; }
-    .section-header svg { width: 16px; height: 16px; fill: #fff; }
-    
-    .section-sub-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .section-sub-header h2 { font-size: 1rem; font-weight: 700; }
-    .section-sub-header span { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; }
-
-    .episodes-preview-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; }
-    .episodes-preview-row::-webkit-scrollbar { display: none; }
-    .ep-card { flex: 0 0 60px; height: 60px; background-color: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: #d1d5db; cursor: pointer; transition: background-color 0.2s; }
-    .ep-card.active { background-color: #555; color: #fff; }
-
-    .similar-section { margin-bottom: 40px; }
-    .similar-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
-    .similar-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
-    .similar-scroll::-webkit-scrollbar { display: none; }
-    .similar-card { flex: 0 0 130px; cursor: pointer; }
-    .similar-card .img-wrapper { position: relative; aspect-ratio: 2/3; border-radius: 8px; overflow: hidden; background-color: #1e1e2a; margin-bottom: 6px; }
-    .similar-card .img-wrapper img { width: 100%; height: 100%; }
-    .rating-badge { position: absolute; top: 6px; left: 6px; background-color: rgba(0,0,0,0.85); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 3px; }
-    .rating-badge svg { width: 10px; height: 10px; fill: var(--accent-gold); }
-    .similar-card .title { font-size: 0.75rem; font-weight: 500; color: #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    /* Banner VIP Fixo na tela do filme */
-    .vip-fixed-banner {
-      position: fixed;
-      bottom: var(--nav-height);
-      left: 0;
-      right: 0;
-      background-color: #e5e5e5;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 998;
-    }
-    .vip-fixed-text h4 { color: #000; font-size: 1rem; font-weight: 800; margin-bottom: 2px; }
-    .vip-fixed-text p { color: #333; font-size: 0.75rem; }
-    .btn-vip-fixed { background-color: var(--accent-vip); color: #fff; padding: 12px 20px; border-radius: 24px; font-weight: 700; font-size: 0.85rem; }
-
-    /* ═══════════════════════════════════════════════════════════
-       MODAIS E OVERLAYS
-       ═══════════════════════════════════════════════════════════ */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0,0,0,0.9);
-      backdrop-filter: blur(5px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-    .modal-overlay.active { display: flex; }
-    
-    /* Modal de Partes (Fundo Preto) */
-    .parts-modal-content { display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
-    .part-item-btn { font-size: 1.6rem; font-weight: 700; color: #555; cursor: pointer; transition: color 0.2s; }
-    .part-item-btn.active { color: #fff; }
-    .close-circle-btn { position: absolute; bottom: 50px; width: 60px; height: 60px; border-radius: 50%; background-color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .close-circle-btn svg { width: 28px; height: 28px; fill: #000; }
-
-    /* Modais Deslizantes (Bottom Sheet) */
-    .bottom-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #1a1a1a;
-      border-radius: 24px 24px 0 0;
-      padding: 24px 20px;
-      max-height: 85vh;
-      overflow-y: auto;
-      z-index: 10001;
-      display: none;
-      animation: slideUp 0.3s ease-out;
-    }
-    .bottom-sheet.active { display: block; }
-    .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .sheet-header h2 { font-size: 1.2rem; font-weight: 600; }
-    .sheet-header .close-btn { font-size: 1.5rem; color: #fff; }
-
-    /* Feedback Modal */
-    .feedback-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
-    .feedback-label { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.4; cursor: pointer; }
-    .feedback-label input { appearance: none; width: 22px; height: 22px; border: 2px solid #fff; border-radius: 4px; background: transparent; flex-shrink: 0; margin-top: 2px; position: relative; }
-    .feedback-label input:checked::after { content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; color: #fff; }
-    .feedback-textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; color: #fff; padding: 10px 0; font-size: 0.95rem; resize: none; margin-bottom: 24px; outline: none; }
-    .btn-submit-feedback { width: 100%; background-color: #294373; color: #fff; padding: 16px; border-radius: 12px; font-size: 1rem; font-weight: 600; margin-bottom: 20px; }
-    .feedback-footer { font-size: 0.75rem; color: #9ca3af; line-height: 1.5; text-align: center; }
-    .feedback-footer a { color: #60a5fa; }
-
-    /* Áudio Modal */
-    .audio-option { padding: 16px; background-color: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 10px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-    .audio-option.active { background-color: #fff; color: #000; font-weight: 700; }
-    .audio-option svg { width: 20px; height: 20px; fill: currentColor; }
-
-    /* Loading Spinner */
-    .loader { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 1s linear infinite; margin: 40px auto; }
-  </style>
+<style>
+:root {
+ --bg:#090a10;
+ --panel:#11131d;
+ --panel2:#191c29;
+ --text:#f5f5fa;
+ --muted:#9295a7;
+ --accent:#a78bfa;
+ --accent2:#7657e8;
+ --border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:var(--bg);
+ color:var(--text);
+ font-family:Inter,system-ui,Arial,sans-serif;
+ min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+ height:66px;
+ position:sticky;
+ top:0;
+ z-index:20;
+ background:rgba(9,10,16,.94);
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 5%;
+}
+.logo{
+ font-size:25px;
+ font-weight:900;
+ letter-spacing:-1.5px;
+ color:white;
+}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:24px;align-items:center}
+nav button{
+ background:none;
+ color:var(--muted);
+ border:0;
+ font-size:13px;
+ font-weight:650;
+}
+nav button.active,nav button:hover{color:white}
+.header-right{display:flex;gap:12px;align-items:center}
+.icon-btn{
+ background:var(--panel2);
+ color:white;
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:10px 13px;
+}
+main{padding-bottom:90px}
+.hero{
+ position:relative;
+ min-height:440px;
+ display:flex;
+ align-items:flex-end;
+ padding:50px 6%;
+ overflow:hidden;
+ background:linear-gradient(90deg,#090a10 0%,rgba(9,10,16,.8) 45%,transparent 100%);
+}
+.hero-bg{
+ position:absolute;
+ inset:0;
+ background-position:center 25%;
+ background-size:cover;
+ opacity:.48;
+ z-index:-2;
+}
+.hero::after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(0deg,var(--bg),transparent 75%);
+ z-index:-1;
+}
+.hero-content{max-width:570px}
+.tag{
+ display:inline-block;
+ padding:7px 12px;
+ border-radius:8px;
+ background:rgba(167,139,250,.17);
+ color:#c7b4ff;
+ font-size:11px;
+ font-weight:800;
+ margin-bottom:16px;
+}
+.hero h1{
+ font-size:clamp(32px,6vw,55px);
+ line-height:1.05;
+ font-weight:900;
+ letter-spacing:-2px;
+ margin-bottom:15px;
+}
+.hero p{
+ color:#c0c1cb;
+ line-height:1.6;
+ font-size:14px;
+ max-width:480px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:23px}
+.primary,.secondary{
+ border:0;
+ padding:13px 19px;
+ border-radius:11px;
+ font-weight:800;
+}
+.primary{background:var(--accent);color:#171022}
+.secondary{
+ background:rgba(255,255,255,.12);
+ color:white;
+ border:1px solid var(--border);
+}
+.container{padding:28px 5%}
+.section{margin-bottom:38px}
+.section-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:17px;
+}
+.section-head h2{font-size:19px;font-weight:850}
+.section-head button{
+ background:none;border:0;color:var(--accent);
+ font-size:12px;font-weight:700;
+}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:15px;
+}
+.movie{
+ min-width:0;
+ cursor:pointer;
+ transition:.2s;
+}
+.movie:hover{transform:translateY(-5px)}
+.poster{
+ width:100%;
+ aspect-ratio:2/3;
+ border-radius:12px;
+ object-fit:cover;
+ background:var(--panel2);
+ display:block;
+}
+.movie h3{
+ font-size:12px;
+ margin-top:9px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+.movie small{color:var(--muted);font-size:11px}
+.rating{color:#f6c76a!important}
+.search-area{
+ padding:28px 5%;
+}
+.search-box{
+ display:flex;
+ gap:10px;
+ background:var(--panel);
+ padding:10px;
+ border:1px solid var(--border);
+ border-radius:15px;
+}
+.search-box input{
+ background:none;
+ border:0;
+ outline:0;
+ color:white;
+ width:100%;
+ padding:5px;
+}
+.search-box button{
+ border:0;
+ border-radius:10px;
+ background:var(--accent2);
+ color:white;
+ padding:10px 20px;
+ font-weight:800;
+}
+.tabs{
+ display:flex;
+ gap:10px;
+ overflow-x:auto;
+ padding:20px 0;
+}
+.tabs button{
+ white-space:nowrap;
+ border:1px solid var(--border);
+ background:var(--panel);
+ color:var(--muted);
+ border-radius:30px;
+ padding:9px 16px;
+}
+.tabs button.active{
+ background:var(--accent);
+ color:#171022;
+ border-color:var(--accent);
+}
+.page-title{font-size:27px;font-weight:900;margin-bottom:20px}
+.empty{
+ text-align:center;
+ padding:70px 15px;
+ color:var(--muted);
+}
+.empty h2{color:white;margin-bottom:10px}
+.loader{
+ padding:45px;
+ text-align:center;
+ color:var(--accent);
+}
+.overlay{
+ position:fixed;
+ inset:0;
+ z-index:50;
+ background:rgba(0,0,0,.85);
+ display:none;
+ overflow-y:auto;
+ padding:25px;
+}
+.overlay.show{display:block}
+.modal{
+ max-width:850px;
+ margin:35px auto;
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:20px;
+ overflow:hidden;
+ position:relative;
+}
+.modal-backdrop{
+ height:260px;
+ background-position:center;
+ background-size:cover;
+ position:relative;
+}
+.modal-backdrop::after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(0deg,var(--panel),transparent);
+}
+.modal-content{padding:25px}
+.modal-content h2{font-size:30px;margin-bottom:12px}
+.modal-content p{color:#c0c1cb;line-height:1.7;font-size:14px}
+.modal-info{display:flex;gap:15px;color:var(--muted);font-size:12px;margin:15px 0}
+.close{
+ position:absolute;
+ right:15px;
+ top:15px;
+ z-index:5;
+ background:#171824;
+ border:0;
+ color:white;
+ border-radius:50%;
+ width:38px;
+ height:38px;
+}
+.cast{
+ display:flex;
+ gap:12px;
+ overflow-x:auto;
+ margin:20px 0;
+}
+.person{min-width:95px;max-width:95px}
+.person img{
+ width:95px;height:110px;object-fit:cover;border-radius:10px;
+}
+.person small{display:block;font-size:10px;color:var(--muted);margin-top:5px}
+.seasons{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.seasons button{
+ background:var(--panel2);border:1px solid var(--border);
+ color:white;border-radius:9px;padding:9px 12px;
+}
+.episodes{display:grid;gap:9px}
+.episode{
+ padding:13px;background:var(--panel2);
+ border-radius:10px;font-size:12px;
+}
+.settings{
+ position:fixed;inset:0;z-index:80;
+ background:rgba(0,0,0,.85);
+ display:none;align-items:center;justify-content:center;padding:20px;
+}
+.settings.show{display:flex}
+.settings-card{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:17px;padding:25px;width:100%;max-width:450px;
+}
+.settings-card h2{margin-bottom:15px}
+.settings-card label{font-size:12px;color:var(--muted)}
+.settings-card input{
+ display:block;width:100%;padding:13px;margin:9px 0 17px;
+ border:1px solid var(--border);border-radius:10px;
+ background:var(--panel2);color:white;outline:none;
+}
+.settings-card button{margin:5px 5px 0 0}
+footer{
+ padding:30px 5%;border-top:1px solid var(--border);
+ color:var(--muted);font-size:12px;text-align:center;
+}
+.bottom-nav{display:none}
+@media(max-width:900px){
+ .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+ nav{gap:13px}
+}
+@media(max-width:600px){
+ header{padding:0 4%;height:60px}
+ nav{display:none}
+ .hero{min-height:400px;padding:30px 5%}
+ .cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+ .container{padding:22px 4%}
+ .movie h3{font-size:11px}
+ .hero h1{font-size:36px}
+ .bottom-nav{
+ display:flex;position:fixed;bottom:0;left:0;right:0;
+ background:rgba(15,16,25,.97);backdrop-filter:blur(20px);
+ border-top:1px solid var(--border);
+ justify-content:space-around;padding:12px 5%;
+ z-index:30;
+ }
+ .bottom-nav button{
+ background:none;border:0;color:var(--muted);
+ font-size:10px;display:flex;flex-direction:column;gap:5px;
+ align-items:center;
+ }
+ .bottom-nav button.active{color:var(--accent)}
+ .overlay{padding:10px}
+ .modal{margin:20px auto}
+ .modal-backdrop{height:190px}
+ .modal-content h2{font-size:24px}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 1: INÍCIO (HOME)
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-home" class="screen active">
-    <div class="home-header">
-      <div class="home-logo">
-        <span>☁️</span> Seekee
-      </div>
-      <button class="btn-search-all" onclick="navigateTo('screen-search')">Pesquisar tudo</button>
-    </div>
-    
-    <div class="home-search-bar" onclick="navigateTo('screen-search')">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="#9ca3af"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <input type="text" placeholder="Pesquise ou digite uma URL" readonly>
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="#9ca3af"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
-    </div>
+<header>
+ <div class="logo">SEEK<span>EE</span></div>
+ <nav>
+  <button class="active" onclick="go('home',this)">Início</button>
+  <button onclick="go('movie',this)">Filmes</button>
+  <button onclick="go('tv',this)">Séries</button>
+  <button onclick="go('anime',this)">Animes</button>
+  <button onclick="go('favorites',this)">Favoritos</button>
+ </nav>
+ <div class="header-right">
+  <button class="icon-btn" onclick="showSearch()">⌕</button>
+  <button class="icon-btn" onclick="openSettings()">⚙</button>
+ </div>
+</header>
 
-    <div class="home-app-grid">
-      <div class="app-grid-item" onclick="navigateTo('screen-popular', 'popular-tab-btn')">
-        <div class="app-grid-icon"><svg viewBox="0 0 24 24" fill="#ef4444"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg></div>
-        <span>Notícias</span>
-      </div>
-      <div class="app-grid-item" onclick="navigateTo('screen-popular')">
-        <div class="app-grid-icon" style="background:#000;"><svg viewBox="0 0 24 24" fill="#f97316"><path d="M13.5 0.67s0.74 2.65 0.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l0.03-0.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg></div>
-        <span>Filmes e Séries</span>
-      </div>
-      <div class="app-grid-item">
-        <div class="app-grid-icon" style="background:#fff;"><svg viewBox="0 0 24 24" fill="#000"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg></div>
-        <span>Futebol</span>
-      </div>
-      <div class="app-grid-item">
-        <div class="app-grid-icon" style="background:#a855f7;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14v-4H8v-2h4V7h2v4h4v2h-4v4h-2z"/></svg></div>
-        <span>Criar Imagem</span>
-      </div>
-    </div>
-
-    <div class="home-circle-grid">
-      <div class="circle-grid-item" onclick="alert('Nenhum histórico recente.')"><div class="circle-grid-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div><span>Histórico</span></div>
-      <div class="circle-grid-item"><div class="circle-grid-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><span>VPN</span></div>
-      <div class="circle-grid-item" onclick="navigateTo('screen-drive')"><div class="circle-grid-icon"><svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div><span>Drive</span></div>
-      <div class="circle-grid-item"><div class="circle-grid-icon"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z"/></svg></div><span>Ferramentas</span></div>
-    </div>
-
-    <!-- Mini Player -->
-    <div class="mini-player" onclick="openMediaDetails(808, 'movie')">
-      <img src="https://image.tmdb.org/t/p/w200/2LqaLq2wO3w...jpg" onerror="this.src='https://via.placeholder.com/45x55/333/fff?text=SP'">
-      <div class="mini-player-info">
-        <h4>[Português Dublado] Homem-Aranha</h4>
-        <p>Não assistidos · Parte 3</p>
-        <div class="mini-progress"><div></div></div>
-      </div>
-      <div class="mini-play-btn">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-    </div>
+<main>
+ <div id="hero" class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content">
+   <span class="tag">SEEK FOR SOMETHING NEW</span>
+   <h1 id="heroTitle">Descubra seu próximo favorito.</h1>
+   <p id="heroDescription">Explore filmes, séries e histórias incríveis.</p>
+   <div class="hero-actions">
+    <button class="primary" onclick="heroDetails()">◉ Explorar</button>
+    <button class="secondary" onclick="go('movie')">Descobrir</button>
+   </div>
   </div>
+ </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 2: PESQUISA E HISTÓRICO
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-search" class="screen">
-    <div class="page-header">
-      <svg class="back-btn" viewBox="0 0 24 24" onclick="navigateTo('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-      <h1>Pesquisar</h1>
-    </div>
-    
-    <div class="section-title-row">
-      <h2>Histórico</h2>
-      <span onclick="clearHistory()">Todo o Histórico ></span>
-    </div>
-    <div class="history-list" id="history-list-container">
-      <!-- Injetado via JS -->
-    </div>
-    
-    <div class="section-title-row" style="margin-top: 20px;">
-      <h2>Mais populares</h2>
-      <span onclick="navigateTo('screen-popular')">Ver tudo ></span>
-    </div>
-
-    <div class="tabs-container">
-      <button class="tab-btn active" onclick="navigateTo('screen-popular')">Em alta</button>
-      <button class="tab-btn" onclick="navigateTo('screen-popular')">Filmes</button>
-      <button class="tab-btn" onclick="navigateTo('screen-popular')">Séries</button>
-      <button class="tab-btn" onclick="navigateTo('screen-popular')">Anime</button>
-    </div>
-
-    <div class="search-bottom-bar">
-      <input type="text" id="main-search-input" placeholder="Pesquise ou digite uma URL">
-      <button onclick="executeSearch()">Pesquisar</button>
-    </div>
+ <div id="searchArea" class="search-area" style="display:none">
+  <div class="search-box">
+   <input id="searchInput" placeholder="Buscar filmes, séries e pessoas..."
+    onkeydown="if(event.key==='Enter')search()">
+   <button onclick="search()">Buscar</button>
   </div>
+ </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 3: RESULTADOS DA PESQUISA (WEB)
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-results" class="screen">
-    <div class="page-header">
-      <svg class="back-btn" viewBox="0 0 24 24" onclick="navigateTo('screen-search')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-      <h1 id="results-header-title">Resultados</h1>
-    </div>
-    <div id="search-results-container" style="padding-bottom: 80px;">
-      <!-- Injetado via JS -->
-    </div>
+ <div class="container" id="content">
+  <div class="loader">Carregando catálogo...</div>
+ </div>
+</main>
+
+<div class="bottom-nav">
+ <button class="active" onclick="go('home')">⌂<span>Início</span></button>
+ <button onclick="go('movie')">▣<span>Filmes</span></button>
+ <button onclick="go('tv')">▤<span>Séries</span></button>
+ <button onclick="go('anime')">✧<span>Animes</span></button>
+ <button onclick="go('favorites')">♡<span>Favoritos</span></button>
+</div>
+
+<div class="overlay" id="detailsOverlay">
+ <div class="modal">
+  <button class="close" onclick="closeDetails()">✕</button>
+  <div class="modal-backdrop" id="detailBackdrop"></div>
+  <div class="modal-content" id="detailContent"></div>
+ </div>
+</div>
+
+<div class="settings" id="settings">
+ <div class="settings-card">
+  <h2>Configurações</h2>
+  <label>TMDB API Read Access Token</label>
+  <input id="tokenInput" type="password" placeholder="Cole seu token aqui">
+  <button class="primary" onclick="saveToken()">Salvar token</button>
+  <button class="secondary" onclick="clearToken()">Remover</button>
+  <button class="secondary" onclick="closeSettings()">Fechar</button>
+  <p style="font-size:11px;color:var(--muted);margin-top:15px;line-height:1.5">
+   O token fica salvo neste navegador. Não publique um token pessoal em um site público.
+   Para produção, utilize um backend.
+  </p>
+ </div>
+</div>
+
+<footer>
+ <p>SEEK​​EE WEB · Experiência independente de descoberta de entretenimento.</p>
+ <p style="margin-top:8px">Dados de filmes e séries fornecidos pelo TMDB.</p>
+</footer>
+
+<script>
+const API='https://api.themoviedb.org/3';
+const IMG='https://image.tmdb.org/t/p/';
+let token=localStorage.getItem('seekee_token')||'';
+let currentPage='home';
+let featured=null;
+let selectedType='movie';
+let genres={movie:[],tv:[]};
+let currentItems=[];
+let favorites=JSON.parse(localStorage.getItem('seekee_favorites')||'[]');
+let history=JSON.parse(localStorage.getItem('seekee_history')||'[]');
+
+async function api(path){
+ if(!token) throw new Error('Configure seu token TMDB nas configurações.');
+ const response=await fetch(API+path,{
+  headers:{Authorization:'Bearer '+token,accept:'application/json'}
+ });
+ if(!response.ok){
+  if(response.status===401)throw new Error('Token inválido. Verifique as configurações.');
+  throw new Error('Erro na API TMDB: '+response.status);
+ }
+ return response.json();
+}
+
+function openSettings(){
+ document.getElementById('settings').classList.add('show');
+ document.getElementById('tokenInput').value=token;
+}
+function closeSettings(){
+ document.getElementById('settings').classList.remove('show');
+}
+function saveToken(){
+ token=document.getElementById('tokenInput').value.trim();
+ if(!token)return alert('Informe seu token.');
+ localStorage.setItem('seekee_token',token);
+ closeSettings();
+ init();
+}
+function clearToken(){
+ token='';
+ localStorage.removeItem('seekee_token');
+ document.getElementById('tokenInput').value='';
+ alert('Token removido.');
+}
+function showSearch(){
+ document.getElementById('searchArea').style.display='block';
+ document.getElementById('searchInput').focus();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function escapeHTML(s=''){
+ return String(s).replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+function img(path,size='w500'){
+ return path?IMG+size+path:'https://placehold.co/500x750/191c29/ffffff?text=SEEK​​EE';
+}
+function year(item){
+ return (item.release_date||item.first_air_date||'').slice(0,4)||'—';
+}
+function title(item){
+ return item.title||item.name||'Sem título';
+}
+function card(item,type='movie'){
+ return `
+ <article class="movie" onclick="details(${item.id},'${type}')">
+  <img class="poster" loading="lazy" src="${img(item.poster_path)}"
+   alt="${escapeHTML(title(item))}">
+  <h3>${escapeHTML(title(item))}</h3>
+  <small class="rating">★ ${Number(item.vote_average||0).toFixed(1)}
+  · ${year(item)}</small>
+ </article>`;
+}
+function section(name,items,type='movie'){
+ if(!items||!items.length)return '';
+ return `
+ <section class="section">
+  <div class="section-head">
+   <h2>${name}</h2>
+   <button onclick="go('${type}')">Ver catálogo →</button>
   </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 4: POPULARES (RANKING COM ABAS CORRIGIDAS)
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-popular" class="screen">
-    <div class="page-header">
-      <svg class="back-btn" viewBox="0 0 24 24" onclick="navigateTo('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-      <h1>Pesquisas populares</h1>
-    </div>
-    
-    <div class="tabs-container" id="popular-tabs">
-      <button class="tab-btn active" onclick="loadRanking('trending', this)">Em alta</button>
-      <button class="tab-btn" onclick="loadRanking('movie', this)">Filmes</button>
-      <button class="tab-btn" onclick="loadRanking('tv', this)">Séries</button>
-      <button class="tab-btn" onclick="loadRanking('anime', this)">Animes</button>
-    </div>
-
-    <div class="ranking-container" id="ranking-list">
-      <div class="loader"></div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 5: FAVORITOS / MARCADOR
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-favorites" class="screen">
-    <div class="page-header">
-      <svg class="back-btn" viewBox="0 0 24 24" onclick="navigateTo('screen-home')"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-    </div>
-    
-    <div class="fav-header-tabs">
-      <div class="fav-tab active" onclick="switchFavTab('favorites')">Marcador</div>
-      <div class="fav-tab" onclick="switchFavTab('history')">Histórico</div>
-    </div>
-
-    <div class="fav-search-bar">Buscar Favoritos</div>
-
-    <div id="favorites-content">
-      <!-- Injetado via JS -->
-    </div>
-
-    <div class="btn-new-folder" onclick="alert('Função Nova Pasta em breve!')">Nova pasta</div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 6: PERFIL (CONTA REAL)
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-profile" class="screen">
-    <div class="profile-header">
-      <svg class="back-btn" viewBox="0 0 24 24" onclick="navigateTo('screen-home')" style="width: 24px; height: 24px; fill: #fff; cursor: pointer; margin-right: 10px;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-      <div class="profile-avatar">A</div>
-      <h1>Akira<br>Dosantos</h1>
-    </div>
-
-    <div class="vip-card">
-      <div>
-        <h2>Pro VIP</h2>
-        <p>VIP válido até: 12/12/2026</p>
-      </div>
-      <button class="btn-vip">Renovar agora ></button>
-      <img src="https://cdn-icons-png.flaticon.com/512/2955/2955857.png" class="vip-diamond" alt="Diamante">
-    </div>
-
-    <div class="ai-points">
-      <span>✦ Pontos de IA: 0</span>
-      <span>Recarregar ></span>
-    </div>
-
-    <div class="profile-section">
-      <div class="profile-section-header">
-        <h3>Continuar assistindo</h3>
-        <span>Todos ></span>
-      </div>
-      <div class="continue-scroll" id="profile-continue-list">
-        <!-- Injetado via JS -->
-      </div>
-      <div class="stats-grid">
-        <div><h3 id="stat-fav-count">0</h3><p>Marcador</p></div>
-        <div><h3 id="stat-hist-count">0</h3><p>Histórico</p></div>
-        <div><h3>0</h3><p>Baixar</p></div>
-        <div><h3>0</h3><p>Lembretes</p></div>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <div class="profile-section-header">
-        <h3>Minha Drive</h3>
-        <span style="color: #ef4444;">15,71GB / 15GB ></span>
-      </div>
-      <div class="storage-bar"><div></div></div>
-      <div class="storage-icons">
-        <div><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg><br>Arquivos</div>
-        <div><svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg><br>Vídeo</div>
-        <div><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><br>Foto</div>
-        <div><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg><br>Documento</div>
-      </div>
-    </div>
-
-    <div class="profile-section" style="margin-bottom: 100px;">
-      <div class="menu-list">
-        <div class="menu-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11h8V3H3v8zm0 10h8v-8H3v8zm10 0h8v-8h-8v8zm0-18v8h8V3h-8z"/></svg><span>Entrar na TV com QR Code</span><svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
-        <div class="menu-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg><span>Proteção para menores</span><svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
-        <div class="menu-item" onclick="alert('Configurações abertas!')"><svg class="icon" viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg><span>Configuração</span><svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
-        <div class="menu-item" onclick="alert('Central de Ajuda.')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg><span>Ajuda</span><svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       TELA 7: DETALHES DO FILME / PLAYER
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="screen-movie" class="screen">
-    <div class="player-container">
-      <iframe id="video-player" src="" allowfullscreen allow="autoplay; fullscreen; encrypted-media;"></iframe>
-    </div>
-
-    <div class="movie-info">
-      <div class="movie-title-row">
-        <h1 id="movie-title">Carregando...</h1>
-        <svg viewBox="0 0 24 24" onclick="navigateTo('screen-home')"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-      </div>
-
-      <div class="action-bar">
-        <button class="btn-flag" onclick="openModal('feedback-modal')">
-          <svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
-        </button>
-        <div class="drive-badge">
-          <span>Usando benefícios da reprodução acelerada na Drive</span>
-          <div class="drive-icon"><svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div>
-        </div>
-      </div>
-
-      <div class="feature-grid">
-        <button class="feature-btn" onclick="alert('Download iniciado em segundo plano.')">
-          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span>Baixar</span>
-        </button>
-        <button class="feature-btn" onclick="openModal('audio-modal')">
-          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg><span>Áudio</span>
-        </button>
-        <button class="feature-btn" onclick="alert('Você será notificado sobre novos episódios.')">
-          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span>Avisos</span>
-        </button>
-        <button class="feature-btn" id="btn-favorite-toggle" onclick="toggleFavoriteCurrent()">
-          <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span>Favorito</span>
-        </button>
-      </div>
-
-      <div class="section-header" onclick="openModal('parts-modal')">
-        <h2 id="collection-title">Parte Única</h2>
-        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-      </div>
-
-      <div class="section-sub-header">
-        <h2>Episódios</h2>
-        <span id="episodes-count" onclick="openModal('parts-modal')">1 filme ></span>
-      </div>
-      <div class="episodes-preview-row" id="episodes-preview"></div>
-
-      <div class="similar-section">
-        <h2>Títulos semelhantes</h2>
-        <div class="similar-scroll" id="similar-scroll"></div>
-      </div>
-    </div>
-
-    <!-- Banner VIP Fixo -->
-    <div class="vip-fixed-banner">
-      <div class="vip-fixed-text">
-        <h4>Seu VIP expirou</h4>
-        <p>Renove o VIP para assistir em HD sem anúncios</p>
-      </div>
-      <button class="btn-vip-fixed" onclick="alert('Redirecionando para o Pagamento...')">Renovar agora</button>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       BARRA DE NAVEGAÇÃO INFERIOR
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="bottom-nav">
-    <div class="nav-item active" id="nav-home" onclick="navigateTo('screen-home', 'nav-home')">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-      <span>Abas</span>
-    </div>
-    <div class="nav-item" id="nav-favorites" onclick="navigateTo('screen-favorites', 'nav-favorites')">
-      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-      <span>Favoritos</span>
-    </div>
-    <div class="nav-item" onclick="openAI()">
-      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14v-4H8v-2h4V7h2v4h4v2h-4v4h-2z"/></svg>
-      <span>Chat com IA</span>
-    </div>
-    <div class="nav-item" onclick="alert('Aba de downloads vazia.')">
-      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-      <span>Baixar</span>
-    </div>
-    <div class="nav-item" id="nav-profile" onclick="navigateTo('screen-profile', 'nav-profile')">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span>Perfil</span>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       MODAIS E BOTTOM SHEETS
-       ═══════════════════════════════════════════════════════════ -->
-  
-  <!-- Modal de Partes (Fundo Preto Centralizado) -->
-  <div class="modal-overlay" id="parts-modal">
-    <div class="parts-modal-content" id="parts-list-container"></div>
-    <button class="close-circle-btn" onclick="closeModal('parts-modal')">
-      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-  </div>
-
-  <!-- Modal de Áudio -->
-  <div class="bottom-sheet" id="audio-modal">
-    <div class="sheet-header">
-      <h2>Áudio</h2>
-      <button class="close-btn" onclick="closeModal('audio-modal')">✕</button>
-    </div>
-    <div class="audio-option" onclick="selectAudio(this)">Áudio em inglês - Múltiplas Legendas</div>
-    <div class="audio-option" onclick="selectAudio(this)">Áudio Espanhol - LATAM</div>
-    <div class="audio-option active" onclick="selectAudio(this)">Português Dublado <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-  </div>
-
-  <!-- Modal de Feedback (Bandeira) -->
-  <div class="bottom-sheet" id="feedback-modal">
-    <div class="sheet-header">
-      <h2>Conteúdo do Feedback</h2>
-      <button class="close-btn" onclick="closeModal('feedback-modal')">✕</button>
-    </div>
-    <div class="feedback-list">
-      <label class="feedback-label"><input type="checkbox"> Reprodução interrompida ou não carregando</label>
-      <label class="feedback-label"><input type="checkbox"> Falta dublagem em português</label>
-      <label class="feedback-label"><input type="checkbox"> As legendas estão incorretas</label>
-      <label class="feedback-label"><input type="checkbox"> Faltam legendas em português</label>
-      <label class="feedback-label"><input type="checkbox"> Temporadas/Episódios ausentes</label>
-      <label class="feedback-label"><input type="checkbox"> Áudio e vídeo fora de sincronia</label>
-      <label class="feedback-label"><input type="checkbox"> Falha no download do vídeo</label>
-    </div>
-    <textarea class="feedback-textarea" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
-    <button class="btn-submit-feedback" onclick="submitFeedback()">Enviar Feedback</button>
-    <p class="feedback-footer">
-      Se seus direitos de propriedade intelectual, privacidade ou outros foram violados, clique para ver <a href="#">Guia de Reclamação de Violação do Seekee</a>
-    </p>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       SCRIPT PRINCIPAL - LÓGICA DA APLICAÇÃO
-       ═══════════════════════════════════════════════════════════ -->
-  <script>
-    /* ── 1. CONFIGURAÇÕES E VARIÁVEIS GLOBAIS ── */
-    const TMDB_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM'; 
-    const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-    const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w300';
-    
-    // Estado Global
-    let appState = {
-      currentScreen: 'screen-home',
-      currentMedia: null, // { id, type, title }
-      history: JSON.parse(localStorage.getItem('@Seekee:history')) || [],
-      favorites: JSON.parse(localStorage.getItem('@Seekee:favorites')) || []
-    };
-
-    /* ── 2. SISTEMA DE NAVEGAÇÃO (SPA) ── */
-    function navigateTo(screenId, activeNavId = null) {
-      // Esconde todas as telas
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      // Mostra a tela alvo
-      document.getElementById(screenId).classList.add('active');
-      
-      // Atualiza os ícones da barra inferior
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      if (activeNavId) {
-        document.getElementById(activeNavId).classList.add('active');
-      } else {
-        // Se não especificado, tenta achar o nav correspondente
-        if (screenId === 'screen-home') document.getElementById('nav-home').classList.add('active');
-        if (screenId === 'screen-favorites') document.getElementById('nav-favorites').classList.add('active');
-        if (screenId === 'screen-profile') document.getElementById('nav-profile').classList.add('active');
-      }
-
-      // Controle do Banner VIP na tela do filme
-      const vipBanner = document.querySelector('.vip-fixed-banner');
-      if (screenId === 'screen-movie') {
-        vipBanner.style.display = 'flex';
-      } else {
-        vipBanner.style.display = 'none';
-      }
-
-      window.scrollTo(0, 0);
-      appState.currentScreen = screenId;
-    }
-
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function selectAudio(el) {
-      document.querySelectorAll('.audio-option').forEach(opt => opt.classList.remove('active'));
-      el.classList.add('active');
-      setTimeout(() => closeModal('audio-modal'), 300);
-    }
-    function submitFeedback() {
-      closeModal('feedback-modal');
-      setTimeout(() => alert('Obrigado! Seu feedback foi enviado.'), 300);
-    }
-    function openAI() {
-      alert('O Chat com IA está em desenvolvimento e estará disponível em breve!');
-    }
-
-    /* ── 3. FUNÇÕES DA API DO TMDB ── */
-    async function fetchTMDB(endpoint, queryParams = '') {
-      const url = `${TMDB_BASE_URL}${endpoint}?language=pt-BR${queryParams}`;
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${TMDB_TOKEN}`
-        }
-      };
-      const response = await fetch(url, options);
-      if (!response.ok) throw new Error('Erro na requisição TMDB');
-      return response.json();
-    }
-
-    /* ── 4. CARREGAR RANKING POPULAR ── */
-    async function loadRanking(type = 'trending', btn = null) {
-      // UI Tabs
-      if (btn) {
-        document.querySelectorAll('#popular-tabs .tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-
-      const container = document.getElementById('ranking-list');
-      container.innerHTML = '<div class="loader"></div>';
-
-      try {
-        let endpoint = '/trending/all/day';
-        if (type === 'movie') endpoint = '/movie/popular';
-        if (type === 'tv') endpoint = '/tv/popular';
-        if (type === 'anime') endpoint = '/discover/tv'; // Anime requer discover com gênero 16
-
-        let params = '';
-        if (type === 'anime') params = '&with_genres=16&sort_by=popularity.desc';
-
-        const data = await fetchTMDB(endpoint, params);
-        const items = data.results.slice(0, 15);
-        
-        container.innerHTML = '';
-        
-        items.forEach((item, index) => {
-          const title = item.title || item.name;
-          const date = (item.release_date || item.first_air_date || '').split('-')[0];
-          // O TMDB retorna media_type no trending, mas não nos populares diretos
-          const mediaType = item.media_type || (type === 'tv' || type === 'anime' ? 'tv' : 'movie');
-          const typeLabel = mediaType === 'tv' ? 'Série/Anime' : 'Filme';
-          
-          let rankColor = '#333';
-          if (index === 0) rankColor = '#ef4444';
-          else if (index === 1) rankColor = '#f97316';
-          else if (index === 2) rankColor = '#eab308';
-
-          const el = document.createElement('div');
-          el.className = 'rank-item';
-          el.onclick = () => openMediaDetails(item.id, mediaType);
-          el.innerHTML = `
-            <div class="rank-num" style="background-color: ${rankColor};">${index + 1}</div>
-            <img src="${item.poster_path ? IMG_BASE_URL + item.poster_path : 'https://via.placeholder.com/70x100/222/666?text=Sem+Capa'}" alt="${title}">
-            <div class="rank-info">
-              <div class="rank-header">
-                <div class="rank-title">${title}</div>
-                <div class="rank-fire">🔥 ${Math.floor(Math.random() * 50000 + 50000).toLocaleString('pt-BR')}</div>
-              </div>
-              <div class="rank-meta">${date ? date + ' · ' : ''}TBC · US · Drama</div>
-              <div class="rank-type">${typeLabel}</div>
-            </div>
-          `;
-          container.appendChild(el);
-        });
-
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = '<p style="text-align:center; color:#666; padding:20px;">Erro ao carregar ranking.</p>';
-      }
-    }
-
-    /* ── 5. SISTEMA DE PESQUISA ── */
-    async function executeSearch() {
-      const query = document.getElementById('main-search-input').value.trim();
-      if (!query) return;
-
-      navigateTo('screen-results');
-      const container = document.getElementById('search-results-container');
-      document.getElementById('results-header-title').textContent = `Resultados: ${query}`;
-      container.innerHTML = '<div class="loader"></div>';
-
-      try {
-        const data = await fetchTMDB('/search/multi', `&query=${encodeURIComponent(query)}`);
-        container.innerHTML = '';
-
-        // Mock do Resultado Web (Wikipedia)
-        container.innerHTML += `
-          <div class="web-result">
-            <h2>${query} - Wikipédia</h2>
-            <p>${query} é um filme/série de grande sucesso. Saiba mais sobre o elenco, sinopse, bilheteria e onde assistir online em alta qualidade...</p>
-            <div class="url"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/></svg> pt.wikipedia.org</div>
-          </div>
-        `;
-
-        // Resultados do TMDB
-        const results = data.results.filter(item => item.media_type !== 'person').slice(0, 10);
-        
-        results.forEach(item => {
-          const title = item.title || item.name;
-          const date = (item.release_date || item.first_air_date || '').split('-')[0];
-          const mediaType = item.media_type;
-          const typeLabel = mediaType === 'movie' ? 'Filme' : 'Série';
-
-          const el = document.createElement('div');
-          el.className = 'app-result-card';
-          el.innerHTML = `
-            <img src="${item.poster_path ? IMG_BASE_URL + item.poster_path : 'https://via.placeholder.com/85x125/222/666?text=Sem+Capa'}">
-            <div class="app-result-info">
-              <h2>[Português Dublado] ${title}</h2>
-              <div class="meta">${typeLabel} · ${date} · Ficção científica · Aventura</div>
-              <div class="desc">${item.overview || 'Sinopse não disponível em português.'}</div>
-              <div class="btn-assistir-mini" onclick="openMediaDetails(${item.id}, '${mediaType}')">Assistir ></div>
-            </div>
-          `;
-          container.appendChild(el);
-        });
-
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = '<p style="text-align:center; padding:20px;">Nenhum resultado encontrado.</p>';
-      }
-    }
-
-    /* ── 6. DETALHES DO FILME (A CORE DO SISTEMA) ── */
-    async function openMediaDetails(id, type) {
-      navigateTo('screen-movie');
-      
-      // Salva no Histórico
-      saveToHistory(id, type);
-      
-      // Reseta a UI
-      document.getElementById('movie-title').textContent = "Carregando...";
-      document.getElementById('similar-scroll').innerHTML = '';
-      document.getElementById('episodes-preview').innerHTML = '';
-      
-      // Configura o Player do Kiraflix (A URL usa o ID do TMDB)
-      // O Kiraflix funciona tanto para filme quanto para série na mesma rota
-      const playerIframe = document.getElementById('video-player');
-      playerIframe.src = `https://kiraflix.qd.je/filme/${id}`;
-
-      try {
-        // 1. Busca detalhes básicos
-        const details = await fetchTMDB(`/${type}/${id}`);
-        const title = details.title || details.name;
-        document.getElementById('movie-title').textContent = title;
-
-        // Atualiza estado atual para o botão de Favorito
-        appState.currentMedia = { id, type, title, poster_path: details.poster_path };
-        updateFavoriteButtonState();
-
-        // 2. Lógica para Filmes (Coleção) vs Séries (Temporadas)
-        if (type === 'movie') {
-          if (details.belongs_to_collection) {
-            const collection = await fetchTMDB(`/collection/${details.belongs_to_collection.id}`);
-            document.getElementById('collection-title').textContent = collection.name;
-            document.getElementById('episodes-count').textContent = `${collection.parts.length} filmes >`;
-            renderEpisodesOrParts(collection.parts, id, type);
-          } else {
-            document.getElementById('collection-title').textContent = 'Filme Único';
-            document.getElementById('episodes-count').textContent = '1 filme >';
-            renderEpisodesOrParts([details], id, type);
-          }
-        } else {
-          // Para séries, puxa as temporadas
-          document.getElementById('collection-title').textContent = 'Série Completa';
-          document.getElementById('episodes-count').textContent = `${details.number_of_seasons} temporadas >`;
-          
-          const fakeSeasons = [];
-          for(let i=1; i<=details.number_of_seasons; i++) {
-            fakeSeasons.push({ id: id, season_number: i, title: `Temporada ${i}` });
-          }
-          renderEpisodesOrParts(fakeSeasons, id, type);
-        }
-
-        // 3. Busca Títulos Semelhantes
-        const similar = await fetchTMDB(`/${type}/${id}/similar`);
-        renderSimilar(similar.results);
-
-      } catch (err) {
-        console.error(err);
-        document.getElementById('movie-title').textContent = "Erro ao carregar dados";
-      }
-    }
-
-    function renderEpisodesOrParts(parts, currentId, type) {
-      const previewContainer = document.getElementById('episodes-preview');
-      const modalContainer = document.getElementById('parts-list-container');
-      previewContainer.innerHTML = '';
-      modalContainer.innerHTML = '';
-
-      parts.forEach((part, index) => {
-        const isActive = (part.id === currentId && type === 'movie') || (part.season_number === 1 && type === 'tv');
-        const displayTitle = part.title || `Parte ${index + 1}`;
-        const displayNumber = index + 1;
-
-        // Preview Card
-        const pCard = document.createElement('div');
-        pCard.className = `ep-card ${isActive ? 'active' : ''}`;
-        pCard.textContent = displayNumber;
-        pCard.onclick = () => { if(part.id) openMediaDetails(part.id, type); };
-        previewContainer.appendChild(pCard);
-
-        // Modal List Item
-        const mItem = document.createElement('div');
-        mItem.className = `part-item-btn ${isActive ? 'active' : ''}`;
-        mItem.textContent = displayTitle;
-        mItem.onclick = () => { 
-          closeModal('parts-modal'); 
-          if(part.id && type === 'movie') openMediaDetails(part.id, 'movie'); 
-        };
-        modalContainer.appendChild(mItem);
-      });
-    }
-
-    function renderSimilar(movies) {
-      const container = document.getElementById('similar-scroll');
-      container.innerHTML = '';
-      
-      if (!movies || movies.length === 0) {
-        container.innerHTML = '<p style="color:#666; font-size:0.8rem;">Nenhuma sugestão encontrada.</p>';
-        return;
-      }
-
-      movies.slice(0, 10).forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'similar-card';
-        card.onclick = () => openMediaDetails(m.id, m.media_type || (m.name ? 'tv' : 'movie'));
-        
-        const imgUrl = m.poster_path ? IMG_BASE_URL + m.poster_path : 'https://via.placeholder.com/130x195/222/666?text=Sem+Capa';
-        const rating = m.vote_average ? m.vote_average.toFixed(1) : 'N/A';
-        
-        card.innerHTML = `
-          <div class="img-wrapper">
-            <img src="${imgUrl}" alt="${m.title || m.name}">
-            <div class="rating-badge">
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              ${rating}
-            </div>
-          </div>
-          <div class="title">${m.title || m.name}</div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    /* ── 7. SISTEMA DE FAVORITOS E HISTÓRICO (LOCAL STORAGE) ── */
-    function saveToHistory(id, type) {
-      // Evita duplicatas seguidas
-      if (appState.history.length > 0 && appState.history[0].id === id) return;
-      
-      const newItem = { id, type, timestamp: Date.now() };
-      appState.history = [newItem, ...appState.history].slice(0, 50); // Limita a 50 itens
-      localStorage.setItem('@Seekee:history', JSON.stringify(appState.history));
-      updateProfileStats();
-    }
-
-    function toggleFavoriteCurrent() {
-      if (!appState.currentMedia) return;
-      const { id, type, title, poster_path } = appState.currentMedia;
-      
-      const existingIndex = appState.favorites.findIndex(f => f.id === id);
-      if (existingIndex > -1) {
-        appState.favorites.splice(existingIndex, 1); // Remove
-      } else {
-        appState.favorites.push({ id, type, title, poster_path }); // Adiciona
-      }
-      
-      localStorage.setItem('@Seekee:favorites', JSON.stringify(appState.favorites));
-      updateFavoriteButtonState();
-      updateProfileStats();
-      renderFavoritesScreen();
-    }
-
-    function updateFavoriteButtonState() {
-      if (!appState.currentMedia) return;
-      const isFav = appState.favorites.some(f => f.id === appState.currentMedia.id);
-      const btn = document.getElementById('btn-favorite-toggle');
-      if (isFav) {
-        btn.classList.add('active');
-        btn.querySelector('span').textContent = 'Favoritado';
-      } else {
-        btn.classList.remove('active');
-        btn.querySelector('span').textContent = 'Favorito';
-      }
-    }
-
-    function updateProfileStats() {
-      document.getElementById('stat-fav-count').textContent = appState.favorites.length;
-      document.getElementById('stat-hist-count').textContent = appState.history.length;
-    }
-
-    function clearHistory() {
-      appState.history = [];
-      localStorage.removeItem('@Seekee:history');
-      updateProfileStats();
-      renderHistoryScreen();
-    }
-
-    /* ── 8. RENDERIZAÇÃO DAS TELAS DE PERFIL, HISTÓRICO E FAVORITOS ── */
-    function renderHistoryScreen() {
-      const container = document.getElementById('history-list-container');
-      container.innerHTML = '';
-      
-      if (appState.history.length === 0) {
-        container.innerHTML = '<p style="color:#666; font-size:0.9rem; padding:0 20px;">Nenhuma pesquisa recente.</p>';
-        return;
-      }
-
-      // Pega os 5 primeiros
-      appState.history.slice(0, 5).forEach(item => {
-        const el = document.createElement('div');
-        el.className = 'history-item';
-        el.innerHTML = `
-          <span>ID: ${item.id} (${item.type === 'movie' ? 'Filme' : 'Série'})</span>
-          <svg viewBox="0 0 24 24" onclick="event.stopPropagation();"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        `;
-        el.onclick = () => openMediaDetails(item.id, item.type);
-        container.appendChild(el);
-      });
-    }
-
-    function renderFavoritesScreen() {
-      const container = document.getElementById('favorites-content');
-      container.innerHTML = '';
-
-      if (appState.favorites.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-            <p>Nenhum Conteúdo Disponível</p>
-          </div>
-        `;
-        return;
-      }
-
-      const grid = document.createElement('div');
-      grid.className = 'favorites-grid';
-      appState.favorites.forEach(fav => {
-        const el = document.createElement('div');
-        el.className = 'grid-card';
-        el.onclick = () => openMediaDetails(fav.id, fav.type);
-        el.innerHTML = `
-          <div class="img-wrapper">
-            <img src="${fav.poster_path ? IMG_BASE_URL + fav.poster_path : 'https://via.placeholder.com/100x150/222/666?text=Sem+Capa'}">
-          </div>
-          <div class="title">${fav.title}</div>
-        `;
-        grid.appendChild(el);
-      });
-      container.appendChild(grid);
-    }
-
-    function switchFavTab(tab) {
-      document.querySelectorAll('.fav-tab').forEach(t => t.classList.remove('active'));
-      if (tab === 'favorites') {
-        document.querySelectorAll('.fav-tab')[0].classList.add('active');
-        document.querySelector('.fav-search-bar').textContent = 'Buscar Favoritos';
-        renderFavoritesScreen();
-      } else {
-        document.querySelectorAll('.fav-tab')[1].classList.add('active');
-        document.querySelector('.fav-search-bar').textContent = 'Buscar no Histórico';
-        // Redireciona para a tela de pesquisa que já tem a lista de histórico limpa
-        navigateTo('screen-search');
-      }
-    }
-
-    /* ── 9. INICIALIZAÇÃO DO APP ── */
-    document.addEventListener('DOMContentLoaded', () => {
-      // Carrega as abas
-      loadRanking('trending');
-      renderHistoryScreen();
-      renderFavoritesScreen();
-      updateProfileStats();
-      
-      // Fecha modais ao clicar fora
-      document.querySelectorAll('.modal-overlay, .bottom-sheet').forEach(modal => {
-        modal.addEventListener('click', function(e) {
-          if (e.target === this) {
-            this.classList.remove('active');
-          }
-        });
-      });
-    });
-
-  </script>
+  <div class="cards">${items.map(x=>card(x,type)).join('')}</div>
+ </section>`;
+}
+function errorHTML(error){
+ return `<div class="empty"><h2>Não foi possível carregar</h2>
+ <p>${escapeHTML(error.message)}</p>
+ <button class="primary" onclick="openSettings()" style="margin-top:20px">
+ Configurar token</button></div>`;
+}
+async function init(){
+ if(!token){
+  document.getElementById('content').innerHTML=
+  `<div class="empty"><h2>Bem-vindo ao Seekee Web</h2>
+  <p>Configure seu token TMDB para carregar seu catálogo.</p>
+  <button class="primary" onclick="openSettings()" style="margin-top:20px">Configurar TMDB</button></div>`;
+  return;
+ }
+ try{
+  await Promise.all([
+   loadGenres('movie'),
+   loadGenres('tv')
+  ]);
+  await home();
+ }catch(e){
+  document.getElementById('content').innerHTML=errorHTML(e);
+ }
+}
+async function loadGenres(type){
+ const data=await api('/genre/'+type+'/list?language=pt-BR');
+ genres[type]=data.genres||[];
+}
+async function home(){
+ currentPage='home';
+ document.getElementById('searchArea').style.display='none';
+ document.getElementById('content').innerHTML='<div class="loader">Carregando novidades...</div>';
+ try{
+  const [trending,popular,movies,tv,top]=await Promise.all([
+   api('/trending/all/week?language=pt-BR'),
+   api('/movie/popular?language=pt-BR&page=1'),
+   api('/movie/now_playing?language=pt-BR&page=1'),
+   api('/tv/popular?language=pt-BR&page=1'),
+   api('/movie/top_rated?language=pt-BR&page=1')
+  ]);
+  const valid=(trending.results||[]).filter(x=>x.backdrop_path);
+  featured=valid[0]||null;
+  if(featured){
+   document.getElementById('heroTitle').textContent=title(featured);
+   document.getElementById('heroDescription').textContent=featured.overview||'Descubra esta história.';
+   document.getElementById('heroBg').style.backgroundImage=`url(${img(featured.backdrop_path,'original')})`;
+  }
+  document.getElementById('content').innerHTML=
+   section('🔥 Em alta',trending.results,'movie')+
+   section('🎬 Filmes populares',popular.results,'movie')+
+   section('🍿 Nos cinemas',movies.results,'movie')+
+   section('📺 Séries populares',tv.results,'tv')+
+   section('⭐ Mais bem avaliados',top.results,'movie');
+ }catch(e){
+  document.getElementById('content').innerHTML=errorHTML(e);
+ }
+}
+function heroDetails(){
+ if(featured)details(featured.id,featured.media_type||'movie');
+ else go('movie');
+}
+async function go(page,button){
+ currentPage=page;
+ document.querySelectorAll('nav button,.bottom-nav button').forEach(b=>b.classList.remove('active'));
+ if(button)button.classList.add('active');
+ document.getElementById('searchArea').style.display='none';
+ if(page==='home')return home();
+ if(page==='favorites')return showFavorites();
+ if(page==='movie')return discover('movie');
+ if(page==='tv')return discover('tv');
+ if(page==='anime')return anime();
+}
+async function discover(type){
+ selectedType=type;
+ currentPage=type;
+ document.getElementById('content').innerHTML='<div class="loader">Buscando catálogo...</div>';
+ try{
+  const data=await api('/discover/'+type+'?language=pt-BR&sort_by=popularity.desc&page=1&vote_count.gte=10');
+  let list=data.results||[];
+  currentItems=list;
+  const gs=genres[type];
+  const tabs=`<div class="tabs">
+   <button class="active" onclick="discover('${type}')">Todos</button>
+   ${gs.map(g=>`<button onclick="byGenre('${type}',${g.id},this)">${escapeHTML(g.name)}</button>`).join('')}
+  </div>`;
+  document.getElementById('content').innerHTML=
+   `<h1 class="page-title">${type==='movie'?'Filmes':'Séries'}</h1>`+
+   tabs+`<div class="cards" id="genreResults">${list.map(x=>card(x,type)).join('')}</div>`;
+ }catch(e){
+  document.getElementById('content').innerHTML=errorHTML(e);
+ }
+}
+async function byGenre(type,id,button){
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
+ const box=document.getElementById('genreResults');
+ box.innerHTML='<div class="loader">Carregando...</div>';
+ try{
+  const data=await api(`/discover/${type}?language=pt-BR&with_genres=${id}&sort_by=popularity.desc&page=1`);
+  box.innerHTML=(data.results||[]).map(x=>card(x,type)).join('');
+ }catch(e){box.innerHTML=errorHTML(e)}
+}
+async function anime(){
+ currentPage='anime';
+ document.getElementById('content').innerHTML='<div class="loader">Procurando animes...</div>';
+ try{
+  const data=await api('/discover/tv?language=pt-BR&with_genres=16&with_origin_country=JP&sort_by=popularity.desc&page=1');
+  document.getElementById('content').innerHTML=
+   '<h1 class="page-title">✧ Animes</h1>'+
+   '<div class="cards">'+(data.results||[]).map(x=>card(x,'tv')).join('')+'</div>';
+ }catch(e){document.getElementById('content').innerHTML=errorHTML(e)}
+}
+async function search(){
+ const q=document.getElementById('searchInput').value.trim();
+ if(!q)return;
+ document.getElementById('content').innerHTML='<div class="loader">Pesquisando...</div>';
+ try{
+  const data=await api('/search/multi?query='+encodeURIComponent(q)+'&language=pt-BR&page=1');
+  const results=(data.results||[]).filter(x=>['movie','tv'].includes(x.media_type));
+  document.getElementById('content').innerHTML=
+   `<h1 class="page-title">Resultados: ${escapeHTML(q)}</h1>
+   <div class="cards">${results.map(x=>card(x,x.media_type)).join('')}</div>`+
+   (results.length?'':'<div class="empty">Nenhum resultado encontrado.</div>');
+ }catch(e){document.getElementById('content').innerHTML=errorHTML(e)}
+}
+async function details(id,type){
+ if(!['movie','tv'].includes(type))type='movie';
+ document.getElementById('detailsOverlay').classList.add('show');
+ document.getElementById('detailContent').innerHTML='<div class="loader">Carregando detalhes...</div>';
+ document.getElementById('detailBackdrop').style.backgroundImage='';
+ try{
+  const [item,credits,videos]=await Promise.all([
+   api(`/${type}/${id}?language=pt-BR`),
+   api(`/${type}/${id}/credits?language=pt-BR`),
+   api(`/${type}/${id}/videos?language=pt-BR`)
+  ]);
+  document.getElementById('detailBackdrop').style.backgroundImage=
+   `url(${img(item.backdrop_path,'original')})`;
+  history=[{id,type},...history.filter(x=>!(x.id===id&&x.type===type))].slice(0,30);
+  localStorage.setItem('seekee_history',JSON.stringify(history));
+  const cast=(credits.cast||[]).slice(0,12);
+  const trailer=(videos.results||[]).find(v=>v.site==='YouTube'&&v.type==='Trailer');
+  let seasons='';
+  if(type==='tv'){
+   seasons=`<h3 style="margin-top:20px">Temporadas</h3>
+   <div class="seasons">${(item.seasons||[]).filter(s=>s.season_number>0).map(s=>
+    `<button onclick="episodes(${id},${s.season_number})">${escapeHTML(s.name)}</button>`).join('')}</div>
+   <div id="episodeList"></div>`;
+  }
+  document.getElementById('detailContent').innerHTML=`
+   <span class="tag">${type==='movie'?'FILME':'SÉRIE'}</span>
+   <h2>${escapeHTML(title(item))}</h2>
+   <div class="modal-info">
+    <span>★ ${Number(item.vote_average||0).toFixed(1)}</span>
+    <span>${year(item)}</span>
+    <span>${type==='movie'?(item.runtime||'—')+' min':(item.number_of_seasons||0)+' temporadas'}</span>
+   </div>
+   <p>${escapeHTML(item.overview||'Sinopse não disponível.')}</p>
+   <div class="hero-actions">
+    <button class="primary" onclick="toggleFavorite(${id},'${type}')">
+    ${isFavorite(id,type)?'♥ Remover favorito':'♡ Favoritar'}</button>
+    ${trailer?`<button class="secondary" onclick="window.open('https://www.youtube.com/watch?v=${trailer.key}','_blank')">▶ Trailer</button>`:''}
+   </div>
+   <h3 style="margin-top:25px">Elenco</h3>
+   <div class="cast">${cast.map(p=>`
+    <div class="person">
+     <img loading="lazy" src="${img(p.profile_path,'w185')}">
+     <small>${escapeHTML(p.name)}</small>
+     <small>${escapeHTML(p.character||'')}</small>
+    </div>`).join('')}</div>
+   ${seasons}
+   <p style="margin-top:25px;font-size:11px">Idioma: ${escapeHTML(item.original_language||'—')}</p>`;
+ }catch(e){
+  document.getElementById('detailContent').innerHTML=errorHTML(e);
+ }
+}
+async function episodes(id,season){
+ const box=document.getElementById('episodeList');
+ box.innerHTML='<div class="loader">Carregando episódios...</div>';
+ try{
+  const data=await api(`/tv/${id}/season/${season}?language=pt-BR`);
+  box.innerHTML='<div class="episodes">'+(data.episodes||[]).map(ep=>`
+   <div class="episode">
+    <strong>${ep.episode_number}. ${escapeHTML(ep.name)}</strong>
+    <p style="color:var(--muted);margin-top:6px">${escapeHTML(ep.overview||'Sinopse indisponível.')}</p>
+   </div>`).join('')+'</div>';
+ }catch(e){box.innerHTML=escapeHTML(e.message)}
+}
+function closeDetails(){
+ document.getElementById('detailsOverlay').classList.remove('show');
+}
+function isFavorite(id,type){
+ return favorites.some(x=>x.id===id&&x.type===type);
+}
+function toggleFavorite(id,type){
+ if(isFavorite(id,type)){
+  favorites=favorites.filter(x=>!(x.id===id&&x.type===type));
+ }else{
+  favorites.push({id,type});
+ }
+ localStorage.setItem('seekee_favorites',JSON.stringify(favorites));
+ if(currentPage==='favorites')showFavorites();
+ else details(id,type);
+}
+async function showFavorites(){
+ currentPage='favorites';
+ document.getElementById('content').innerHTML='<h1 class="page-title">♡ Favoritos</h1><div class="loader">Carregando...</div>';
+ try{
+  const items=await Promise.all(favorites.map(async f=>{
+   try{return {...await api(`/${f.type}/${f.id}?language=pt-BR`),_type:f.type}}
+   catch(e){return null}
+  }));
+  const valid=items.filter(Boolean);
+  document.getElementById('content').innerHTML=
+   '<h1 class="page-title">♡ Meus favoritos</h1>'+
+   (valid.length?'<div class="cards">'+valid.map(x=>card(x,x._type)).join('')+'</div>':'<div class="empty">Você ainda não tem favoritos.</div>');
+ }catch(e){document.getElementById('content').innerHTML=errorHTML(e)}
+}
+init();
+</script>
 </body>
 </html>
