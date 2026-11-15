@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Seekee - Filme</title>
+  <title>KiraFlix - Filme / Série</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,13 +14,13 @@
     html, body {
       width: 100%;
       max-width: 100vw;
-      overflow-x: hidden; /* Corrige o bug de tela esticada */
+      overflow-x: hidden;
     }
 
     body {
       font-family: 'Outfit', system-ui, sans-serif;
       background: #000; color: #fff;
-      padding-bottom: 85px; /* Espaço para a barra de pesquisa no rodapé */
+      padding-bottom: 100px; /* Espaço para a barra fixa no rodapé */
     }
 
     button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
@@ -30,7 +30,7 @@
     .player-section {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9; /* Força a proporção correta independente da tela */
+      aspect-ratio: 16 / 9;
       background: #000;
       margin-bottom: 16px;
     }
@@ -123,23 +123,27 @@
     }
     .episode-card.active { background: rgba(255, 255, 255, 0.3); color: #fff; font-weight: 700; }
 
-    /* ═══════════ TÍTULOS SEMELHANTES (GRID) ═══════════ */
+    /* ═══════════ TÍTULOS SEMELHANTES (CARROSSEL) ═══════════ */
     .similar-section { margin-bottom: 40px; }
     .similar-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
     
-    .similar-grid { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
+    .similar-scroll { 
+      display: flex; 
       gap: 12px; 
-      width: 100%;
+      overflow-x: auto; 
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+      scrollbar-width: none;
     }
+    .similar-scroll::-webkit-scrollbar { display: none; }
     
     .similar-card {
+      flex: 0 0 130px; /* Largura fixa para o card */
       display: flex;
       flex-direction: column;
       gap: 6px;
       cursor: pointer;
-      width: 100%;
+      scroll-snap-align: start;
     }
     
     .similar-card .img-wrapper {
@@ -283,7 +287,7 @@
 
     <!-- ── Título ── -->
     <div class="title-row">
-      <h1 id="movie-title">Carregando título…</h1>
+      <h1 id="movie-title">Carregando...</h1>
       <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
     </div>
 
@@ -336,17 +340,17 @@
     </div>
     <div class="episodes-row" id="episodes-preview"></div>
 
-    <!-- ── Semelhantes ── -->
+    <!-- ── Semelhantes (CARROSSEL) ── -->
     <div class="similar-section">
       <h2>Títulos semelhantes</h2>
-      <div class="similar-grid" id="similar-grid"></div>
+      <div class="similar-scroll" id="similar-scroll"></div>
     </div>
   </div>
 
   <!-- ═══════════ BARRA DE PESQUISA (RODAPÉ) ═══════════ -->
   <div class="bottom-search-bar">
-    <input type="text" id="search-input" placeholder="Pesquisar filme pelo nome..." onkeypress="if(event.key === 'Enter') searchMovieByName()">
-    <button onclick="searchMovieByName()">Buscar</button>
+    <input type="text" id="search-input" placeholder="Pesquisar filme ou série..." onkeypress="if(event.key === 'Enter') searchMediaByName()">
+    <button onclick="searchMediaByName()">Buscar</button>
   </div>
 
   <!-- ═══════════ MODAL DE PARTES ═══════════ -->
@@ -378,7 +382,7 @@
     </div>
     
     <div class="feedback-list" id="feedback-options">
-      <!-- Opções preenchidas via JS para facilitar o webhook -->
+      <!-- Injetado via JS -->
     </div>
 
     <textarea class="feedback-textarea" id="feedback-text" rows="2" placeholder="Alguns detalhes adicionais? Explique aqui"></textarea>
@@ -386,7 +390,7 @@
     <button class="btn-submit-feedback" onclick="enviarFeedback()">Enviar Feedback</button>
 
     <p class="feedback-footer">
-      Se seus direitos de propriedade intelectual, privacidade ou outros foram violados, clique para ver <a href="#">Guia de Reclamação de Violação do Seekee</a>
+      Se seus direitos de propriedade intelectual, privacidade ou outros foram violados, clique para ver <a href="#">Guia de Reclamação de Violação do KiraFlix</a>
     </p>
   </div>
 
@@ -395,14 +399,8 @@
        ⚠️ CONFIGURAÇÕES DO SISTEMA ⚠️
        ═══════════════════════════════════════════════════════════ */
     
-    // 1. Chave da API do TMDB (v3 ou v4)
     const TMDB_KEY = '6ee0d0ca3e4a734a36f15d8802a5cc4b'; 
-    
-    // 2. Link do Webhook do Discord (para receber os feedbacks)
-    // Ex: 'https://discord.com/api/webhooks/123456789/abcdefg...'
     const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu';
-
-    // ID inicial padrão caso a URL esteja vazia
     const FILME_INICIAL_ID = 969681; 
 
     /* ═══════════════════════════════════════════════════════════
@@ -412,12 +410,13 @@
     const IMG_BASE = 'https://image.tmdb.org/t/p/w200';
 
     const urlParams = new URLSearchParams(window.location.search);
-    let currentMovieId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
-    let currentMovieTitle = "";
+    let currentMediaId = urlParams.get('id') ? parseInt(urlParams.get('id')) : FILME_INICIAL_ID;
+    let currentMediaTitle = "";
+    let currentPosterPath = "";
+    let currentMediaType = 'movie'; // 'movie' ou 'tv'
 
-    // Preenche a lista de feedback
     const feedbackOptionsList = [
-      "Reprodução interrompida ou filme não carrega",
+      "Reprodução interrompida ou mídia não carrega",
       "Falta dublagem em português",
       "As legendas estão incorretas ou fora de sincronia",
       "Faltam legendas em português",
@@ -436,7 +435,7 @@
         fbContainer.appendChild(label);
       });
       
-      loadMovie(currentMovieId);
+      loadMedia(currentMediaId, currentMediaType);
     });
 
     async function tmdbFetch(path) {
@@ -455,18 +454,21 @@
       return res.json();
     }
 
-    // ── BUSCA POR NOME ──
-    async function searchMovieByName() {
+    // ── BUSCA POR NOME (FILMES E SÉRIES) ──
+    async function searchMediaByName() {
       const query = document.getElementById('search-input').value.trim();
-      if (!query) return alert("Digite o nome de um filme para buscar.");
+      if (!query) return alert("Digite o nome de um filme ou série.");
 
       try {
-        const data = await tmdbFetch(`/search/movie?query=${encodeURIComponent(query)}`);
-        if (data.results && data.results.length > 0) {
-          // Pega o resultado mais relevante e carrega
-          loadMovie(data.results[0].id);
+        const data = await tmdbFetch(`/search/multi?query=${encodeURIComponent(query)}`);
+        // Filtra para pegar apenas filmes e séries (ignora pessoas)
+        const validResults = data.results.filter(item => item.media_type === 'movie' || item.media_type === 'tv');
+
+        if (validResults.length > 0) {
+          const firstResult = validResults[0];
+          loadMedia(firstResult.id, firstResult.media_type);
         } else {
-          alert("Nenhum filme encontrado com esse nome.");
+          alert("Nenhum filme ou série encontrado.");
         }
       } catch (err) {
         console.error(err);
@@ -474,47 +476,71 @@
       }
     }
 
-    // ── CARREGAR FILME ──
-    async function loadMovie(movieId) {
-      currentMovieId = movieId;
+    // ── CARREGAR MÍDIA (FILME OU SÉRIE) ──
+    async function loadMedia(id, type = 'movie') {
+      currentMediaId = id;
+      currentMediaType = type;
       hideAlert();
       
-      // Atualiza o Player
-      document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${movieId}`;
-      window.history.pushState({}, '', `?id=${movieId}`);
+      // O player do Kiraflix aceita o ID. Se for série, a URL base pode mudar, 
+      // mas aqui mantemos o padrão para carregar o conteúdo.
+      document.getElementById('video-player').src = `https://kiraflix.qd.je/filme/${id}`;
+      window.history.pushState({}, '', `?id=${id}&type=${type}`);
 
       const titleEl = document.getElementById('movie-title');
       titleEl.textContent = "Carregando...";
-      document.getElementById('similar-grid').innerHTML = '';
+      document.getElementById('similar-scroll').innerHTML = '';
       document.getElementById('episodes-preview').innerHTML = '';
-      document.getElementById('search-input').value = ''; // Limpa a busca após carregar
+      document.getElementById('search-input').value = ''; 
       closeParts();
 
       try {
-        const movie = await tmdbFetch(`/movie/${movieId}`);
-        currentMovieTitle = movie.title || movie.original_title;
-        titleEl.textContent = currentMovieTitle;
+        // Puxa detalhes de acordo com o tipo
+        const media = await tmdbFetch(`/${type}/${id}`);
+        currentMediaTitle = media.title || media.name || media.original_title || media.original_name;
+        currentPosterPath = media.poster_path;
+        titleEl.textContent = currentMediaTitle;
 
-        if (movie.belongs_to_collection) {
-          const collection = await tmdbFetch(`/collection/${movie.belongs_to_collection.id}`);
+        // Se for FILME e tiver coleção (continuações)
+        if (type === 'movie' && media.belongs_to_collection) {
+          const collection = await tmdbFetch(`/collection/${media.belongs_to_collection.id}`);
           const parts = collection.parts || [];
           document.getElementById('part-title').textContent = collection.name || 'Partes';
           document.getElementById('episodes-count').textContent = `${parts.length} filme${parts.length > 1 ? 's' : ''}`;
-          renderPreview(parts, movie.id);
-          renderPartsModal(parts, movie.id);
-        } else {
-          document.getElementById('part-title').textContent = 'Filme Único';
-          document.getElementById('episodes-count').textContent = '1 filme';
-          renderPreview([movie], movie.id);
-          renderPartsModal([movie], movie.id);
+          renderPreview(parts, media.id);
+          renderPartsModal(parts, media.id);
+        } 
+        // Se for SÉRIE, mostra as Temporadas
+        else if (type === 'tv' && media.seasons) {
+          // Remove a temporada 0 (especiais) para não bugar
+          const seasons = media.seasons.filter(s => s.season_number > 0);
+          document.getElementById('part-title').textContent = 'Temporadas';
+          document.getElementById('episodes-count').textContent = `${seasons.length} temporada${seasons.length > 1 ? 's' : ''}`;
+          
+          // Passa as temporadas para o mesmo sistema de renderização (adaptado)
+          const formattedSeasons = seasons.map(s => ({
+            id: s.season_number, // Usamos o número da temporada como ID falso
+            release_date: s.air_date || "2000-01-01"
+          }));
+          
+          renderPreview(formattedSeasons, 1); // Temporada 1 como ativa
+          renderPartsModal(formattedSeasons, 1);
+        } 
+        // Se for filme único ou série sem temporadas
+        else {
+          document.getElementById('part-title').textContent = type === 'movie' ? 'Filme Único' : 'Série';
+          document.getElementById('episodes-count').textContent = '1 item';
+          renderPreview([{ id: media.id, release_date: "2000-01-01" }], media.id);
+          renderPartsModal([{ id: media.id, release_date: "2000-01-01" }], media.id);
         }
 
-        const similarData = await tmdbFetch(`/movie/${movieId}/similar`);
+        // Puxa semelhantes
+        const similarData = await tmdbFetch(`/${type}/${id}/similar`);
         renderSimilar(similarData.results || []);
 
       } catch (err) {
         console.error(err);
-        loadMockData(); // Fallback visual
+        loadMockData(); 
         showAlert("⚠️ Erro na API do TMDB. Exibindo dados de exemplo.");
       }
     }
@@ -541,7 +567,14 @@
         const card = document.createElement('div');
         card.className = `episode-card ${part.id === currentId ? 'active' : ''}`;
         card.textContent = index + 1;
-        card.onclick = () => part.id ? loadMovie(part.id) : alert("Simulação");
+        // Se for temporada de série, recarrega passando o número. Se for filme, recarrega o ID.
+        card.onclick = () => {
+          if (currentMediaType === 'tv') {
+            alert(`Você clicou na Temporada ${index + 1}. O player abaixo pode precisar de outro formato de URL para séries.`);
+          } else {
+            loadMedia(part.id, 'movie');
+          }
+        };
         container.appendChild(card);
       });
     }
@@ -552,35 +585,45 @@
       parts.sort((a, b) => new Date(a.release_date) - new Date(b.release_date)).forEach((part, index) => {
         const div = document.createElement('div');
         div.className = `part-item ${part.id === currentId ? 'active' : ''}`;
-        div.textContent = `Parte ${index + 1}`;
-        div.onclick = () => part.id ? loadMovie(part.id) : closeParts();
+        div.textContent = currentMediaType === 'tv' ? `Temporada ${index + 1}` : `Parte ${index + 1}`;
+        div.onclick = () => {
+          if (currentMediaType === 'tv') {
+            closeParts();
+            alert(`Você clicou na Temporada ${index + 1}.`);
+          } else {
+            loadMedia(part.id, 'movie');
+          }
+        };
         container.appendChild(div);
       });
     }
 
     function renderSimilar(movies) {
-      const container = document.getElementById('similar-grid');
+      const container = document.getElementById('similar-scroll');
       container.innerHTML = '';
       if (movies.length === 0) {
-        container.innerHTML = '<p style="color:#9ca3af;font-size:0.9rem;grid-column: span 3;">Nenhum filme semelhante.</p>';
+        container.innerHTML = '<p style="color:#9ca3af;font-size:0.9rem;">Nenhum título semelhante.</p>';
         return;
       }
-      movies.slice(0, 9).forEach(movie => {
+      movies.slice(0, 10).forEach(movie => {
         const card = document.createElement('div');
         card.className = 'similar-card';
-        card.onclick = () => movie.id && loadMovie(movie.id); 
+        // Descobre se o similar é filme ou série para carregar certo
+        card.onclick = () => loadMedia(movie.id, movie.media_type || currentMediaType); 
         
-        const imgUrl = movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/150x225/1e1e2a/6b7280?text=Sem+Capa';
+        const imgUrl = movie.poster_path ? IMG_BASE + movie.poster_path : 'https://via.placeholder.com/130x195/1e1e2a/6b7280?text=Sem+Capa';
+        const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+        const mediaTitle = movie.title || movie.name || movie.original_title || movie.original_name;
 
         card.innerHTML = `
           <div class="img-wrapper">
-            <img src="${imgUrl}" alt="${movie.title}" loading="lazy">
+            <img src="${imgUrl}" alt="${mediaTitle}" loading="lazy">
             <div class="rating">
               <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}
+              ${rating}
             </div>
           </div>
-          <div class="title">${movie.title || movie.original_title}</div>
+          <div class="title">${mediaTitle}</div>
         `;
         container.appendChild(card);
       });
@@ -601,10 +644,10 @@
     function openFeedback() { document.getElementById('feedback-sheet').classList.add('active'); }
     function closeFeedback() { document.getElementById('feedback-sheet').classList.remove('active'); }
 
-    // ENVIAR FEEDBACK PARA O DISCORD
+    // ENVIAR FEEDBACK PARA O DISCORD (Design Melhorado - Vermelho)
     async function enviarFeedback() {
       if (DISCORD_WEBHOOK_URL === 'COLE_SEU_WEBHOOK_AQUI' || DISCORD_WEBHOOK_URL.trim() === '') {
-        alert("Você precisa configurar o Webhook do Discord no código para enviar feedback!");
+        alert("Você precisa configurar o Webhook do Discord no código!");
         return;
       }
 
@@ -622,18 +665,34 @@
 
       // Monta a mensagem bonita pro Discord
       const payload = {
-        username: "Seekee Feedback",
-        avatar_url: "https://cdn-icons-png.flaticon.com/512/5977/5977002.png",
+        username: "KiraFlix Feedback",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/5977/5977002.png", // Ícone de alerta
         embeds: [{
-          title: "🚨 Novo Feedback Recebido",
-          color: 3447003, // Azul
+          title: "🚨 NOVA RECLAMAÇÃO / FEEDBACK",
+          color: 15548997, // Cor Vermelha (#ED4245)
+          thumbnail: {
+            url: currentPosterPath ? `https://image.tmdb.org/t/p/w200${currentPosterPath}` : "https://via.placeholder.com/150"
+          },
           fields: [
-            { name: "🎬 Filme", value: `${currentMovieTitle} (ID: ${currentMovieId})`, inline: false },
-            { name: "⚠️ Problemas Marcados", value: reasons.length > 0 ? reasons.map(r => `• ${r}`).join('\n') : "Nenhum item marcado.", inline: false },
-            { name: "📝 Detalhes Adicionais", value: extraDetails || "Nenhum detalhe digitado.", inline: false }
+            { 
+              name: "🎬 Mídia Afetada", 
+              value: `**${currentMediaTitle}**\nID: \`${currentMediaId}\` | Tipo: \`${currentMediaType === 'tv' ? 'Série' : 'Filme'}\``, 
+              inline: false 
+            },
+            { 
+              name: "⚠️ Problemas Marcados", 
+              value: reasons.length > 0 ? reasons.map(r => `🔸 ${r}`).join('\n') : "*Nenhum item marcado.*", 
+              inline: false 
+            },
+            { 
+              name: "📝 Detalhes Adicionais", 
+              value: extraDetails || "*Nenhum detalhe digitado.*", 
+              inline: false 
+            }
           ],
-          footer: { text: "Sistema de Feedback Seekee" },
-          timestamp: new Date().toISOString()
+          footer: { 
+            text: "Sistema de Feedback KiraFlix • " + new Date().toLocaleString('pt-BR') 
+          }
         }]
       };
 
@@ -648,7 +707,7 @@
         document.querySelectorAll('#feedback-options input:checked').forEach(cb => cb.checked = false);
         document.getElementById('feedback-text').value = '';
         closeFeedback();
-        setTimeout(() => alert('Obrigado! Seu feedback foi enviado e ajuda muito a melhorar o site.'), 300);
+        setTimeout(() => alert('Obrigado! Seu feedback foi enviado com sucesso.'), 300);
       } catch (err) {
         console.error(err);
         alert("Erro ao enviar feedback. Verifique sua internet ou o Webhook.");
