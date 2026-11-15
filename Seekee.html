@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>Seek Extractor</title>
+<style>
+:root {
+ --bg:#080808;
+ --panel:#111;
+ --panel2:#181818;
+ --red:#e50914;
+ --text:#fff;
+ --muted:#999;
+ --border:#292929;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ min-height:100vh;
+}
+header{
+ height:65px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 20px;
+ border-bottom:1px solid var(--border);
+ background:#0c0c0c;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.logo{
+ font-size:21px;
+ font-weight:900;
+ letter-spacing:-1px;
+}
+.logo span{color:var(--red)}
+.status{
+ color:#55d98a;
+ font-size:11px;
+}
+.container{
+ max-width:1100px;
+ margin:auto;
+ padding:25px 16px 100px;
+}
+.hero{margin-bottom:25px}
+.hero h1{
+ font-size:29px;
+ margin:0 0 8px;
+}
+.hero p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.5;
+}
+.card{
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:18px;
+ margin-bottom:17px;
+}
+.card h3{
+ margin:0 0 15px;
+ font-size:15px;
+}
+label{
+ display:block;
+ font-size:12px;
+ color:#bbb;
+ margin:13px 0 7px;
+}
+input,select{
+ width:100%;
+ padding:14px;
+ border-radius:8px;
+ background:#090909;
+ border:1px solid #333;
+ color:white;
+ outline:none;
+ font-size:14px;
+}
+input:focus,select:focus{border-color:var(--red)}
+button{
+ border:0;
+ border-radius:8px;
+ padding:13px 17px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.primary{
+ background:var(--red);
+ color:white;
+ width:100%;
+ margin-top:16px;
+}
+.secondary{
+ background:#252525;
+ color:white;
+}
+button:disabled{opacity:.5}
+.tabs{
+ display:flex;
+ gap:8px;
+ overflow-x:auto;
+ margin:20px 0;
+}
+.tab{
+ flex:1;
+ min-width:100px;
+ background:#171717;
+ color:#aaa;
+ border:1px solid var(--border);
+}
+.tab.active{
+ background:var(--red);
+ color:white;
+ border-color:var(--red);
+}
+.panel{display:none}
+.panel.active{display:block}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-bottom:17px;
+}
+.stat{
+ background:var(--panel);
+ border:1px solid var(--border);
+ padding:14px 8px;
+ border-radius:10px;
+ text-align:center;
+}
+.stat strong{
+ display:block;
+ font-size:23px;
+}
+.stat small{
+ color:var(--muted);
+ font-size:10px;
+}
+.result{
+ display:flex;
+ gap:13px;
+ background:var(--panel);
+ padding:12px;
+ border:1px solid var(--border);
+ border-radius:10px;
+ margin-bottom:10px;
+ align-items:center;
+}
+.poster{
+ width:65px;
+ height:90px;
+ object-fit:cover;
+ border-radius:6px;
+ background:#222;
+}
+.result-info{flex:1;min-width:0}
+.result-info strong{font-size:14px}
+.result-info p{
+ color:var(--muted);
+ font-size:11px;
+ margin:7px 0;
+}
+.episode{
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:14px;
+ margin-bottom:9px;
+}
+.episode-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ align-items:center;
+}
+.episode small{color:var(--muted)}
+.links{
+ background:#080808;
+ border:1px solid #333;
+ border-radius:7px;
+ padding:11px;
+ margin-top:10px;
+ overflow-wrap:anywhere;
+ font-size:12px;
+ color:#ccc;
+}
+.link-row{
+ background:var(--panel);
+ border:1px solid var(--border);
+ padding:13px;
+ border-radius:9px;
+ margin-bottom:10px;
+}
+.link-row a{
+ color:#ff5960;
+ font-size:12px;
+ overflow-wrap:anywhere;
+}
+.link-actions{
+ display:flex;
+ gap:8px;
+ margin-top:10px;
+}
+.link-actions button{font-size:11px}
+.empty{
+ text-align:center;
+ padding:40px 15px;
+ color:var(--muted);
+ font-size:13px;
+}
+.badge{
+ background:#301014;
+ color:#ff6269;
+ padding:5px 8px;
+ border-radius:5px;
+ font-size:10px;
+}
+#toast{
+ position:fixed;
+ bottom:25px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#222;
+ padding:12px 20px;
+ border-radius:9px;
+ display:none;
+ z-index:30;
+ font-size:12px;
+}
+pre{
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+ background:#080808;
+ padding:13px;
+ border-radius:8px;
+ font-size:11px;
+ color:#bbb;
+}
+footer{
+ text-align:center;
+ color:#555;
+ font-size:11px;
+ padding:25px;
+}
+@media(min-width:700px){
+ .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">SEEK<span>EXTRACTOR</span></div>
+ <div class="status">● SISTEMA ONLINE</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+ <h1>Extractor de Séries</h1>
+ <p>Consulte temporadas, organize episódios e visualize os links retornados pela API.</p>
+</section>
+
+<section class="card">
+ <h3>⚙ Configuração da API</h3>
+ <label>URL do backend PHP</label>
+ <input id="apiUrl" placeholder="https://seusite.com/api.php"
+ value="api.php">
+ <small style="color:#777;font-size:11px">
+ Informe o endereço onde você hospedou o código PHP enviado.
+ </small>
+
+ <div class="form-grid">
+  <div>
+   <label>ID / Parâmetro da série</label>
+   <input id="seriesId" placeholder="Ex: identificador-da-serie">
+  </div>
+  <div>
+   <label>Link da série</label>
+   <input id="seriesLink" placeholder="Cole o link aqui">
+  </div>
+ </div>
+
+ <label>Tipo de conteúdo</label>
+ <select id="contentType">
+  <option value="drama">Série / Drama</option>
+  <option value="movie">Filme</option>
+ </select>
+
+ <label>Episódio inicial (opcional)</label>
+ <input id="startEpisode" type="number" min="1" placeholder="1">
+
+ <button class="primary" id="searchBtn" onclick="searchSeries()">
+  🔎 BUSCAR SÉRIE E EPISÓDIOS
+ </button>
+</section>
+
+<div class="stats">
+ <div class="stat">
+  <strong id="seasonCount">0</strong>
+  <small>TEMPORADAS</small>
+ </div>
+ <div class="stat">
+  <strong id="episodeCount">0</strong>
+  <small>EPISÓDIOS</small>
+ </div>
+ <div class="stat">
+  <strong id="linkCount">0</strong>
+  <small>LINKS</small>
+ </div>
+</div>
+
+<nav class="tabs">
+ <button class="tab active" onclick="openTab('series',this)">Série</button>
+ <button class="tab" onclick="openTab('episodes',this)">Episódios</button>
+ <button class="tab" onclick="openTab('links',this)">Links</button>
+ <button class="tab" onclick="openTab('json',this)">JSON</button>
+</nav>
+
+<section id="series" class="panel active">
+ <div id="seriesResult" class="empty">
+  <div style="font-size:35px">🎬</div>
+  Nenhuma série pesquisada.
+ </div>
+</section>
+
+<section id="episodes" class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+  <h3>Lista de episódios</h3>
+  <select id="episodeFilter" style="width:130px" onchange="renderEpisodes()">
+   <option value="all">Todos</option>
+  </select>
+ </div>
+ <div id="episodeList" class="empty">Os episódios aparecerão aqui.</div>
+</section>
+
+<section id="links" class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+  <h3>Links encontrados</h3>
+  <button class="secondary" onclick="copyAllLinks()">Copiar todos</button>
+ </div>
+ <div id="linkList" class="empty">Nenhum link encontrado.</div>
+</section>
+
+<section id="json" class="panel">
+ <h3>Dados da extração</h3>
+ <button class="secondary" onclick="copyJSON()">Copiar JSON</button>
+ <button class="secondary" onclick="downloadJSON()">Baixar JSON</button>
+ <pre id="jsonOutput">{}</pre>
+</section>
+
+<footer>
+ SEEK EXTRACTOR • ORGANIZADOR DE CATÁLOGO
+</footer>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+let currentData=null;
+let allEpisodes=[];
+let allLinks=[];
+
+const $=id=>document.getElementById(id);
+
+function notify(message){
+ const t=$('toast');
+ t.textContent=message;
+ t.style.display='block';
+ setTimeout(()=>t.style.display='none',2500);
+}
+
+function openTab(name,button){
+ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+ $(name).classList.add('active');
+ button.classList.add('active');
+}
+
+function getParam(){
+ let id=$('seriesId').value.trim();
+ let link=$('seriesLink').value.trim();
+
+ if(!id && link){
+  try{
+   const u=new URL(link);
+   const parts=u.pathname.split('/').filter(Boolean);
+   const detailIndex=parts.indexOf('detail');
+   if(detailIndex>=0){
+    id=parts[detailIndex+2]||'';
+    if(parts[detailIndex+3] && !$('startEpisode').value){
+     $('startEpisode').value=parts[detailIndex+3];
+    }
+   }else{
+    id=parts[parts.length-1]||'';
+   }
+  }catch(e){
+   id=link;
+  }
+ }
+ return id;
+}
+
+function apiEndpoint(params){
+ const base=$('apiUrl').value.trim();
+ if(!base)throw new Error('Informe a URL da API PHP.');
+ const url=new URL(base,location.href);
+ Object.entries(params).forEach(([k,v])=>{
+  if(v!==null && v!==undefined && v!=='')url.searchParams.set(k,v);
+ });
+ return url.href;
+}
+
+async function apiRequest(params){
+ const response=await fetch(apiEndpoint(params));
+ if(!response.ok)throw new Error('Erro HTTP '+response.status);
+ return await response.json();
+}
+
+async function searchSeries(){
+ const param=getParam();
+ const type=$('contentType').value;
+ const ep=$('startEpisode').value;
+
+ if(!param){
+  notify('Informe o ID ou link da série.');
+  return;
+ }
+
+ $('searchBtn').disabled=true;
+ $('searchBtn').textContent='CONSULTANDO API...';
+
+ try{
+  const result=await apiRequest({
+   action:'detail',
+   type:type,
+   param:param,
+   ep:ep
+  });
+
+  if(!result.success || !result.data){
+   throw new Error(result.error||'Não foi possível localizar o conteúdo.');
+  }
+
+  currentData=result.data;
+  allEpisodes=Array.isArray(currentData.episodes)?currentData.episodes:[];
+  allLinks=Array.isArray(currentData.streams)?currentData.streams:[];
+  renderAll();
+  notify('Consulta concluída!');
+ }catch(error){
+  notify(error.message);
+ }finally{
+  $('searchBtn').disabled=false;
+  $('searchBtn').textContent='🔎 BUSCAR SÉRIE E EPISÓDIOS';
+ }
+}
+
+function escapeHTML(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+ })[c]);
+}
+
+function renderAll(){
+ const d=currentData;
+ $('seriesResult').innerHTML=`
+ <div class="result">
+  <img class="poster" src="${escapeHTML(d.cover||'')}"
+  onerror="this.style.display='none'">
+  <div class="result-info">
+   <strong>${escapeHTML(d.name)}</strong>
+   <p>${escapeHTML(d.intro||'Sem descrição')}</p>
+   <span class="badge">${escapeHTML(d.type)}</span>
+   <span class="badge">Nota ${escapeHTML(d.score||'N/A')}</span>
+  </div>
+ </div>
+ <div class="card">
+  <h3>Informações</h3>
+  <p>ID: ${escapeHTML(d.id)}</p>
+  <p>Parâmetro: ${escapeHTML(d.param)}</p>
+  <p>Episódio atual: ${escapeHTML(d.current_ep)}</p>
+  <p>Gêneros: ${escapeHTML((d.tags||[]).join(', '))}</p>
+ </div>`;
+
+ const filter=$('episodeFilter');
+ const previous=filter.value;
+ filter.innerHTML='<option value="all">Todos</option>';
+ filter.innerHTML+=`<option value="1">Temporada 1</option>`;
+ filter.value=previous;
+
+ $('seasonCount').textContent=allEpisodes.length?1:0;
+ $('episodeCount').textContent=allEpisodes.length;
+ $('linkCount').textContent=allLinks.length;
+
+ renderEpisodes();
+ renderLinks();
+ $('jsonOutput').textContent=JSON.stringify(currentData,null,2);
+}
+
+function renderEpisodes(){
+ const container=$('episodeList');
+ if(!allEpisodes.length){
+  container.innerHTML='<div class="empty">A API não retornou episódios.</div>';
+  return;
+ }
+
+ container.innerHTML=allEpisodes.map((ep,index)=>`
+ <div class="episode">
+  <div class="episode-top">
+   <div>
+    <strong>${escapeHTML(ep.name||'Episódio '+(ep.ep||index+1))}</strong>
+    <br><small>EP ${escapeHTML(ep.ep||index+1)} • ID ${escapeHTML(ep.id||'N/A')}</small>
+   </div>
+   <span class="badge">EP ${escapeHTML(ep.ep||index+1)}</span>
+  </div>
+  <p style="font-size:11px;color:#999">Tamanho: ${escapeHTML(ep.size||'Não informado')}</p>
+ </div>`).join('');
+}
+
+function renderLinks(){
+ const container=$('linkList');
+
+ if(!allLinks.length){
+  container.innerHTML='<div class="empty">Nenhum link de mídia foi retornado pela API.</div>';
+  return;
+ }
+
+ container.innerHTML=allLinks.map((item,index)=>`
+ <div class="link-row">
+  <strong>${escapeHTML(item.def||'Qualidade padrão')}</strong>
+  <p style="color:#999;font-size:11px">Código: ${escapeHTML(item.code||'N/A')}</p>
+  <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">
+   ${escapeHTML(item.url)}
+  </a>
+  <div class="link-actions">
+   <button class="secondary" onclick="copyText(${index})">Copiar link</button>
+   <button class="secondary" onclick="openLink(${index})">Abrir</button>
+  </div>
+ </div>`).join('');
+}
+
+function copyText(index){
+ const url=allLinks[index]?.url;
+ if(url)copyValue(url);
+}
+
+function openLink(index){
+ const url=allLinks[index]?.url;
+ if(url && /^https?:\/\//i.test(url))window.open(url,'_blank','noopener');
+}
+
+function copyValue(value){
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(value).then(()=>notify('Copiado!'))
+  .catch(()=>notify('Não foi possível copiar.'));
+ }else{
+  const input=document.createElement('textarea');
+  input.value=value;
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand('copy');
+  input.remove();
+  notify('Copiado!');
+ }
+}
+
+function copyAllLinks(){
+ if(!allLinks.length)return notify('Nenhum link disponível.');
+ copyValue(allLinks.map(x=>x.url).filter(Boolean).join('\n'));
+}
+
+function copyJSON(){
+ if(!currentData)return notify('Nenhum dado disponível.');
+ copyValue(JSON.stringify(currentData,null,2));
+}
+
+function downloadJSON(){
+ if(!currentData)return notify('Nenhum dado disponível.');
+ const blob=new Blob([JSON.stringify(currentData,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download='seek-extractor.json';
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+$('seriesLink').addEventListener('input',()=>{
+ const link=$('seriesLink').value.trim();
+ if(link && !$('seriesId').value.trim()){
+  // A identificação será extraída ao pesquisar.
+ }
+});
+</script>
+</body>
+</html>
