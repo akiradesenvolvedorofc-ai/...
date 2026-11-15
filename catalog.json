@@ -15,7 +15,25 @@
     "git": "https://api.github.com/repos/akiradesenvolvedorofc-ai/.../git/blobs/eb7d9822e8f2c52b30d7f99964c54c49ea9038e6",
     "html": "https://github.com/akiradesenvolvedorofc-ai/.../blob/main/catalog.json"
   },
-  "movies": {},
+  "movies": {
+    "1117898": {
+      "title": "O Gatola da Cartola",
+      "overview": "O Gatola da Cartola assume sua tarefa mais difícil até agora no I.I.I.I. — Instituto para Instituir a Imaginação e a Inspiração: animar e alegrar Gabby e Sebastian, dois irmãos com dificuldade para se adaptar à cidade para a qual acabaram de se mudar. Conhecido por levar as situações longe demais, esta pode ser a última chance de o agente do caos provar seu valor... ou perder seu chapéu mágico!",
+      "poster": "https://image.tmdb.org/t/p/w500/sAUr79TPVXMmZrpsqGh6xTH9jy6.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/9y9o686DsQg0KzPtERzcW7Cf8IE.jpg",
+      "year": "2026",
+      "rating": 6.86,
+      "genres": [
+        "Animação",
+        "Fantasia",
+        "Aventura",
+        "Família",
+        "Comédia"
+      ],
+      "ageRating": "L",
+      "source": "https://mgeb.space/mp4.php?url=https://ww1.123flmsfree.com/pt/detail/movie/pqZSWFolZRXwEWbD2CVbg-The-Cat-in-the-Hat"
+    }
+  },
   "series": {
     "289517": {
       "title": "Um Trabalho do Inferno",
