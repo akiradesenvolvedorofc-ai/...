@@ -15,7 +15,6 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 .player:-webkit-full-screen{width:100vw;height:100vh}
 .player.pseudo{position:fixed;inset:0;z-index:9999;width:100%;height:100%}
 
-/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 .player video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;background:#000;z-index:1;
@@ -55,7 +54,6 @@ video::-moz-media-controls { display: none !important; }
 
 .dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2}
 
-/* ⚠️ OVERLAY DE GESTOS - SEMPRE RECEBE CLIQUE */
 .gest{
   position:absolute;inset:0;
   z-index:3;
@@ -87,7 +85,6 @@ video::-moz-media-controls { display: none !important; }
 .is-full .ui.compact{display:none}
 .locked .ui{display:none!important}
 
-/* Estado SEM VÍDEO - mostra mensagem */
 .player.novideo .c-big::after {
   content: '⚠️';
   position: absolute;
@@ -230,7 +227,6 @@ video::-moz-media-controls { display: none !important; }
 .g-lb{font-size:calc(var(--u)*28);line-height:1.22;min-height:calc(var(--u)*70)}
 .g-sub{margin-top:calc(var(--u)*40);font-size:calc(var(--u)*22);color:#8a8a8f}
 
-/* tela de carregamento (KiraFlix Player) */
 .splash{position:absolute;inset:0;z-index:40;background:#2b0508;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .5s ease,visibility .5s}
 .splash.off{opacity:0;visibility:hidden;pointer-events:none}
 .splash::after{content:'';position:absolute;inset:0;background:linear-gradient(#000 0,rgba(0,0,0,0) 9%,rgba(0,0,0,0) 90%,rgba(0,0,0,.35) 100%);pointer-events:none}
@@ -506,8 +502,11 @@ const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
   TMDB_ID:'', TIPO:'movie', TEMPORADA:1, EPISODIO:1, VIDEO:'',
   // Reserva: se o ID não estiver no catalog.json, monta o link pelo ID ({id}, {temp}, {ep}). Deixe '' para desligar.
-  LINK_FILME:'',
-  LINK_SERIE:'',
+  LINK_FILME:'https://mgeb.lat/embed/{id}',
+  LINK_SERIE:'https://mgeb.lat/embed/{id}/{temp}/{ep}',
+  // URLs de vídeo em inglês (usadas quando o usuário seleciona Áudio em inglês)
+  LINK_FILME_EN:'https://kiraflix.qd.je/filme/{id}',
+  LINK_SERIE_EN:'https://kiraflix.qd.je/serie/{id}/{temp}/{ep}',
   PROXY:'https://mgeb.space/mp4.php?url=', USAR_PROXY:false, MODO:'auto',
   VIDEO_EN:'', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
   OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
@@ -535,7 +534,7 @@ const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
 
-/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
+/* PROTEÇÃO CONTRA CONTROLES NATIVOS */
 function killNativeControls(){
   V.controls = false;
   V.removeAttribute('controls');
@@ -587,19 +586,11 @@ const PROG = {
 let lastSave = 0;
 
 /* ═══════════════════════════════════════════════════════════════════
-   SUBMANAGER — CORRIGIDO PARA OPENTSUBTITLES API V1
-   ═══════════════════════════════════════════════════════════════════
-   Requisitos da API OpenSubtitles:
-   - Headers obrigatórios: Api-Key + User-Agent (identificador do app)
-   - Endpoint /subtitles: GET com query params
-   - Endpoint /download: POST com body { file_id }
-   - A API NÃO envia cabeçalhos CORS, então precisamos de proxy
-   - O arquivo retornado pelo /download é um link direto (.srt ou .zip)
+   SUBMANAGER — OPENTSUBTITLES API V1
    ═══════════════════════════════════════════════════════════════════ */
 const SubManager = {
   _reqId: 0,
 
-  // ─── Busca lista de legendas disponíveis ───
   async fetchSubs() {
     if (!CONFIG.TMDB_ID) {
       toast('ID TMDB não configurado');
@@ -616,7 +607,6 @@ const SubManager = {
         apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
       }
 
-      // corsproxy.io formato novo: ?url=<url-codificada>
       const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
 
       const res = await fetch(proxyUrl, {
@@ -636,7 +626,6 @@ const SubManager = {
       S.subList = Array.isArray(data.data) ? data.data : [];
       listEl.innerHTML = '';
 
-      // Botão "Desativado"
       const btnOff = document.createElement('button');
       btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
       btnOff.textContent = 'Desativado';
@@ -651,7 +640,6 @@ const SubManager = {
         return;
       }
 
-      // Renderiza cada legenda
       S.subList.forEach((sub, idx) => {
         const attrs = sub.attributes || {};
         const lang = String(attrs.language || '??').toUpperCase();
@@ -678,11 +666,9 @@ const SubManager = {
     }
   },
 
-  // ─── Seleciona/baixa legenda ───
   async setSub(idx) {
     const reqId = ++this._reqId;
 
-    // Desativar
     if (idx === -1) {
       S.subIdx = -1;
       S.sub = false;
@@ -705,7 +691,6 @@ const SubManager = {
       return;
     }
 
-    // Ativar
     S.subIdx = idx;
     closePanels();
     toast('Baixando legenda...');
@@ -718,7 +703,6 @@ const SubManager = {
       const fileId = files[0].file_id;
       if (!fileId) throw new Error('file_id inválido');
 
-      // POST /download via proxy
       const downloadApiUrl = 'https://api.opensubtitles.com/api/v1/download';
       const proxyDownloadUrl = `https://corsproxy.io/?url=${encodeURIComponent(downloadApiUrl)}`;
 
@@ -733,7 +717,7 @@ const SubManager = {
         body: JSON.stringify({ file_id: fileId })
       });
 
-      if (reqId !== this._reqId) return; // requisição obsoleta
+      if (reqId !== this._reqId) return;
 
       if (!dlRes.ok) {
         if (dlRes.status === 406) throw new Error('Limite diário de downloads atingido');
@@ -748,30 +732,26 @@ const SubManager = {
         throw new Error('API não retornou link de download');
       }
 
-      // Baixa o .srt
       const subRes = await fetch(dlData.link);
       if (!subRes.ok) throw new Error(`Falha ao baixar arquivo (${subRes.status})`);
 
       const text = await subRes.text();
       if (!text || text.length < 30) throw new Error('Arquivo de legenda vazio ou inválido');
 
-      if (reqId !== this._reqId) return; // usuário trocou de novo
+      if (reqId !== this._reqId) return;
 
       this.parseAndLoad(text);
     } catch (e) {
       if (reqId !== this._reqId) return;
       console.error('[Legendas] Erro no download:', e);
       toast('Erro: ' + ((e && e.message) || 'falha ao baixar'));
-      // Reverte UI
       S.subIdx = -1;
       S.sub = false;
       g('o-c').classList.remove('sel');
     }
   },
 
-  // ─── Converte SRT para VTT com robustez ───
   parseAndLoad(srtText) {
-    // Remove BOM e normaliza quebras de linha
     srtText = String(srtText).replace(/^\ufeff/, '');
     srtText = srtText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
@@ -783,9 +763,7 @@ const SubManager = {
       let line = lines[i];
 
       if (line.includes('-->')) {
-        // Converte vírgula decimal do SRT para ponto do VTT
         line = line.replace(/,/g, '.');
-        // Remove coordenadas extras (formato SRT estendido: "X1:100 X2:200 Y1:...")
         line = line.replace(/(\.\d{3})\s+[XY]\d*:[^\n]*$/i, '$1').trim();
         isTime = true;
         vtt += line + '\n';
@@ -793,7 +771,6 @@ const SubManager = {
         vtt += '\n';
         isTime = false;
       } else if (isTime) {
-        // Remove tags HTML (<i>, <b>, <font>) e códigos de posição ({\an8})
         line = line.replace(/<[^>]*>/g, '');
         line = line.replace(/\{[^}]*\}/g, '');
         vtt += line + '\n';
@@ -802,14 +779,12 @@ const SubManager = {
 
     const blob = new Blob([vtt], { type: 'text/vtt;charset=utf-8' });
 
-    // Libera URL anterior
     if (S._subBlobUrl) {
       try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
     }
     const url = URL.createObjectURL(blob);
     S._subBlobUrl = url;
 
-    // Também define no <track> (fallback nativo, sempre oculto para não duplicar)
     TRK.src = url;
     try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
 
@@ -819,10 +794,8 @@ const SubManager = {
     toast('Legenda ativada');
   },
 
-  // ─── Converte VTT em cues para o overlay customizado ───
   renderCustomSubs(vttText) {
     const cues = [];
-    // Remove cabeçalho WEBVTT
     const body = vttText.replace(/^WEBVTT[^\n]*\n+/, '');
     const blocks = body.split(/\n\n+/);
 
@@ -833,7 +806,6 @@ const SubManager = {
       if (timeLineIdx === -1) return;
 
       const timeLine = lines[timeLineIdx];
-      // Aceita HH:MM:SS.mmm, MM:SS.mmm, e variações
       const timeMatch = timeLine.match(
         /(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/
       );
@@ -857,20 +829,16 @@ const SubManager = {
       }
     });
 
-    // Ordena por start (necessário para busca binária)
     cues.sort((a, b) => a.start - b.start);
-
     S.subData = cues;
     console.log(`[Legendas] ${cues.length} cues carregados`);
     this.updateOverlay();
   },
 
-  // ─── Desenha a legenda ativa na tela ───
   updateOverlay() {
     const ov = g('sub-overlay');
     if (!ov) return;
 
-    // Esconde overlay se não houver legenda ativa
     if (!S.sub || !S.subData || !S.subData.length) {
       ov.style.display = 'none';
       return;
@@ -880,13 +848,11 @@ const SubManager = {
     const span = ov.querySelector('span');
     if (!span) return;
 
-    // Aplica configurações do usuário
     ov.style.bottom = S.subPos + '%';
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
 
-    // Busca binária: cues ordenados por start
     const t = V.currentTime;
     const cues = S.subData;
     let lo = 0, hi = cues.length - 1, active = null;
@@ -924,28 +890,27 @@ new ResizeObserver(resize).observe(P);
 window.addEventListener('resize',resize);
 P.addEventListener('contextmenu',e=>e.preventDefault());
 
-/* ---------- tela de carregamento + início automático ---------- */
-let splT=null,autoMuted=false;
+/* ---------- Tela de carregamento ---------- */
+let splT=null;
 function showSplash(){g('splash').classList.remove('off');clearTimeout(splT);splT=setTimeout(hideSplash,45000)}
 function hideSplash(){clearTimeout(splT);g('splash').classList.add('off')}
 V.addEventListener('playing',hideSplash);
 V.addEventListener('canplay',()=>setTimeout(()=>{if(V.paused)hideSplash()},1500));
-EMB.addEventListener('load',()=>{if(P.classList.contains('embed'))hideSplash()});
-/* tenta tocar com som; se o navegador bloquear, toca mudo e libera o som no primeiro toque */
-function tryPlay(){
-  const p=V.play();
-  if(p&&p.catch)p.catch(err=>{
-    if(!err||err.name!=='NotAllowedError'||autoMuted)return;
-    V.muted=true;autoMuted=true;P.classList.add('muted');
-    V.play().catch(()=>{});
-    toast('Toque na tela para ativar o som');
-  });
+
+/* Mostra o guia/tutorial apenas uma vez. Acionado no play do usuário ou no carregamento do embed. */
+function maybeShowGuide(){
+  if (!LS.get('guide', false)) {
+    g('guide').classList.add('on');
+  }
 }
-function unmuteAuto(){
-  if(!autoMuted)return;
-  autoMuted=false;V.muted=S.vol===0;P.classList.toggle('muted',S.vol===0);
-}
-['pointerup','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,unmuteAuto,true));
+
+/* Se o embed for carregado, esconde a splash e mostra o tutorial na primeira vez */
+EMB.addEventListener('load',()=>{
+  if(P.classList.contains('embed')){
+    hideSplash();
+    maybeShowGuide();
+  }
+});
 
 function tick(){
   const d=dur(),c=V.currentTime||0,p=d?clamp(c/d*100,0,100):0;
@@ -983,7 +948,8 @@ V.addEventListener('ended',()=>{
     const next = S.eps.find(e => e.n > S.ep);
     if (next) {
       toast(`Próximo: Episódio ${next.n}`);
-      setTimeout(() => loadEpisode(next.n, true), 1500);
+      /* auto=false: usuário precisa clicar em play */
+      setTimeout(() => loadEpisode(next.n, false), 1500);
     } else toast('Fim da temporada');
   }
 });
@@ -995,12 +961,22 @@ V.addEventListener('error',()=>{
 });
 
 function toggle(){
-  if (!S.cur || P.classList.contains('embed')) {
-    if (P.classList.contains('embed')) toast('Controle pelo player embed');
-    else toast('Nenhum vídeo carregado');
+  if (!S.cur) {
+    toast('Nenhum vídeo carregado');
+    return;
+  }
+  if (P.classList.contains('embed')) {
+    /* Embed: mostra o tutorial como "guia" no primeiro clique; depois apenas um aviso */
+    if(!LS.get('guide',false)) {
+      g('guide').classList.add('on');
+    } else {
+      toast('Controle pelo player embed');
+    }
     return;
   }
   if(V.paused) {
+    /* Mostra o tutorial no primeiro play */
+    maybeShowGuide();
     V.play().catch(e => {
       console.error('[Player] Erro ao tocar:', e);
       toast('Erro ao reproduzir: ' + e.message);
@@ -1100,7 +1076,6 @@ P.addEventListener('mousemove',()=>{if(!isFull())showUI()});
 function onEnterFull(){
   P.classList.add('is-full');resize();
   g('sw-full').classList.add('on');
-  if(!LS.get('guide',false))g('guide').classList.add('on');
   showUI();
 }
 function onLeaveFull(){
@@ -1292,13 +1267,25 @@ function montarLink(raw){
   return CONFIG.PROXY+raw;
 }
 
+/*
+  srcFor() define qual URL usar baseado no áudio selecionado:
+  - Inglês: usa S.links.en (CONFIG.VIDEO_EN ou LINK_FILME_EN/LINK_SERIE_EN)
+  - Espanhol: usa S.links.es (CONFIG.VIDEO_ES)
+  - Português (padrão): usa episodeSources do catálogo, senão S.links.pt (CONFIG.VIDEO ou LINK_FILME/LINK_SERIE)
+*/
 function srcFor(){
+  // Inglês e Espanhol têm prioridade quando selecionados e há link dedicado
+  if (S.audio === 'en' && S.links.en) return montarLink(S.links.en);
+  if (S.audio === 'es' && S.links.es) return montarLink(S.links.es);
+
+  // Fonte do episódio (padrão PT do catálogo)
   if (S.type === 'tv' && S.episodeSources && S.episodeSources[`${S.season}_${S.ep}`]) {
     const raw = S.episodeSources[`${S.season}_${S.ep}`];
     if (/^https?:\/\/.+\.(mp4|m3u8)/i.test(raw)) return raw;
     return montarLink(raw);
   }
-  let url = S.links[S.audio] || S.links['pt'] || '';
+
+  let url = S.links.pt || S.links[S.audio] || '';
   if(S.quality !== '720' && S.q[S.quality]){
     url = S.q[S.quality];
   }
@@ -1312,7 +1299,6 @@ function applyHlsQuality(){
   hls.currentLevel=best;
 }
 
-/* ⚠️ DETECTA MGEB E FORÇA VÍDEO DIRETO (st=0) */
 function loadVideo(resume,auto,forceStage){
   const u=srcFor();S.cur=u;
   if(hls){hls.destroy();hls=null}
@@ -1327,28 +1313,27 @@ function loadVideo(resume,auto,forceStage){
     return false;
   }
   P.classList.remove('novideo');
-  
+
   const hlsOk=!!(window.Hls&&Hls.isSupported());
   const isM3=/\.m3u8/i.test(u);
   const isFile=/\.(mp4|m4v|webm|ogv|mov|mkv|mp3)(\?|#|$)/i.test(u)||/^blob:/.test(u);
   const isMgeb=/mgeb\.space\/mp4\.php/i.test(u);
   const prox=!!(CONFIG.USAR_PROXY&&CONFIG.PROXY&&u.startsWith(CONFIG.PROXY));
-  
+
   let st=forceStage;
   if(st==null){
     if(CONFIG.MODO==='embed')st=2;
     else if(isM3&&hlsOk)st=1;
-    // ⚠️ mgeb.space SERVE MP4 DIRETO, NÃO É EMBED
     else if(isMgeb||CONFIG.MODO==='video'||isFile||isM3||prox)st=0;
     else st=2;
   }
   S.stage=st;
-  
+
   if(st===2){
     P.classList.add('embed');V.pause();V.removeAttribute('src');V.load();EMB.src=u;
     return true;
   }
-  
+
   P.classList.remove('embed');EMB.src='about:blank';
   const go=()=>{
     if(resume){try{V.currentTime=resume}catch(e){}}
@@ -1356,7 +1341,11 @@ function loadVideo(resume,auto,forceStage){
     killNativeControls();
     P.classList.add('paused');
     P.classList.add('show');
-    if(auto)tryPlay();
+    if(auto){
+      V.play().catch(err => {
+        console.warn('[Player] Autoplay bloqueado:', err);
+      });
+    }
   };
   V._go=go;
   if(st===1){
@@ -1515,10 +1504,19 @@ async function start(){
     S.links={pt:CONFIG.VIDEO,en:CONFIG.VIDEO_EN,es:CONFIG.VIDEO_ES};
     S.noProxy=false;
     const temEp=S.type==='tv'&&S.episodeSources&&S.episodeSources[`${S.season}_${S.ep}`];
+
+    // Português: usa template se não houver vídeo do catálogo
     if(!CONFIG.VIDEO&&!temEp&&S.id){
       const tpl=S.type==='tv'?CONFIG.LINK_SERIE:CONFIG.LINK_FILME;
       if(tpl){S.links.pt=tpl;S.noProxy=true}
     }
+
+    // Inglês: usa CONFIG.VIDEO_EN se existir, senão o template EN
+    if(!CONFIG.VIDEO_EN&&S.id){
+      const tplEN=S.type==='tv'?CONFIG.LINK_SERIE_EN:CONFIG.LINK_FILME_EN;
+      if(tplEN){S.links.en=tplEN;S.noProxy=true}
+    }
+
     S.q={'540':CONFIG.VIDEO_540,'360':CONFIG.VIDEO_360};
     S.subUrl=CONFIG.LEGENDA;
     S.audio='pt';S.quality='720';
@@ -1536,15 +1534,16 @@ async function start(){
     updateMedia();
     setMediaHandlers();
     if(!V.paused) V.pause();
+
+    // AUTO-PLAY DESABILITADO: carrega pausado, usuário clica em Play
     const saved = PROG.get();
     if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
-    const ok = loadVideo(saved, true);
+    const ok = loadVideo(saved, false);
     tick();
-    
-    // ⚠️ FORÇA UI VISÍVEL NO INÍCIO
+
     P.classList.add('paused');
     P.classList.add('show');
-    
+
     if(!ok) hideSplash();
     if(!ok && !fromCatalog) toast('ID sem vídeo: coloque no catálogo ou em CONFIG.VIDEO');
     else if(!ok && fromCatalog) toast('Erro: link não encontrado');
@@ -1559,7 +1558,6 @@ async function start(){
 
 window.KiraPlayer={ load(o){Object.assign(CONFIG,o||{});return start()}, config:CONFIG, link:montarLink };
 
-// ⚠️ GARANTIR VISIBILIDADE DO UI
 P.classList.add('show');
 
 resize();tick();start();
