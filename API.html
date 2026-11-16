@@ -582,7 +582,7 @@ const CONFIG={
   LINK_EN_FILME:'https://cinextream.cc/api/embed/movie/{id}',
   LINK_EN_SERIE:'https://cinextream.cc/api/embed/tv/{id}/{temp}/{ep}',
   // Cargos marcados no pedido de fonte: coloque o ID de cada cargo (deixe '' para não marcar)
-  CARGOS_FONTE:['1558713133655130213','1558713140219215986','1558713136432025610'],
+  CARGOS_FONTE:['1558713133655130213','1558713136432025610','1558713140219215986'],
   // Webhooks do Discord (pode ser o mesmo canal ou canais diferentes)
   WEBHOOK_FONTE:'https://discord.com/api/webhooks/1571591946437267466/YHDiixz5XGAVZ6AZVt12CpRMreFn76R8adpxTmIvou7SN6CToDDO3APyJEcRmdZ4JFdV',     // pedido quando o título não tem fonte
   WEBHOOK_FEEDBACK:'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu',  // botão Feedback
@@ -665,20 +665,9 @@ const PROG = {
 };
 let lastSave = 0;
 
-/* ═══════════════════════════════════════════════════════════════════
-   SUBMANAGER — CORRIGIDO PARA OPENTSUBTITLES API V1
-   ═══════════════════════════════════════════════════════════════════
-   Requisitos da API OpenSubtitles:
-   - Headers obrigatórios: Api-Key + User-Agent (identificador do app)
-   - Endpoint /subtitles: GET com query params
-   - Endpoint /download: POST com body { file_id }
-   - A API NÃO envia cabeçalhos CORS, então precisamos de proxy
-   - O arquivo retornado pelo /download é um link direto (.srt ou .zip)
-   ═══════════════════════════════════════════════════════════════════ */
 const SubManager = {
   _reqId: 0,
 
-  // ─── Busca lista de legendas disponíveis ───
   async fetchSubs() {
     if (!CONFIG.TMDB_ID) {
       toast('ID TMDB não configurado');
@@ -695,7 +684,6 @@ const SubManager = {
         apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
       }
 
-      // corsproxy.io formato novo: ?url=<url-codificada>
       const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
 
       const res = await fetch(proxyUrl, {
@@ -715,7 +703,6 @@ const SubManager = {
       S.subList = Array.isArray(data.data) ? data.data : [];
       listEl.innerHTML = '';
 
-      // Botão "Desativado"
       const btnOff = document.createElement('button');
       btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
       btnOff.textContent = 'Desativado';
@@ -730,7 +717,6 @@ const SubManager = {
         return;
       }
 
-      // Renderiza cada legenda
       S.subList.forEach((sub, idx) => {
         const attrs = sub.attributes || {};
         const lang = String(attrs.language || '??').toUpperCase();
@@ -757,11 +743,9 @@ const SubManager = {
     }
   },
 
-  // ─── Seleciona/baixa legenda ───
   async setSub(idx) {
     const reqId = ++this._reqId;
 
-    // Desativar
     if (idx === -1) {
       S.subIdx = -1;
       S.sub = false;
@@ -784,7 +768,6 @@ const SubManager = {
       return;
     }
 
-    // Ativar
     S.subIdx = idx;
     closePanels();
     toast('Baixando legenda...');
@@ -797,7 +780,6 @@ const SubManager = {
       const fileId = files[0].file_id;
       if (!fileId) throw new Error('file_id inválido');
 
-      // POST /download via proxy
       const downloadApiUrl = 'https://api.opensubtitles.com/api/v1/download';
       const proxyDownloadUrl = `https://corsproxy.io/?url=${encodeURIComponent(downloadApiUrl)}`;
 
@@ -812,7 +794,7 @@ const SubManager = {
         body: JSON.stringify({ file_id: fileId })
       });
 
-      if (reqId !== this._reqId) return; // requisição obsoleta
+      if (reqId !== this._reqId) return;
 
       if (!dlRes.ok) {
         if (dlRes.status === 406) throw new Error('Limite diário de downloads atingido');
@@ -827,30 +809,26 @@ const SubManager = {
         throw new Error('API não retornou link de download');
       }
 
-      // Baixa o .srt
       const subRes = await fetch(dlData.link);
       if (!subRes.ok) throw new Error(`Falha ao baixar arquivo (${subRes.status})`);
 
       const text = await subRes.text();
       if (!text || text.length < 30) throw new Error('Arquivo de legenda vazio ou inválido');
 
-      if (reqId !== this._reqId) return; // usuário trocou de novo
+      if (reqId !== this._reqId) return;
 
       this.parseAndLoad(text);
     } catch (e) {
       if (reqId !== this._reqId) return;
       console.error('[Legendas] Erro no download:', e);
       toast('Erro: ' + ((e && e.message) || 'falha ao baixar'));
-      // Reverte UI
       S.subIdx = -1;
       S.sub = false;
       g('o-c').classList.remove('sel');
     }
   },
 
-  // ─── Converte SRT para VTT com robustez ───
   parseAndLoad(srtText) {
-    // Remove BOM e normaliza quebras de linha
     srtText = String(srtText).replace(/^\ufeff/, '');
     srtText = srtText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
@@ -862,9 +840,7 @@ const SubManager = {
       let line = lines[i];
 
       if (line.includes('-->')) {
-        // Converte vírgula decimal do SRT para ponto do VTT
         line = line.replace(/,/g, '.');
-        // Remove coordenadas extras (formato SRT estendido: "X1:100 X2:200 Y1:...")
         line = line.replace(/(\.\d{3})\s+[XY]\d*:[^\n]*$/i, '$1').trim();
         isTime = true;
         vtt += line + '\n';
@@ -872,7 +848,6 @@ const SubManager = {
         vtt += '\n';
         isTime = false;
       } else if (isTime) {
-        // Remove tags HTML (<i>, <b>, <font>) e códigos de posição ({\an8})
         line = line.replace(/<[^>]*>/g, '');
         line = line.replace(/\{[^}]*\}/g, '');
         vtt += line + '\n';
@@ -881,14 +856,12 @@ const SubManager = {
 
     const blob = new Blob([vtt], { type: 'text/vtt;charset=utf-8' });
 
-    // Libera URL anterior
     if (S._subBlobUrl) {
       try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
     }
     const url = URL.createObjectURL(blob);
     S._subBlobUrl = url;
 
-    // Também define no <track> (fallback nativo, sempre oculto para não duplicar)
     TRK.src = url;
     try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
 
@@ -898,10 +871,8 @@ const SubManager = {
     toast('Legenda ativada');
   },
 
-  // ─── Converte VTT em cues para o overlay customizado ───
   renderCustomSubs(vttText) {
     const cues = [];
-    // Remove cabeçalho WEBVTT
     const body = vttText.replace(/^WEBVTT[^\n]*\n+/, '');
     const blocks = body.split(/\n\n+/);
 
@@ -912,7 +883,6 @@ const SubManager = {
       if (timeLineIdx === -1) return;
 
       const timeLine = lines[timeLineIdx];
-      // Aceita HH:MM:SS.mmm, MM:SS.mmm, e variações
       const timeMatch = timeLine.match(
         /(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/
       );
@@ -936,7 +906,6 @@ const SubManager = {
       }
     });
 
-    // Ordena por start (necessário para busca binária)
     cues.sort((a, b) => a.start - b.start);
 
     S.subData = cues;
@@ -944,12 +913,10 @@ const SubManager = {
     this.updateOverlay();
   },
 
-  // ─── Desenha a legenda ativa na tela ───
   updateOverlay() {
     const ov = g('sub-overlay');
     if (!ov) return;
 
-    // Esconde overlay se não houver legenda ativa
     if (!S.sub || !S.subData || !S.subData.length) {
       ov.style.display = 'none';
       return;
@@ -959,13 +926,11 @@ const SubManager = {
     const span = ov.querySelector('span');
     if (!span) return;
 
-    // Aplica configurações do usuário
     ov.style.bottom = S.subPos + '%';
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
 
-    // Busca binária: cues ordenados por start
     const t = V.currentTime;
     const cues = S.subData;
     let lo = 0, hi = cues.length - 1, active = null;
@@ -1010,7 +975,6 @@ function hideSplash(){clearTimeout(splT);g('splash').classList.add('off')}
 V.addEventListener('playing',hideSplash);
 V.addEventListener('canplay',()=>setTimeout(()=>{if(V.paused)hideSplash()},1500));
 EMB.addEventListener('load',()=>{if(P.classList.contains('embed'))hideSplash()});
-/* começa sozinho, com som. Se o navegador bloquear o autoplay, fica pausado (sem mudo) com o botão de play */
 function tryPlay(){
   const p=V.play();
   if(p&&p.catch)p.catch(()=>{hideSplash()});
@@ -1467,7 +1431,6 @@ function applyHlsQuality(){
   hls.currentLevel=best;
 }
 
-/* ⚠️ DETECTA MGEB E FORÇA VÍDEO DIRETO (st=0) */
 function loadVideo(resume,auto,forceStage){
   const u=srcFor();S.cur=u;
   if(hls){hls.destroy();hls=null}
@@ -1493,7 +1456,6 @@ function loadVideo(resume,auto,forceStage){
   if(st==null){
     if(CONFIG.MODO==='embed')st=2;
     else if(isM3&&hlsOk)st=1;
-    // ⚠️ mgeb.space SERVE MP4 DIRETO, NÃO É EMBED
     else if(isMgeb||CONFIG.MODO==='video'||isFile||isM3||prox)st=0;
     else st=2;
   }
@@ -1606,12 +1568,56 @@ async function fetchMeta(){
 
 async function loadFromCatalog(){
   const params = new URLSearchParams(location.search);
-  const id = params.get('id') || params.get('tmdb') || CONFIG.TMDB_ID;
-  const typeParam = params.get('type') || params.get('tipo') || CONFIG.TIPO;
+  let id = params.get('id') || params.get('tmdb') || CONFIG.TMDB_ID;
+  let typeParam = params.get('type') || params.get('tipo') || CONFIG.TIPO;
+  let season = params.get('season') || params.get('temp');
+  let ep = params.get('episode') || params.get('ep');
+
+  // 1. Rotas por caminho: /filme/ID ou /serie/ID/S/E
+  const path = location.pathname;
+  const filmeMatch = path.match(/\/filme\/([\w-]+)/i);
+  const serieMatch = path.match(/\/serie\/([\w-]+)\/(\d+)\/(\d+)/i);
+  if (filmeMatch) {
+    id = filmeMatch[1];
+    typeParam = 'movie';
+  } else if (serieMatch) {
+    id = serieMatch[1];
+    typeParam = 'series';
+    season = serieMatch[2];
+    ep = serieMatch[3];
+  }
+
+  // 2. Rotas por hash: #/tv/ID ou #/movie/ID
+  const hash = location.hash;
+  const hashTv = hash.match(/#\/(tv|serie)\/([\w-]+)(?:\/(\d+)\/(\d+))?/i);
+  const hashMovie = hash.match(/#\/(movie|filme)\/([\w-]+)/i);
+  if (hashTv) {
+    id = hashTv[2];
+    typeParam = 'series';
+    if (hashTv[3]) season = hashTv[3];
+    if (hashTv[4]) ep = hashTv[4];
+  } else if (hashMovie) {
+    id = hashMovie[2];
+    typeParam = 'movie';
+  }
+
+  // Atualiza CONFIG imediatamente com o que foi achado para o "Pedir Fonte" funcionar mesmo sem catálogo
+  if (id) CONFIG.TMDB_ID = String(id);
+  let type = 'movie';
+  if (typeParam) {
+    const tp = String(typeParam).toLowerCase();
+    if (tp === 'tv' || tp === 'series' || tp === 'serie') type = 'tv';
+    else if (tp === 'movie' || tp === 'filme') type = 'movie';
+  }
+  if (typeParam) CONFIG.TIPO = type === 'tv' ? 'tv' : 'movie';
+  if (season) CONFIG.TEMPORADA = parseInt(season) || 1;
+  if (ep) CONFIG.EPISODIO = parseInt(ep) || 1;
+
   if (!id) {
-    console.warn('[Player] Sem ID na URL');
+    console.warn('[Player] Nenhum ID informado na URL.');
     return false;
   }
+
   try {
     const res = await fetch('/catalog.json?t=' + Date.now());
     if (!res.ok) {
@@ -1619,25 +1625,26 @@ async function loadFromCatalog(){
       return false;
     }
     const catalog = await res.json();
-    const type = typeParam === 'tv' || typeParam === 'series' ? 'tv' : 'movie';
     const bucket = type === 'tv' ? catalog.series : catalog.movies;
-    const item = bucket?.[id];
+    let item = bucket?.[id];
+    
     if (!item) {
-      console.warn('[Player] ID ' + id + ' não encontrado no catálogo');
+      if (catalog.series?.[id]) { type = 'tv'; item = catalog.series[id]; CONFIG.TIPO = 'tv'; }
+      else if (catalog.movies?.[id]) { type = 'movie'; item = catalog.movies[id]; CONFIG.TIPO = 'movie'; }
+    }
+
+    if (!item) {
+      console.warn('[Player] ID ' + id + ' não encontrado no catálogo.');
       return false;
     }
-    CONFIG.TMDB_ID = String(id);
-    CONFIG.TIPO = type === 'tv' ? 'tv' : 'movie';
+
     if (item.title) CONFIG.TITULO = item.title;
+
     if (type === 'movie') {
       CONFIG.VIDEO = item.source || '';
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
       console.log('[Player] Filme carregado:', item.title, '| Fonte:', CONFIG.VIDEO);
     } else {
-      const season = parseInt(params.get('season') || params.get('temp') || CONFIG.TEMPORADA) || 1;
-      const ep = parseInt(params.get('episode') || params.get('ep') || CONFIG.EPISODIO) || 1;
-      CONFIG.TEMPORADA = season;
-      CONFIG.EPISODIO = ep;
       S.episodeSources = {};
       if (item.seasons && Array.isArray(item.seasons)) {
         item.seasons.forEach(s => {
@@ -1648,11 +1655,14 @@ async function loadFromCatalog(){
           }
         });
       }
-      const direct = S.episodeSources[`${season}_${ep}`];
-      if (direct) CONFIG.VIDEO = direct;
-      else {
-        const firstEp = S.episodeSources[`${season}_1`];
-        if (firstEp) CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
+      const direct = S.episodeSources[`${CONFIG.TEMPORADA}_${CONFIG.EPISODIO}`];
+      if (direct) {
+        CONFIG.VIDEO = direct;
+      } else {
+        const firstEp = S.episodeSources[`${CONFIG.TEMPORADA}_1`];
+        if (firstEp) {
+          CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
+        }
       }
     }
     return true;
@@ -1700,7 +1710,6 @@ async function start(){
     const ok = loadVideo(saved, true);
     tick();
     
-    // ⚠️ FORÇA UI VISÍVEL NO INÍCIO
     P.classList.add('paused');
     P.classList.add('show');
     
@@ -1716,7 +1725,6 @@ async function start(){
 
 window.KiraPlayer={ load(o){Object.assign(CONFIG,o||{});return start()}, config:CONFIG, link:montarLink };
 
-// ⚠️ GARANTIR VISIBILIDADE DO UI
 P.classList.add('show');
 
 resize();tick();start();
