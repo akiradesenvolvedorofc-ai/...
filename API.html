@@ -575,21 +575,21 @@ video::-moz-media-controls { display: none !important; }
 const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
   TMDB_ID:'', TIPO:'movie', TEMPORADA:1, EPISODIO:1, VIDEO:'',
-  // Reserva: se o ID não estiver no catalog.json, monta o link pelo ID ({id}, {temp}, {ep}). Deixe '' para desligar.
   LINK_FILME:'',
   LINK_SERIE:'',
-  // Fonte em inglês (usada no botão Áudio > Áudio em inglês). {id}, {temp} e {ep} são trocados sozinhos.
   LINK_EN_FILME:'https://cinextream.cc/api/embed/movie/{id}',
   LINK_EN_SERIE:'https://cinextream.cc/api/embed/tv/{id}/{temp}/{ep}',
-  // Cargos marcados no pedido de fonte: coloque o ID de cada cargo (deixe '' para não marcar)
-  CARGOS_FONTE:['1558713133655130213','1558713136432025610','1558713140219215986'],
-  // Webhooks do Discord (pode ser o mesmo canal ou canais diferentes)
-  WEBHOOK_FONTE:'https://discord.com/api/webhooks/1571591946437267466/YHDiixz5XGAVZ6AZVt12CpRMreFn76R8adpxTmIvou7SN6CToDDO3APyJEcRmdZ4JFdV',     // pedido quando o título não tem fonte
-  WEBHOOK_FEEDBACK:'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu',  // botão Feedback
-  TUTORIAL_SEMPRE:true,   // true = mostra o tutorial de gestos toda vez que entrar em tela cheia
+  CARGOS_FONTE:['ID_DO_CARGO_1','ID_DO_CARGO_2','ID_DO_CARGO_3'],
+  WEBHOOK_FONTE:'https://discord.com/api/webhooks/1571591946437267466/YHDiixz5XGAVZ6AZVt12CpRMreFn76R8adpxTmIvou7SN6CToDDO3APyJEcRmdZ4JFdV',
+  WEBHOOK_FEEDBACK:'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu',
+  TUTORIAL_SEMPRE:true,
   PROXY:'https://mgeb.space/mp4.php?url=', USAR_PROXY:false, MODO:'auto',
   VIDEO_EN:'', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
-  OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
+  
+  // ⚠️ NOVAS CREDENCIAIS OPENTSUBTITLES
+  OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O',
+  OS_EMAIL:'akiradosantos1@gmail.com',
+  OS_PASSWORD:'Akirazg22345@'
 };
 
 let ROTA=false;
@@ -665,24 +665,48 @@ const PROG = {
 };
 let lastSave = 0;
 
+/* ═══════════════════════════════════════════════════════════════════
+   SUBMANAGER — CORRIGIDO PARA OPENTSUBTITLES API V1 COM LOGIN
+   ═══════════════════════════════════════════════════════════════════ */
 const SubManager = {
   _reqId: 0,
+  _jwt: null,
+
+  async _getJwt() {
+    if (this._jwt) return this._jwt;
+    const loginUrl = 'https://api.opensubtitles.com/api/v1/login';
+    const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(loginUrl)}`;
+    
+    const res = await fetch(proxyUrl, {
+      method: 'POST',
+      headers: {
+        'Api-Key': CONFIG.OS_API_KEY,
+        'User-Agent': 'KiraFlixPlayer v1.0',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        username: CONFIG.OS_EMAIL,
+        password: CONFIG.OS_PASSWORD
+      })
+    });
+    
+    if (!res.ok) throw new Error('Falha no login OpenSubtitles');
+    const data = await res.json();
+    if (!data.token) throw new Error('Token JWT não retornado');
+    this._jwt = data.token;
+    return this._jwt;
+  },
 
   async fetchSubs() {
-    if (!CONFIG.TMDB_ID) {
-      toast('ID TMDB não configurado');
-      return;
-    }
-
+    if (!CONFIG.TMDB_ID) { toast('ID TMDB não configurado'); return; }
     const listEl = g('l-c');
     listEl.innerHTML = '<div style="color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)">Buscando legendas...</div>';
 
     try {
       const isTv = S.type === 'tv';
       let apiUrl = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${encodeURIComponent(CONFIG.TMDB_ID)}&languages=pt-br,en,es&type=${isTv ? 'episode' : 'movie'}`;
-      if (isTv) {
-        apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
-      }
+      if (isTv) apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
 
       const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
 
@@ -695,9 +719,7 @@ const SubManager = {
         }
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data = await res.json();
       S.subList = Array.isArray(data.data) ? data.data : [];
@@ -745,27 +767,15 @@ const SubManager = {
 
   async setSub(idx) {
     const reqId = ++this._reqId;
-
     if (idx === -1) {
-      S.subIdx = -1;
-      S.sub = false;
-      S.subData = null;
+      S.subIdx = -1; S.sub = false; S.subData = null;
       const ov = g('sub-overlay');
-      if (ov) {
-        ov.style.display = 'none';
-        const sp = ov.querySelector('span');
-        if (sp) sp.innerHTML = '';
-      }
+      if (ov) { ov.style.display = 'none'; const sp = ov.querySelector('span'); if (sp) sp.innerHTML = ''; }
       g('o-c').classList.remove('sel');
-      if (S._subBlobUrl) {
-        try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
-        S._subBlobUrl = null;
-      }
+      if (S._subBlobUrl) { try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {} S._subBlobUrl = null; }
       TRK.removeAttribute('src');
       try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
-      closePanels();
-      toast('Legenda desativada');
-      return;
+      closePanels(); toast('Legenda desativada'); return;
     }
 
     S.subIdx = idx;
@@ -773,10 +783,10 @@ const SubManager = {
     toast('Baixando legenda...');
 
     try {
+      const jwt = await this._getJwt();
       const sub = S.subList[idx];
       const files = (sub && sub.attributes && Array.isArray(sub.attributes.files)) ? sub.attributes.files : [];
       if (!files.length) throw new Error('Nenhum arquivo disponível');
-
       const fileId = files[0].file_id;
       if (!fileId) throw new Error('file_id inválido');
 
@@ -787,6 +797,7 @@ const SubManager = {
         method: 'POST',
         headers: {
           'Api-Key': CONFIG.OS_API_KEY,
+          'Authorization': 'Bearer ' + jwt,
           'User-Agent': 'KiraFlixPlayer v1.0',
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -795,76 +806,57 @@ const SubManager = {
       });
 
       if (reqId !== this._reqId) return;
-
       if (!dlRes.ok) {
-        if (dlRes.status === 406) throw new Error('Limite diário de downloads atingido');
-        if (dlRes.status === 401) throw new Error('API Key inválida');
+        if (dlRes.status === 406) throw new Error('Limite diário atingido');
+        if (dlRes.status === 401) throw new Error('Sessão expirada');
         if (dlRes.status === 429) throw new Error('Muitas requisições');
         throw new Error(`HTTP ${dlRes.status}`);
       }
 
       const dlData = await dlRes.json();
-
-      if (!dlData.link) {
-        throw new Error('API não retornou link de download');
-      }
+      if (!dlData.link) throw new Error('API não retornou link');
 
       const subRes = await fetch(dlData.link);
-      if (!subRes.ok) throw new Error(`Falha ao baixar arquivo (${subRes.status})`);
-
+      if (!subRes.ok) throw new Error(`Falha no download (${subRes.status})`);
       const text = await subRes.text();
-      if (!text || text.length < 30) throw new Error('Arquivo de legenda vazio ou inválido');
+      if (!text || text.length < 30) throw new Error('Legenda vazia');
 
       if (reqId !== this._reqId) return;
-
       this.parseAndLoad(text);
     } catch (e) {
       if (reqId !== this._reqId) return;
-      console.error('[Legendas] Erro no download:', e);
-      toast('Erro: ' + ((e && e.message) || 'falha ao baixar'));
-      S.subIdx = -1;
-      S.sub = false;
-      g('o-c').classList.remove('sel');
+      console.error('[Legendas] Erro:', e);
+      toast('Erro: ' + ((e && e.message) || 'falha'));
+      S.subIdx = -1; S.sub = false; g('o-c').classList.remove('sel');
     }
   },
 
   parseAndLoad(srtText) {
     srtText = String(srtText).replace(/^\ufeff/, '');
     srtText = srtText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-
     let vtt = 'WEBVTT\n\n';
     const lines = srtText.split('\n');
     let isTime = false;
-
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-
       if (line.includes('-->')) {
         line = line.replace(/,/g, '.');
         line = line.replace(/(\.\d{3})\s+[XY]\d*:[^\n]*$/i, '$1').trim();
         isTime = true;
         vtt += line + '\n';
       } else if (line.trim() === '' && isTime) {
-        vtt += '\n';
-        isTime = false;
+        vtt += '\n'; isTime = false;
       } else if (isTime) {
-        line = line.replace(/<[^>]*>/g, '');
-        line = line.replace(/\{[^}]*\}/g, '');
+        line = line.replace(/<[^>]*>/g, '').replace(/\{[^}]*\}/g, '');
         vtt += line + '\n';
       }
     }
-
     const blob = new Blob([vtt], { type: 'text/vtt;charset=utf-8' });
-
-    if (S._subBlobUrl) {
-      try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
-    }
+    if (S._subBlobUrl) { try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {} }
     const url = URL.createObjectURL(blob);
     S._subBlobUrl = url;
-
     TRK.src = url;
     try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
-
     S.sub = true;
     this.renderCustomSubs(vtt);
     g('o-c').classList.add('sel');
@@ -875,19 +867,14 @@ const SubManager = {
     const cues = [];
     const body = vttText.replace(/^WEBVTT[^\n]*\n+/, '');
     const blocks = body.split(/\n\n+/);
-
     blocks.forEach(block => {
       if (!block.trim()) return;
       const lines = block.split('\n');
       const timeLineIdx = lines.findIndex(l => l.includes('-->'));
       if (timeLineIdx === -1) return;
-
       const timeLine = lines[timeLineIdx];
-      const timeMatch = timeLine.match(
-        /(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/
-      );
+      const timeMatch = timeLine.match(/(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/);
       if (!timeMatch) return;
-
       const parseTime = (t) => {
         t = t.replace(',', '.');
         const parts = t.split(':').map(parseFloat);
@@ -895,46 +882,28 @@ const SubManager = {
         if (parts.length === 2) return parts[0] * 60 + parts[1];
         return parts[0];
       };
-
       const text = lines.slice(timeLineIdx + 1).join('\n').trim();
-      if (text) {
-        cues.push({
-          start: parseTime(timeMatch[1]),
-          end: parseTime(timeMatch[2]),
-          text
-        });
-      }
+      if (text) cues.push({ start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]), text });
     });
-
     cues.sort((a, b) => a.start - b.start);
-
     S.subData = cues;
-    console.log(`[Legendas] ${cues.length} cues carregados`);
     this.updateOverlay();
   },
 
   updateOverlay() {
     const ov = g('sub-overlay');
     if (!ov) return;
-
-    if (!S.sub || !S.subData || !S.subData.length) {
-      ov.style.display = 'none';
-      return;
-    }
+    if (!S.sub || !S.subData || !S.subData.length) { ov.style.display = 'none'; return; }
     ov.style.display = 'block';
-
     const span = ov.querySelector('span');
     if (!span) return;
-
     ov.style.bottom = S.subPos + '%';
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
-
     const t = V.currentTime;
     const cues = S.subData;
     let lo = 0, hi = cues.length - 1, active = null;
-
     while (lo <= hi) {
       const mid = (lo + hi) >> 1;
       const c = cues[mid];
@@ -942,7 +911,6 @@ const SubManager = {
       else if (t > c.end) lo = mid + 1;
       else { active = c; break; }
     }
-
     span.innerHTML = active ? active.text.replace(/\n/g, '<br>') : '';
   }
 };
@@ -996,8 +964,8 @@ function embedTitulo(titulo,desc,cor){
   if(S.overview)fields.push({name:'Descrição do filme',value:S.overview.slice(0,1000),inline:false});
   if(S.id)fields.push({name:'Página',value:paginaAtual(),inline:false});
   const e={title:titulo,description:String(desc||'').slice(0,1800),color:cor,fields,timestamp:new Date().toISOString(),footer:{text:'KiraFlix Player'}};
-  if(S.posterImg)e.thumbnail={url:S.posterImg};   // capa
-  if(S.backdropImg)e.image={url:S.backdropImg};   // thumbnail grande
+  if(S.posterImg)e.thumbnail={url:S.posterImg};
+  if(S.backdropImg)e.image={url:S.backdropImg};
   return e;
 }
 async function enviarDiscord(url,embed,cargos){
@@ -1373,12 +1341,9 @@ g('c-pip').onclick=pip;
 g('c-cast').onclick=cast;
 g('f-cast').onclick=cast;
 g('cast-rf').onclick=cast;
-g('f-dl').onclick=()=>{
-  const u=srcFor();
-  if(!u||P.classList.contains('embed')||S.stage===1){toast('Download indisponível');return}
-  const a=document.createElement('a');a.href=u;a.download='';a.target='_blank';a.rel='noopener';
-  document.body.appendChild(a);a.click();a.remove();toast('Download iniciado');
-};
+
+/* ⚠️ DOWNLOAD DA NUVEM REMOVIDO (função vazia) */
+g('f-dl').onclick=()=>{};
 
 g('c-big').onclick=toggle;
 g('c-play').onclick=toggle;
@@ -1573,35 +1538,18 @@ async function loadFromCatalog(){
   let season = params.get('season') || params.get('temp');
   let ep = params.get('episode') || params.get('ep');
 
-  // 1. Rotas por caminho: /filme/ID ou /serie/ID/S/E
   const path = location.pathname;
   const filmeMatch = path.match(/\/filme\/([\w-]+)/i);
   const serieMatch = path.match(/\/serie\/([\w-]+)\/(\d+)\/(\d+)/i);
-  if (filmeMatch) {
-    id = filmeMatch[1];
-    typeParam = 'movie';
-  } else if (serieMatch) {
-    id = serieMatch[1];
-    typeParam = 'series';
-    season = serieMatch[2];
-    ep = serieMatch[3];
-  }
+  if (filmeMatch) { id = filmeMatch[1]; typeParam = 'movie'; }
+  else if (serieMatch) { id = serieMatch[1]; typeParam = 'series'; season = serieMatch[2]; ep = serieMatch[3]; }
 
-  // 2. Rotas por hash: #/tv/ID ou #/movie/ID
   const hash = location.hash;
   const hashTv = hash.match(/#\/(tv|serie)\/([\w-]+)(?:\/(\d+)\/(\d+))?/i);
   const hashMovie = hash.match(/#\/(movie|filme)\/([\w-]+)/i);
-  if (hashTv) {
-    id = hashTv[2];
-    typeParam = 'series';
-    if (hashTv[3]) season = hashTv[3];
-    if (hashTv[4]) ep = hashTv[4];
-  } else if (hashMovie) {
-    id = hashMovie[2];
-    typeParam = 'movie';
-  }
+  if (hashTv) { id = hashTv[2]; typeParam = 'series'; if (hashTv[3]) season = hashTv[3]; if (hashTv[4]) ep = hashTv[4]; }
+  else if (hashMovie) { id = hashMovie[2]; typeParam = 'movie'; }
 
-  // Atualiza CONFIG imediatamente com o que foi achado para o "Pedir Fonte" funcionar mesmo sem catálogo
   if (id) CONFIG.TMDB_ID = String(id);
   let type = 'movie';
   if (typeParam) {
@@ -1613,17 +1561,11 @@ async function loadFromCatalog(){
   if (season) CONFIG.TEMPORADA = parseInt(season) || 1;
   if (ep) CONFIG.EPISODIO = parseInt(ep) || 1;
 
-  if (!id) {
-    console.warn('[Player] Nenhum ID informado na URL.');
-    return false;
-  }
+  if (!id) { console.warn('[Player] Nenhum ID informado na URL.'); return false; }
 
   try {
     const res = await fetch('/catalog.json?t=' + Date.now());
-    if (!res.ok) {
-      console.warn('[Player] catalog.json não encontrado (HTTP ' + res.status + ')');
-      return false;
-    }
+    if (!res.ok) { console.warn('[Player] catalog.json não encontrado (HTTP ' + res.status + ')'); return false; }
     const catalog = await res.json();
     const bucket = type === 'tv' ? catalog.series : catalog.movies;
     let item = bucket?.[id];
@@ -1633,11 +1575,7 @@ async function loadFromCatalog(){
       else if (catalog.movies?.[id]) { type = 'movie'; item = catalog.movies[id]; CONFIG.TIPO = 'movie'; }
     }
 
-    if (!item) {
-      console.warn('[Player] ID ' + id + ' não encontrado no catálogo.');
-      return false;
-    }
-
+    if (!item) { console.warn('[Player] ID ' + id + ' não encontrado no catálogo.'); return false; }
     if (item.title) CONFIG.TITULO = item.title;
 
     if (type === 'movie') {
@@ -1656,13 +1594,10 @@ async function loadFromCatalog(){
         });
       }
       const direct = S.episodeSources[`${CONFIG.TEMPORADA}_${CONFIG.EPISODIO}`];
-      if (direct) {
-        CONFIG.VIDEO = direct;
-      } else {
+      if (direct) { CONFIG.VIDEO = direct; }
+      else {
         const firstEp = S.episodeSources[`${CONFIG.TEMPORADA}_1`];
-        if (firstEp) {
-          CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
-        }
+        if (firstEp) { CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}'); }
       }
     }
     return true;
