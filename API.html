@@ -15,7 +15,6 @@ html,body{height:100%;margin:0;background:#000;overflow:hidden;font-family:'Outf
 .player:-webkit-full-screen{width:100vw;height:100vh}
 .player.pseudo{position:fixed;inset:0;z-index:9999;width:100%;height:100%}
 
-/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 .player video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;background:#000;z-index:1;
@@ -55,7 +54,6 @@ video::-moz-media-controls { display: none !important; }
 
 .dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2}
 
-/* ⚠️ OVERLAY DE GESTOS - SEMPRE RECEBE CLIQUE */
 .gest{
   position:absolute;inset:0;
   z-index:3;
@@ -66,7 +64,7 @@ video::-moz-media-controls { display: none !important; }
 }
 
 .spin{position:absolute;left:50%;top:50%;width:calc(var(--u)*64);height:calc(var(--u)*64);margin:calc(var(--u)*-32) 0 0 calc(var(--u)*-32);border:calc(var(--u)*4) solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:none;z-index:5;pointer-events:none}
-.loading .spin{display:block}
+.loading .spin{display:none}
 @keyframes sp{to{transform:rotate(360deg)}}
 
 .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block;overflow:visible}
@@ -87,7 +85,6 @@ video::-moz-media-controls { display: none !important; }
 .is-full .ui.compact{display:none}
 .locked .ui{display:none!important}
 
-/* Estado SEM VÍDEO - mostra mensagem */
 .player.novideo .c-big::after {
   content: '⚠️';
   position: absolute;
@@ -112,7 +109,7 @@ video::-moz-media-controls { display: none !important; }
 .c-top{position:absolute;top:calc(var(--u)*68);right:calc(var(--u)*30);display:flex;gap:calc(var(--u)*46)}
 .c-top .ic{width:calc(var(--u)*40);height:calc(var(--u)*40)}
 .c-big{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(var(--u)*72);height:calc(var(--u)*72)}
-.c-big .ic{width:100%;height:100%}
+.c-big .ic{width:calc(var(--u)*72);height:calc(var(--u)*72);transform:translateX(-5%)}
 .playing .c-big{display:none}
 .c-bar{position:absolute;left:calc(var(--u)*34);right:calc(var(--u)*30);bottom:calc(var(--u)*8);display:flex;align-items:center;gap:calc(var(--u)*26)}
 .c-bar .ic{width:calc(var(--u)*30);height:calc(var(--u)*30)}
@@ -134,6 +131,7 @@ video::-moz-media-controls { display: none !important; }
 .f-mid{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:flex;justify-content:center;align-items:center;gap:calc(var(--u)*158);pointer-events:none}
 .f-mid .btn .ic{width:calc(var(--u)*60);height:calc(var(--u)*60)}
 .f-mid .big .ic{width:calc(var(--u)*76);height:calc(var(--u)*76)}
+.f-mid .big .ic.i-play{transform:translateX(-5%)}
 .f-bot{position:absolute;left:0;right:0;bottom:calc(var(--u)*34);padding:0 calc(var(--u)*28)}
 .f-prog{display:grid;grid-template-columns:auto 1fr auto;column-gap:calc(var(--u)*20);align-items:center}
 .f-prog span{font-size:calc(var(--u)*23);font-variant-numeric:tabular-nums;white-space:nowrap;color:#f1f1f1}
@@ -229,9 +227,23 @@ video::-moz-media-controls { display: none !important; }
 .g-lb{font-size:calc(var(--u)*28);line-height:1.22;min-height:calc(var(--u)*70)}
 .g-sub{margin-top:calc(var(--u)*40);font-size:calc(var(--u)*22);color:#8a8a8f}
 
+.splash{position:absolute;inset:0;z-index:40;background:#2b0508;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .5s ease,visibility .5s}
+.splash.off{opacity:0;visibility:hidden;pointer-events:none}
+.splash::after{content:'';position:absolute;inset:0;background:linear-gradient(#000 0,rgba(0,0,0,0) 9%,rgba(0,0,0,0) 90%,rgba(0,0,0,.35) 100%);pointer-events:none}
+.splash .blob{position:absolute;border-radius:50%;filter:blur(calc(var(--u)*45));will-change:transform}
+.splash .b1{width:62%;height:78%;left:-10%;top:14%;background:#e0201f;opacity:.92;animation:bl1 9s ease-in-out infinite alternate}
+.splash .b2{width:52%;height:62%;left:24%;top:-14%;background:#c4283a;opacity:.78;animation:bl2 11s ease-in-out infinite alternate}
+.splash .b3{width:56%;height:72%;right:-14%;bottom:-22%;background:#8a1018;opacity:.95;animation:bl3 10s ease-in-out infinite alternate}
+.splash .b4{width:36%;height:44%;left:33%;top:46%;background:#380a10;opacity:.85;animation:bl2 13s ease-in-out infinite alternate-reverse}
+@keyframes bl1{to{transform:translate(14%,-10%) scale(1.15)}}
+@keyframes bl2{to{transform:translate(-12%,14%) scale(1.12)}}
+@keyframes bl3{to{transform:translate(-16%,-8%) scale(1.1)}}
+.splash h2{position:relative;z-index:1;font-size:calc(var(--u)*32);font-weight:700;letter-spacing:.2px;margin-bottom:calc(var(--u)*10);color:#fff}
+.splash p{position:relative;z-index:1;font-size:calc(var(--u)*19.5);font-weight:500;color:#cf9aa0;padding:0 calc(var(--u)*20)}
+
 .ind{position:absolute;left:50%;top:22%;transform:translateX(-50%);background:rgba(20,20,20,.78);padding:calc(var(--u)*10) calc(var(--u)*26);border-radius:calc(var(--u)*30);font-size:calc(var(--u)*26);font-weight:500;opacity:0;pointer-events:none;transition:opacity .15s;z-index:6;white-space:nowrap;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:calc(var(--u)*10)}
 .ind.on{opacity:1}
-.toast{position:absolute;left:50%;bottom:calc(var(--u)*120);transform:translateX(-50%);background:rgba(30,30,32,.94);padding:calc(var(--u)*11) calc(var(--u)*24);border-radius:calc(var(--u)*30);font-size:calc(var(--u)*22);opacity:0;pointer-events:none;transition:opacity .25s;z-index:25;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+.toast{position:absolute;left:50%;bottom:calc(var(--u)*120);transform:translateX(-50%);background:rgba(30,30,32,.94);padding:calc(var(--u)*11) calc(var(--u)*24);border-radius:calc(var(--u)*30);font-size:calc(var(--u)*22);opacity:0;pointer-events:none;transition:opacity .25s;z-index:45;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
 .toast.on{opacity:1}
 
 #sub-overlay {
@@ -246,6 +258,7 @@ video::-moz-media-controls { display: none !important; }
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   transition: bottom 0.2s, font-size 0.2s;
+  display: none;
 }
 #sub-overlay span {
   display: inline-block;
@@ -470,6 +483,12 @@ video::-moz-media-controls { display: none !important; }
     </div>
   </div>
 
+  <div class="splash" id="splash">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+    <h2>KiraFlix Player</h2>
+    <p>O KiraFlix está se preparando para você…</p>
+  </div>
+
   <div class="ind" id="ind"></div>
   <div class="toast" id="toast"></div>
 </div>
@@ -482,12 +501,25 @@ video::-moz-media-controls { display: none !important; }
 const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
   TMDB_ID:'', TIPO:'movie', TEMPORADA:1, EPISODIO:1, VIDEO:'',
+  // Reserva PT (deixe '' para usar apenas catálogo — você adiciona depois)
+  LINK_FILME:'',
+  LINK_SERIE:'',
+  // Player em INGLÊS (jvembed)
+  LINK_FILME_EN:'https://jvembed.digitalweb.host/watch/movie/{id}',
+  LINK_SERIE_EN:'https://jvembed.digitalweb.host/watch/tv/{id}/{temp}/{ep}',
   PROXY:'https://mgeb.space/mp4.php?url=', USAR_PROXY:false, MODO:'auto',
-  VIDEO_EN:'https://jvembed.digitalweb.host/watch/movie/{id}', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
+  VIDEO_EN:'', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
   OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
 };
 
+let ROTA=false;
 (function params(){
+  const rt=location.pathname.match(/\/(filme|movie|serie|tv)\/(\d+)(?:\/(\d+)\/(\d+))?\/?$/i);
+  if(rt){
+    ROTA=true;const tv=/^(serie|tv)$/i.test(rt[1]);
+    CONFIG.TIPO=tv?'tv':'movie';CONFIG.TMDB_ID=rt[2];
+    if(tv){CONFIG.TEMPORADA=parseInt(rt[3])||1;CONFIG.EPISODIO=parseInt(rt[4])||1}
+  }
   const q=new URLSearchParams(location.search);
   const t=q.get('tipo')||q.get('type');
   if(q.has('tmdb')||q.has('id'))CONFIG.TMDB_ID=q.get('tmdb')||q.get('id');
@@ -502,7 +534,6 @@ const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
 
-/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 function killNativeControls(){
   V.controls = false;
   V.removeAttribute('controls');
@@ -554,96 +585,205 @@ const PROG = {
 let lastSave = 0;
 
 const SubManager = {
+  _reqId: 0,
+
   async fetchSubs() {
-    if(!CONFIG.TMDB_ID) return;
+    if (!CONFIG.TMDB_ID) {
+      toast('ID TMDB não configurado');
+      return;
+    }
+
     const listEl = g('l-c');
-    listEl.innerHTML = '<div style="color:#aaa;text-align:center;padding:20px">Buscando legendas...</div>';
+    listEl.innerHTML = '<div style="color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)">Buscando legendas...</div>';
+
     try {
-      const url = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${CONFIG.TMDB_ID}&languages=pt-br,en,es&type=${S.type === 'tv' ? 'episode' : 'movie'}${S.type==='tv' ? `&season_number=${S.season}&episode_number=${S.ep}` : ''}`;
-      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`, {
-        headers: { 'Api-Key': CONFIG.OS_API_KEY, 'Content-Type': 'application/json' }
+      const isTv = S.type === 'tv';
+      let apiUrl = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${encodeURIComponent(CONFIG.TMDB_ID)}&languages=pt-br,en,es&type=${isTv ? 'episode' : 'movie'}`;
+      if (isTv) {
+        apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
+      }
+
+      const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
+
+      const res = await fetch(proxyUrl, {
+        method: 'GET',
+        headers: {
+          'Api-Key': CONFIG.OS_API_KEY,
+          'User-Agent': 'KiraFlixPlayer v1.0',
+          'Accept': 'application/json'
+        }
       });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
       const data = await res.json();
-      S.subList = data.data || [];
+      S.subList = Array.isArray(data.data) ? data.data : [];
       listEl.innerHTML = '';
+
       const btnOff = document.createElement('button');
       btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
       btnOff.textContent = 'Desativado';
-      btnOff.onclick = () => { this.setSub(-1); closePanels(); };
+      btnOff.onclick = () => this.setSub(-1);
       listEl.appendChild(btnOff);
-      if(S.subList.length === 0) {
-        listEl.innerHTML += '<div style="color:#aaa;text-align:center;padding:20px">Nenhuma legenda encontrada.</div>';
+
+      if (S.subList.length === 0) {
+        const empty = document.createElement('div');
+        empty.style.cssText = 'color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)';
+        empty.textContent = 'Nenhuma legenda encontrada para este título.';
+        listEl.appendChild(empty);
         return;
       }
+
       S.subList.forEach((sub, idx) => {
-        const attrs = sub.attributes;
-        const lang = attrs.language;
-        const name = attrs.release || attrs.feature_details?.title || `Legenda ${lang}`;
+        const attrs = sub.attributes || {};
+        const lang = String(attrs.language || '??').toUpperCase();
+        const release = attrs.release || attrs.feature_details?.title || attrs.feature_details?.movie_name || `Legenda ${lang}`;
+        const downloads = attrs.download_count || 0;
+
         const btn = document.createElement('button');
         btn.className = 'opt' + (S.subIdx === idx ? ' sel' : '');
-        btn.innerHTML = `<span>${lang.toUpperCase()} - ${name.substring(0,30)}...</span>`;
+        const shortRelease = release.length > 40 ? release.substring(0, 40) + '…' : release;
+        btn.innerHTML = `<span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <b style="color:#4ea1ff">${lang}</b>
+          <span>${shortRelease}</span>
+          ${downloads > 0 ? `<small style="color:#666;font-size:0.7em">${downloads}↓</small>` : ''}
+        </span>`;
         btn.onclick = () => this.setSub(idx);
         listEl.appendChild(btn);
       });
-    } catch(e) {
-      console.error(e);
-      listEl.innerHTML = '<div style="color:#ff4444;text-align:center;padding:20px">Erro ao buscar legendas.</div>';
+    } catch (e) {
+      console.error('[Legendas] Erro na busca:', e);
+      listEl.innerHTML = `<div style="color:#ff6b6b;text-align:center;padding:20px;font-size:calc(var(--u)*22)">
+        Erro ao buscar legendas.<br>
+        <small style="color:#888">${(e && e.message) || 'desconhecido'}</small>
+      </div>`;
     }
   },
 
   async setSub(idx) {
-    S.subIdx = idx;
-    S.sub = idx !== -1;
-    if(idx === -1) {
-      g('sub-overlay').style.display = 'none';
+    const reqId = ++this._reqId;
+
+    if (idx === -1) {
+      S.subIdx = -1;
+      S.sub = false;
+      S.subData = null;
+      const ov = g('sub-overlay');
+      if (ov) {
+        ov.style.display = 'none';
+        const sp = ov.querySelector('span');
+        if (sp) sp.innerHTML = '';
+      }
       g('o-c').classList.remove('sel');
+      if (S._subBlobUrl) {
+        try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
+        S._subBlobUrl = null;
+      }
+      TRK.removeAttribute('src');
+      try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
       closePanels();
+      toast('Legenda desativada');
       return;
     }
+
+    S.subIdx = idx;
     closePanels();
     toast('Baixando legenda...');
+
     try {
       const sub = S.subList[idx];
-      const fileId = sub.attributes.files[0].file_id;
-      const dlRes = await fetch(`https://corsproxy.io/?${encodeURIComponent('https://api.opensubtitles.com/api/v1/download')}`, {
+      const files = (sub && sub.attributes && Array.isArray(sub.attributes.files)) ? sub.attributes.files : [];
+      if (!files.length) throw new Error('Nenhum arquivo disponível');
+
+      const fileId = files[0].file_id;
+      if (!fileId) throw new Error('file_id inválido');
+
+      const downloadApiUrl = 'https://api.opensubtitles.com/api/v1/download';
+      const proxyDownloadUrl = `https://corsproxy.io/?url=${encodeURIComponent(downloadApiUrl)}`;
+
+      const dlRes = await fetch(proxyDownloadUrl, {
         method: 'POST',
-        headers: { 'Api-Key': CONFIG.OS_API_KEY, 'Content-Type': 'application/json' },
+        headers: {
+          'Api-Key': CONFIG.OS_API_KEY,
+          'User-Agent': 'KiraFlixPlayer v1.0',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({ file_id: fileId })
       });
-      const dlData = await dlRes.json();
-      if(dlData.link) {
-        const subRes = await fetch(dlData.link);
-        const text = await subRes.text();
-        this.parseAndLoad(text);
-      } else {
-        toast('Erro no limite da API.');
+
+      if (reqId !== this._reqId) return;
+
+      if (!dlRes.ok) {
+        if (dlRes.status === 406) throw new Error('Limite diário de downloads atingido');
+        if (dlRes.status === 401) throw new Error('API Key inválida');
+        if (dlRes.status === 429) throw new Error('Muitas requisições');
+        throw new Error(`HTTP ${dlRes.status}`);
       }
-    } catch(e) {
-      console.error(e);
-      toast('Erro ao baixar legenda.');
+
+      const dlData = await dlRes.json();
+
+      if (!dlData.link) {
+        throw new Error('API não retornou link de download');
+      }
+
+      const subRes = await fetch(dlData.link);
+      if (!subRes.ok) throw new Error(`Falha ao baixar arquivo (${subRes.status})`);
+
+      const text = await subRes.text();
+      if (!text || text.length < 30) throw new Error('Arquivo de legenda vazio ou inválido');
+
+      if (reqId !== this._reqId) return;
+
+      this.parseAndLoad(text);
+    } catch (e) {
+      if (reqId !== this._reqId) return;
+      console.error('[Legendas] Erro no download:', e);
+      toast('Erro: ' + ((e && e.message) || 'falha ao baixar'));
+      S.subIdx = -1;
+      S.sub = false;
+      g('o-c').classList.remove('sel');
     }
   },
 
   parseAndLoad(srtText) {
-    let vtt = "WEBVTT\n\n";
-    const lines = srtText.replace(/\r/g, '').split('\n');
+    srtText = String(srtText).replace(/^\ufeff/, '');
+    srtText = srtText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+    let vtt = 'WEBVTT\n\n';
+    const lines = srtText.split('\n');
     let isTime = false;
-    for(let i=0; i<lines.length; i++) {
+
+    for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-      if(line.includes('-->')) {
+
+      if (line.includes('-->')) {
         line = line.replace(/,/g, '.');
+        line = line.replace(/(\.\d{3})\s+[XY]\d*:[^\n]*$/i, '$1').trim();
         isTime = true;
         vtt += line + '\n';
       } else if (line.trim() === '' && isTime) {
         vtt += '\n';
         isTime = false;
       } else if (isTime) {
+        line = line.replace(/<[^>]*>/g, '');
+        line = line.replace(/\{[^}]*\}/g, '');
         vtt += line + '\n';
       }
     }
-    const blob = new Blob([vtt], { type: 'text/vtt' });
+
+    const blob = new Blob([vtt], { type: 'text/vtt;charset=utf-8' });
+
+    if (S._subBlobUrl) {
+      try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
+    }
     const url = URL.createObjectURL(blob);
+    S._subBlobUrl = url;
+
     TRK.src = url;
+    try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
+
     S.sub = true;
     this.renderCustomSubs(vtt);
     g('o-c').classList.add('sel');
@@ -652,40 +792,83 @@ const SubManager = {
 
   renderCustomSubs(vttText) {
     const cues = [];
-    const blocks = vttText.split('\n\n');
-    blocks.forEach(b => {
-      const lines = b.split('\n');
-      const timeLine = lines.find(l => l.includes('-->'));
-      if(timeLine) {
-        const [start, end] = timeLine.split(' --> ');
-        const parseTime = (t) => {
-          const parts = t.split(':');
-          return parseFloat(parts[0])*3600 + parseFloat(parts[1])*60 + parseFloat(parts[2]);
-        };
-        const text = lines.slice(lines.indexOf(timeLine)+1).join('\n');
-        if(text) cues.push({ start: parseTime(start), end: parseTime(end), text });
+    const body = vttText.replace(/^WEBVTT[^\n]*\n+/, '');
+    const blocks = body.split(/\n\n+/);
+
+    blocks.forEach(block => {
+      if (!block.trim()) return;
+      const lines = block.split('\n');
+      const timeLineIdx = lines.findIndex(l => l.includes('-->'));
+      if (timeLineIdx === -1) return;
+
+      const timeLine = lines[timeLineIdx];
+      const timeMatch = timeLine.match(
+        /(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/
+      );
+      if (!timeMatch) return;
+
+      const parseTime = (t) => {
+        t = t.replace(',', '.');
+        const parts = t.split(':').map(parseFloat);
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        return parts[0];
+      };
+
+      const text = lines.slice(timeLineIdx + 1).join('\n').trim();
+      if (text) {
+        cues.push({
+          start: parseTime(timeMatch[1]),
+          end: parseTime(timeMatch[2]),
+          text
+        });
       }
     });
+
+    cues.sort((a, b) => a.start - b.start);
+
     S.subData = cues;
+    console.log(`[Legendas] ${cues.length} cues carregados`);
     this.updateOverlay();
   },
 
   updateOverlay() {
     const ov = g('sub-overlay');
+    if (!ov) return;
+
+    if (!S.sub || !S.subData || !S.subData.length) {
+      ov.style.display = 'none';
+      return;
+    }
+    ov.style.display = 'block';
+
     const span = ov.querySelector('span');
+    if (!span) return;
+
     ov.style.bottom = S.subPos + '%';
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
-    if(!S.subData || !S.sub || V.paused) { span.textContent = ''; return; }
+
     const t = V.currentTime;
-    const active = S.subData.find(c => t >= c.start && t <= c.end);
+    const cues = S.subData;
+    let lo = 0, hi = cues.length - 1, active = null;
+
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      const c = cues[mid];
+      if (t < c.start) hi = mid - 1;
+      else if (t > c.end) lo = mid + 1;
+      else { active = c; break; }
+    }
+
     span.innerHTML = active ? active.text.replace(/\n/g, '<br>') : '';
   }
 };
 
 V.addEventListener('timeupdate', () => SubManager.updateOverlay());
 V.addEventListener('play', () => SubManager.updateOverlay());
+V.addEventListener('seeked', () => SubManager.updateOverlay());
 
 function fmt(s,h){s=Math.max(0,Math.floor(s||0));const H=Math.floor(s/3600),M=Math.floor(s%3600/60),X=s%60;return (h||H>0)?`${pad(H)}:${pad(M)}:${pad(X)}`:`${pad(M)}:${pad(X)}`}
 const dur=()=>(isFinite(V.duration)&&V.duration>0)?V.duration:S.runtime;
@@ -695,23 +878,6 @@ function ind(t,icon=''){const e=g('ind');e.innerHTML=`${icon} ${t}`;e.classList.
 function hideInd(){g('ind').classList.remove('on')}
 function showUI(){P.classList.add('show');clearTimeout(hideT);if(!V.paused&&!P.classList.contains('panel-open'))hideT=setTimeout(()=>P.classList.remove('show'),3500)}
 function hideUI(){P.classList.remove('show')}
-
-/* ═══════════════════════════════════════════════════════════════════
-   TUTORIAL — mostra só na primeira vez (flag em localStorage)
-   ═══════════════════════════════════════════════════════════════════ */
-function maybeShowGuide(){
-  if(!LS.get('guide',false)){
-    g('guide').classList.add('on');
-  }
-}
-
-/* Embed carregou → mostra tutorial se for a primeira vez em modo embed */
-EMB.addEventListener('load',()=>{
-  if(P.classList.contains('embed')){
-    maybeShowGuide();
-  }
-});
-
 function resize(){
   const w=P.clientWidth||1,h=P.clientHeight||1,full=P.classList.contains('is-full');
   const u=full?Math.min(w/1600,h/720):Math.min(w/720,h/445,1.6);
@@ -720,6 +886,45 @@ function resize(){
 new ResizeObserver(resize).observe(P);
 window.addEventListener('resize',resize);
 P.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* ═══════════════════════════════════════════════════════════════════
+   TUTORIAL — mostra na primeira vez em: play, embed load, fullscreen
+   ═══════════════════════════════════════════════════════════════════ */
+function maybeShowGuide(){
+  if(!LS.get('guide',false)){
+    g('guide').classList.add('on');
+  }
+}
+
+/* ---------- tela de carregamento ---------- */
+let splT=null,autoMuted=false;
+function showSplash(){g('splash').classList.remove('off');clearTimeout(splT);splT=setTimeout(hideSplash,45000)}
+function hideSplash(){clearTimeout(splT);g('splash').classList.add('off')}
+V.addEventListener('playing',hideSplash);
+V.addEventListener('canplay',()=>setTimeout(()=>{if(V.paused)hideSplash()},1500));
+
+/* Embed carregou → esconde splash E mostra o tutorial na primeira vez */
+EMB.addEventListener('load',()=>{
+  if(P.classList.contains('embed')){
+    hideSplash();
+    maybeShowGuide();
+  }
+});
+
+function tryPlay(){
+  const p=V.play();
+  if(p&&p.catch)p.catch(err=>{
+    if(!err||err.name!=='NotAllowedError'||autoMuted)return;
+    V.muted=true;autoMuted=true;P.classList.add('muted');
+    V.play().catch(()=>{});
+    toast('Toque na tela para ativar o som');
+  });
+}
+function unmuteAuto(){
+  if(!autoMuted)return;
+  autoMuted=false;V.muted=S.vol===0;P.classList.toggle('muted',S.vol===0);
+}
+['pointerup','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,unmuteAuto,true));
 
 function tick(){
   const d=dur(),c=V.currentTime||0,p=d?clamp(c/d*100,0,100):0;
@@ -770,7 +975,7 @@ V.addEventListener('error',()=>{
 
 function toggle(){
   if (!S.cur || P.classList.contains('embed')) {
-    if (P.classList.contains('embed')) {
+    if (P.classList.contains('embed')){
       maybeShowGuide();
       toast('Controle pelo player embed');
     }
@@ -878,7 +1083,7 @@ P.addEventListener('mousemove',()=>{if(!isFull())showUI()});
 function onEnterFull(){
   P.classList.add('is-full');resize();
   g('sw-full').classList.add('on');
-  if(!LS.get('guide',false))g('guide').classList.add('on');
+  maybeShowGuide();
   showUI();
 }
 function onLeaveFull(){
@@ -1065,18 +1270,22 @@ function montarLink(raw){
   raw=(raw||'').trim();
   if(!raw)return '';
   raw=raw.replace(/\{ep\}/g,S.ep).replace(/\{temp\}/g,S.season).replace(/\{id\}/g,S.id);
-  if(!CONFIG.USAR_PROXY||!CONFIG.PROXY)return raw;
+  if(!CONFIG.USAR_PROXY||!CONFIG.PROXY||S.noProxy)return raw;
   if(raw.startsWith(CONFIG.PROXY))return raw;
   return CONFIG.PROXY+raw;
 }
 
+/* srcFor: prioriza EN/ES quando selecionados; senão usa catálogo/PT */
 function srcFor(){
+  if (S.audio === 'en' && S.links.en) return montarLink(S.links.en);
+  if (S.audio === 'es' && S.links.es) return montarLink(S.links.es);
+
   if (S.type === 'tv' && S.episodeSources && S.episodeSources[`${S.season}_${S.ep}`]) {
     const raw = S.episodeSources[`${S.season}_${S.ep}`];
     if (/^https?:\/\/.+\.(mp4|m3u8)/i.test(raw)) return raw;
     return montarLink(raw);
   }
-  let url = S.links[S.audio] || S.links['pt'] || '';
+  let url = S.links.pt || S.links[S.audio] || '';
   if(S.quality !== '720' && S.q[S.quality]){
     url = S.q[S.quality];
   }
@@ -1090,7 +1299,6 @@ function applyHlsQuality(){
   hls.currentLevel=best;
 }
 
-/* ⚠️ DETECTA MGEB E FORÇA VÍDEO DIRETO (st=0) */
 function loadVideo(resume,auto,forceStage){
   const u=srcFor();S.cur=u;
   if(hls){hls.destroy();hls=null}
@@ -1105,28 +1313,27 @@ function loadVideo(resume,auto,forceStage){
     return false;
   }
   P.classList.remove('novideo');
-  
+
   const hlsOk=!!(window.Hls&&Hls.isSupported());
   const isM3=/\.m3u8/i.test(u);
   const isFile=/\.(mp4|m4v|webm|ogv|mov|mkv|mp3)(\?|#|$)/i.test(u)||/^blob:/.test(u);
   const isMgeb=/mgeb\.space\/mp4\.php/i.test(u);
   const prox=!!(CONFIG.USAR_PROXY&&CONFIG.PROXY&&u.startsWith(CONFIG.PROXY));
-  
+
   let st=forceStage;
   if(st==null){
     if(CONFIG.MODO==='embed')st=2;
     else if(isM3&&hlsOk)st=1;
-    // ⚠️ mgeb.space SERVE MP4 DIRETO, NÃO É EMBED
     else if(isMgeb||CONFIG.MODO==='video'||isFile||isM3||prox)st=0;
     else st=2;
   }
   S.stage=st;
-  
+
   if(st===2){
     P.classList.add('embed');V.pause();V.removeAttribute('src');V.load();EMB.src=u;
     return true;
   }
-  
+
   P.classList.remove('embed');EMB.src='about:blank';
   const go=()=>{
     if(resume){try{V.currentTime=resume}catch(e){}}
@@ -1134,7 +1341,7 @@ function loadVideo(resume,auto,forceStage){
     killNativeControls();
     P.classList.add('paused');
     P.classList.add('show');
-    if(auto)V.play().catch(()=>{});
+    if(auto)tryPlay();
   };
   V._go=go;
   if(st===1){
@@ -1160,7 +1367,10 @@ function changeSource(){const t=V.currentTime||0,was=!V.paused;loadVideo(t,was)}
 function loadEpisode(n,auto){
   S.ep=n;const e=S.eps.find(x=>x.n===n);if(e&&e.rt)S.runtime=e.rt;
   PROG.clear();
-  updateTitle();setNextState();V.pause();loadVideo(0,auto);tick();
+  if(ROTA&&S.type==='tv'){try{history.replaceState(null,'',`/serie/${S.id}/${S.season}/${S.ep}`)}catch(e){}}
+  updateTitle();setNextState();V.pause();showSplash();
+  if(!loadVideo(0,auto))hideSplash();
+  tick();
   SubManager.setSub(-1);
 }
 
@@ -1251,8 +1461,8 @@ async function loadFromCatalog(){
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
       console.log('[Player] Filme carregado:', item.title, '| Fonte:', CONFIG.VIDEO);
     } else {
-      const season = parseInt(params.get('season') || params.get('temp') || '1');
-      const ep = parseInt(params.get('episode') || params.get('ep') || '1');
+      const season = parseInt(params.get('season') || params.get('temp') || CONFIG.TEMPORADA) || 1;
+      const ep = parseInt(params.get('episode') || params.get('ep') || CONFIG.EPISODIO) || 1;
       CONFIG.TEMPORADA = season;
       CONFIG.EPISODIO = ep;
       S.episodeSources = {};
@@ -1280,6 +1490,7 @@ async function loadFromCatalog(){
 }
 
 async function start(){
+  showSplash();
   try {
     const fromCatalog = await loadFromCatalog();
     S.type=CONFIG.TIPO==='tv'?'tv':'movie';
@@ -1287,6 +1498,21 @@ async function start(){
     S.season=parseInt(CONFIG.TEMPORADA)||1;
     S.ep=parseInt(CONFIG.EPISODIO)||1;
     S.links={pt:CONFIG.VIDEO,en:CONFIG.VIDEO_EN,es:CONFIG.VIDEO_ES};
+    S.noProxy=false;
+    const temEp=S.type==='tv'&&S.episodeSources&&S.episodeSources[`${S.season}_${S.ep}`];
+
+    // PT: template se não houver vídeo no catálogo
+    if(!CONFIG.VIDEO&&!temEp&&S.id){
+      const tpl=S.type==='tv'?CONFIG.LINK_SERIE:CONFIG.LINK_FILME;
+      if(tpl){S.links.pt=tpl;S.noProxy=true}
+    }
+
+    // EN: template jvembed se VIDEO_EN estiver vazio
+    if(!CONFIG.VIDEO_EN && S.id){
+      const tplEN = S.type === 'tv' ? CONFIG.LINK_SERIE_EN : CONFIG.LINK_FILME_EN;
+      if(tplEN){ S.links.en = tplEN; }
+    }
+
     S.q={'540':CONFIG.VIDEO_540,'360':CONFIG.VIDEO_360};
     S.subUrl=CONFIG.LEGENDA;
     S.audio='pt';S.quality='720';
@@ -1306,17 +1532,18 @@ async function start(){
     if(!V.paused) V.pause();
     const saved = PROG.get();
     if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
-    const ok = loadVideo(saved, false);
+    const ok = loadVideo(saved, true);
     tick();
-    
-    // ⚠️ FORÇA UI VISÍVEL NO INÍCIO
+
     P.classList.add('paused');
     P.classList.add('show');
-    
-    if(!ok && !fromCatalog) toast('Coloque o link no catálogo ou em CONFIG.VIDEO');
+
+    if(!ok) hideSplash();
+    if(!ok && !fromCatalog) toast('ID sem vídeo: coloque no catálogo ou em CONFIG.VIDEO');
     else if(!ok && fromCatalog) toast('Erro: link não encontrado');
   } catch(err) {
     console.error('[Player] Erro fatal:', err);
+    hideSplash();
     toast('Erro: ' + err.message);
     P.classList.add('paused');
     P.classList.add('show');
@@ -1325,7 +1552,6 @@ async function start(){
 
 window.KiraPlayer={ load(o){Object.assign(CONFIG,o||{});return start()}, config:CONFIG, link:montarLink };
 
-// ⚠️ GARANTIR VISIBILIDADE DO UI
 P.classList.add('show');
 
 resize();tick();start();
