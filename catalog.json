@@ -816,6 +816,22 @@
       "ageRating": "12",
       "source": "https://mgeb.space/mp4.php?url=https://flixlat.com/pt/detail/movie/SkJWvSSAfbQKqruiElsUr-Spider-Man-Homecoming"
     },
+    "324552": {
+      "title": "John Wick: Um Novo Dia para Matar",
+      "overview": "O lendário John Wick é forçado a deixar a aposentadoria em função de um criminoso que conspira para tomar o controle de um clã de assassinos internacionais. Por causa de um pacto de sangue, John Wick viaja para Roma, com o objetivo de ajudar um velho amigo a derrubar a organização internacional secreta, perigosa e mortal de assassinos procurados em todo o mundo.",
+      "poster": "https://image.tmdb.org/t/p/w500/kRAHy9CQnNT16vTvtJtu9pRgjEG.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/Aa9Lx6gotP0szl9tlt5SPCN08oF.jpg",
+      "year": "2017",
+      "rating": 7.347,
+      "genres": [
+        "Ação",
+        "Thriller",
+        "Crime"
+      ],
+      "ageRating": "16",
+      "source": "",
+      "addedAt": 1794899829367
+    },
     "324852": {
       "title": "Meu Malvado Favorito 3",
       "overview": "O ex-ator mirim e astro de TV, Balthazar Bratt, foi um típico malvado bem-sucedido nos anos 80 e agora está de volta à ativa. Ele vai aterrorizar a vida de Gru, Agnes, Margo, Edith, Dr. Nefario e os atrapalhados Minions. Em meio a tudo isso, Gru também vai encontrar o seu irmão gêmeo, Drew.",
