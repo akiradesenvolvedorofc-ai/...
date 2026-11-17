@@ -2,121 +2,1500 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090910">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080811">
 <title>Smart Scanner Pro</title>
+
 <style>
-:root{--bg:#08080e;--panel:#11111c;--panel2:#191927;--border:#29293b;--purple:#a34aff;--text:#f4f1fa;--muted:#9694a8;--green:#48df9a;--red:#ff646f;--yellow:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{padding:23px 17px;background:#10101a;border-bottom:1px solid var(--border)}header h1{margin:0;color:var(--purple);font-size:24px}header p{color:var(--muted);font-size:12px}
-main{max-width:1050px;margin:auto;padding:16px}.card{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:17px;margin-bottom:16px}h2{font-size:17px;margin-top:0}
-input,select{width:100%;padding:13px;margin:7px 0;background:#090912;border:1px solid var(--border);border-radius:8px;color:white;outline:none}
-button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#873cce;color:white;font-weight:bold;cursor:pointer}button.secondary{background:#25253a}button.stop{background:#963c4c}button:disabled{opacity:.35;cursor:not-allowed}
-.muted{color:var(--muted);font-size:12px}.good{color:var(--green)}.error{color:var(--red)}.warning{color:var(--yellow)}
-.season{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0;overflow-wrap:anywhere}.episode{padding:10px 4px;border-bottom:1px solid var(--border);font-size:13px;overflow-wrap:anywhere}
-.progress{height:7px;background:#29293a;border-radius:20px;overflow:hidden;margin:12px 0}#progressBar{height:100%;width:0;background:var(--purple);transition:.2s}
-#logs{background:#050508;border:1px solid var(--border);border-radius:8px;height:220px;overflow:auto;padding:12px;font:12px monospace;white-space:pre-wrap;overflow-wrap:anywhere}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.stat{background:var(--panel2);padding:12px;border-radius:9px}.stat b{font-size:22px;display:block;margin-top:7px}
-.status{padding:12px;background:#090912;border-radius:8px;margin-top:10px;font-size:12px;overflow-wrap:anywhere}a{color:#c18aff}.locked{display:none!important}.small{font-size:11px;color:var(--muted)}
+:root{
+ --bg:#080811;
+ --panel:#11111e;
+ --panel2:#171727;
+ --border:#292941;
+ --text:#f5f5ff;
+ --muted:#9292aa;
+ --red:#e53955;
+ --purple:#8757ff;
+ --green:#26c281;
+ --yellow:#f4bd4e;
+ --blue:#4898ff;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{
+ padding:22px;
+ background:linear-gradient(120deg,#171027,#11111e);
+ border-bottom:1px solid var(--border);
+}
+.header-inner{
+ max-width:1200px;
+ margin:auto;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+}
+.logo{
+ font-size:22px;
+ font-weight:900;
+}
+.logo span{color:var(--red)}
+.status{
+ color:var(--green);
+ font-size:12px;
+}
+main{
+ max-width:1200px;
+ margin:auto;
+ padding:22px;
+}
+.tabs{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-bottom:20px;
+}
+.tab{
+ background:var(--panel);
+ color:var(--muted);
+ border:1px solid var(--border);
+ border-radius:9px;
+ padding:12px 16px;
+}
+.tab.active{
+ background:#34204e;
+ color:white;
+ border-color:var(--purple);
+}
+.panel{
+ display:none;
+}
+.panel.active{display:block}
+.card{
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:20px;
+ margin-bottom:18px;
+}
+h2{
+ margin:0 0 16px;
+ font-size:19px;
+}
+h3{
+ font-size:15px;
+ margin:0 0 12px;
+}
+p{
+ color:var(--muted);
+ line-height:1.5;
+}
+.field{
+ margin-bottom:14px;
+}
+label{
+ display:block;
+ margin-bottom:7px;
+ color:#c7c7dc;
+ font-size:13px;
+}
+input,select{
+ width:100%;
+ padding:13px;
+ background:#090914;
+ border:1px solid var(--border);
+ border-radius:9px;
+ color:white;
+ outline:none;
+}
+input:focus,select:focus{
+ border-color:var(--purple);
+}
+.row{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+}
+.row>*{flex:1}
+.btn{
+ border:0;
+ border-radius:9px;
+ padding:12px 17px;
+ background:var(--purple);
+ color:white;
+ font-weight:700;
+}
+.btn.secondary{
+ background:#28283c;
+}
+.btn.red{background:var(--red)}
+.btn.green{background:#167b58}
+.btn.yellow{
+ background:#8d641c;
+}
+.btn:disabled{
+ opacity:.5;
+ cursor:not-allowed;
+}
+.actions{
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+.small{
+ font-size:12px;
+ color:var(--muted);
+}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;
+ margin-bottom:18px;
+}
+.stat{
+ padding:15px;
+ background:var(--panel2);
+ border:1px solid var(--border);
+ border-radius:11px;
+}
+.stat strong{
+ display:block;
+ font-size:23px;
+ margin-bottom:5px;
+}
+.stat span{
+ color:var(--muted);
+ font-size:12px;
+}
+.progress{
+ height:9px;
+ background:#28283c;
+ border-radius:20px;
+ overflow:hidden;
+ margin:12px 0;
+}
+.progress div{
+ height:100%;
+ width:0;
+ background:linear-gradient(90deg,var(--purple),var(--red));
+ transition:width .2s;
+}
+.log{
+ background:#05050b;
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:12px;
+ height:260px;
+ overflow:auto;
+ font-family:monospace;
+ font-size:12px;
+}
+.log-line{
+ padding:5px 0;
+ border-bottom:1px solid #191925;
+ overflow-wrap:anywhere;
+}
+.log-line.error{color:#ff647a}
+.log-line.success{color:#35d99a}
+.log-line.warning{color:#ffc75e}
+.log-line.info{color:#78aaff}
+.result{
+ padding:13px;
+ border:1px solid var(--border);
+ border-radius:10px;
+ margin-bottom:9px;
+ background:#10101b;
+}
+.result strong{display:block;margin-bottom:5px}
+.result a{
+ color:#9d87ff;
+ overflow-wrap:anywhere;
+}
+.badge{
+ display:inline-block;
+ padding:4px 7px;
+ border-radius:5px;
+ font-size:10px;
+ background:#292941;
+ color:#c9c9ff;
+}
+.empty{
+ text-align:center;
+ padding:30px;
+ color:var(--muted);
+}
+footer{
+ text-align:center;
+ color:var(--muted);
+ padding:30px;
+ font-size:12px;
+}
+@media(max-width:650px){
+ main{padding:13px}
+ header{padding:17px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .row{display:block}
+ .row>*{margin-bottom:9px}
+ .btn{width:100%}
+ .actions .btn{width:auto;flex:1}
+}
 </style>
 </head>
+
 <body>
-<header><h1>SMART SCANNER PRO</h1><p>TMDB • Diagnóstico de conexão • Leitura de páginas • Temporadas • Episódios</p></header>
+
+<header>
+ <div class="header-inner">
+  <div class="logo">SMART <span>SCANNER</span> PRO</div>
+  <div class="status">● SISTEMA INICIADO</div>
+ </div>
+</header>
+
 <main>
-<section class="card">
-<h2>01 — Configuração da API</h2>
-<input id="apiKey" type="password" autocomplete="off" placeholder="Cole sua chave TMDB v3 ou token v4">
-<div class="grid"><button onclick="saveAPI()">SALVAR API</button><button onclick="testAPI()">TESTAR API</button></div>
-<button class="secondary" onclick="forgetAPI()">TROCAR API</button>
-<div id="apiStatus" class="status">Verificando configuração...</div>
-<p class="small">A chave fica salva neste navegador. Não publique sua chave em repositórios públicos. A leitura de páginas respeita as permissões CORS dos sites.</p>
+
+<div class="tabs">
+ <button class="tab active" data-tab="scanner">Scanner</button>
+ <button class="tab" data-tab="tmdb">TMDB</button>
+ <button class="tab" data-tab="results">Resultados</button>
+ <button class="tab" data-tab="logs">Logs</button>
+ </div>
+
+<section id="scanner" class="panel active">
+
+ <div class="stats">
+  <div class="stat">
+   <strong id="statTotal">0</strong>
+   <span>Links encontrados</span>
+  </div>
+  <div class="stat">
+   <strong id="statEpisodes">0</strong>
+   <span>Episódios identificados</span>
+  </div>
+  <div class="stat">
+   <strong id="statSeasons">0</strong>
+   <span>Temporadas identificadas</span>
+  </div>
+  <div class="stat">
+   <strong id="statErrors">0</strong>
+   <span>Erros</span>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Scanner de páginas</h2>
+  <p>
+   Analise páginas públicas que você possui ou tem autorização
+   para consultar. O navegador depende das permissões CORS do servidor.
+  </p>
+
+  <div class="field">
+   <label>URL da página</label>
+   <input id="pageURL"
+    type="url"
+    placeholder="https://seusite.com/pagina">
+  </div>
+
+  <div class="row">
+   <div class="field">
+    <label>Temporada inicial</label>
+    <input id="seasonStart" type="number" min="1" value="1">
+   </div>
+   <div class="field">
+    <label>Temporada final</label>
+    <input id="seasonEnd" type="number" min="1" value="10">
+   </div>
+  </div>
+
+  <div class="actions">
+   <button class="btn" id="startButton">Iniciar scanner</button>
+   <button class="btn red" id="stopButton" disabled>Parar</button>
+   <button class="btn secondary" id="clearButton">Limpar</button>
+  </div>
+
+  <div class="progress">
+   <div id="progressBar"></div>
+  </div>
+
+  <p id="scannerStatus">Aguardando início.</p>
+ </div>
+
+ <div class="card">
+  <h2>Diagnóstico de conexão</h2>
+  <p>
+   Verifique se o endereço responde e se o navegador permite
+   a leitura da resposta.
+  </p>
+  <button class="btn secondary" id="diagnoseButton">
+   Diagnosticar URL
+  </button>
+  <div id="diagnosis" class="result" style="display:none"></div>
+ </div>
+
 </section>
-<div id="app" class="locked">
-<section class="card"><h2>02 — Pesquisar série</h2><input id="searchInput" placeholder="Nome da série"><button onclick="searchSeries()">PESQUISAR SÉRIES</button><div id="searchResults"></div></section>
-<section class="card"><h2>03 — Catálogo TMDB</h2><div id="selectedInfo" class="muted">Selecione uma série.</div><div id="catalog"></div></section>
-<section class="card">
-<h2>04 — Scanner de páginas</h2>
-<p class="muted">Informe a página pública da série. O scanner procura links reais no HTML recebido. Não inventa URLs, não acessa áreas privadas e não contorna bloqueios do site.</p>
-<input id="startUrl" type="url" placeholder="https://exemplo.com/serie/nome">
-<div class="grid"><div><label class="muted">Limite de páginas</label><select id="pageLimit"><option value="30">30 páginas</option><option value="60" selected>60 páginas</option><option value="100">100 páginas</option><option value="200">200 páginas</option></select></div>
-<div><label class="muted">Intervalo</label><select id="delay"><option value="500">500 ms</option><option value="1000" selected>1 segundo</option><option value="2000">2 segundos</option></select></div></div>
-<button id="startBtn" onclick="startScanner()">INICIAR SCANNER</button><button class="stop" onclick="stopScanner()">PARAR SCANNER</button>
-<div class="progress"><div id="progressBar"></div></div>
-<div class="grid"><div class="stat">Temporadas<b id="seasonCount">0</b></div><div class="stat">Episódios<b id="episodeCount">0</b></div><div class="stat">Páginas lidas<b id="pageCount">0</b></div></div>
-<p id="scanStatus" class="muted">Aguardando.</p>
+
+<section id="tmdb" class="panel">
+
+ <div class="card">
+  <h2>Configuração TMDB</h2>
+
+  <div class="field">
+   <label>Token de leitura API v4 ou chave API v3</label>
+   <input id="tmdbKey" type="password"
+    placeholder="Cole sua chave ou token TMDB">
+  </div>
+
+  <div class="actions">
+   <button class="btn" id="saveKey">Salvar chave</button>
+   <button class="btn secondary" id="testKey">Testar conexão</button>
+   <button class="btn red" id="removeKey">Apagar</button>
+  </div>
+
+  <p id="tmdbStatus">Nenhuma chave configurada.</p>
+ </div>
+
+ <div class="card">
+  <h2>Pesquisar série</h2>
+
+  <div class="field">
+   <label>Nome da série</label>
+   <input id="seriesSearch"
+    placeholder="Exemplo: The Mentalist">
+  </div>
+
+  <button class="btn" id="searchSeries">Pesquisar</button>
+
+  <div id="seriesResults"></div>
+ </div>
+
+ <div class="card">
+  <h2>Temporadas e episódios</h2>
+  <div id="seasonResults" class="empty">
+   Pesquise e selecione uma série.
+  </div>
+ </div>
+
 </section>
-<section class="card"><h2>05 — Resultados</h2><div id="results">Nenhum resultado.</div></section>
-<section class="card"><h2>06 — Diagnóstico e logs</h2><div id="logs">[SYSTEM] Sistema iniciado.</div></section>
-<section class="card"><h2>07 — Exportação</h2><button onclick="exportJSON()">EXPORTAR JSON</button><button class="secondary" onclick="exportCSV()">EXPORTAR CSV</button></section>
-</div></main>
+
+<section id="results" class="panel">
+
+ <div class="card">
+  <h2>Resultados do scanner</h2>
+
+  <div class="actions">
+   <button class="btn green" id="exportJSON">Exportar JSON</button>
+   <button class="btn secondary" id="exportCSV">Exportar CSV</button>
+  </div>
+
+  <div id="resultsList" style="margin-top:15px">
+   <div class="empty">Nenhum resultado encontrado.</div>
+  </div>
+ </div>
+
+</section>
+
+<section id="logs" class="panel">
+
+ <div class="card">
+  <h2>Registro de atividades</h2>
+
+  <div class="actions">
+   <button class="btn secondary" id="copyLogs">Copiar logs</button>
+   <button class="btn red" id="clearLogs">Limpar logs</button>
+  </div>
+
+  <div class="log" id="logBox"></div>
+ </div>
+
+</section>
+
+</main>
+
+<footer>
+ SMART SCANNER PRO · Ferramenta de análise autorizada
+</footer>
+
 <script>
 "use strict";
-const TMDB="https://api.themoviedb.org/3";
-let apiKey="",apiType="",apiReady=false,selectedSeries=null,catalog=[],discovered=[],scanning=false,pageCount=0,episodeCount=0,visited=new Set(),scanToken=0;
-const $=id=>document.getElementById(id);
-function log(message,type=""){const line=document.createElement("div");if(type)line.className=type;line.textContent="["+new Date().toLocaleTimeString()+"] "+message;$("logs").appendChild(line);$("logs").scrollTop=$("logs").scrollHeight;}
-function setStatus(message,type=""){$("apiStatus").textContent=message;$("apiStatus").className="status "+type;}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function pad(n){return String(n).padStart(2,"0");}
-function detectAPIType(value){const p=value.split(".");if(p.length===3&&p.every(Boolean))return "v4";if(/^[a-f0-9]{32}$/i.test(value))return "v3";throw Error("Formato não reconhecido. Use a API Key v3 (32 caracteres) ou o Read Access Token v4 do TMDB.");}
-function getAuth(){if(!apiKey)throw Error("API não configurada.");return apiType==="v4"?{headers:{Authorization:"Bearer "+apiKey,Accept:"application/json"}}:{headers:{Accept:"application/json"},key:"?api_key="+encodeURIComponent(apiKey)};}
-async function request(url,options={},timeout=20000){
- const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);
- try{return await fetch(url,{...options,signal:c.signal});}
- catch(e){if(e.name==="AbortError")throw Error("TEMPO ESGOTADO após "+timeout/1000+" segundos. URL: "+url);if(!navigator.onLine)throw Error("SEM INTERNET: navegador informa que está offline.");if(e instanceof TypeError)throw Error("FALHA DE REDE/CORS: navegador não disponibilizou resposta. Pode ser DNS, conexão, certificado ou CORS. URL: "+url+" | "+e.message);throw Error("ERRO DE REDE: "+e.message+" | "+url);}
- finally{clearTimeout(timer);}
+
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
+
+const CONFIG = {
+ TMDB_API: "https://api.themoviedb.org/3",
+ TIMEOUT: 20000,
+ MAX_LINKS: 500,
+ STORAGE_KEY: "smart_scanner_tmdb_key",
+ RESULTS_KEY: "smart_scanner_results"
+};
+
+let scannerRunning = false;
+let scannerToken = 0;
+let selectedSeries = null;
+let tmdbSeasons = [];
+let results = [];
+let logs = [];
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const $ = id => document.getElementById(id);
+
+const elements = {
+ pageURL: $("pageURL"),
+ startButton: $("startButton"),
+ stopButton: $("stopButton"),
+ progressBar: $("progressBar"),
+ scannerStatus: $("scannerStatus"),
+ resultsList: $("resultsList"),
+ logBox: $("logBox"),
+ tmdbKey: $("tmdbKey"),
+ tmdbStatus: $("tmdbStatus"),
+ seriesResults: $("seriesResults"),
+ seasonResults: $("seasonResults")
+};
+
+/* =========================================
+   UTILITÁRIOS
+========================================= */
+
+function now(){
+ return new Date().toLocaleTimeString("pt-BR");
 }
-async function tmdb(path){if(!apiReady)throw Error("Teste a API primeiro.");const a=getAuth();let url=TMDB+path;if(a.key)url+=path.includes("?")?"&"+a.key.slice(1):a.key;const r=await request(url,{headers:a.headers,cache:"no-store"});if(!r.ok)throw Error("TMDB HTTP "+r.status+" em "+path+(r.status===401?": chave inválida.":r.status===429?": limite atingido.":""));return r.json();}
-function saveAPI(){const v=$("apiKey").value.trim();if(!v){setStatus("Informe sua chave API.","error");return;}try{apiType=detectAPIType(v);apiKey=v;apiReady=false;localStorage.setItem("smartScannerKey",v);localStorage.setItem("smartScannerType",apiType);$("app").classList.add("locked");setStatus("Chave identificada como TMDB "+apiType.toUpperCase()+". Clique em TESTAR API.","good");log("Chave identificada e salva: "+apiType.toUpperCase(),"good");}catch(e){setStatus(e.message,"error");log(e.message,"error");}}
-async function testAPI(){
- const v=$("apiKey").value.trim()||localStorage.getItem("smartScannerKey");if(!v){setStatus("Insira uma chave antes de testar.","error");return;}
- apiReady=false;$("app").classList.add("locked");
- try{apiKey=v;apiType=detectAPIType(v);setStatus("Testando conexão com TMDB...");log("Testando /configuration com autenticação "+apiType.toUpperCase()+".");
- const a=getAuth();let url=TMDB+"/configuration";if(a.key)url+=a.key;const r=await request(url,{headers:a.headers,cache:"no-store"});
- log("TMDB respondeu HTTP "+r.status+".");if(!r.ok)throw Error("TMDB HTTP "+r.status+(r.status===401?": chave inválida.":r.status===403?": acesso negado.":r.status===429?": limite atingido.":""));
- const data=await r.json();if(!data.images)throw Error("Resposta inesperada do TMDB.");
- apiReady=true;localStorage.setItem("smartScannerKey",apiKey);localStorage.setItem("smartScannerType",apiType);$("app").classList.remove("locked");setStatus("CONEXÃO APROVADA • API VALIDADA • SISTEMA LIBERADO","good");log("API validada. Sistema liberado.","good");
- }catch(e){apiReady=false;$("app").classList.add("locked");setStatus(e.message,"error");log("TESTE TMDB: "+e.message,"error");if(e.message.includes("FALHA DE REDE/CORS"))log("Verifique se https://api.themoviedb.org/3/configuration abre no navegador. Isso testa alcance do domínio, não valida a chave.","warning");}
+
+function escapeHTML(value){
+ return String(value ?? "").replace(/[&<>"']/g,char=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#039;"
+ })[char]);
 }
-function forgetAPI(){localStorage.removeItem("smartScannerKey");localStorage.removeItem("smartScannerType");apiKey="";apiType="";apiReady=false;$("apiKey").value="";$("app").classList.add("locked");setStatus("API removida. Insira outra chave.");log("Configuração removida.");}
-async function restoreAPI(){const v=localStorage.getItem("smartScannerKey");if(!v){setStatus("Nenhuma API salva. Configure sua chave.");return;}$("apiKey").value=v;apiKey=v;try{apiType=detectAPIType(v);setStatus("API salva encontrada. Validando...");log("Configuração anterior encontrada.");await testAPI();}catch(e){setStatus(e.message,"error");log(e.message,"error");}}
-async function searchSeries(){try{const q=$("searchInput").value.trim();if(!q){log("Digite o nome de uma série.","warning");return;}log("Pesquisando: "+q);const d=await tmdb("/search/tv?query="+encodeURIComponent(q));const box=$("searchResults");box.innerHTML="";if(!d.results?.length){box.textContent="Nenhuma série encontrada.";return;}d.results.forEach(s=>{const el=document.createElement("div");el.className="season";const n=document.createElement("b");n.textContent=s.name;const info=document.createElement("p");info.className="muted";info.textContent="ID "+s.id+" • "+(s.first_air_date||"Data desconhecida");const b=document.createElement("button");b.textContent="SELECIONAR";b.onclick=()=>loadSeries(s.id);el.append(n,info,b);box.appendChild(el);});log(d.results.length+" séries encontradas.","good");}catch(e){log("PESQUISA: "+e.message,"error");}}
-async function loadSeries(id){try{log("Carregando catálogo...");const s=await tmdb("/tv/"+id);selectedSeries=s;catalog=[];discovered=[];renderResults();$("selectedInfo").innerHTML="";const h=document.createElement("h2");h.textContent=s.name;const p=document.createElement("p");p.className="muted";p.textContent=s.number_of_seasons+" temporadas • "+s.number_of_episodes+" episódios";$("selectedInfo").append(h,p);$("catalog").innerHTML="";
- for(const season of s.seasons||[]){if(season.season_number===0)continue;const d=await tmdb("/tv/"+id+"/season/"+season.season_number);const eps=(d.episodes||[]).sort((a,b)=>a.episode_number-b.episode_number);catalog.push({number:season.season_number,episodes:eps});const box=document.createElement("div");box.className="season";const title=document.createElement("b");title.textContent="Temporada "+season.season_number+" • "+eps.length+" episódios";box.appendChild(title);eps.forEach(ep=>{const row=document.createElement("div");row.className="episode";row.textContent="S"+pad(season.season_number)+"E"+pad(ep.episode_number)+" — "+ep.name;box.appendChild(row);});$("catalog").appendChild(box);}
- log("Catálogo carregado.","good");
- }catch(e){log("CATÁLOGO: "+e.message,"error");}}
-async function readPage(url,origin){const target=new URL(url),base=new URL(origin);if(target.origin!==base.origin)throw Error("Página fora do domínio inicial.");log("Tentando ler: "+target.href);const r=await request(target.href,{method:"GET",mode:"cors",credentials:"omit",redirect:"follow",cache:"no-store",headers:{Accept:"text/html,application/xhtml+xml"}});
- if(!r.ok)throw Error("Site respondeu HTTP "+r.status+".");const final=new URL(r.url||target.href);if(final.origin!==base.origin)throw Error("Redirecionamento para outro domínio; leitura cancelada.");const type=r.headers.get("content-type")||"";if(!type.includes("html")&&!type.includes("text/plain"))throw Error("Resposta não é HTML. Content-Type: "+type);const html=await r.text();if(!html.trim())throw Error("Página vazia.");log("HTML recebido: "+html.length+" caracteres.","good");return{doc:new DOMParser().parseFromString(html,"text/html"),url:final.href};}
-function getLinks(doc,base){const out=[];doc.querySelectorAll("a[href]").forEach(a=>{try{const u=new URL(a.getAttribute("href"),base);if(u.origin!==new URL(base).origin||u.href===base)return;if(!["http:","https:"].includes(u.protocol))return;out.push({url:u.href,text:(a.innerText||a.textContent||"").trim(),title:a.getAttribute("title")||"",aria:a.getAttribute("aria-label")||"",path:u.pathname,query:u.search});}catch{}});return [...new Map(out.map(x=>[x.url,x])).values()];}
-function identifySeason(x){const t=[x.text,x.title,x.aria,x.path,x.query].join(" ");for(const p of [/temporada[\s._-]*(\d+)/i,/season[\s._-]*(\d+)/i,/temp[\s._-]*(\d+)/i,/(?:^|[/_-])s(\d{1,2})(?:[/_-]|$)/i]){const m=t.match(p);if(m)return Number(m[1]);}return null;}
-function identifyEpisode(x){const t=[x.text,x.title,x.aria,x.path,x.query].join(" ");for(const p of [/\bS\d{1,2}[\s._-]*E(\d{1,4})\b/i,/epis[oó]dio[\s._-]*(\d+)/i,/episode[\s._-]*(\d+)/i,/cap[ií]tulo[\s._-]*(\d+)/i,/(?:^|[/_-])ep[\s._-]*(\d+)(?:[/_-]|$)/i,/[?&](?:episode|ep|episodio)=(\d+)/i]){const m=t.match(p);if(m)return Number(m[1]);}return null;}
-function findSeasons(links){const m=new Map();links.forEach(x=>{const n=identifySeason(x);if(n!==null&&n>=0&&!m.has(n))m.set(n,{number:n,url:x.url,title:x.text||x.title||"Temporada "+n});});return [...m.values()].sort((a,b)=>a.number-b.number);}
-function findEpisodes(links,season){const m=new Map();links.forEach(x=>{const sn=identifySeason(x);if(sn!==null&&sn!==season)return;const n=identifyEpisode(x);if(n!==null&&n>0&&!m.has(n))m.set(n,{season,episode:n,url:x.url,pageTitle:x.text||x.title||x.aria||"Episódio "+n});});return [...m.values()].sort((a,b)=>a.episode-b.episode);}
-function matchTMDB(s,e){return catalog.find(x=>x.number===s)?.episodes.find(x=>x.episode_number===e)||null;}
-async function startScanner(){
- if(scanning)return;let token;
- try{if(!apiReady)throw Error("API não validada.");if(!selectedSeries)throw Error("Selecione uma série.");const start=new URL($("startUrl").value.trim());if(!["http:","https:"].includes(start.protocol))throw Error("Use uma URL HTTP ou HTTPS.");if(start.username||start.password)throw Error("Não use URL com usuário ou senha.");
- scanning=true;token=++scanToken;$("startBtn").disabled=true;pageCount=0;episodeCount=0;discovered=[];visited.clear();$("results").textContent="Nenhum resultado ainda.";$("scanStatus").textContent="Conectando...";$("progressBar").style.width="0%";
- const origin=start.href,max=Number($("pageLimit").value),delay=Number($("delay").value);log("Iniciando leitura pública em "+start.origin);
- const first=await readPage(origin,origin);if(!scanning||token!==scanToken)return;visited.add(first.url);pageCount++;const links=getLinks(first.doc,first.url);log(links.length+" links internos encontrados.");const seasons=findSeasons(links);
- if(!seasons.length)throw Error("Página inicial lida, mas nenhum link de temporada reconhecido entre "+links.length+" links. O site pode montar os links por JavaScript ou usar nomes diferentes.");
- log(seasons.length+" páginas de temporadas encontradas.","good");
- for(let i=0;i<seasons.length;i++){if(!scanning||token!==scanToken)break;if(pageCount>=max){log("Limite de páginas atingido.","warning");break;}const s=seasons[i];if(visited.has(s.url))continue;visited.add(s.url);
-  try{log("Lendo temporada "+s.number);const page=await readPage(s.url,origin);if(!scanning||token!==scanToken)break;pageCount++;const eps=findEpisodes(getLinks(page.doc,page.url),s.number);const result={number:s.number,url:s.url,expected:catalog.find(x=>x.number===s.number)?.episodes.length||0,episodes:eps.map(ep=>{const match=matchTMDB(ep.season,ep.episode);return{...ep,tmdbName:match?.name||null,matched:!!match};})};discovered.push(result);episodeCount+=eps.length;log("Temporada "+s.number+": "+eps.length+" episódios identificados.","good");renderResults();}
-  catch(e){log("TEMPORADA "+s.number+": "+e.message,"error");}
-  updateStats(i+1,seasons.length);if(i<seasons.length-1)await sleep(delay);
+
+function log(message,type="info"){
+ const item = {
+  time:now(),
+  message:String(message),
+  type
+ };
+
+ logs.push(item);
+
+ if(logs.length > 1000){
+  logs.shift();
  }
- $("scanStatus").textContent=scanning?"Scanner finalizado.":"Scanner interrompido.";log("Processamento encerrado.","good");
- }catch(e){$("scanStatus").textContent=e.message;log("SCANNER: "+e.message,"error");}
- finally{scanning=false;$("startBtn").disabled=false;updateStats();}
+
+ const line = document.createElement("div");
+ line.className = "log-line " + type;
+ line.textContent = `[${item.time}] ${item.message}`;
+
+ elements.logBox.appendChild(line);
+ elements.logBox.scrollTop = elements.logBox.scrollHeight;
+
+ console.log("[SMART SCANNER]",item.message);
 }
-function stopScanner(){if(!scanning){log("Nenhum scanner em execução.","warning");return;}scanning=false;scanToken++;$("scanStatus").textContent="Parada solicitada.";log("Parada solicitada.","warning");}
-function updateStats(current=0,total=0){$("seasonCount").textContent=discovered.length;$("episodeCount").textContent=episodeCount;$("pageCount").textContent=pageCount;$("progressBar").style.width=total?Math.round(current/total*100)+"%":(scanning?"0%":"100%");}
-function renderResults(){const c=$("results");c.innerHTML="";if(!discovered.length){c.textContent="Nenhum resultado.";return;}discovered.sort((a,b)=>a.number-b.number);discovered.forEach(s=>{const box=document.createElement("div");box.className="season";const h=document.createElement("h3");h.textContent="Temporada "+s.number+" • "+s.episodes.length+" episódios encontrados";const a=document.createElement("a");a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Abrir página da temporada";box.append(h,a);if(!s.episodes.length){const p=document.createElement("p");p.className="muted";p.textContent="Nenhum link de episódio reconhecido.";box.appendChild(p);}s.episodes.forEach(ep=>{const row=document.createElement("div");row.className="episode";const code=document.createElement("b");code.textContent="S"+pad(ep.season)+"E"+pad(ep.episode);const name=document.createElement("div");name.textContent=ep.tmdbName||ep.pageTitle;const status=document.createElement("div");status.className=ep.matched?"good":"muted";status.textContent=ep.matched?"Correspondência TMDB encontrada":"Página encontrada; título não confirmado";const link=document.createElement("a");link.href=ep.url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Abrir episódio";row.append(code,name,status,link);box.appendChild(row);});c.appendChild(box);});}
-function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
-function exportJSON(){download(JSON.stringify({series:selectedSeries?{id:selectedSeries.id,name:selectedSeries.name}:null,seasons:discovered},null,2),"scanner.json","application/json");}
-function exportCSV(){const rows=[["Temporada","Episódio","Nome","URL"]];discovered.forEach(s=>s.episodes.forEach(e=>rows.push([s.number,e.episode,e.tmdbName||e.pageTitle,e.url])));const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(";")).join("\n");download("\uFEFF"+csv,"scanner.csv","text/csv;charset=utf-8");}
-window.addEventListener("DOMContentLoaded",restoreAPI);
+
+function updateStats(){
+ $("statTotal").textContent = results.length;
+
+ $("statEpisodes").textContent =
+  results.filter(item=>item.episode>0).length;
+
+ $("statSeasons").textContent =
+  new Set(
+   results
+    .filter(item=>item.season>0)
+    .map(item=>item.season)
+  ).size;
+
+ $("statErrors").textContent =
+  logs.filter(item=>item.type==="error").length;
+}
+
+function setProgress(value){
+ const number = Math.max(0,Math.min(100,value));
+ elements.progressBar.style.width = number + "%";
+}
+
+function sleep(ms){
+ return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+/* =========================================
+   NAVEGAÇÃO
+========================================= */
+
+document.querySelectorAll(".tab").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(item=>{
+   item.classList.remove("active");
+  });
+
+  document.querySelectorAll(".panel").forEach(item=>{
+   item.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  $(button.dataset.tab).classList.add("active");
+ });
+});
+
+/* =========================================
+   TMDB - AUTENTICAÇÃO
+========================================= */
+
+function getTMDBKey(){
+ return elements.tmdbKey.value.trim() ||
+  localStorage.getItem(CONFIG.STORAGE_KEY) || "";
+}
+
+function detectTMDBAuth(value){
+ const key = value.trim();
+
+ if(!key) return null;
+
+ const parts = key.split(".");
+
+ if(parts.length===3 && key.length>80){
+  return "bearer";
+ }
+
+ if(/^[a-f0-9]{32}$/i.test(key)){
+  return "api_key";
+ }
+
+ return key.length>80 ? "bearer" : "api_key";
+}
+
+function getTMDBHeaders(){
+ const key = getTMDBKey();
+ const type = detectTMDBAuth(key);
+
+ const headers = {
+  "Accept":"application/json"
+ };
+
+ if(type==="bearer"){
+  headers.Authorization = "Bearer " + key;
+ }
+
+ return headers;
+}
+
+function getTMDBURL(path,params={}){
+ const key = getTMDBKey();
+ const type = detectTMDBAuth(key);
+
+ const url = new URL(CONFIG.TMDB_API + path);
+
+ if(type==="api_key"){
+  url.searchParams.set("api_key",key);
+ }
+
+ Object.entries(params).forEach(([name,value])=>{
+  if(value!==undefined && value!==null){
+   url.searchParams.set(name,String(value));
+  }
+ });
+
+ return url.toString();
+}
+
+async function tmdbRequest(path,params={}){
+ const key = getTMDBKey();
+
+ if(!key){
+  throw new Error("Configure sua chave TMDB primeiro.");
+ }
+
+ const controller = new AbortController();
+
+ const timer = setTimeout(
+  ()=>controller.abort(),
+  CONFIG.TIMEOUT
+ );
+
+ try{
+  const response = await fetch(
+   getTMDBURL(path,params),
+   {
+    method:"GET",
+    headers:getTMDBHeaders(),
+    signal:controller.signal
+   }
+  );
+
+  if(!response.ok){
+   let detail = "";
+
+   try{
+    const data = await response.json();
+    detail = data.status_message || "";
+   }catch(e){}
+
+   throw new Error(
+    `TMDB HTTP ${response.status} ${detail}`
+   );
+  }
+
+  return await response.json();
+
+ }catch(error){
+
+  if(error.name==="AbortError"){
+   throw new Error("Tempo limite do TMDB excedido.");
+  }
+
+  if(error instanceof TypeError){
+   throw new Error(
+    "Falha de rede ao acessar o TMDB. Verifique conexão ou CORS."
+   );
+  }
+
+  throw error;
+
+ }finally{
+  clearTimeout(timer);
+ }
+}
+
+/* =========================================
+   SALVAR E TESTAR API
+========================================= */
+
+$("saveKey").addEventListener("click",()=>{
+ const key = elements.tmdbKey.value.trim();
+
+ if(!key){
+  alert("Informe uma chave.");
+  return;
+ }
+
+ localStorage.setItem(CONFIG.STORAGE_KEY,key);
+
+ elements.tmdbStatus.textContent =
+  "Chave salva neste navegador.";
+
+ log("Chave TMDB salva localmente.","success");
+});
+
+$("testKey").addEventListener("click",async()=>{
+ try{
+  elements.tmdbStatus.textContent = "Testando conexão...";
+
+  const data = await tmdbRequest("/configuration");
+
+  elements.tmdbStatus.textContent =
+   "Conexão TMDB funcionando.";
+
+  log("Conexão TMDB confirmada.","success");
+
+ }catch(error){
+
+  elements.tmdbStatus.textContent = error.message;
+
+  log(error.message,"error");
+ }
+});
+
+$("removeKey").addEventListener("click",()=>{
+ localStorage.removeItem(CONFIG.STORAGE_KEY);
+ elements.tmdbKey.value = "";
+ elements.tmdbStatus.textContent = "Chave removida.";
+
+ log("Chave removida.","warning");
+});
+
+const savedKey = localStorage.getItem(CONFIG.STORAGE_KEY);
+
+if(savedKey){
+ elements.tmdbKey.value = savedKey;
+ elements.tmdbStatus.textContent = "Chave carregada.";
+}
+
+/* =========================================
+   PESQUISA DE SÉRIES
+========================================= */
+
+$("searchSeries").addEventListener("click",searchSeries);
+
+$("seriesSearch").addEventListener("keydown",event=>{
+ if(event.key==="Enter") searchSeries();
+});
+
+async function searchSeries(){
+
+ const query = $("seriesSearch").value.trim();
+
+ if(!query){
+  alert("Digite o nome da série.");
+  return;
+ }
+
+ elements.seriesResults.innerHTML =
+  '<div class="empty">Pesquisando...</div>';
+
+ try{
+
+  const data = await tmdbRequest(
+   "/search/tv",
+   {
+    query,
+    language:"pt-BR",
+    page:1
+   }
+  );
+
+  if(!data.results?.length){
+   elements.seriesResults.innerHTML =
+    '<div class="empty">Nenhuma série encontrada.</div>';
+   return;
+  }
+
+  elements.seriesResults.innerHTML =
+   data.results.slice(0,15).map(series=>`
+
+    <div class="result">
+     <strong>${escapeHTML(series.name)}</strong>
+
+     <p>${escapeHTML(
+      series.first_air_date || "Data não informada"
+     )}</p>
+
+     <button class="btn"
+      onclick="selectSeries(${Number(series.id)})">
+      Selecionar série
+     </button>
+    </div>
+
+   `).join("");
+
+  log(
+   `${data.results.length} séries encontradas.`,
+   "success"
+  );
+
+ }catch(error){
+
+  elements.seriesResults.innerHTML =
+   `<div class="result">${escapeHTML(error.message)}</div>`;
+
+  log(error.message,"error");
+ }
+}
+
+/* =========================================
+   SELECIONAR SÉRIE
+========================================= */
+
+async function selectSeries(id){
+
+ try{
+
+  const series = await tmdbRequest(
+   `/tv/${id}`,
+   {language:"pt-BR"}
+  );
+
+  selectedSeries = series;
+
+  tmdbSeasons = series.seasons || [];
+
+  renderSeasons();
+
+  log(
+   `Série selecionada: ${series.name}`,
+   "success"
+  );
+
+ }catch(error){
+
+  log(error.message,"error");
+ }
+}
+
+/* =========================================
+   TEMPORADAS
+========================================= */
+
+function renderSeasons(){
+
+ if(!selectedSeries){
+  elements.seasonResults.textContent =
+   "Nenhuma série selecionada.";
+  return;
+ }
+
+ const seasons = tmdbSeasons.filter(
+  season=>season.season_number>0
+ );
+
+ elements.seasonResults.innerHTML = `
+  <h3>${escapeHTML(selectedSeries.name)}</h3>
+
+  ${seasons.map(season=>`
+   <div class="result">
+    <strong>
+     Temporada ${season.season_number}
+    </strong>
+
+    <p>
+     ${season.episode_count || 0} episódios
+    </p>
+
+    <button class="btn"
+     onclick="loadSeason(${season.season_number})">
+     Ver episódios
+    </button>
+   </div>
+  `).join("")}
+ `;
+}
+
+/* =========================================
+   EPISÓDIOS
+========================================= */
+
+async function loadSeason(number){
+
+ try{
+
+  elements.seasonResults.innerHTML =
+   '<div class="empty">Carregando episódios...</div>';
+
+  const data = await tmdbRequest(
+   `/tv/${selectedSeries.id}/season/${number}`,
+   {language:"pt-BR"}
+  );
+
+  elements.seasonResults.innerHTML = `
+   <h3>
+    ${escapeHTML(selectedSeries.name)}
+    — Temporada ${number}
+   </h3>
+
+   ${(data.episodes||[]).map(episode=>`
+    <div class="result">
+     <strong>
+      Episódio ${episode.episode_number}:
+      ${escapeHTML(episode.name)}
+     </strong>
+
+     <p>
+      ${escapeHTML(episode.air_date || "Sem data")}
+     </p>
+
+     <span class="badge">
+      S${String(number).padStart(2,"0")}
+      E${String(episode.episode_number).padStart(2,"0")}
+     </span>
+    </div>
+   `).join("")}
+  `;
+
+  log(
+   `${data.episodes?.length || 0} episódios carregados.`,
+   "success"
+  );
+
+ }catch(error){
+
+  elements.seasonResults.textContent = error.message;
+  log(error.message,"error");
+ }
+}
+
+/* =========================================
+   IDENTIFICAÇÃO DE TEMPORADA E EPISÓDIO
+========================================= */
+
+function identifyEpisode(text){
+
+ const value = String(text || "").toLowerCase();
+
+ const patterns = [
+
+  /s(\d{1,2})[\s._-]*e(\d{1,3})/i,
+
+  /(\d{1,2})x(\d{1,3})/i,
+
+  /season[\s._-]*(\d{1,2}).*episode[\s._-]*(\d{1,3})/i,
+
+  /temporada[\s._-]*(\d{1,2}).*epis[oó]dio[\s._-]*(\d{1,3})/i,
+
+  /\/s(\d{1,2})\/e(\d{1,3})/i,
+
+  /[?&]season=(\d{1,2}).*[?&]episode=(\d{1,3})/i
+
+ ];
+
+ for(const pattern of patterns){
+
+  const match = value.match(pattern);
+
+  if(match){
+   return {
+    season:Number(match[1]),
+    episode:Number(match[2])
+   };
+  }
+ }
+
+ return {
+  season:0,
+  episode:0
+ };
+}
+
+/* =========================================
+   EXTRAÇÃO DE LINKS
+========================================= */
+
+function extractLinks(html,baseURL){
+
+ const parser = new DOMParser();
+
+ const documentHTML = parser.parseFromString(
+  html,
+  "text/html"
+ );
+
+ const anchors = [
+  ...documentHTML.querySelectorAll("a[href]")
+ ];
+
+ const found = [];
+
+ for(const anchor of anchors){
+
+  try{
+
+   const url = new URL(
+    anchor.getAttribute("href"),
+    baseURL
+   );
+
+   if(!["http:","https:"].includes(url.protocol)){
+    continue;
+   }
+
+   found.push({
+    title:anchor.textContent.trim(),
+    url:url.href,
+    season:identifyEpisode(
+     anchor.textContent + " " + url.pathname
+    ).season,
+    episode:identifyEpisode(
+     anchor.textContent + " " + url.pathname
+    ).episode
+   });
+
+  }catch(error){}
+ }
+
+ return [...new Map(
+  found.map(item=>[item.url,item])
+ ).values()];
+}
+
+/* =========================================
+   LEITURA SEGURA DE PÁGINAS
+========================================= */
+
+async function readPage(url){
+
+ const parsed = new URL(url);
+
+ if(!["https:","http:"].includes(parsed.protocol)){
+  throw new Error("Protocolo não permitido.");
+ }
+
+ const controller = new AbortController();
+
+ const timer = setTimeout(
+  ()=>controller.abort(),
+  CONFIG.TIMEOUT
+ );
+
+ try{
+
+  const response = await fetch(parsed.href,{
+   method:"GET",
+   mode:"cors",
+   credentials:"omit",
+   redirect:"follow",
+   signal:controller.signal,
+   headers:{
+    "Accept":"text/html,application/xhtml+xml"
+   }
+  });
+
+  if(!response.ok){
+   throw new Error(
+    `Servidor respondeu HTTP ${response.status}.`
+   );
+  }
+
+  const finalURL = new URL(response.url);
+
+  if(finalURL.origin!==parsed.origin){
+   throw new Error(
+    "A página redirecionou para outro domínio."
+   );
+  }
+
+  const html = await response.text();
+
+  if(!html.trim()){
+   throw new Error("A resposta veio vazia.");
+  }
+
+  return html;
+
+ }catch(error){
+
+  if(error.name==="AbortError"){
+   throw new Error("Tempo limite excedido.");
+  }
+
+  if(error instanceof TypeError){
+   throw new Error(
+    "FALHA DE REDE/CORS: o navegador não disponibilizou a resposta."
+   );
+  }
+
+  throw error;
+
+ }finally{
+  clearTimeout(timer);
+ }
+}
+
+/* =========================================
+   SCANNER PRINCIPAL
+========================================= */
+
+$("startButton").addEventListener(
+ "click",
+ startScanner
+);
+
+$("stopButton").addEventListener(
+ "click",
+ stopScanner
+);
+
+async function startScanner(){
+
+ if(scannerRunning) return;
+
+ const url = elements.pageURL.value.trim();
+
+ if(!url){
+  alert("Informe uma URL.");
+  return;
+ }
+
+ try{
+  new URL(url);
+ }catch(error){
+  alert("URL inválida.");
+  return;
+ }
+
+ scannerRunning = true;
+
+ const currentToken = ++scannerToken;
+
+ elements.startButton.disabled = true;
+ elements.stopButton.disabled = false;
+
+ elements.scannerStatus.textContent =
+  "Conectando...";
+
+ setProgress(5);
+
+ log("Scanner iniciado.","info");
+
+ try{
+
+  log("Consultando página informada.","info");
+
+  const html = await readPage(url);
+
+  if(currentToken!==scannerToken) return;
+
+  log("Página recebida com sucesso.","success");
+
+  const links = extractLinks(html,url)
+   .slice(0,CONFIG.MAX_LINKS);
+
+  log(
+   `${links.length} links encontrados.`,
+   "success"
+  );
+
+  const total = Math.max(links.length,1);
+
+  for(let i=0;i<links.length;i++){
+
+   if(currentToken!==scannerToken) return;
+
+   const item = links[i];
+
+   const parsed = identifyEpisode(
+    item.title + " " + item.url
+   );
+
+   const result = {
+    title:item.title || "Link sem título",
+    url:item.url,
+    season:item.season || parsed.season,
+    episode:item.episode || parsed.episode,
+    timestamp:new Date().toISOString()
+   };
+
+   results.push(result);
+
+   setProgress(
+    Math.round(((i+1)/total)*100)
+   );
+
+   if((i+1)%20===0){
+    log(
+     `${i+1}/${total} links processados.`,
+     "info"
+    );
+   }
+  }
+
+  updateStats();
+  renderResults();
+
+  elements.scannerStatus.textContent =
+   "Scanner concluído.";
+
+  log(
+   "Análise concluída.",
+   "success"
+  );
+
+ }catch(error){
+
+  elements.scannerStatus.textContent =
+   error.message;
+
+  log(error.message,"error");
+
+ }finally{
+
+  if(currentToken===scannerToken){
+   scannerRunning = false;
+   elements.startButton.disabled = false;
+   elements.stopButton.disabled = true;
+   updateStats();
+  }
+ }
+}
+
+/* =========================================
+   PARAR SCANNER
+========================================= */
+
+function stopScanner(){
+
+ if(!scannerRunning) return;
+
+ scannerToken++;
+ scannerRunning = false;
+
+ elements.startButton.disabled = false;
+ elements.stopButton.disabled = true;
+
+ elements.scannerStatus.textContent =
+  "Scanner interrompido.";
+
+ log("Scanner interrompido pelo usuário.","warning");
+}
+
+/* =========================================
+   DIAGNÓSTICO
+========================================= */
+
+$("diagnoseButton").addEventListener(
+ "click",
+ diagnoseURL
+);
+
+async function diagnoseURL(){
+
+ const url = elements.pageURL.value.trim();
+
+ const output = $("diagnosis");
+
+ output.style.display = "block";
+ output.textContent = "Executando diagnóstico...";
+
+ try{
+
+  const parsed = new URL(url);
+
+  if(!["https:","http:"].includes(parsed.protocol)){
+   throw new Error("Protocolo inválido.");
+  }
+
+  log("Iniciando diagnóstico.","info");
+
+  const html = await readPage(url);
+
+  output.innerHTML = `
+   <strong style="color:var(--green)">
+    Resposta acessível!
+   </strong>
+   <p>O navegador conseguiu ler o HTML.</p>
+   <p>Tamanho: ${html.length} caracteres.</p>
+  `;
+
+  log("Diagnóstico concluído: resposta acessível.","success");
+
+ }catch(error){
+
+  output.innerHTML = `
+   <strong style="color:var(--red)">
+    Falha no diagnóstico
+   </strong>
+   <p>${escapeHTML(error.message)}</p>
+   <p>
+    Uma falha TypeError no fetch não permite distinguir
+    com certeza CORS, DNS, TLS ou conexão.
+   </p>
+  `;
+
+  log(
+   "Diagnóstico: "+error.message,
+   "error"
+  );
+ }
+}
+
+/* =========================================
+   RENDERIZAR RESULTADOS
+========================================= */
+
+function renderResults(){
+
+ if(!results.length){
+  elements.resultsList.innerHTML =
+   '<div class="empty">Nenhum resultado encontrado.</div>';
+  return;
+ }
+
+ elements.resultsList.innerHTML =
+  results.map((item,index)=>`
+
+   <div class="result">
+
+    <strong>
+     ${escapeHTML(item.title)}
+    </strong>
+
+    <p>
+     Temporada: ${item.season || "Não identificada"}
+     · Episódio: ${item.episode || "Não identificado"}
+    </p>
+
+    <a href="${escapeHTML(item.url)}"
+     target="_blank"
+     rel="noopener noreferrer">
+     ${escapeHTML(item.url)}
+    </a>
+
+    <p class="small">
+     Resultado ${index+1}
+    </p>
+
+   </div>
+
+  `).join("");
+}
+
+/* =========================================
+   EXPORTAR JSON
+========================================= */
+
+$("exportJSON").addEventListener("click",()=>{
+
+ const data = {
+  application:"Smart Scanner Pro",
+  generatedAt:new Date().toISOString(),
+  total:results.length,
+  results
+ };
+
+ downloadFile(
+  JSON.stringify(data,null,2),
+  "smart-scanner-results.json",
+  "application/json"
+ );
+
+ log("JSON exportado.","success");
+});
+
+/* =========================================
+   EXPORTAR CSV
+========================================= */
+
+$("exportCSV").addEventListener("click",()=>{
+
+ const header = [
+  "Título",
+  "Temporada",
+  "Episódio",
+  "URL",
+  "Data"
+ ];
+
+ const rows = results.map(item=>[
+  item.title,
+  item.season,
+  item.episode,
+  item.url,
+  item.timestamp
+ ]);
+
+ const csv = [
+  header,
+  ...rows
+ ].map(row=>
+  row.map(value=>
+   `"${String(value??"").replace(/"/g,'""')}"`
+  ).join(";")
+ ).join("\n");
+
+ downloadFile(
+  "\uFEFF"+csv,
+  "smart-scanner-results.csv",
+  "text/csv;charset=utf-8"
+ );
+
+ log("CSV exportado.","success");
+});
+
+/* =========================================
+   DOWNLOAD
+========================================= */
+
+function downloadFile(content,name,type){
+
+ const blob = new Blob(
+  [content],
+  {type}
+ );
+
+ const url = URL.createObjectURL(blob);
+
+ const link = document.createElement("a");
+
+ link.href = url;
+ link.download = name;
+
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+
+ setTimeout(
+  ()=>URL.revokeObjectURL(url),
+  1000
+ );
+}
+
+/* =========================================
+   LIMPAR RESULTADOS
+========================================= */
+
+$("clearButton").addEventListener("click",()=>{
+
+ if(scannerRunning){
+  stopScanner();
+ }
+
+ results = [];
+
+ updateStats();
+ renderResults();
+ setProgress(0);
+
+ elements.scannerStatus.textContent =
+  "Resultados limpos.";
+
+ log("Resultados apagados.","warning");
+});
+
+/* =========================================
+   COPIAR LOGS
+========================================= */
+
+$("copyLogs").addEventListener("click",async()=>{
+
+ const content = logs.map(item=>
+  `[${item.time}] ${item.message}`
+ ).join("\n");
+
+ try{
+  await navigator.clipboard.writeText(content);
+  log("Logs copiados.","success");
+ }catch(error){
+  log("Não foi possível copiar automaticamente.","error");
+ }
+});
+
+/* =========================================
+   LIMPAR LOGS
+========================================= */
+
+$("clearLogs").addEventListener("click",()=>{
+ logs = [];
+ elements.logBox.innerHTML = "";
+ updateStats();
+ log("Logs reiniciados.","info");
+});
+
+/* =========================================
+   INICIALIZAÇÃO
+========================================= */
+
+function initialize(){
+
+ updateStats();
+ renderResults();
+
+ log("Smart Scanner Pro inicializado.","success");
+
+ log(
+  "GitHub Pages executa o scanner no navegador.",
+  "info"
+ );
+
+ log(
+  "Páginas externas precisam permitir acesso CORS.",
+  "warning"
+ );
+
+}
+
+initialize();
+
 </script>
+
 </body>
 </html>
