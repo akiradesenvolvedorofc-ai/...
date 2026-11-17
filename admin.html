@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07070f">
+<title>Admin — KiraFlix</title>
+<style>
+:root{
+  --bg:#07070f;--bg2:#0d0d1a;--card:rgba(255,255,255,.045);--card2:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.1);--line2:rgba(255,255,255,.18);
+  --tx:#fff;--mut:#9ca3af;--mut2:#71717a;
+  --a:#e53935;--b:#f97316;--ok:#10b981;--warn:#f59e0b;--err:#ef4444;--info:#60a5fa;--vio:#a855f7;
+  --grad:linear-gradient(90deg,var(--a),var(--b));
+  --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;overflow-x:hidden;line-height:1.4}
+code{font-family:ui-monospace,monospace;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:6px;font-size:.85em}
+::selection{background:rgba(229,57,53,.5)}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:8px}
+
+/* fundo animado */
+.bg-orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-orbs i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28;animation:float 18s ease-in-out infinite}
+.bg-orbs i:nth-child(1){width:420px;height:420px;background:#e53935;top:-120px;left:-100px}
+.bg-orbs i:nth-child(2){width:380px;height:380px;background:#f97316;bottom:-140px;right:-80px;animation-delay:-6s}
+.bg-orbs i:nth-child(3){width:300px;height:300px;background:#7c3aed;top:40%;left:55%;opacity:.16;animation-delay:-12s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,30px) scale(1.1)}66%{transform:translate(-30px,50px) scale(.95)}}
+
+/* topo */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:rgba(7,7,15,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{width:42px;height:42px;border-radius:13px;background:var(--grad);display:grid;place-items:center;font-weight:900;font-size:1.3rem;box-shadow:0 8px 28px rgba(229,57,53,.45);animation:glow 3s ease-in-out infinite;flex:0 0 auto}
+@keyframes glow{50%{box-shadow:0 8px 40px rgba(249,115,22,.65)}}
+.brand h1{font-size:1.15rem;font-weight:900;letter-spacing:-.02em;white-space:nowrap}
+.brand h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand p{font-size:.7rem;color:var(--mut2)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;font-size:.72rem;font-weight:700;border:1px solid var(--line);background:var(--card);white-space:nowrap}
+.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mut2)}
+.pill.ok{color:var(--ok);border-color:rgba(16,185,129,.35)}.pill.ok::before{background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 2s infinite}
+.pill.warn{color:var(--warn);border-color:rgba(245,158,11,.35)}.pill.warn::before{background:var(--warn)}
+.pill.err{color:var(--err);border-color:rgba(239,68,68,.35)}.pill.err::before{background:var(--err)}
+.pill.load::before{background:var(--info);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(1.4)}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 120px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.stat{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;transition:.25s}
+.stat:hover{transform:translateY(-3px);border-color:var(--line2)}
+.stat::after{content:"";position:absolute;inset:auto -20% -60% auto;width:90px;height:90px;border-radius:50%;background:var(--c,var(--a));opacity:.18;filter:blur(20px)}
+.stat .n{font-size:1.7rem;font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .l{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:700;margin-top:2px}
+.stat .bar{height:4px;border-radius:4px;background:rgba(255,255,255,.08);margin-top:8px;overflow:hidden}
+.stat .bar b{display:block;height:100%;width:0;background:var(--grad);border-radius:4px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+
+/* abas */
+.tabs{display:flex;gap:6px;padding:6px;background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:18px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--mut);border:0;padding:11px 16px;border-radius:13px;font-weight:800;font-size:.82rem;cursor:pointer;white-space:nowrap;transition:.25s;text-transform:none}
+.tab:hover{color:#fff;background:rgba(255,255,255,.05);transform:none;box-shadow:none}
+.tab.active{background:var(--grad);color:#fff;box-shadow:0 6px 22px rgba(229,57,53,.35)}
+.tab .ic{font-size:1.05rem}
+.panel{display:none}
+.panel.active{display:block;animation:panelIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:16px;backdrop-filter:blur(6px);position:relative}
+.card h2{font-size:.95rem;font-weight:900;margin-bottom:14px;display:flex;align-items:center;gap:8px;letter-spacing:.02em}
+.card h2 .t{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-transform:uppercase}
+.card.glow{border-color:transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,linear-gradient(120deg,var(--a),var(--b),var(--vio),var(--a)) border-box;background-size:100% 100%,300% 300%;animation:borderMove 6s linear infinite}
+@keyframes borderMove{to{background-position:0 0,300% 0}}
+.subcard{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px}
+.subcard h3{font-size:.88rem;font-weight:800;margin-bottom:10px;color:#fff}
+.muted{color:var(--mut);font-size:.8rem}
+.hint{color:var(--mut);font-size:.78rem;margin-bottom:12px;line-height:1.55}
+
+label{display:block;font-size:.68rem;color:var(--mut);margin-bottom:6px;text-transform:uppercase;font-weight:800;letter-spacing:.05em}
+input,select{width:100%;padding:12px 14px;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:12px;color:#fff;font-size:.9rem;outline:none;transition:.2s;font-family:inherit}
+input:focus,select:focus{border-color:var(--a);box-shadow:0 0 0 4px rgba(229,57,53,.18);background:rgba(0,0,0,.6)}
+input::placeholder{color:#52525b}
+select option{background:#111}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:150px}
+.mt{margin-top:14px}.mt0{margin-top:0}
+.hidden{display:none!important}
+.field-eye{position:relative}.field-eye button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:6px 10px;font-size:.8rem}
+
+/* botões */
+button,.btn{position:relative;overflow:hidden;background:var(--grad);color:#fff;border:0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(229,57,53,.35)}
+button:active{transform:translateY(0) scale(.97)}
+button.ghost{background:rgba(255,255,255,.07);border:1px solid var(--line)}
+button.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none;border-color:var(--line2)}
+button.danger{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);color:#fca5a5}
+button.danger:hover{background:rgba(239,68,68,.3);box-shadow:none}
+button.sm{padding:8px 12px;font-size:.72rem}
+button:disabled{opacity:.5;pointer-events:none}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:rip .6s ease-out;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-left:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* chip de verificação de ID */
+.idcheck{margin-top:12px;border-radius:12px;padding:0;font-size:.82rem;overflow:hidden;max-height:0;opacity:0;transition:.35s}
+.idcheck:not(:empty){max-height:200px;opacity:1;padding:11px 14px;border:1px solid var(--line)}
+.idcheck.ok{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4)}
+.idcheck.part{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.4)}
+.idcheck.none{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.35)}
+.idcheck.new{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.35)}
+.idcheck.info{background:var(--card)}
+.idcheck .lk{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.idcheck code{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
+
+/* preview */
+.preview{display:flex;gap:18px;flex-wrap:wrap}
+.preview .poster{width:140px;flex:0 0 auto;border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.6);aspect-ratio:2/3;object-fit:cover;background:#111;animation:pop .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:scale(.9) rotate(-2deg)}}
+.preview-info{flex:1;min-width:220px}
+.preview-info h3{font-size:1.25rem;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.preview-info .meta{color:var(--mut);font-size:.82rem;margin-bottom:8px}
+.preview-info p{color:#d4d4d8;font-size:.85rem;line-height:1.55;max-height:110px;overflow:auto}
+.genres{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.genres span{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line)}
+.badge{background:rgba(229,57,53,.2);color:#ff6b66;padding:3px 9px;border-radius:7px;font-size:.66rem;font-weight:900;letter-spacing:.05em}
+.edit-badge{background:rgba(96,165,250,.2);color:var(--info);padding:3px 9px;border-radius:7px;font-size:.66rem;font-weight:900;margin-left:6px}
+.banner{margin-top:14px;border-radius:14px;padding:13px 15px;border:1px solid var(--line);font-size:.84rem;animation:panelIn .4s}
+.banner.ok{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4)}
+.banner.part{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.4)}
+.banner.none{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.35)}
+.banner.new{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.35)}
+.season-bars{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.sbar{font-size:.7rem;color:var(--mut)}
+.sbar .tr{height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin-top:4px;overflow:hidden}
+.sbar .tr b{display:block;height:100%;background:var(--ok);border-radius:6px;transition:width .8s}
+.sbar.part .tr b{background:var(--warn)}.sbar.none .tr b{background:var(--err)}
+
+.ep{background:rgba(0,0,0,.3);border-radius:12px;padding:12px 14px;margin-bottom:8px;border-left:3px solid rgba(229,57,53,.5)}
+.ep.has{border-left-color:var(--ok)}
+.ep h4{font-size:.84rem;color:#fbbf24;margin-bottom:8px;font-weight:800}
+.ep .srcrow{display:flex;gap:8px}.ep .srcrow input{flex:1}.ep .srcrow button{flex:0 0 auto;padding:8px 12px}
+details{margin-top:8px}
+details summary{cursor:pointer;padding:10px 12px;color:#e5e7eb;font-size:.85rem;user-select:none;border-radius:10px;background:rgba(255,255,255,.04);list-style:none;display:flex;align-items:center;gap:8px;transition:.2s}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"▸";transition:.25s;color:var(--b)}
+details[open]>summary::before{transform:rotate(90deg)}
+details summary:hover{background:rgba(255,255,255,.08)}
+details>div,details>.ep{animation:panelIn .3s}
+
+/* seletor de episódios */
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{background:rgba(255,255,255,.06);border:1px solid var(--line);padding:9px 14px;font-size:.74rem}
+.seg button.active{background:var(--grad);border-color:transparent}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px;margin-top:12px;max-height:260px;overflow:auto;padding:2px}
+.chip{padding:9px 0;text-align:center;border-radius:10px;font-size:.78rem;font-weight:800;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--mut);cursor:pointer;transition:.18s;text-transform:none;letter-spacing:0}
+.chip:hover{transform:scale(1.08);box-shadow:none;background:rgba(255,255,255,.1)}
+.chip.has{color:#6ee7b7;border-color:rgba(16,185,129,.35)}
+.chip.sel{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(229,57,53,.4)}
+
+/* sticky save */
+.savebar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;position:sticky;bottom:78px;z-index:20;padding:12px;background:rgba(13,13,26,.9);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px}
+.savebar button{flex:1;min-width:130px}
+
+/* log */
+.progress-log{font-size:.76rem;color:var(--mut);margin-top:10px;max-height:300px;overflow-y:auto;background:rgba(0,0,0,.35);padding:10px;border-radius:10px;display:none;font-family:ui-monospace,monospace;line-height:1.6;border:1px solid var(--line)}
+.progress-log.show{display:block}
+.log-success{color:var(--ok);font-weight:600}.log-error{color:var(--err);font-weight:600}.log-warn{color:var(--warn);font-weight:600}.log-info{color:var(--info)}
+.log-title{color:var(--a);font-weight:800;text-transform:uppercase;margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+.status{font-size:.74rem;padding:5px 10px;border-radius:8px;background:rgba(16,185,129,.15);color:var(--ok);display:inline-block;font-weight:700}
+
+/* auto refresh */
+.auto-item{background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.auto-item.active{border-left:3px solid var(--ok)}.auto-item.error{border-left:3px solid var(--err)}
+.auto-item .ai-info{flex:1;min-width:200px}
+.auto-item .ai-title{font-weight:800;font-size:.85rem;margin-bottom:4px}
+.auto-item .ai-url{font-size:.68rem;color:var(--mut);font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:4px}
+.auto-item .ai-meta{font-size:.65rem;display:flex;gap:8px;flex-wrap:wrap}
+.auto-item .ai-meta span{padding:2px 8px;border-radius:10px;font-weight:800}
+.auto-item .ai-meta .timer{background:rgba(16,185,129,.2);color:var(--ok)}
+.auto-item .ai-meta .link-status{background:rgba(96,165,250,.2);color:var(--info)}
+.auto-item .ai-meta .next{background:rgba(168,85,247,.2);color:var(--vio)}
+.auto-item .ai-countdown{font-size:1.5rem;font-weight:900;color:var(--ok);font-family:ui-monospace,monospace;min-width:60px;text-align:center}
+.auto-item .ai-actions{display:flex;gap:4px}.auto-item .ai-actions button{padding:6px 10px;font-size:.7rem}
+.minute-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:8px}
+.minute-option{background:rgba(0,0,0,.4);border:2px solid var(--line);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:.2s;font-size:.72rem;font-weight:800}
+.minute-option:hover{border-color:var(--line2)}
+.minute-option.active{border-color:var(--ok);background:rgba(16,185,129,.15);color:var(--ok)}
+.minute-option .mo-val{font-size:1rem;font-weight:900;color:#fff}.minute-option.active .mo-val{color:var(--ok)}
+
+/* biblioteca */
+.libbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+.lib-count{margin:14px 2px 10px;font-size:.78rem;color:var(--mut);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.libgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.lcard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s;animation:cardIn .5s cubic-bezier(.2,.8,.2,1) backwards;display:flex;flex-direction:column}
+.lcard:hover{transform:translateY(-5px);border-color:rgba(229,57,53,.5);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.96)}}
+.lposter{position:relative;aspect-ratio:2/3;background:linear-gradient(135deg,#1a1a2e,#0f0f1a)}
+.lposter img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.lcard:hover .lposter img{transform:scale(1.06)}
+.lbadge{position:absolute;left:8px;bottom:8px;font-size:.62rem;font-weight:900;padding:4px 8px;border-radius:7px;backdrop-filter:blur(8px)}
+.lbadge.ok{background:rgba(16,185,129,.85)}.lbadge.part{background:rgba(245,158,11,.9);color:#000}.lbadge.none{background:rgba(239,68,68,.9)}
+.ltype{position:absolute;right:8px;top:8px;font-size:.58rem;font-weight:900;padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.7);letter-spacing:.06em}
+.linfo{padding:10px 11px 6px;flex:1}
+.linfo b{display:block;font-size:.8rem;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.linfo small{color:var(--mut2);font-size:.68rem}
+.lact{display:flex;gap:6px;padding:0 10px 10px}
+.lact button{flex:1;padding:7px 0;font-size:.7rem;border-radius:9px}
+.empty{text-align:center;padding:50px 20px;color:var(--mut)}.empty .big{font-size:2.6rem;margin-bottom:8px}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.11),rgba(255,255,255,.04));background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:14px;aspect-ratio:2/3.6}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* saúde */
+.hcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;animation:panelIn .4s backwards}
+.hcard .hi{font-size:1.5rem}.hcard .hn{font-size:1.4rem;font-weight:900;min-width:50px;text-align:center}
+.hcard.ok .hn{color:var(--ok)}.hcard.bad .hn{color:var(--warn)}
+.hcard .ht{flex:1;min-width:0}.hcard .ht b{font-size:.88rem}.hcard .ht div{font-size:.74rem;color:var(--mut)}
+.hlist{max-height:240px;overflow:auto;margin:-4px 0 12px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:12px;padding:6px}
+.hlist button{display:flex;width:100%;justify-content:space-between;text-align:left;background:transparent;border:0;padding:8px 10px;border-radius:8px;font-size:.78rem;text-transform:none;font-weight:600;letter-spacing:0;color:#e5e7eb}
+.hlist button:hover{background:rgba(255,255,255,.08);transform:none;box-shadow:none}
+
+/* toasts / modal */
+#toasts{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:center;width:min(92vw,420px);pointer-events:none}
+.toast{background:#10b981;color:#04130d;padding:12px 18px;border-radius:12px;font-weight:700;font-size:.86rem;text-align:center;box-shadow:0 12px 36px rgba(0,0,0,.5);opacity:0;transform:translateY(20px) scale(.96);transition:.3s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
+.toast.show{opacity:1;transform:none}
+.toast.err{background:#ef4444;color:#fff}.toast.warn{background:#f59e0b;color:#1a1100}.toast.info{background:#3b82f6;color:#fff}
+#modal{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:.25s}
+#modal.show{opacity:1;pointer-events:auto}
+.mbox{background:#12121f;border:1px solid var(--line2);border-radius:20px;padding:24px;max-width:380px;width:100%;transform:scale(.9);transition:.3s cubic-bezier(.2,.8,.2,1)}
+#modal.show .mbox{transform:none}
+.mbox h3{font-size:1.1rem;margin-bottom:8px}.mbox p{color:var(--mut);font-size:.88rem;margin-bottom:18px;line-height:1.5}
+.mbox .row>*{min-width:0}
+
+/* responsivo */
+@media(max-width:900px){.stats{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding:2px 16px}.stats::-webkit-scrollbar{display:none}.stat{flex:0 0 138px;scroll-snap-align:start;padding:12px 14px}.stat .n{font-size:1.45rem}.libbar{grid-template-columns:1fr 1fr}.libbar>:first-child{grid-column:span 2}}
+@media(max-width:720px){
+  .brand p,.pill span.long{display:none}
+  .tabs{position:fixed;left:10px;right:10px;bottom:10px;z-index:60;margin:0;background:rgba(13,13,26,.94);backdrop-filter:blur(18px);box-shadow:0 14px 50px rgba(0,0,0,.7);padding:5px;gap:2px}
+  .tab{flex-direction:column;gap:2px;padding:8px 4px;font-size:.62rem;min-width:0}.tab .ic{font-size:1.2rem}
+  .wrap{padding-bottom:130px}.savebar{bottom:86px}#toasts{bottom:96px}
+  .preview .poster{width:110px}.card{padding:16px}
+  .topbar{padding:10px 14px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div class="bg-orbs"><i></i><i></i><i></i></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">K</div>
+    <div><h1>Kira<span>Flix</span> Admin</h1><p>Central de controle do catálogo</p></div>
+  </div>
+  <div class="top-actions">
+    <span class="pill load" id="connPill"><span>Carregando…</span></span>
+    <button class="ghost sm" onclick="reloadCatalog(true)" title="Recarregar catálogo">↻</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ESTATÍSTICAS -->
+  <section class="stats">
+    <div class="stat" style="--c:#e53935"><div class="n" id="stMovies">0</div><div class="l">🎬 Filmes</div></div>
+    <div class="stat" style="--c:#a855f7"><div class="n" id="stSeries">0</div><div class="l">📺 Séries</div></div>
+    <div class="stat" style="--c:#60a5fa"><div class="n" id="stEps">0</div><div class="l">🎞️ Episódios</div></div>
+    <div class="stat" style="--c:#10b981"><div class="n" id="stWith">0</div><div class="l">✔ Com fonte</div><div class="bar"><b id="stBar"></b></div></div>
+    <div class="stat" style="--c:#f59e0b"><div class="n" id="stWithout">0</div><div class="l">⚠ Sem fonte</div></div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="add" onclick="switchTab('add')"><span class="ic">🎬</span>Adicionar</button>
+    <button class="tab" data-tab="lib" onclick="switchTab('lib')"><span class="ic">📚</span>Biblioteca</button>
+    <button class="tab" data-tab="auto" onclick="switchTab('auto')"><span class="ic">🔄</span>Auto</button>
+    <button class="tab" data-tab="health" onclick="switchTab('health')"><span class="ic">🩺</span>Saúde</button>
+    <button class="tab" data-tab="cfg" onclick="switchTab('cfg')"><span class="ic">⚙️</span>GitHub</button>
+  </nav>
+
+  <!-- ============ ABA: ADICIONAR ============ -->
+  <section class="panel active" id="tab-add">
+    <div class="card glow">
+      <h2><span class="t">🔎 Buscar filme ou série</span></h2>
+      <p class="hint">Digite o ID do TMDB. Se já estiver no catálogo, o painel mostra na hora se ele <b>já tem link</b> e qual é, e carrega tudo para você editar sem perder nada.</p>
+      <div class="row">
+        <div style="flex:.8"><label>Tipo</label><select id="type"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+        <div style="flex:2"><label>ID do TMDB</label><input id="tmdbId" inputmode="numeric" placeholder="ex: 969681" autocomplete="off"></div>
+        <div style="flex:0;display:flex;align-items:flex-end"><button onclick="fetchContent()" id="btnFetch">Buscar</button></div>
+      </div>
+      <div class="idcheck" id="idCheck"></div>
+    </div>
+
+    <div class="card hidden" id="resultCard">
+      <h2 id="resultTitle"><span class="t">📝 Conteúdo carregado</span></h2>
+      <div class="preview" id="preview"></div>
+
+      <div id="seriesTools" class="hidden">
+        <!-- ALL Seekee Scanner -->
+        <div class="subcard" style="border-color:rgba(229,57,53,.45)">
+          <h3><i data-lucide="scan-search" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"></i>ALL Seekee — Scanner de Páginas Públicas</h3>
+          <p class="hint">Cole <b>qualquer link público</b> da série (T1, T2+ ou com <code>/1/1</code> no final). O sistema detecta a estrutura automaticamente, começa sempre pela <b>Temporada 1</b> e varre todas as temporadas/episódios encontrados.</p>
+
+          <div class="row">
+            <div style="flex:3"><label>Link público da série</label>
+              <input id="scrapeUrl" placeholder="https://es.cuevana4br.com/pt/detail/drama/m9vlingZtf5NtglIau2WG-Black-Clover-Season-1">
+            </div>
+            <div style="flex:0;display:flex;align-items:flex-end">
+              <button onclick="autoScrapeTudo()" id="btnScrapeAll">
+                <i data-lucide="scan-search" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Varrer Tudo
+              </button>
+            </div>
+          </div>
+
+          <div class="row mt">
+            <div><label>Prefixar links?</label>
+              <select id="bulkPrefix">
+                <option value="yes">Sim (mgeb.space)</option>
+                <option value="no">Não</option>
+              </select>
+            </div>
+            <div><label>Limite Temporadas (TMDB)</label>
+              <input type="number" id="tmdbMaxSeasons" value="10" readonly style="opacity:.6;cursor:not-allowed">
+            </div>
+            <div><label>Modo inteligente</label>
+              <select id="smartMode">
+                <option value="on">✅ Ativado (detecta T1 automaticamente)</option>
+                <option value="off">⛔ Desativado (só URLs explícitas)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt">
+            <div style="flex:2"><label>URL Template do Scanner (variáveis: <code>{season}</code>, <code>{episode}</code>)</label>
+              <input id="scrapeTemplate" placeholder="https://es.cuevana4br.com/pt/detail/drama/.../Black-Clover-Season-{season}/{episode}">
+            </div>
+            <div style="flex:0;display:flex;align-items:flex-end">
+              <button class="ghost" onclick="detectarTemplateScanner()">
+                <i data-lucide="wand-2" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Detectar
+              </button>
+            </div>
+          </div>
+
+          <!-- Barra de progresso -->
+          <div id="scrapeProgressWrap" class="hidden mt">
+            <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut);margin-bottom:6px">
+              <span id="scrapeProgressText">Aguardando…</span>
+              <span id="scrapeProgressPct">0%</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden">
+              <div id="scrapeProgressBar" style="height:100%;width:0;background:var(--grad);border-radius:6px;transition:width .4s"></div>
+            </div>
+          </div>
+
+          <div class="progress-log" id="scrapeLog"></div>
+
+          <div class="row mt">
+            <button onclick="scrapeTodasTemporadas()" id="btnScrapeSeasons" style="flex:2">
+              <i data-lucide="layers" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Colocar todas as temporadas + episódios
+            </button>
+            <button class="ghost" onclick="scrapeParar()" id="btnScrapeStop" style="display:none">
+              <i data-lucide="square" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Parar
+            </button>
+          </div>
+        </div>
+
+        <!-- Aplicar por temporada / episódio -->
+        <div class="subcard" style="border-color:rgba(16,185,129,.4)">
+          <h3>🎯 Aplicar link por temporada / episódio</h3>
+          <p class="hint">Escolha a temporada e <b>quais episódios</b> recebem o link: todos, <b>até o episódio N</b> (não passa dele), uma faixa, ou toque nos números para escolher episódios específicos.</p>
+          <div class="row">
+            <div style="flex:1"><label>Temporada alvo</label><select id="targetSeason" onchange="renderEpChips()"></select></div>
+            <div style="flex:2"><label>Link de exemplo</label><input id="exampleUrl" placeholder="https://site.com/serie/1/1"></div>
+            <div style="flex:0;display:flex;align-items:flex-end"><button class="ghost" onclick="detectarVariaveis()">🔍 Detectar</button></div>
+          </div>
+          <div class="row mt">
+            <div style="flex:2"><label>URL Template</label><input id="bulkTemplate" placeholder="https://.../{season}/{episode}"></div>
+            <div><label>Se o episódio já tiver link</label><select id="epOverwrite"><option value="yes">Substituir</option><option value="no">Manter o existente</option></select></div>
+          </div>
+          <label class="mt">Quais episódios?</label>
+          <div class="seg" id="epModes">
+            <button class="active" data-m="all" onclick="setEpMode('all')">Todos</button>
+            <button data-m="upTo" onclick="setEpMode('upTo')">Até o episódio…</button>
+            <button data-m="range" onclick="setEpMode('range')">Faixa</button>
+            <button data-m="pick" onclick="setEpMode('pick')">Específicos</button>
+          </div>
+          <div class="row mt hidden" id="wUpTo"><div><label>Aplicar do ep. 1 até o episódio</label><input type="number" id="epUpTo" min="1" value="1" oninput="renderEpChips()"></div></div>
+          <div class="row mt hidden" id="wRange">
+            <div><label>De</label><input type="number" id="epFrom" min="1" value="1" oninput="renderEpChips()"></div>
+            <div><label>Até</label><input type="number" id="epTo" min="1" value="1" oninput="renderEpChips()"></div>
+          </div>
+          <div class="chips" id="epChips"></div>
+          <div class="muted mt0" style="margin-top:8px" id="epSummary"></div>
+          <div class="row mt">
+            <button onclick="aplicarLinks()">⚡ Aplicar links</button>
+            <button class="ghost" onclick="aplicarLinks(true)">🧹 Limpar links dos selecionados</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="episodesArea" class="mt"></div>
+
+      <div class="savebar">
+        <button onclick="saveToCatalog()" id="btnSave">💾 Salvar no catálogo</button>
+        <button class="ghost" onclick="downloadCatalog()">📥 Baixar catalog.json</button>
+        <button class="ghost" onclick="resetForm()">🗑️ Limpar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABA: BIBLIOTECA ============ -->
+  <section class="panel" id="tab-lib">
+    <div class="card">
+      <h2><span class="t">📚 Tudo que você já adicionou</span></h2>
+      <div class="libbar">
+        <div><label>Buscar (nome ou ID)</label><input id="libSearch" placeholder="ex: Dexter ou 969681" autocomplete="off"></div>
+        <div><label>Tipo</label><select id="libType"><option value="all">Todos</option><option value="movie">🎬 Filmes</option><option value="series">📺 Séries</option></select></div>
+        <div><label>Fonte</label><select id="libStatus"><option value="all">Todos</option><option value="ok">✔ Com fonte</option><option value="part">◐ Incompletos</option><option value="none">⚠ Sem fonte</option></select></div>
+        <div><label>Ordenar</label><select id="libSort"><option value="recent">Mais recentes (ID)</option><option value="title">Nome A–Z</option><option value="year">Ano</option><option value="rating">Nota</option><option value="nosrc">Sem fonte primeiro</option></select></div>
+        <button class="ghost" onclick="reloadCatalog(true)">↻</button>
+      </div>
+    </div>
+    <div class="lib-count"><span id="libCount"></span></div>
+    <div class="libgrid" id="libGrid"></div>
+    <div style="text-align:center;margin-top:18px"><button class="ghost hidden" id="libMore" onclick="libMore()">Carregar mais</button></div>
+  </section>
+
+  <!-- ============ ABA: AUTO-REFRESH ============ -->
+  <section class="panel" id="tab-auto">
+    <div class="card" style="border-color:rgba(16,185,129,.35);background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(16,185,129,.01))">
+      <h2><span class="t">🔄 Auto-Refresh Uqload</span></h2>
+      <p class="hint">Cole a URL do Uqload + ID do TMDB. O sistema extrai o link <code>.mp4</code> real e salva no catálogo no intervalo escolhido. Se o link expirar, o próximo ciclo pega o novo. <b>Mantenha esta página aberta</b> para os ciclos rodarem.</p>
+      <div class="row">
+        <div style="flex:3"><label>URL do Uqload</label><input id="autoUqloadUrl" placeholder="https://uqload.vc/p56fa88d06qv.html"></div>
+        <div><label>ID TMDB</label><input id="autoTmdbId" placeholder="ex: 969681"></div>
+        <div><label>Tipo</label><select id="autoType"><option value="movie">🎬 Filme</option><option value="series">📺 Série</option></select></div>
+      </div>
+      <div class="row mt"><div>
+        <label>Intervalo de atualização</label>
+        <div class="minute-picker" id="autoIntervalPicker">
+          <div class="minute-option active" data-min="1"><div class="mo-val">1</div><div>min</div></div>
+          <div class="minute-option" data-min="2"><div class="mo-val">2</div><div>min</div></div>
+          <div class="minute-option" data-min="5"><div class="mo-val">5</div><div>min</div></div>
+          <div class="minute-option" data-min="10"><div class="mo-val">10</div><div>min</div></div>
+          <div class="minute-option" data-min="30"><div class="mo-val">30</div><div>min</div></div>
+        </div>
+      </div></div>
+      <div class="row mt">
+        <div><label>Prefixo mgeb neste ID?</label><select id="autoPrefix"><option value="yes">🌐 Sim (mgeb.space)</option><option value="no">🔗 Não (link direto)</option></select></div>
+        <div style="flex:0;display:flex;align-items:flex-end"><button onclick="addAutoUqload()" id="btnAddAuto">➕ Adicionar</button></div>
+      </div>
+      <div id="autoListContainer" class="mt" style="display:none">
+        <h3 style="font-size:.9rem;color:var(--ok);margin-bottom:10px">📡 Fontes em Auto-Refresh</h3>
+        <div id="autoList"></div>
+      </div>
+      <div class="progress-log" id="autoLog"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABA: SAÚDE ============ -->
+  <section class="panel" id="tab-health">
+    <div class="card">
+      <h2><span class="t">🩺 Saúde do catálogo</span></h2>
+      <p class="hint">Procura problemas no catálogo: filmes/episódios sem link, links com prefixo duplicado, caracteres invisíveis (os que o GitHub acusa) e capas faltando.</p>
+      <div class="row">
+        <button onclick="runHealth()">🔍 Verificar agora</button>
+        <button class="ghost" onclick="fixHealth()" id="btnFix">🛠️ Corrigir automático</button>
+        <button class="ghost" onclick="downloadBackup()">💾 Baixar backup local</button>
+      </div>
+      <p class="muted" style="margin-top:10px">"Corrigir automático" remove prefixos repetidos e caracteres invisíveis. Antes de qualquer salvamento o painel guarda um backup no seu navegador.</p>
+    </div>
+    <div id="healthOut"></div>
+  </section>
+
+  <!-- ============ ABA: GITHUB ============ -->
+  <section class="panel" id="tab-cfg">
+    <div class="card">
+      <h2><span class="t">🔑 GitHub (salvar catálogo)</span></h2>
+      <p class="hint">O painel salva o <code>catalog.json</code> direto no seu repositório. A configuração fica só neste navegador.</p>
+      <div class="row">
+        <div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva"></div>
+        <div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix"></div>
+      </div>
+      <div class="mt field-eye"><label>Personal Access Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..."><button class="ghost" style="top:70%" onclick="const i=$('ghToken');i.type=i.type==='password'?'text':'password'">👁</button></div>
+      <div class="row mt">
+        <button onclick="saveGithubConfig()">💾 Salvar configuração</button>
+        <button class="ghost" onclick="testGithubConnection()" id="btnTest">🧪 Testar conexão</button>
+      </div>
+      <span class="status mt" id="ghStatus" style="display:none">✔ Configurado</span>
+    </div>
+    <div class="card">
+      <h2><span class="t">🛡️ Proteções ativas</span></h2>
+      <p class="muted" style="line-height:1.8">
+        ✔ Antes de salvar, o painel <b>relê o catálogo do GitHub</b> e só altera o item que você mexeu.<br>
+        ✔ Se o salvamento fosse <b>apagar itens</b>, ele cancela e avisa.<br>
+        ✔ Se o GitHub devolver o catálogo vazio, nada é salvo.<br>
+        ✔ Backup local automático antes de cada salvamento.<br>
+        ✔ Caracteres invisíveis são removidos automaticamente.
+      </p>
+    </div>
+  </section>
+</main>
+
+<div id="toasts"></div>
+<div id="modal"><div class="mbox"><h3 id="mTitle"></h3><p id="mMsg"></p><div class="row"><button class="ghost" id="mCancel">Cancelar</button><button id="mOk">Confirmar</button></div></div></div>
+
+<script>
+// ============================================================
+// CONFIGURAÇÕES GLOBAIS
+// ============================================================
+const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
+const HEADERS_TMDB = { Authorization: "Bearer " + TMDB_TOKEN, accept: "application/json" };
+const LANG = "pt-BR";
+const PREFIX = "https://mgeb.space/mp4.php?url=";
+
+const PROXIES = [
+  { name: "allorigins", url: "https://api.allorigins.win/raw?url=" },
+  { name: "corsproxy.io", url: "https://corsproxy.io/?" },
+  { name: "codetabs", url: "https://api.codetabs.com/v1/proxy?quest=" },
+  { name: "thingproxy", url: "https://thingproxy.freeboard.io/fetch/" },
+  { name: "yacdn", url: "https://yacdn.org/proxy/" },
+  { name: "cors-anywhere", url: "https://cors-anywhere.herokuapp.com/" }
+];
+let currentProxyIndex = 0;
+
+let current = null;
+let catalog = { movies: {}, series: {} };
+let catalogSha = null;
+let catalogLoaded = false;
+let catalogReadOnly = false;
+let catalogCountAtLoad = 0;
+let libCache = null;
+let libLimit = 48;
+
+// Auto-refresh Uqload
+let autoSources = [];
+let autoLogEntries = [];
+let autoIntervalDefault = 1;
+let currentProxyForAuto = 0;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ============================================================
+// UTILS
+// ============================================================
+function toast(msg, kind) {
+  const type = kind === true ? "err" : (kind || "ok");
+  const box = $("toasts");
+  const t = document.createElement("div");
+  t.className = "toast " + type;
+  t.textContent = msg;
+  box.appendChild(t);
+  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add("show")));
+  setTimeout(() => { t.classList.remove("show"); setTimeout(() => t.remove(), 350); }, type === "err" ? 6500 : 3600);
+  while (box.children.length > 4) box.firstChild.remove();
+}
+
+function logMsg(msg, type, logId = "scrapeLog") {
+  const log = $(logId);
+  if (!log) return;
+  log.classList.add("show");
+  const div = document.createElement("div");
+  if (type === 'success') div.className = 'log-success';
+  else if (type === 'error') div.className = 'log-error';
+  else if (type === 'warn') div.className = 'log-warn';
+  else if (type === 'info') div.className = 'log-info';
+  else if (type === 'title') div.className = 'log-title';
+  div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  log.appendChild(div);
+  while (log.children.length > 400) log.firstChild.remove();
+  log.scrollTop = log.scrollHeight;
+}
+
+function askConfirm(title, msg, okLabel) {
+  return new Promise(res => {
+    $("mTitle").textContent = title;
+    $("mMsg").textContent = msg;
+    $("mOk").textContent = okLabel || "Confirmar";
+    const m = $("modal");
+    m.classList.add("show");
+    const done = v => { m.classList.remove("show"); $("mOk").onclick = null; $("mCancel").onclick = null; res(v); };
+    $("mOk").onclick = () => done(true);
+    $("mCancel").onclick = () => done(false);
+  });
+}
+
+function copyText(t) {
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    ta.remove();
+  };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).catch(fallback); else fallback();
+  toast("🔗 Link copiado");
+}
+
+function buildFinalUrl(url, prefixOn) {
+  if (!url) return "";
+  if (!prefixOn) {
+    if (url.startsWith(PREFIX)) return url.substring(PREFIX.length);
+    return url;
+  }
+  if (url.startsWith(PREFIX)) return url;
+  return PREFIX + url;
+}
+
+function shortLink(u, n = 70) { u = String(u || ""); return u.length > n ? u.slice(0, n) + "…" : u; }
+
+// efeito ripple nos botões
+document.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b || b.disabled) return;
+  const r = b.getBoundingClientRect();
+  const s = document.createElement("span");
+  const size = Math.max(r.width, r.height);
+  s.className = "ripple";
+  s.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size / 2}px;top:${e.clientY - r.top - size / 2}px`;
+  b.appendChild(s);
+  setTimeout(() => s.remove(), 600);
+});
+
+// ============================================================
+// GITHUB CONFIG
+// ============================================================
+function getGithubConfig() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem("kiraflix_gh") || "null");
+    if (!cfg || !cfg.owner || !cfg.repo || !cfg.token) return null;
+    return cfg;
+  } catch (e) { return null; }
+}
+
+function saveGithubConfig() {
+  const cfg = { owner: $("ghOwner").value.trim(), repo: $("ghRepo").value.trim(), token: $("ghToken").value.trim() };
+  if (!cfg.owner || !cfg.repo || !cfg.token) return toast("Preencha os 3 campos", true);
+  try { localStorage.setItem("kiraflix_gh", JSON.stringify(cfg)); } catch (e) { return toast("Não consegui salvar neste navegador", true); }
+  $("ghStatus").style.display = "inline-block";
+  toast("✔ GitHub configurado");
+  reloadCatalog(false);
+}
+
+async function testGithubConnection() {
+  const cfg = getGithubConfig();
+  if (!cfg) return toast("Salve a configuração primeiro.", true);
+  $("btnTest").innerHTML = 'Testando...<span class="spinner"></span>';
+  try {
+    const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}`, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+    });
+    if (res.status === 401) throw new Error("Token inválido (401).");
+    if (res.status === 404) throw new Error("Repositório não encontrado (404).");
+    if (!res.ok) throw new Error(`Erro ${res.status}`);
+    const catRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json" }
+    });
+    if (catRes.status === 404) toast("✔ Repo encontrado! O catalog.json será criado.", "info");
+    else if (!catRes.ok) throw new Error(`Erro ao ler catalog.json: ${catRes.status}`);
+    else toast("✔ Tudo certo! Conexão funcionando.");
+  } catch (err) {
+    toast("❌ " + err.message, true);
+  } finally {
+    $("btnTest").innerHTML = '🧪 Testar conexão';
+  }
+}
+
+function loadGithubConfig() {
+  const cfg = getGithubConfig();
+  if (cfg) {
+    $("ghOwner").value = cfg.owner;
+    $("ghRepo").value = cfg.repo;
+    $("ghToken").value = cfg.token;
+    $("ghStatus").style.display = "inline-block";
+  }
+}
+
+function updateConn(state, text) {
+  const p = $("connPill");
+  p.className = "pill " + state;
+  p.innerHTML = `<span>${esc(text)}</span>`;
+}
+
+// ============================================================
+// CATÁLOGO: LEITURA / ESCRITA SEGURA
+// ============================================================
+function countEntries(c) { return Object.keys((c && c.movies) || {}).length + Object.keys((c && c.series) || {}).length; }
+
+// remove caracteres invisíveis/bidirecionais que o GitHub acusa
+function limparInvisiveis(str) {
+  return str.replace(/[\u200B\u200C\u200E\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF]/g, "");
+}
+
+// leitura que funciona também com arquivos grandes (> 1 MB)
+async function readCatalogFromGithub(cfg) {
+  const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`;
+  const h = { Authorization: `token ${cfg.token}` };
+  const meta = await fetch(url, { headers: { ...h, Accept: "application/vnd.github.v3+json" }, cache: "no-store" });
+  if (meta.status === 404) return { data: { movies: {}, series: {} }, sha: null };
+  if (meta.status === 401) throw new Error("Token inválido (401)");
+  if (!meta.ok) throw new Error(`HTTP ${meta.status}`);
+  const file = await meta.json();
+  let text = "";
+  if (file.content && file.encoding === "base64") {
+    text = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ""))));
+  } else {
+    const raw = await fetch(url, { headers: { ...h, Accept: "application/vnd.github.raw" }, cache: "no-store" });
+    if (!raw.ok) throw new Error(`HTTP ${raw.status} ao baixar catalog.json`);
+    text = await raw.text();
+  }
+  text = text.replace(/^\uFEFF/, "");
+  if (!text.trim()) throw new Error("catalog.json veio vazio do GitHub (nada foi salvo)");
+  const data = JSON.parse(text);
+  if (!data.movies) data.movies = {};
+  if (!data.series) data.series = {};
+  return { data, sha: file.sha };
+}
+
+function backupLocal(data) {
+  try {
+    localStorage.setItem("kiraflix_backup", JSON.stringify({ t: Date.now(), count: countEntries(data), json: JSON.stringify(data) }));
+  } catch (e) { /* sem espaço: ignora */ }
+}
+
+function downloadBackup() {
+  let b = null;
+  try { b = JSON.parse(localStorage.getItem("kiraflix_backup") || "null"); } catch (e) {}
+  if (!b) return toast("Ainda não há backup local neste navegador", "warn");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([b.json], { type: "application/json" }));
+  a.download = "catalog-backup.json";
+  a.click();
+  toast(`💾 Backup de ${new Date(b.t).toLocaleString()} (${b.count} itens)`);
+}
+
+function setCatalog(data, sha, readOnly) {
+  catalog = data;
+  catalogSha = sha;
+  catalogLoaded = true;
+  catalogReadOnly = !!readOnly;
+  catalogCountAtLoad = countEntries(data);
+  libCache = null;
+  updateStats();
+  updateConn(readOnly ? "warn" : "ok", (readOnly ? "Somente leitura · " : "GitHub · ") + catalogCountAtLoad.toLocaleString("pt-BR") + " títulos");
+  if ($("tab-lib").classList.contains("active")) renderLibrary();
+  checkId();
+}
+
+async function loadCatalog() {
+  const cfg = getGithubConfig();
+  if (!cfg) throw new Error("GitHub não configurado");
+  const r = await readCatalogFromGithub(cfg);
+  setCatalog(r.data, r.sha, false);
+  backupLocal(r.data);
+}
+
+// com GitHub configurado lê de lá; senão lê o catalog.json público do próprio site (somente leitura)
+async function loadCatalogAny() {
+  if (getGithubConfig()) return loadCatalog();
+  const res = await fetch("catalog.json?v=" + Date.now(), { cache: "no-store" });
+  if (!res.ok) throw new Error("catalog.json do site não encontrado (configure o GitHub)");
+  const data = JSON.parse(limparInvisiveis(await res.text()));
+  if (!data.movies) data.movies = {};
+  if (!data.series) data.series = {};
+  setCatalog(data, null, true);
+}
+
+async function ensureCatalog() {
+  if (!catalogLoaded) { try { await loadCatalogAny(); } catch (e) {} }
+}
+
+async function reloadCatalog(showToast) {
+  updateConn("load", "Carregando…");
+  libSkeleton();
+  try {
+    await loadCatalogAny();
+    if (showToast) toast(`✔ Catálogo atualizado (${catalogCountAtLoad} títulos)`);
+  } catch (e) {
+    updateConn("err", "Erro ao carregar");
+    toast("Não consegui carregar o catálogo: " + e.message, "warn");
+    if ($("tab-lib").classList.contains("active")) renderLibrary();
+  }
+}
+
+// ÚNICO caminho de gravação: relê do GitHub, altera só o necessário, confere, grava.
+async function commitCatalog(message, mutate, opts = {}) {
+  const cfg = getGithubConfig();
+  if (!cfg) throw new Error("GitHub não configurado (aba ⚙️ GitHub)");
+  const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/catalog.json`;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const fresh = await readCatalogFromGithub(cfg);
+    const before = countEntries(fresh.data);
+    if (before === 0 && catalogCountAtLoad > 0) throw new Error("Proteção: o GitHub devolveu o catálogo vazio. Nada foi salvo.");
+    if (fresh.sha === null && catalogSha) throw new Error("Proteção: o catalog.json sumiu do repositório. Nada foi salvo.");
+    backupLocal(fresh.data);
+    mutate(fresh.data);
+    const after = countEntries(fresh.data);
+    if (after < before - (opts.allowShrink || 0)) throw new Error(`Proteção: esse salvamento apagaria ${before - after} itens. Cancelado.`);
+    const jsonStr = limparInvisiveis(JSON.stringify(fresh.data, null, 2));
+    JSON.parse(jsonStr);
+    const body = { message, content: btoa(unescape(encodeURIComponent(jsonStr))) };
+    if (fresh.sha) body.sha = fresh.sha;
+    const put = await fetch(url, {
+      method: "PUT",
+      headers: { Authorization: `token ${cfg.token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if ((put.status === 409 || put.status === 422) && attempt < 2) { await new Promise(r => setTimeout(r, 600)); continue; }
+    if (!put.ok) {
+      let m = ""; try { m = (await put.json()).message || ""; } catch (e) {}
+      throw new Error(`GitHub ${put.status}${m ? ": " + m : ""}`);
+    }
+    let newSha = null;
+    try { newSha = (await put.json()).content.sha; } catch (e) {}
+    setCatalog(fresh.data, newSha, false);
+    return fresh.data;
+  }
+  throw new Error("Conflito ao salvar. Tente novamente.");
+}
+
+// ============================================================
+// ESTATÍSTICAS
+// ============================================================
+function animateNum(id, to) {
+  const el = $(id);
+  if (!el) return;
+  const from = parseInt((el.textContent || "0").replace(/\D/g, ""), 10) || 0;
+  if (from === to) { el.textContent = to.toLocaleString("pt-BR"); return; }
+  const t0 = performance.now(), dur = 800;
+  const step = now => {
+    const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(from + (to - from) * e).toLocaleString("pt-BR");
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function updateStats() {
+  let eps = 0, withSrc = 0, units = 0;
+  const movies = Object.values(catalog.movies || {});
+  const series = Object.values(catalog.series || {});
+  movies.forEach(m => { units++; if (m.source) withSrc++; });
+  series.forEach(s => (s.seasons || []).forEach(se => (se.episodes || []).forEach(ep => { eps++; units++; if (ep.source) withSrc++; })));
+  animateNum("stMovies", movies.length);
+  animateNum("stSeries", series.length);
+  animateNum("stEps", eps);
+  animateNum("stWith", withSrc);
+  animateNum("stWithout", units - withSrc);
+  $("stBar").style.width = (units ? Math.round(withSrc / units * 100) : 0) + "%";
+}
+
+// ============================================================
+// ABAS
+// ============================================================
+function switchTab(name) {
+  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + name));
+  try { history.replaceState(null, "", "#" + name); } catch (e) {}
+  if (name === "lib") renderLibrary();
+  if (name === "health") runHealth();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ============================================================
+// STATUS DE FONTE (filme/série)
+// ============================================================
+function statusOf(type, item) {
+  if (type === "movie") {
+    const has = !!(item && item.source);
+    return { total: 1, withSrc: has ? 1 : 0, state: has ? "ok" : "none", link: has ? item.source : "" };
+  }
+  let total = 0, w = 0, link = "";
+  ((item && item.seasons) || []).forEach(s => (s.episodes || []).forEach(e => { total++; if (e.source) { w++; if (!link) link = e.source; } }));
+  return { total, withSrc: w, state: total && w === total ? "ok" : (w > 0 ? "part" : "none"), link };
+}
+
+function checkId() {
+  const box = $("idCheck");
+  if (!box) return;
+  const id = $("tmdbId").value.trim();
+  const type = $("type").value;
+  if (!id) { box.className = "idcheck"; box.innerHTML = ""; return; }
+  if (!catalogLoaded) { box.className = "idcheck info"; box.textContent = "⏳ Catálogo ainda não carregado…"; return; }
+  const ex = (type === "movie" ? catalog.movies : catalog.series)[id];
+  if (!ex) { box.className = "idcheck new"; box.innerHTML = "➕ <b>Novo</b> — este ID ainda não está no catálogo."; return; }
+  const st = statusOf(type, ex);
+  box.className = "idcheck " + st.state;
+  let head = `<b>${esc(ex.title || "(sem título)")}</b> ${ex.year ? "(" + esc(ex.year) + ")" : ""}`;
+  if (type === "movie") {
+    box.innerHTML = st.state === "ok"
+      ? `✔ Já está no catálogo: ${head}<div class="lk"><code>${esc(shortLink(st.link))}</code><button class="ghost sm" data-v="${esc(st.link)}" onclick="copyText(this.dataset.v)">Copiar</button></div>`
+      : `⚠ Está no catálogo, mas <b>sem link</b>: ${head}`;
+  } else {
+    box.innerHTML = `${st.state === "none" ? "⚠" : "✔"} Já está no catálogo: ${head} — <b>${st.withSrc}/${st.total}</b> episódios com link` +
+      (st.link ? `<div class="lk"><code>${esc(shortLink(st.link))}</code><button class="ghost sm" data-v="${esc(st.link)}" onclick="copyText(this.dataset.v)">Copiar 1º link</button></div>` : "");
+  }
+}
+
+// ============================================================
+// TMDB FETCH (com mesclagem do que já existe)
+// ============================================================
+function mergeSeasons(tmdbSeasons, existingSeasons) {
+  const ex = new Map((existingSeasons || []).map(s => [s.number, s]));
+  const out = tmdbSeasons.map(ts => {
+    const es = ex.get(ts.number);
+    if (!es) return ts;
+    ex.delete(ts.number);
+    const em = new Map((es.episodes || []).map(e => [e.number, e]));
+    const eps = ts.episodes.map(te => {
+      const ee = em.get(te.number);
+      if (!ee) return te;
+      em.delete(te.number);
+      return { ...te, ...ee, title: ee.title || te.title, label: ee.label || te.label };
+    });
+    em.forEach(e => eps.push(e));
+    eps.sort((a, b) => a.number - b.number);
+    return { ...ts, ...es, label: es.label || ts.label, episodes: eps };
+  });
+  ex.forEach(s => out.push(s));
+  out.sort((a, b) => a.number - b.number);
+  return out;
+}
+
+async function fetchContent() {
+  const type = $("type").value;
+  const id = $("tmdbId").value.trim();
+  if (!id) return toast("Informe o ID do TMDB", true);
+  const btn = $("btnFetch");
+  btn.disabled = true;
+  btn.innerHTML = 'Buscando<span class="spinner"></span>';
+  try {
+    await ensureCatalog();
+    const existing = (type === "movie" ? catalog.movies : catalog.series)[id] || null;
+    const endpoint = type === "movie" ? "movie" : "tv";
+    const res = await fetch(`https://api.themoviedb.org/3/${endpoint}/${id}?language=${LANG}`, { headers: HEADERS_TMDB });
+    if (!res.ok) throw new Error("Não encontrado no TMDB");
+    const data = await res.json();
+
+    let ageRating = "";
+    try {
+      const ep = type === "movie" ? `movie/${id}/release_dates` : `tv/${id}/content_ratings`;
+      const r2 = await fetch(`https://api.themoviedb.org/3/${ep}`, { headers: HEADERS_TMDB });
+      const d2 = await r2.json();
+      const br = (d2.results || []).find(x => x.iso_3166_1 === "BR");
+      if (br) ageRating = type === "movie" ? (br.release_dates?.[0]?.certification || "") : (br.rating || "");
+    } catch (e) {}
+
+    const tm = {
+      title: data.title || data.name || "",
+      overview: data.overview || "",
+      poster: data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "",
+      backdrop: data.backdrop_path ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` : "",
+      year: (data.release_date || data.first_air_date || "").slice(0, 4),
+      rating: data.vote_average || 0,
+      genres: (data.genres || []).map(g => g.name),
+      ageRating
+    };
+    // o que já existe no catálogo tem prioridade (não sobrescreve nada que você ajustou)
+    const base = { ...tm };
+    if (existing) Object.keys(tm).forEach(k => { const v = existing[k]; if (v !== undefined && v !== null && v !== "" && !(Array.isArray(v) && !v.length)) base[k] = v; });
+
+    if (type === "movie") {
+      current = { type: "movie", id, data: base, source: existing?.source || "", existing: !!existing };
+    } else {
+      const seasons = [];
+      const seasonList = (data.seasons || []).filter(s => s.season_number > 0);
+      toast(`Carregando ${seasonList.length} temporadas do TMDB...`, "info");
+      for (const s of seasonList) {
+        const sr = await fetch(`https://api.themoviedb.org/3/tv/${id}/season/${s.season_number}?language=${LANG}`, { headers: HEADERS_TMDB });
+        const sd = await sr.json();
+        seasons.push({
+          number: s.season_number,
+          label: s.name || `Temporada ${s.season_number}`,
+          episodes: (sd.episodes || []).map(ep => ({
+            number: ep.episode_number,
+            label: `Episódio ${ep.episode_number}`,
+            title: ep.name || "",
+            source: "",
+            subtitles: {}
+          }))
+        });
+      }
+      current = { type: "series", id, data: base, seasons: mergeSeasons(seasons, existing?.seasons), existing: !!existing };
+      updateSeasonSelect();
+      const mx = current.seasons.length ? Math.max(...current.seasons.map(s => s.number)) : 1;
+      $("tmdbMaxSeasons").value = mx;
+    }
+
+    renderPreview();
+    $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
+    $("resultTitle").innerHTML = `<span class="t">${existing ? "📝 Editando" : "🆕 Novo conteúdo"}</span>${existing ? '<span class="edit-badge">JÁ NO CATÁLOGO</span>' : ""}`;
+    checkId();
+    $("resultCard").scrollIntoView({ behavior: "smooth", block: "start" });
+    toast(existing ? "✔ Já está no catálogo — dados carregados" : "✔ Conteúdo carregado");
+  } catch (err) {
+    toast("Erro: " + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = "Buscar";
+  }
+}
+
+// ============================================================
+// FETCH COM PROXIES / EXTRAÇÃO
+// ============================================================
+async function fetchWithProxy(url, retries = 3) {
+  for (let i = 0; i < PROXIES.length; i++) {
+    const idx = (currentProxyIndex + i) % PROXIES.length;
+    const proxy = PROXIES[idx];
+    for (let r = 0; r < retries; r++) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(proxy.url + encodeURIComponent(url), {
+          headers: { 'Accept': 'text/html,application/xhtml+xml,application/xml' },
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          currentProxyIndex = idx;
+          return res;
+        }
+      } catch(e) {}
+      await new Promise(r => setTimeout(r, 500));
+    }
+  }
+  return null;
+}
+
+// ============================================================
+// EXTRAÇÃO DE VÍDEO (10 padrões)
+// ============================================================
+function extrairVideoDoHtml(html, fallbackUrl) {
+  // 1. Uqload - sources[]
+  let m1 = html.match(/sources\s*:\s*\[\s*["']([^"']+\.mp4[^"']*)["']\s*\]/i);
+  if (m1) return { url: m1[1].replace(/\\\//g, '/'), tipo: "Uqload sources[]" };
+
+  // 2. Uqload - sources [{file}]
+  let m2 = html.match(/sources\s*:\s*\[\s*\{\s*["']?file["']?\s*:\s*["']([^"']+\.mp4[^"']*)["']/i);
+  if (m2) return { url: m2[1].replace(/\\\//g, '/'), tipo: "Uqload sources[{file}]" };
+
+  // 3. file: "..."
+  let m3 = html.match(/file\s*:\s*["']([^"']+\.mp4[^"']*)["']/i);
+  if (m3) return { url: m3[1].replace(/\\\//g, '/'), tipo: "file:" };
+
+  // 4. "file": "..."
+  let m4 = html.match(/"file"\s*:\s*"([^"]+\.mp4[^"]*)"/i);
+  if (m4) return { url: m4[1].replace(/\\\//g, '/'), tipo: '"file":' };
+
+  // 5. .mp4 genérico
+  let m5 = html.match(/https?:\/\/[^"'\s\\]+?\.(?:mp4|m3u8)(?:\?[^"'\s\\]*)?/i);
+  if (m5) return { url: m5[0], tipo: "MP4/HLS Direto" };
+
+  // 6. Iframe
+  let m6 = html.match(/<iframe[^>]+(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i);
+  if (m6) {
+    let u = m6[1];
+    if (u.startsWith('//')) u = 'https:' + u;
+    return { url: u, tipo: "Iframe Embed" };
+  }
+
+  // 7. JSON interno
+  let m7 = html.match(/["'](?:video_url|file_url|stream_url|source_url|videoUrl|fileUrl)["']\s*:\s*["']([^"']+)["']/i);
+  if (m7) return { url: m7[1].replace(/\\\//g, '/'), tipo: "JSON Interno" };
+
+  // 8. data-* attributes
+  let m8 = html.match(/data-(?:src|url|video|file|stream|source)\s*=\s*["']([^"']+\.(?:mp4|m3u8)[^"']*)["']/i);
+  if (m8) return { url: m8[1], tipo: "Data Attribute" };
+
+  // 9. <source src>
+  let m9 = html.match(/<source[^>]+src\s*=\s*["']([^"']+)["']/i);
+  if (m9) return { url: m9[1], tipo: "Source Tag" };
+
+  // 10. Fallback: página
+  return { url: fallbackUrl, tipo: "Fallback Página" };
+}
+
+// ============================================================
+// AUTO-REFRESH UQLOAD
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#autoIntervalPicker .minute-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('#autoIntervalPicker .minute-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      autoIntervalDefault = parseInt(opt.dataset.min, 10);
+    });
+  });
+
+  try {
+    const saved = JSON.parse(localStorage.getItem('kiraflix_auto_uqload') || '[]');
+    autoSources = saved.map(s => ({ ...s, timerId: null }));
+    if (autoSources.length > 0) {
+      renderAutoList();
+      startAllTimers();
+    }
+  } catch(e) {}
+});
+
+function saveAutoSources() {
+  const toSave = autoSources.map(s => ({
+    id: s.id, uqloadUrl: s.uqloadUrl, tmdbId: s.tmdbId, type: s.type,
+    interval: s.interval, prefix: s.prefix, lastRun: s.lastRun, nextRun: s.nextRun
+  }));
+  localStorage.setItem('kiraflix_auto_uqload', JSON.stringify(toSave));
+}
+
+async function addAutoUqload() {
+  const url = $("autoUqloadUrl").value.trim();
+  const tmdbId = $("autoTmdbId").value.trim();
+  const type = $("autoType").value;
+  const prefix = $("autoPrefix").value === "yes";
+
+  if (!url) return toast("Cole a URL do Uqload", true);
+  if (!tmdbId) return toast("Informe o ID do TMDB", true);
+  if (!url.includes("uqload")) return toast("URL inválida (use Uqload)", true);
+
+  if (autoSources.some(s => s.uqloadUrl === url && s.tmdbId === tmdbId)) {
+    return toast("Já existe essa fonte monitorada", true);
+  }
+
+  const source = {
+    id: 'auto_' + Date.now(),
+    uqloadUrl: url,
+    tmdbId: tmdbId,
+    type: type,
+    interval: autoIntervalDefault,
+    prefix: prefix,
+    timerId: null,
+    lastRun: 0,
+    nextRun: 0,
+    currentLink: null,
+    status: 'pending'
+  };
+
+  autoSources.push(source);
+  saveAutoSources();
+  renderAutoList();
+  $("autoUqloadUrl").value = "";
+  $("autoTmdbId").value = "";
+  $("autoListContainer").style.display = "block";
+  $("autoLog").classList.add("show");
+
+  logMsg(`➕ Auto-Refresh adicionado: ${tmdbId} (a cada ${source.interval} min)`, "success", "autoLog");
+
+  await runAutoRefresh(source);
+  startTimerForSource(source);
+
+  toast(`✔ Auto-Refresh ativo para ID ${tmdbId}`);
+}
+
+function startTimerForSource(source) {
+  if (source.timerId) clearInterval(source.timerId);
+
+  const intervalMs = source.interval * 60 * 1000;
+
+  const scheduleNext = () => {
+    source.nextRun = Date.now() + intervalMs;
+    saveAutoSources();
+    updateCountdownUI(source);
+  };
+
+  scheduleNext();
+
+  source.timerId = setInterval(async () => {
+    if (Date.now() >= source.nextRun) {
+      await runAutoRefresh(source);
+      scheduleNext();
+    } else {
+      updateCountdownUI(source);
+    }
+  }, 1000);
+}
+
+function startAllTimers() {
+  autoSources.forEach(source => {
+    if (!source.timerId) startTimerForSource(source);
+  });
+}
+
+function updateCountdownUI(source) {
+  const el = document.querySelector(`.auto-item[data-id="${source.id}"] .ai-countdown`);
+  if (!el) return;
+  const remaining = Math.max(0, Math.ceil((source.nextRun - Date.now()) / 1000));
+  el.textContent = remaining + "s";
+}
+
+async function runAutoRefresh(source) {
+  logMsg(`🔄 Atualizando ID ${source.tmdbId}...`, "title", "autoLog");
+  source.status = "checking";
+  renderAutoList();
+
+  try {
+    let proxyIdx = currentProxyForAuto;
+    let html = null;
+
+    for (let i = 0; i < PROXIES.length; i++) {
+      const idx = (proxyIdx + i) % PROXIES.length;
+      const proxy = PROXIES[idx];
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        const res = await fetch(proxy.url + encodeURIComponent(source.uqloadUrl), {
+          headers: { 'Accept': 'text/html' },
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          html = await res.text();
+          currentProxyForAuto = idx;
+          logMsg(`✓ Proxy ${proxy.name} respondeu`, "success", "autoLog");
+          break;
+        }
+      } catch(e) {}
+    }
+
+    if (!html) throw new Error("Todos os proxies falharam");
+
+    logMsg(`HTML: ${html.length} bytes`, "info", "autoLog");
+
+    const extracted = extrairVideoDoHtml(html, source.uqloadUrl);
+    logMsg(`✓ Extraído via: ${extracted.tipo}`, "success", "autoLog");
+
+    const finalLink = buildFinalUrl(extracted.url, source.prefix);
+    source.currentLink = finalLink;
+    source.status = "active";
+    source.lastRun = Date.now();
+
+    logMsg(`🔗 Link: ${finalLink.slice(0, 80)}...`, "success", "autoLog");
+
+    await saveAutoToCatalog(source, finalLink);
+
+    renderAutoList();
+    updateCountdownUI(source);
+  } catch (err) {
+    source.status = "error";
+    logMsg(`❌ Erro: ${err.message}`, "error", "autoLog");
+    renderAutoList();
+  }
+}
+
+async function saveAutoToCatalog(source, link) {
+  const cfg = getGithubConfig();
+  if (!cfg) {
+    logMsg(`⚠ GitHub não configurado - link não salvo`, "warn", "autoLog");
+    return;
+  }
+  try {
+    await commitCatalog(`Auto-refresh ${source.tmdbId} (${new Date().toLocaleTimeString()})`, catData => {
+      if (source.type === "movie") {
+        if (!catData.movies[source.tmdbId]) catData.movies[source.tmdbId] = {};
+        catData.movies[source.tmdbId].source = link;
+        catData.movies[source.tmdbId].lastAutoUpdate = new Date().toISOString();
+      } else {
+        if (!catData.series[source.tmdbId]) catData.series[source.tmdbId] = { seasons: [] };
+        if (!catData.series[source.tmdbId].seasons) catData.series[source.tmdbId].seasons = [];
+        let s1 = catData.series[source.tmdbId].seasons.find(x => x.number === 1);
+        if (!s1) {
+          s1 = { number: 1, label: "Temporada 1", episodes: [] };
+          catData.series[source.tmdbId].seasons.push(s1);
+        }
+        let e1 = s1.episodes.find(x => x.number === 1);
+        if (!e1) {
+          e1 = { number: 1, label: "Episódio 1", source: link };
+          s1.episodes.push(e1);
+        } else {
+          e1.source = link;
+        }
+      }
+    });
+    logMsg(`✅ Salvo no catalog.json (ID ${source.tmdbId})`, "success", "autoLog");
+  } catch (err) {
+    logMsg(`⚠ Erro ao salvar no GitHub: ${err.message}`, "warn", "autoLog");
+  }
+}
+
+function renderAutoList() {
+  const list = $("autoList");
+  if (!list) return;
+
+  if (autoSources.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:15px;color:#71717a;font-size:.85rem">Nenhuma fonte em auto-refresh</div>';
+    return;
+  }
+
+  list.innerHTML = autoSources.map(s => {
+    const remaining = Math.max(0, Math.ceil((s.nextRun - Date.now()) / 1000));
+    const statusClass = s.status === 'active' ? 'active' : s.status === 'error' ? 'error' : '';
+    const statusLabel = s.status === 'active' ? '✔ Ativa' : s.status === 'error' ? '✗ Erro' : '⏳ Aguardando';
+    const statusColor = s.status === 'active' ? '#10b981' : s.status === 'error' ? '#ef4444' : '#f59e0b';
+
+    return `
+      <div class="auto-item ${statusClass}" data-id="${s.id}">
+        <div class="ai-countdown" style="color:${statusColor}">${remaining}s</div>
+        <div class="ai-info">
+          <div class="ai-title">ID ${s.tmdbId} • ${s.type === 'movie' ? '🎬 Filme' : '📺 Série'}</div>
+          <div class="ai-url">${escapeHtml(s.uqloadUrl)}</div>
+          <div class="ai-meta">
+            <span class="timer">⏱ ${s.interval} min</span>
+            <span class="link-status" style="color:${statusColor};background:${s.status === 'active' ? 'rgba(16,185,129,.2)' : s.status === 'error' ? 'rgba(239,68,68,.2)' : 'rgba(245,158,11,.2)'}">${statusLabel}</span>
+            <span class="next">🌐 ${s.prefix ? 'mgeb ON' : 'link puro'}</span>
+            ${s.currentLink ? `<span class="link-status" style="background:rgba(96,165,250,.2);color:#60a5fa" title="${escapeHtml(s.currentLink)}">🔗 ${s.currentLink.slice(0,30)}...</span>` : ''}
+          </div>
+        </div>
+        <div class="ai-actions">
+          <button class="ghost" onclick="forceRefreshAuto('${s.id}')" title="Forçar atualização">🔄</button>
+          <button class="ghost" onclick="removeAutoSource('${s.id}')" style="color:#ef4444" title="Remover">✕</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function forceRefreshAuto(id) {
+  const source = autoSources.find(s => s.id === id);
+  if (!source) return;
+  logMsg(`🔄 Forçando atualização manual: ${source.tmdbId}`, "info", "autoLog");
+  await runAutoRefresh(source);
+  source.nextRun = Date.now() + source.interval * 60 * 1000;
+  saveAutoSources();
+  updateCountdownUI(source);
+}
+
+function removeAutoSource(id) {
+  const idx = autoSources.findIndex(s => s.id === id);
+  if (idx < 0) return;
+  const source = autoSources[idx];
+  if (source.timerId) clearInterval(source.timerId);
+  autoSources.splice(idx, 1);
+  saveAutoSources();
+  renderAutoList();
+  logMsg(`🗑 Removido: ID ${source.tmdbId}`, "warn", "autoLog");
+  if (autoSources.length === 0) {
+    $("autoListContainer").style.display = "none";
+  }
+  toast("Auto-Refresh removido");
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+setInterval(() => {
+  autoSources.forEach(s => {
+    if (s.nextRun > 0) updateCountdownUI(s);
+  });
+}, 1000);
+
+// ============================================================
+// ALL SEEKEE — SCANNER DE PÁGINAS PÚBLICAS (v2)
+// ============================================================
+let scrapeAbort = false;
+
+function scrapeLogClear() { const l = $("scrapeLog"); if (l) l.innerHTML = ""; }
+function scrapeProgress(pct, txt) {
+  const w = $("scrapeProgressWrap"), b = $("scrapeProgressBar"), t = $("scrapeProgressText"), p = $("scrapeProgressPct");
+  if (!w) return;
+  w.classList.remove("hidden");
+  if (b) b.style.width = Math.max(0, Math.min(100, pct)) + "%";
+  if (t && txt) t.textContent = txt;
+  if (p) p.textContent = Math.round(pct) + "%";
+}
+
+// Detecta o padrão de URL e devolve um template com {season}/{episode}
+function detectarPadraoScanner(url) {
+  if (!url) return null;
+  if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+
+  // Padrão A: .../Season-1/1
+  let m = url.match(/^(.*?[Ss]eason-?(\d+))\/(\d+)\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Ss]eason-?\d+$/, "");
+    return {
+      template: base + "Season-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base,
+      mode: "season-slug"
+    };
+  }
+
+  // Padrão B: .../Temporada-1/1
+  m = url.match(/^(.*?[Tt]emporada-?(\d+))\/(\d+)\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Tt]emporada-?\d+$/, "");
+    return {
+      template: base + "Temporada-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base,
+      mode: "temporada-slug"
+    };
+  }
+
+  // Padrão C: .../Black-Clover-Season-1 (SEM episódio — padrão do cuevana)
+  m = url.match(/^(.*?[Ss]eason-?(\d+))\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Ss]eason-?\d+$/, "");
+    return {
+      template: base + "Season-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: 1,
+      base,
+      mode: "season-only"
+    };
+  }
+
+  // Padrão D: .../nome-da-serie/1
+  m = url.match(/^(.*?)\/(\d+)\/?$/);
+  if (m) {
+    return {
+      template: m[1] + "/{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: 1,
+      base: m[1],
+      mode: "numeric-season"
+    };
+  }
+
+  // Padrão E: .../nome-da-serie/1/1
+  m = url.match(/^(.*?)\/(\d+)\/(\d+)\/?$/);
+  if (m) {
+    return {
+      template: m[1] + "/{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base: m[1],
+      mode: "numeric-both"
+    };
+  }
+
+  // Padrão F: raiz
+  return {
+    template: url.replace(/\/+$/, "") + "/{season}/{episode}",
+    season: 1,
+    episode: 1,
+    base: url.replace(/\/+$/, ""),
+    mode: "root-inteligente"
+  };
+}
+
+function detectarTemplateScanner() {
+  const url = $("scrapeUrl").value.trim();
+  if (!url) return toast("Cole um link primeiro", true);
+  const p = detectarPadraoScanner(url);
+  if (!p) return toast("Não consegui detectar o padrão", true);
+  $("scrapeTemplate").value = p.template;
+  toast(`✔ Template detectado (${p.mode}) — T${p.season} E${p.episode}`);
+}
+
+async function descobrirTemporadasScanner(baseTemplate, maxSeasons) {
+  const temporadas = [];
+  const modoInteligente = $("smartMode").value === "on";
+
+  for (let s = 1; s <= maxSeasons; s++) {
+    const testUrl = baseTemplate.replace(/{season}/g, s).replace(/{episode}/g, 1);
+    logMsg(`🔎 Testando T${s} → ${shortLink(testUrl, 90)}`, "info");
+    try {
+      const res = await fetchWithProxy(testUrl);
+      if (!res) { logMsg(`  ↳ proxy falhou`, "warn"); continue; }
+      const html = await res.text();
+      if (html.length < 500) { logMsg(`  ↳ página vazia (${html.length}b)`, "warn"); continue; }
+      if (/<title>.*(404|not found|no encontrado).*<\/title>/i.test(html) && html.length < 3000) {
+        logMsg(`  ↳ 404`, "warn");
+        continue;
+      }
+      const temPlayer = /<video|player|iframe|\.mp4|\.m3u8|embed|source/i.test(html);
+      if (!temPlayer && !modoInteligente) {
+        logMsg(`  ↳ sem player detectável, ignorando`, "warn");
+        continue;
+      }
+      temporadas.push({ number: s, firstEpisodeUrl: testUrl });
+      logMsg(`  ✔ T${s} existe`, "success");
+    } catch (e) {
+      logMsg(`  ↳ erro: ${e.message}`, "warn");
+    }
+  }
+  return temporadas;
+}
+
+async function varrerEpisodiosScanner(template, seasonNumber, limite = 200) {
+  const found = [];
+  let fails = 0;
+
+  for (let ep = 1; ep <= limite; ep++) {
+    if (scrapeAbort) break;
+    const epUrl = template.replace(/{season}/g, seasonNumber).replace(/{episode}/g, ep);
+    logMsg(`📺 T${seasonNumber} E${ep} → ${shortLink(epUrl, 80)}`, "info");
+    try {
+      const res = await fetchWithProxy(epUrl);
+      if (!res) { fails++; if (fails >= 3) { logMsg(`3 falhas seguidas, parando T${seasonNumber} no E${ep}`, "warn"); break; } continue; }
+
+      const html = await res.text();
+      if (/<title>.*(404|not found|no encontrado).*<\/title>/i.test(html) && html.length < 3000) {
+        fails++; if (fails >= 3) break; continue;
+      }
+
+      const video = extrairVideoDoHtml(html, epUrl);
+      found.push({
+        number: ep,
+        label: `Episódio ${ep}`,
+        title: "",
+        source: video.url,
+        subtitles: {}
+      });
+      logMsg(`  ✔ T${seasonNumber} E${ep} [${video.tipo}]`, "success");
+      fails = 0;
+    } catch (e) {
+      fails++;
+      if (fails >= 3) break;
+    }
+    await new Promise(r => setTimeout(r, 120));
+  }
+
+  return found;
+}
+
+async function autoScrapeTudo() {
+  let initialUrl = $("scrapeUrl").value.trim();
+  if (!initialUrl) return toast("Cole o link da série", true);
+  if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro.", true);
+
+  scrapeAbort = false;
+  $("btnScrapeAll").disabled = true;
+  $("btnScrapeStop").style.display = "inline-block";
+  $("btnScrapeAll").innerHTML = 'Raspando...<span class="spinner"></span>';
+
+  scrapeLogClear();
+  logMsg(`🕷️ Scanner iniciado`, "title");
+
+  try {
+    const padrao = detectarPadraoScanner(initialUrl);
+    logMsg(`📌 Padrão: ${padrao.mode} | template: ${padrao.template}`, "info");
+    $("scrapeTemplate").value = padrao.template;
+
+    const shouldPrefix = $("bulkPrefix").value === "yes";
+    const maxSeasons = parseInt($("tmdbMaxSeasons").value, 10) || 10;
+
+    logMsg(`🌡️ Descobrindo temporadas...`, "title");
+    const temporadas = await descobrirTemporadasScanner(padrao.template, maxSeasons);
+    if (!temporadas.length) {
+      toast("Nenhuma temporada encontrada", true);
+      return;
+    }
+    logMsg(`✅ ${temporadas.length} temporada(s) detectada(s)`, "success");
+
+    let totalEp = 0;
+    for (let i = 0; i < temporadas.length; i++) {
+      if (scrapeAbort) break;
+      const t = temporadas[i];
+      scrapeProgress((i / temporadas.length) * 100, `Temporada ${t.number}…`);
+      logMsg(`📺 Varrendo T${t.number}...`, "title");
+      const eps = await varrerEpisodiosScanner(padrao.template, t.number);
+      if (!eps.length) { logMsg(`T${t.number} sem episódios`, "warn"); continue; }
+
+      eps.forEach(e => {
+        if (shouldPrefix && !e.source.startsWith(PREFIX)) e.source = PREFIX + e.source;
+      });
+
+      let sObj = current.seasons.find(x => x.number === t.number);
+      if (!sObj) {
+        sObj = { number: t.number, label: `Temporada ${t.number}`, episodes: [] };
+        current.seasons.push(sObj);
+      }
+      eps.forEach(newEp => {
+        const ex = sObj.episodes.find(x => x.number === newEp.number);
+        if (ex) { ex.source = newEp.source; }
+        else sObj.episodes.push(newEp);
+      });
+      sObj.episodes.sort((a, b) => a.number - b.number);
+      totalEp += eps.length;
+    }
+
+    current.seasons.sort((a, b) => a.number - b.number);
+    renderPreview();
+    updateSeasonSelect();
+    scrapeProgress(100, "Concluído");
+
+    if (totalEp > 0) {
+      toast(`✔ ${totalEp} episódios encontrados em ${temporadas.length} temporada(s)`);
+      logMsg(`✅ FIM! ${totalEp} eps / ${temporadas.length} temporadas`, "success");
+    } else {
+      toast("Nenhum episódio encontrado", true);
+    }
+  } catch (err) {
+    logMsg(`❌ Erro fatal: ${err.message}`, "error");
+    toast("Erro: " + err.message, true);
+  } finally {
+    $("btnScrapeAll").disabled = false;
+    $("btnScrapeStop").style.display = "none";
+    $("btnScrapeAll").innerHTML = '<i data-lucide="scan-search" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Varrer Tudo';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+async function scrapeTodasTemporadas() {
+  if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro", true);
+
+  let template = $("scrapeTemplate").value.trim();
+  if (!template) {
+    const url = $("scrapeUrl").value.trim();
+    if (url) { detectarTemplateScanner(); template = $("scrapeTemplate").value.trim(); }
+  }
+  if (!template) return toast("Preencha o link ou o template", true);
+  if (!template.includes("{season}") || !template.includes("{episode}")) {
+    return toast("Template precisa de {season} e {episode}", true);
+  }
+
+  scrapeAbort = false;
+  $("btnScrapeSeasons").disabled = true;
+  $("btnScrapeStop").style.display = "inline-block";
+  $("btnScrapeSeasons").innerHTML = 'Varrendo...<span class="spinner"></span>';
+
+  scrapeLogClear();
+  logMsg(`🕷️ Scanner (modo batch) iniciado`, "title");
+
+  try {
+    const shouldPrefix = $("bulkPrefix").value === "yes";
+    const maxSeasons = parseInt($("tmdbMaxSeasons").value, 10) || 10;
+
+    const temporadas = await descobrirTemporadasScanner(template, maxSeasons);
+    if (!temporadas.length) { toast("Nenhuma temporada encontrada", true); return; }
+    logMsg(`✅ ${temporadas.length} temporada(s) detectada(s)`, "success");
+
+    let totalEp = 0;
+    for (let i = 0; i < temporadas.length; i++) {
+      if (scrapeAbort) break;
+      const t = temporadas[i];
+      scrapeProgress((i / temporadas.length) * 100, `Temporada ${t.number}…`);
+      const eps = await varrerEpisodiosScanner(template, t.number);
+      if (!eps.length) continue;
+      eps.forEach(e => { if (shouldPrefix && !e.source.startsWith(PREFIX)) e.source = PREFIX + e.source; });
+
+      let sObj = current.seasons.find(x => x.number === t.number);
+      if (!sObj) {
+        sObj = { number: t.number, label: `Temporada ${t.number}`, episodes: [] };
+        current.seasons.push(sObj);
+      }
+      eps.forEach(newEp => {
+        const ex = sObj.episodes.find(x => x.number === newEp.number);
+        if (ex) ex.source = newEp.source;
+        else sObj.episodes.push(newEp);
+      });
+      sObj.episodes.sort((a, b) => a.number - b.number);
+      totalEp += eps.length;
+    }
+
+    current.seasons.sort((a, b) => a.number - b.number);
+    renderPreview();
+    updateSeasonSelect();
+    scrapeProgress(100, "Concluído");
+    toast(`✔ ${totalEp} episódios em ${temporadas.length} temporada(s)`);
+  } catch (err) {
+    logMsg(`❌ Erro: ${err.message}`, "error");
+    toast("Erro: " + err.message, true);
+  } finally {
+    $("btnScrapeSeasons").disabled = false;
+    $("btnScrapeStop").style.display = "none";
+    $("btnScrapeSeasons").innerHTML = '<i data-lucide="layers" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Colocar todas as temporadas + episódios';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+function scrapeParar() {
+  scrapeAbort = true;
+  toast("Parando scanner…", "warn");
+  logMsg(`⏹ Parada solicitada pelo usuário`, "warn");
+}
+
+// ============================================================
+// SELETOR DE TEMPORADA / EPISÓDIOS
+// ============================================================
+let epMode = "all";
+let epPick = new Set();
+
+function updateSeasonSelect() {
+  const sel = $("targetSeason");
+  if (!sel) return;
+  sel.innerHTML = "";
+  if (!current || current.type !== "series") return;
+  current.seasons.forEach((s, idx) => {
+    const opt = document.createElement("option");
+    opt.value = idx;
+    opt.textContent = `${s.label} (${s.episodes.length} eps)`;
+    sel.appendChild(opt);
+  });
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = "📚 Todas as temporadas";
+  sel.appendChild(all);
+  epPick = new Set();
+  renderEpChips();
+}
+
+function getTargetSeasons() {
+  if (!current || current.type !== "series") return [];
+  const v = $("targetSeason").value;
+  if (v === "all") return current.seasons;
+  const s = current.seasons[parseInt(v, 10)];
+  return s ? [s] : [];
+}
+
+function inSel(num) {
+  if (epMode === "all") return true;
+  if (epMode === "upTo") return num <= (parseInt($("epUpTo").value, 10) || 0);
+  if (epMode === "range") {
+    const a = parseInt($("epFrom").value, 10) || 1, b = parseInt($("epTo").value, 10) || a;
+    return num >= Math.min(a, b) && num <= Math.max(a, b);
+  }
+  return epPick.has(num);
+}
+
+function setEpMode(m) {
+  epMode = m;
+  document.querySelectorAll("#epModes button").forEach(b => b.classList.toggle("active", b.dataset.m === m));
+  $("wUpTo").classList.toggle("hidden", m !== "upTo");
+  $("wRange").classList.toggle("hidden", m !== "range");
+  renderEpChips();
+}
+
+function renderEpChips() {
+  const wrap = $("epChips"), sum = $("epSummary");
+  if (!wrap) return;
+  const targets = getTargetSeasons();
+  const isAll = $("targetSeason").value === "all";
+  if (!targets.length) { wrap.innerHTML = ""; sum.textContent = ""; return; }
+  if (isAll) {
+    wrap.innerHTML = "";
+    let n = 0;
+    targets.forEach(s => s.episodes.forEach(e => { if (inSel(e.number)) n++; }));
+    sum.textContent = `📚 Todas as temporadas: a regra escolhida vale para cada temporada — ${n} episódios serão afetados.`;
+    return;
+  }
+  const s = targets[0];
+  let n = 0;
+  wrap.innerHTML = s.episodes.map(e => {
+    const sel = inSel(e.number);
+    if (sel) n++;
+    return `<button class="chip ${sel ? "sel" : ""} ${e.source ? "has" : ""}" onclick="toggleChip(${e.number})" title="${esc(e.title || e.label)}">${e.number}</button>`;
+  }).join("");
+  const eps = s.episodes.length;
+  const last = epMode === "upTo" ? ` (do 1 até o ${parseInt($("epUpTo").value, 10) || 0} — não passa disso)` : "";
+  sum.textContent = `${n} de ${eps} episódios selecionados${last}. Em verde: já têm link.`;
+}
+
+function toggleChip(num) {
+  const targets = getTargetSeasons();
+  if (!targets.length) return;
+  if (epMode !== "pick") {
+    epPick = new Set(targets[0].episodes.filter(e => inSel(e.number)).map(e => e.number));
+    setEpMode("pick");
+  }
+  if (epPick.has(num)) epPick.delete(num); else epPick.add(num);
+  renderEpChips();
+}
+
+function aplicarLinks(clear) {
+  if (!current || current.type !== "series") return;
+  collectCurrent();
+  const template = $("bulkTemplate").value.trim();
+  const shouldPrefix = $("bulkPrefix").value === "yes";
+  const overwrite = $("epOverwrite").value === "yes";
+  if (!clear) {
+    if (!template) return toast("Cole a URL Template", true);
+    if (!template.includes("{episode}")) return toast("Falta {episode} no template", true);
+  }
+  const targets = getTargetSeasons();
+  let count = 0, kept = 0;
+  targets.forEach(season => {
+    season.episodes.forEach(ep => {
+      if (!inSel(ep.number)) return;
+      if (clear) { ep.source = ""; count++; return; }
+      if (!overwrite && ep.source) { kept++; return; }
+      let url = template.replace(/{season}/g, season.number).replace(/{episode}/g, ep.number);
+      if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+      if (shouldPrefix) url = PREFIX + url;
+      ep.source = url;
+      count++;
+    });
+  });
+  renderPreview();
+  renderEpChips();
+  toast(clear ? `🧹 ${count} links removidos` : `⚡ ${count} links aplicados${kept ? ` (${kept} mantidos)` : ""} — lembre de salvar`);
+}
+
+function detectarVariaveis() {
+  let url = $("exampleUrl").value.trim();
+  if (!url) return toast("Cole um link de exemplo", true);
+  if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+
+  const original = url;
+  let template = "";
+
+  const regexSeasonText = /((?:Season|Temporada)[-_ ]?)(\d+)(\/)(\d+)/i;
+  if (regexSeasonText.test(url)) {
+    url = url.replace(regexSeasonText, '$1{season}$3{episode}');
+  } else {
+    const regexNumbers = /\/(\d+)\/(\d+)(\/|$|\?)/;
+    if (regexNumbers.test(url)) {
+      url = url.replace(regexNumbers, '/{season}/{episode}$3');
+    } else {
+      const regexEp = /\/(\d+)(\/|$|\?)/;
+      if (regexEp.test(url)) url = url.replace(regexEp, '/{episode}$2');
+    }
+  }
+
+  if (url === original) toast("⚠️ Não detectado", true);
+  else { $("bulkTemplate").value = url; toast("✔️ Variáveis detectadas!"); }
+}
+
+// ============================================================
+// PREVIEW / EDIÇÃO / SALVAR
+// ============================================================
+function renderPreview() {
+  if (!current) return;
+  const c = current, d = c.data;
+  const rating = Number(d.rating || 0).toFixed(1);
+  const st = c.type === "movie"
+    ? statusOf("movie", { source: c.source })
+    : statusOf("series", { seasons: c.seasons });
+
+  let banner = "";
+  if (c.type === "movie") {
+    banner = c.source
+      ? `<div class="banner ok">✔ <b>Este filme já tem link de vídeo.</b><div class="lk" style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center"><code style="max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(shortLink(c.source, 90))}</code><button class="ghost sm" data-v="${esc(c.source)}" onclick="copyText(this.dataset.v)">Copiar</button></div></div>`
+      : `<div class="banner ${c.existing ? "none" : "new"}">${c.existing ? "⚠ Está no catálogo, mas <b>sem link</b>." : "➕ <b>Novo</b> — cole o link do vídeo abaixo."}</div>`;
+  } else {
+    const bars = c.seasons.map(s => {
+      const w = s.episodes.filter(e => e.source).length, t = s.episodes.length;
+      const cls = t && w === t ? "" : (w ? "part" : "none");
+      return `<div class="sbar ${cls}"><b style="color:#e5e7eb">${esc(s.label)}</b> · ${w}/${t}<div class="tr"><b style="width:${t ? Math.round(w / t * 100) : 0}%"></b></div></div>`;
+    }).join("");
+    banner = `<div class="banner ${c.existing ? st.state : "new"}">${c.existing ? (st.state === "none" ? "⚠" : "✔") + " <b>Já está no catálogo</b> — " : "➕ <b>Novo</b> — "}<b>${st.withSrc}/${st.total}</b> episódios com link<div class="season-bars">${bars}</div></div>`;
+  }
+
+  $("preview").innerHTML = `
+    ${d.poster ? `<img class="poster" src="${esc(d.poster)}" alt="">` : ""}
+    <div class="preview-info">
+      <h3>${esc(d.title)} <span class="badge">${c.type === "movie" ? "FILME" : "SÉRIE"}</span></h3>
+      <div class="meta">${esc(d.year)} • ⭐ ${rating} ${d.ageRating ? "• " + esc(d.ageRating) : ""} • TMDB ${esc(c.id)}</div>
+      <p>${esc(d.overview || "Sem sinopse")}</p>
+      <div class="genres">${(d.genres || []).map(g => `<span>${esc(g)}</span>`).join("")}</div>
+      ${banner}
+    </div>`;
+
+  const area = $("episodesArea");
+  if (c.type === "movie") {
+    const src = c.source || "";
+    const rawSrc = src.startsWith(PREFIX) ? src.slice(PREFIX.length) : src;
+    area.innerHTML = `
+      <div class="subcard"><h3>🎬 Fonte do filme</h3>
+        <label>URL do vídeo</label>
+        <div class="srcrow ep" style="display:flex;gap:8px;background:none;border:0;padding:0;margin:0"><input id="movieSourceRaw" value="${esc(rawSrc)}" placeholder="https://..."><button class="ghost" onclick="openSrc($('movieSourceRaw').value)">▶</button></div>
+      </div>`;
+  } else {
+    let html = "";
+    c.seasons.forEach((s, si) => {
+      const w = s.episodes.filter(e => e.source).length;
+      html += `<details ${si === 0 ? "open" : ""}><summary><b>${esc(s.label)}</b> <span class="muted">(${w}/${s.episodes.length} com link)</span></summary>`;
+      s.episodes.forEach((ep, ei) => {
+        const src = ep.source || "";
+        const rawSrc = src.startsWith(PREFIX) ? src.slice(PREFIX.length) : src;
+        html += `<div class="ep ${src ? "has" : ""}"><h4>${esc(ep.label)}${ep.title ? " — " + esc(ep.title) : ""}</h4><div class="srcrow"><input id="src_${si}_${ei}" value="${esc(rawSrc)}" placeholder="https://..."><button class="ghost" onclick="openSrc($('src_${si}_${ei}').value)">▶</button></div></div>`;
+      });
+      html += `</details>`;
+    });
+    area.innerHTML = html;
+  }
+}
+
+function openSrc(v) {
+  v = (v || "").trim();
+  if (!v) return toast("Sem link neste campo", "warn");
+  window.open(v.startsWith("http") ? v : PREFIX + v, "_blank", "noopener");
+}
+
+function collectCurrent() {
+  if (!current) return;
+  if (current.type === "movie") {
+    const el = $("movieSourceRaw");
+    if (!el) return;
+    const raw = el.value.trim();
+    current.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
+  } else {
+    current.seasons.forEach((s, si) => {
+      s.episodes.forEach((ep, ei) => {
+        const el = $("src_" + si + "_" + ei);
+        if (!el) return;
+        const raw = el.value.trim();
+        ep.source = raw ? (raw.startsWith(PREFIX) ? raw : PREFIX + raw) : "";
+      });
+    });
+  }
+}
+
+function currentBase() {
+  const d = current.data;
+  return { title: d.title, overview: d.overview, poster: d.poster, backdrop: d.backdrop, year: d.year, rating: d.rating, genres: d.genres, ageRating: d.ageRating };
+}
+
+async function saveToCatalog() {
+  if (!current) return toast("Nada para salvar", true);
+  collectCurrent();
+  const btn = $("btnSave");
+  btn.disabled = true;
+  btn.innerHTML = 'Salvando...<span class="spinner"></span>';
+  const snap = { type: current.type, id: current.id, base: currentBase(), source: current.source, seasons: current.seasons && JSON.parse(JSON.stringify(current.seasons)) };
+  try {
+    await commitCatalog(`Update ${snap.base.title}`, cat => {
+      if (snap.type === "movie") {
+        const old = cat.movies[snap.id] || {};
+        cat.movies[snap.id] = { ...old, ...snap.base, source: snap.source };
+      } else {
+        const old = cat.series[snap.id] || {};
+        cat.series[snap.id] = { ...old, ...snap.base, seasons: snap.seasons };
+      }
+    });
+    current.existing = true;
+    renderPreview();
+    $("resultTitle").innerHTML = '<span class="t">📝 Editando</span><span class="edit-badge">SALVO ✔</span>';
+    toast(`✔ Salvo no GitHub! (${catalogCountAtLoad} títulos no catálogo)`);
+  } catch (err) {
+    toast("Erro: " + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = "💾 Salvar no catálogo";
+  }
+}
+
+async function loadForEdit(type, id) {
+  try {
+    await ensureCatalog();
+    const bucket = type === "movie" ? catalog.movies : catalog.series;
+    const existing = bucket?.[id];
+    switchTab("add");
+    $("type").value = type;
+    $("tmdbId").value = id;
+    if (!existing) { checkId(); return fetchContent(); }
+    if (type === "movie") {
+      current = { type: "movie", id, data: { ...existing }, source: existing.source || "", existing: true };
+    } else {
+      current = { type: "series", id, data: { ...existing }, seasons: JSON.parse(JSON.stringify(existing.seasons || [])), existing: true };
+      updateSeasonSelect();
+      const mx = current.seasons.length ? Math.max(...current.seasons.map(s => s.number)) : 1;
+      $("tmdbMaxSeasons").value = mx;
+    }
+    renderPreview();
+    $("resultCard").classList.remove("hidden");
+    $("seriesTools").classList.toggle("hidden", type !== "series");
+    $("resultTitle").innerHTML = '<span class="t">📝 Editando</span><span class="edit-badge">JÁ NO CATÁLOGO</span>';
+    checkId();
+    setTimeout(() => $("resultCard").scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+  } catch (err) { toast("Erro: " + err.message, true); }
+}
+
+function resetForm() {
+  current = null;
+  $("resultCard").classList.add("hidden");
+  $("tmdbId").value = "";
+  checkId();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function downloadCatalog() {
+  try {
+    collectCurrent();
+    let data;
+    if (catalogLoaded && !catalogReadOnly) { await loadCatalog(); }
+    else { await loadCatalogAny(); }
+    data = JSON.parse(JSON.stringify(catalog));
+    if (current) {
+      if (current.type === "movie") data.movies[current.id] = { ...(data.movies[current.id] || {}), ...currentBase(), source: current.source };
+      else data.series[current.id] = { ...(data.series[current.id] || {}), ...currentBase(), seasons: current.seasons };
+    }
+    if (!countEntries(data) || (countEntries(data) < catalogCountAtLoad)) throw new Error("catálogo incompleto, download cancelado");
+    const blob = new Blob([limparInvisiveis(JSON.stringify(data, null, 2))], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "catalog.json";
+    a.click();
+    toast(`📥 catalog.json completo (${countEntries(data)} títulos)`);
+  } catch (e) {
+    toast("Não baixei para não gerar arquivo incompleto: " + e.message, true);
+  }
+}
+
+// ============================================================
+// BIBLIOTECA
+// ============================================================
+function libItems() {
+  if (libCache) return libCache;
+  const out = [];
+  for (const [id, m] of Object.entries(catalog.movies || {})) {
+    const st = statusOf("movie", m);
+    out.push({ type: "movie", id, title: m.title || "(sem título)", year: m.year || "", poster: m.poster || "", rating: Number(m.rating) || 0, total: 1, withSrc: st.withSrc, state: st.state, link: st.link, key: (m.title || "").toLowerCase() });
+  }
+  for (const [id, s] of Object.entries(catalog.series || {})) {
+    const st = statusOf("series", s);
+    out.push({ type: "series", id, title: s.title || "(sem título)", year: s.year || "", poster: s.poster || "", rating: Number(s.rating) || 0, total: st.total, withSrc: st.withSrc, state: st.state, link: st.link, key: (s.title || "").toLowerCase() });
+  }
+  libCache = out;
+  return out;
+}
+
+function libFiltered() {
+  const q = $("libSearch").value.trim().toLowerCase();
+  const t = $("libType").value, s = $("libStatus").value, so = $("libSort").value;
+  let list = libItems().filter(i =>
+    (t === "all" || i.type === t) &&
+    (s === "all" || i.state === s) &&
+    (!q || i.key.includes(q) || i.id.includes(q)));
+  const num = x => parseInt(x, 10) || 0;
+  if (so === "title") list = list.slice().sort((a, b) => a.key.localeCompare(b.key));
+  else if (so === "year") list = list.slice().sort((a, b) => num(b.year) - num(a.year));
+  else if (so === "rating") list = list.slice().sort((a, b) => b.rating - a.rating);
+  else if (so === "nosrc") list = list.slice().sort((a, b) => ({ none: 0, part: 1, ok: 2 }[a.state] - { none: 0, part: 1, ok: 2 }[b.state]));
+  else list = list.slice().sort((a, b) => num(b.id) - num(a.id));
+  return list;
+}
+
+function libSkeleton() {
+  const g = $("libGrid");
+  if (!g) return;
+  g.innerHTML = Array.from({ length: 12 }, () => '<div class="skeleton"></div>').join("");
+}
+
+function libCard(i, idx) {
+  const thumb = i.poster ? i.poster.replace("/w500/", "/w185/") : "";
+  const label = i.type === "movie"
+    ? (i.state === "ok" ? "✔ COM FONTE" : "⚠ SEM FONTE")
+    : (i.state === "ok" ? `✔ ${i.total} EPS` : `${i.withSrc}/${i.total} EPS`);
+  return `<article class="lcard" style="animation-delay:${Math.min(idx, 24) * 25}ms" data-type="${i.type}" data-id="${esc(i.id)}">
+    <div class="lposter">${thumb ? `<img loading="lazy" src="${esc(thumb)}" alt="" onerror="this.remove()">` : ""}
+      <span class="ltype">${i.type === "movie" ? "FILME" : "SÉRIE"}</span><span class="lbadge ${i.state}">${label}</span></div>
+    <div class="linfo"><b title="${esc(i.title)}">${esc(i.title)}</b><small>${esc(i.year)}${i.rating ? " · ⭐ " + i.rating.toFixed(1) : ""} · #${esc(i.id)}</small></div>
+    <div class="lact"><button class="ghost" data-act="edit" title="Editar">✏️</button>${i.type === "movie" && i.link ? '<button class="ghost" data-act="copy" title="Copiar link">🔗</button>' : ""}<button class="danger" data-act="del" title="Excluir">🗑</button></div>
+  </article>`;
+}
+
+function renderLibrary(reset) {
+  const grid = $("libGrid");
+  if (!grid) return;
+  if (reset !== false) libLimit = 48;
+  if (!catalogLoaded) { libSkeleton(); $("libCount").textContent = "Carregando catálogo…"; $("libMore").classList.add("hidden"); return; }
+  const list = libFiltered();
+  const total = libItems().length;
+  $("libCount").textContent = `${list.length.toLocaleString("pt-BR")} de ${total.toLocaleString("pt-BR")} títulos`;
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="big">🎞️</div>${total ? "Nada encontrado com esses filtros." : "O catálogo está vazio. Adicione o primeiro filme na aba Adicionar!"}</div>`;
+    $("libMore").classList.add("hidden");
+    return;
+  }
+  grid.innerHTML = list.slice(0, libLimit).map(libCard).join("");
+  $("libMore").classList.toggle("hidden", list.length <= libLimit);
+}
+
+function libMore() { libLimit += 48; renderLibrary(false); }
+
+async function deleteItem(type, id) {
+  const item = (type === "movie" ? catalog.movies : catalog.series)[id];
+  const name = item?.title || id;
+  const ok = await askConfirm("Excluir do catálogo?", `“${name}” será removido do catalog.json no GitHub. (Dá para recuperar pelo histórico de commits.)`, "Excluir");
+  if (!ok) return;
+  try {
+    await commitCatalog(`Remove ${name}`, cat => { delete (type === "movie" ? cat.movies : cat.series)[id]; }, { allowShrink: 1 });
+    toast(`🗑 “${name}” excluído`);
+  } catch (e) { toast("Erro: " + e.message, true); }
+}
+
+// ============================================================
+// SAÚDE DO CATÁLOGO
+// ============================================================
+const DUP_PREFIX = /(https:\/\/mgeb\.space\/mp4\.php\?url=){2,}/g;
+const INVIS = /[\u200B\u200C\u200E\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF]/g;
+
+function runHealth() {
+  const out = $("healthOut");
+  if (!catalogLoaded) { out.innerHTML = '<div class="empty"><div class="big">⏳</div>Carregando catálogo…</div>'; ensureCatalog().then(() => catalogLoaded && runHealth()); return; }
+  const noSrcMovies = [], noSrcSeries = [], emptySeasons = [], dup = [], invis = [], noPoster = [];
+  for (const [id, m] of Object.entries(catalog.movies)) {
+    if (!m.source) noSrcMovies.push({ type: "movie", id, t: m.title });
+    if (!m.poster) noPoster.push({ type: "movie", id, t: m.title });
+    if (m.source && (m.source.match(DUP_PREFIX))) dup.push({ type: "movie", id, t: m.title });
+    if (INVIS.test(JSON.stringify(m))) invis.push({ type: "movie", id, t: m.title });
+    INVIS.lastIndex = 0;
+  }
+  for (const [id, s] of Object.entries(catalog.series)) {
+    const st = statusOf("series", s);
+    if (!(s.seasons || []).length) emptySeasons.push({ type: "series", id, t: s.title });
+    else if (st.withSrc < st.total) noSrcSeries.push({ type: "series", id, t: `${s.title} — ${st.withSrc}/${st.total} eps` });
+    if (!s.poster) noPoster.push({ type: "series", id, t: s.title });
+    if (JSON.stringify(s).match(DUP_PREFIX)) dup.push({ type: "series", id, t: s.title });
+    if (INVIS.test(JSON.stringify(s))) invis.push({ type: "series", id, t: s.title });
+    INVIS.lastIndex = 0;
+  }
+  const groups = [
+    ["🎬", "Filmes sem link", "Abra e cole o link do vídeo", noSrcMovies],
+    ["📺", "Séries com episódios sem link", "Use o seletor por episódio para completar", noSrcSeries],
+    ["🗂️", "Séries sem temporadas", "Busque o ID de novo para carregar as temporadas", emptySeasons],
+    ["🔁", "Links com prefixo duplicado", "Corrigível automaticamente", dup],
+    ["👻", "Caracteres invisíveis", "Corrigível automaticamente", invis],
+    ["🖼️", "Sem capa (poster)", "Busque o ID de novo para puxar do TMDB", noPoster]
+  ];
+  out.innerHTML = groups.map(([ic, title, sub, arr], gi) => `
+    <div class="hcard ${arr.length ? "bad" : "ok"}" style="animation-delay:${gi * 60}ms">
+      <div class="hi">${ic}</div><div class="ht"><b>${title}</b><div>${arr.length ? sub : "Tudo certo por aqui ✔"}</div></div><div class="hn">${arr.length}</div>
+    </div>
+    ${arr.length ? `<details><summary>Ver lista (${Math.min(arr.length, 80)}${arr.length > 80 ? " de " + arr.length : ""})</summary><div class="hlist">${arr.slice(0, 80).map(x => `<button onclick="loadForEdit('${x.type}','${esc(x.id)}')"><span>${esc(x.t || x.id)}</span><span class="muted">#${esc(x.id)} ✏️</span></button>`).join("")}</div></details>` : ""}`).join("");
+  window._healthFix = dup.length + invis.length;
+}
+
+async function fixHealth() {
+  if (!catalogLoaded) await ensureCatalog();
+  if (catalogReadOnly) return toast("Configure o GitHub para corrigir", "warn");
+  const btn = $("btnFix");
+  btn.disabled = true;
+  try {
+    let n = 0;
+    await commitCatalog("Corrige links duplicados e caracteres invisíveis", cat => {
+      const fix = o => {
+        if (Array.isArray(o)) o.forEach(fix);
+        else if (o && typeof o === "object") for (const k of Object.keys(o)) {
+          if (typeof o[k] === "string") {
+            let v = o[k].replace(DUP_PREFIX, "$1").replace(INVIS, "");
+            if (v !== o[k]) { o[k] = v; n++; }
+          } else fix(o[k]);
+        }
+      };
+      fix(cat);
+    });
+    toast(n ? `🛠️ ${n} campos corrigidos` : "Nada para corrigir ✔");
+    runHealth();
+  } catch (e) { toast("Erro: " + e.message, true); }
+  finally { btn.disabled = false; }
+}
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  loadGithubConfig();
+  const h = (location.hash || "").replace("#", "");
+  if (["add", "lib", "auto", "health", "cfg"].includes(h)) {
+    document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === h));
+    document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + h));
+  }
+  libSkeleton();
+  reloadCatalog(false).then(() => { if (h === "health") runHealth(); });
+
+  $("tmdbId").addEventListener("input", checkId);
+  $("type").addEventListener("change", checkId);
+  $("tmdbId").addEventListener("keydown", e => { if (e.key === "Enter") fetchContent(); });
+
+  let tm;
+  ["libSearch", "libType", "libStatus", "libSort"].forEach(id => $(id).addEventListener(id === "libSearch" ? "input" : "change", () => { clearTimeout(tm); tm = setTimeout(() => renderLibrary(), 150); }));
+
+  $("libGrid").addEventListener("click", e => {
+    const b = e.target.closest("button[data-act]");
+    if (!b) return;
+    const card = b.closest(".lcard");
+    const type = card.dataset.type, id = card.dataset.id;
+    if (b.dataset.act === "edit") loadForEdit(type, id);
+    else if (b.dataset.act === "copy") { const it = libItems().find(x => x.type === type && x.id === id); if (it) copyText(it.link); }
+    else if (b.dataset.act === "del") deleteItem(type, id);
+  });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => { if (es[0].isIntersecting && !$("libMore").classList.contains("hidden")) libMore(); }, { rootMargin: "400px" }).observe($("libMore"));
+  }
+
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+      e.preventDefault();
+      if (current) saveToCatalog();
+    }
+    if (e.key === "/" && !/INPUT|SELECT|TEXTAREA/.test((document.activeElement || {}).tagName || "")) {
+      e.preventDefault();
+      switchTab("lib");
+      setTimeout(() => $("libSearch").focus(), 200);
+    }
+    if (e.key === "Escape" && $("modal").classList.contains("show")) $("mCancel").click();
+  });
+
+  // Inicializa Lucide
+  if (window.lucide) lucide.createIcons();
+});
+
+// Observer para ícones Lucide em conteúdo dinâmico
+new MutationObserver(() => { if (window.lucide) lucide.createIcons(); }).observe(document.body, { childList: true, subtree: true });
+</script>
+</body>
+</html>
