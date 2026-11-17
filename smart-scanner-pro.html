@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090910">
+<title>Smart Scanner Pro</title>
+<style>
+:root{--bg:#08080e;--panel:#11111c;--panel2:#191927;--border:#29293b;--purple:#a34aff;--text:#f4f1fa;--muted:#9694a8;--green:#48df9a;--red:#ff646f;--yellow:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:23px 17px;background:#10101a;border-bottom:1px solid var(--border)}header h1{margin:0;color:var(--purple);font-size:24px}header p{color:var(--muted);font-size:12px}
+main{max-width:1050px;margin:auto;padding:16px}.card{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:17px;margin-bottom:16px}h2{font-size:17px;margin-top:0}
+input,select{width:100%;padding:13px;margin:7px 0;background:#090912;border:1px solid var(--border);border-radius:8px;color:white;outline:none}
+button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#873cce;color:white;font-weight:bold;cursor:pointer}button.secondary{background:#25253a}button.stop{background:#963c4c}button:disabled{opacity:.35;cursor:not-allowed}
+.muted{color:var(--muted);font-size:12px}.good{color:var(--green)}.error{color:var(--red)}.warning{color:var(--yellow)}
+.season{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0;overflow-wrap:anywhere}.episode{padding:10px 4px;border-bottom:1px solid var(--border);font-size:13px;overflow-wrap:anywhere}
+.progress{height:7px;background:#29293a;border-radius:20px;overflow:hidden;margin:12px 0}#progressBar{height:100%;width:0;background:var(--purple);transition:.2s}
+#logs{background:#050508;border:1px solid var(--border);border-radius:8px;height:220px;overflow:auto;padding:12px;font:12px monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.stat{background:var(--panel2);padding:12px;border-radius:9px}.stat b{font-size:22px;display:block;margin-top:7px}
+.status{padding:12px;background:#090912;border-radius:8px;margin-top:10px;font-size:12px;overflow-wrap:anywhere}a{color:#c18aff}.locked{display:none!important}.small{font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><h1>SMART SCANNER PRO</h1><p>TMDB • Diagnóstico de conexão • Leitura de páginas • Temporadas • Episódios</p></header>
+<main>
+<section class="card">
+<h2>01 — Configuração da API</h2>
+<input id="apiKey" type="password" autocomplete="off" placeholder="Cole sua chave TMDB v3 ou token v4">
+<div class="grid"><button onclick="saveAPI()">SALVAR API</button><button onclick="testAPI()">TESTAR API</button></div>
+<button class="secondary" onclick="forgetAPI()">TROCAR API</button>
+<div id="apiStatus" class="status">Verificando configuração...</div>
+<p class="small">A chave fica salva neste navegador. Não publique sua chave em repositórios públicos. A leitura de páginas respeita as permissões CORS dos sites.</p>
+</section>
+<div id="app" class="locked">
+<section class="card"><h2>02 — Pesquisar série</h2><input id="searchInput" placeholder="Nome da série"><button onclick="searchSeries()">PESQUISAR SÉRIES</button><div id="searchResults"></div></section>
+<section class="card"><h2>03 — Catálogo TMDB</h2><div id="selectedInfo" class="muted">Selecione uma série.</div><div id="catalog"></div></section>
+<section class="card">
+<h2>04 — Scanner de páginas</h2>
+<p class="muted">Informe a página pública da série. O scanner procura links reais no HTML recebido. Não inventa URLs, não acessa áreas privadas e não contorna bloqueios do site.</p>
+<input id="startUrl" type="url" placeholder="https://exemplo.com/serie/nome">
+<div class="grid"><div><label class="muted">Limite de páginas</label><select id="pageLimit"><option value="30">30 páginas</option><option value="60" selected>60 páginas</option><option value="100">100 páginas</option><option value="200">200 páginas</option></select></div>
+<div><label class="muted">Intervalo</label><select id="delay"><option value="500">500 ms</option><option value="1000" selected>1 segundo</option><option value="2000">2 segundos</option></select></div></div>
+<button id="startBtn" onclick="startScanner()">INICIAR SCANNER</button><button class="stop" onclick="stopScanner()">PARAR SCANNER</button>
+<div class="progress"><div id="progressBar"></div></div>
+<div class="grid"><div class="stat">Temporadas<b id="seasonCount">0</b></div><div class="stat">Episódios<b id="episodeCount">0</b></div><div class="stat">Páginas lidas<b id="pageCount">0</b></div></div>
+<p id="scanStatus" class="muted">Aguardando.</p>
+</section>
+<section class="card"><h2>05 — Resultados</h2><div id="results">Nenhum resultado.</div></section>
+<section class="card"><h2>06 — Diagnóstico e logs</h2><div id="logs">[SYSTEM] Sistema iniciado.</div></section>
+<section class="card"><h2>07 — Exportação</h2><button onclick="exportJSON()">EXPORTAR JSON</button><button class="secondary" onclick="exportCSV()">EXPORTAR CSV</button></section>
+</div></main>
+<script>
+"use strict";
+const TMDB="https://api.themoviedb.org/3";
+let apiKey="",apiType="",apiReady=false,selectedSeries=null,catalog=[],discovered=[],scanning=false,pageCount=0,episodeCount=0,visited=new Set(),scanToken=0;
+const $=id=>document.getElementById(id);
+function log(message,type=""){const line=document.createElement("div");if(type)line.className=type;line.textContent="["+new Date().toLocaleTimeString()+"] "+message;$("logs").appendChild(line);$("logs").scrollTop=$("logs").scrollHeight;}
+function setStatus(message,type=""){$("apiStatus").textContent=message;$("apiStatus").className="status "+type;}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function pad(n){return String(n).padStart(2,"0");}
+function detectAPIType(value){const p=value.split(".");if(p.length===3&&p.every(Boolean))return "v4";if(/^[a-f0-9]{32}$/i.test(value))return "v3";throw Error("Formato não reconhecido. Use a API Key v3 (32 caracteres) ou o Read Access Token v4 do TMDB.");}
+function getAuth(){if(!apiKey)throw Error("API não configurada.");return apiType==="v4"?{headers:{Authorization:"Bearer "+apiKey,Accept:"application/json"}}:{headers:{Accept:"application/json"},key:"?api_key="+encodeURIComponent(apiKey)};}
+async function request(url,options={},timeout=20000){
+ const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);
+ try{return await fetch(url,{...options,signal:c.signal});}
+ catch(e){if(e.name==="AbortError")throw Error("TEMPO ESGOTADO após "+timeout/1000+" segundos. URL: "+url);if(!navigator.onLine)throw Error("SEM INTERNET: navegador informa que está offline.");if(e instanceof TypeError)throw Error("FALHA DE REDE/CORS: navegador não disponibilizou resposta. Pode ser DNS, conexão, certificado ou CORS. URL: "+url+" | "+e.message);throw Error("ERRO DE REDE: "+e.message+" | "+url);}
+ finally{clearTimeout(timer);}
+}
+async function tmdb(path){if(!apiReady)throw Error("Teste a API primeiro.");const a=getAuth();let url=TMDB+path;if(a.key)url+=path.includes("?")?"&"+a.key.slice(1):a.key;const r=await request(url,{headers:a.headers,cache:"no-store"});if(!r.ok)throw Error("TMDB HTTP "+r.status+" em "+path+(r.status===401?": chave inválida.":r.status===429?": limite atingido.":""));return r.json();}
+function saveAPI(){const v=$("apiKey").value.trim();if(!v){setStatus("Informe sua chave API.","error");return;}try{apiType=detectAPIType(v);apiKey=v;apiReady=false;localStorage.setItem("smartScannerKey",v);localStorage.setItem("smartScannerType",apiType);$("app").classList.add("locked");setStatus("Chave identificada como TMDB "+apiType.toUpperCase()+". Clique em TESTAR API.","good");log("Chave identificada e salva: "+apiType.toUpperCase(),"good");}catch(e){setStatus(e.message,"error");log(e.message,"error");}}
+async function testAPI(){
+ const v=$("apiKey").value.trim()||localStorage.getItem("smartScannerKey");if(!v){setStatus("Insira uma chave antes de testar.","error");return;}
+ apiReady=false;$("app").classList.add("locked");
+ try{apiKey=v;apiType=detectAPIType(v);setStatus("Testando conexão com TMDB...");log("Testando /configuration com autenticação "+apiType.toUpperCase()+".");
+ const a=getAuth();let url=TMDB+"/configuration";if(a.key)url+=a.key;const r=await request(url,{headers:a.headers,cache:"no-store"});
+ log("TMDB respondeu HTTP "+r.status+".");if(!r.ok)throw Error("TMDB HTTP "+r.status+(r.status===401?": chave inválida.":r.status===403?": acesso negado.":r.status===429?": limite atingido.":""));
+ const data=await r.json();if(!data.images)throw Error("Resposta inesperada do TMDB.");
+ apiReady=true;localStorage.setItem("smartScannerKey",apiKey);localStorage.setItem("smartScannerType",apiType);$("app").classList.remove("locked");setStatus("CONEXÃO APROVADA • API VALIDADA • SISTEMA LIBERADO","good");log("API validada. Sistema liberado.","good");
+ }catch(e){apiReady=false;$("app").classList.add("locked");setStatus(e.message,"error");log("TESTE TMDB: "+e.message,"error");if(e.message.includes("FALHA DE REDE/CORS"))log("Verifique se https://api.themoviedb.org/3/configuration abre no navegador. Isso testa alcance do domínio, não valida a chave.","warning");}
+}
+function forgetAPI(){localStorage.removeItem("smartScannerKey");localStorage.removeItem("smartScannerType");apiKey="";apiType="";apiReady=false;$("apiKey").value="";$("app").classList.add("locked");setStatus("API removida. Insira outra chave.");log("Configuração removida.");}
+async function restoreAPI(){const v=localStorage.getItem("smartScannerKey");if(!v){setStatus("Nenhuma API salva. Configure sua chave.");return;}$("apiKey").value=v;apiKey=v;try{apiType=detectAPIType(v);setStatus("API salva encontrada. Validando...");log("Configuração anterior encontrada.");await testAPI();}catch(e){setStatus(e.message,"error");log(e.message,"error");}}
+async function searchSeries(){try{const q=$("searchInput").value.trim();if(!q){log("Digite o nome de uma série.","warning");return;}log("Pesquisando: "+q);const d=await tmdb("/search/tv?query="+encodeURIComponent(q));const box=$("searchResults");box.innerHTML="";if(!d.results?.length){box.textContent="Nenhuma série encontrada.";return;}d.results.forEach(s=>{const el=document.createElement("div");el.className="season";const n=document.createElement("b");n.textContent=s.name;const info=document.createElement("p");info.className="muted";info.textContent="ID "+s.id+" • "+(s.first_air_date||"Data desconhecida");const b=document.createElement("button");b.textContent="SELECIONAR";b.onclick=()=>loadSeries(s.id);el.append(n,info,b);box.appendChild(el);});log(d.results.length+" séries encontradas.","good");}catch(e){log("PESQUISA: "+e.message,"error");}}
+async function loadSeries(id){try{log("Carregando catálogo...");const s=await tmdb("/tv/"+id);selectedSeries=s;catalog=[];discovered=[];renderResults();$("selectedInfo").innerHTML="";const h=document.createElement("h2");h.textContent=s.name;const p=document.createElement("p");p.className="muted";p.textContent=s.number_of_seasons+" temporadas • "+s.number_of_episodes+" episódios";$("selectedInfo").append(h,p);$("catalog").innerHTML="";
+ for(const season of s.seasons||[]){if(season.season_number===0)continue;const d=await tmdb("/tv/"+id+"/season/"+season.season_number);const eps=(d.episodes||[]).sort((a,b)=>a.episode_number-b.episode_number);catalog.push({number:season.season_number,episodes:eps});const box=document.createElement("div");box.className="season";const title=document.createElement("b");title.textContent="Temporada "+season.season_number+" • "+eps.length+" episódios";box.appendChild(title);eps.forEach(ep=>{const row=document.createElement("div");row.className="episode";row.textContent="S"+pad(season.season_number)+"E"+pad(ep.episode_number)+" — "+ep.name;box.appendChild(row);});$("catalog").appendChild(box);}
+ log("Catálogo carregado.","good");
+ }catch(e){log("CATÁLOGO: "+e.message,"error");}}
+async function readPage(url,origin){const target=new URL(url),base=new URL(origin);if(target.origin!==base.origin)throw Error("Página fora do domínio inicial.");log("Tentando ler: "+target.href);const r=await request(target.href,{method:"GET",mode:"cors",credentials:"omit",redirect:"follow",cache:"no-store",headers:{Accept:"text/html,application/xhtml+xml"}});
+ if(!r.ok)throw Error("Site respondeu HTTP "+r.status+".");const final=new URL(r.url||target.href);if(final.origin!==base.origin)throw Error("Redirecionamento para outro domínio; leitura cancelada.");const type=r.headers.get("content-type")||"";if(!type.includes("html")&&!type.includes("text/plain"))throw Error("Resposta não é HTML. Content-Type: "+type);const html=await r.text();if(!html.trim())throw Error("Página vazia.");log("HTML recebido: "+html.length+" caracteres.","good");return{doc:new DOMParser().parseFromString(html,"text/html"),url:final.href};}
+function getLinks(doc,base){const out=[];doc.querySelectorAll("a[href]").forEach(a=>{try{const u=new URL(a.getAttribute("href"),base);if(u.origin!==new URL(base).origin||u.href===base)return;if(!["http:","https:"].includes(u.protocol))return;out.push({url:u.href,text:(a.innerText||a.textContent||"").trim(),title:a.getAttribute("title")||"",aria:a.getAttribute("aria-label")||"",path:u.pathname,query:u.search});}catch{}});return [...new Map(out.map(x=>[x.url,x])).values()];}
+function identifySeason(x){const t=[x.text,x.title,x.aria,x.path,x.query].join(" ");for(const p of [/temporada[\s._-]*(\d+)/i,/season[\s._-]*(\d+)/i,/temp[\s._-]*(\d+)/i,/(?:^|[/_-])s(\d{1,2})(?:[/_-]|$)/i]){const m=t.match(p);if(m)return Number(m[1]);}return null;}
+function identifyEpisode(x){const t=[x.text,x.title,x.aria,x.path,x.query].join(" ");for(const p of [/\bS\d{1,2}[\s._-]*E(\d{1,4})\b/i,/epis[oó]dio[\s._-]*(\d+)/i,/episode[\s._-]*(\d+)/i,/cap[ií]tulo[\s._-]*(\d+)/i,/(?:^|[/_-])ep[\s._-]*(\d+)(?:[/_-]|$)/i,/[?&](?:episode|ep|episodio)=(\d+)/i]){const m=t.match(p);if(m)return Number(m[1]);}return null;}
+function findSeasons(links){const m=new Map();links.forEach(x=>{const n=identifySeason(x);if(n!==null&&n>=0&&!m.has(n))m.set(n,{number:n,url:x.url,title:x.text||x.title||"Temporada "+n});});return [...m.values()].sort((a,b)=>a.number-b.number);}
+function findEpisodes(links,season){const m=new Map();links.forEach(x=>{const sn=identifySeason(x);if(sn!==null&&sn!==season)return;const n=identifyEpisode(x);if(n!==null&&n>0&&!m.has(n))m.set(n,{season,episode:n,url:x.url,pageTitle:x.text||x.title||x.aria||"Episódio "+n});});return [...m.values()].sort((a,b)=>a.episode-b.episode);}
+function matchTMDB(s,e){return catalog.find(x=>x.number===s)?.episodes.find(x=>x.episode_number===e)||null;}
+async function startScanner(){
+ if(scanning)return;let token;
+ try{if(!apiReady)throw Error("API não validada.");if(!selectedSeries)throw Error("Selecione uma série.");const start=new URL($("startUrl").value.trim());if(!["http:","https:"].includes(start.protocol))throw Error("Use uma URL HTTP ou HTTPS.");if(start.username||start.password)throw Error("Não use URL com usuário ou senha.");
+ scanning=true;token=++scanToken;$("startBtn").disabled=true;pageCount=0;episodeCount=0;discovered=[];visited.clear();$("results").textContent="Nenhum resultado ainda.";$("scanStatus").textContent="Conectando...";$("progressBar").style.width="0%";
+ const origin=start.href,max=Number($("pageLimit").value),delay=Number($("delay").value);log("Iniciando leitura pública em "+start.origin);
+ const first=await readPage(origin,origin);if(!scanning||token!==scanToken)return;visited.add(first.url);pageCount++;const links=getLinks(first.doc,first.url);log(links.length+" links internos encontrados.");const seasons=findSeasons(links);
+ if(!seasons.length)throw Error("Página inicial lida, mas nenhum link de temporada reconhecido entre "+links.length+" links. O site pode montar os links por JavaScript ou usar nomes diferentes.");
+ log(seasons.length+" páginas de temporadas encontradas.","good");
+ for(let i=0;i<seasons.length;i++){if(!scanning||token!==scanToken)break;if(pageCount>=max){log("Limite de páginas atingido.","warning");break;}const s=seasons[i];if(visited.has(s.url))continue;visited.add(s.url);
+  try{log("Lendo temporada "+s.number);const page=await readPage(s.url,origin);if(!scanning||token!==scanToken)break;pageCount++;const eps=findEpisodes(getLinks(page.doc,page.url),s.number);const result={number:s.number,url:s.url,expected:catalog.find(x=>x.number===s.number)?.episodes.length||0,episodes:eps.map(ep=>{const match=matchTMDB(ep.season,ep.episode);return{...ep,tmdbName:match?.name||null,matched:!!match};})};discovered.push(result);episodeCount+=eps.length;log("Temporada "+s.number+": "+eps.length+" episódios identificados.","good");renderResults();}
+  catch(e){log("TEMPORADA "+s.number+": "+e.message,"error");}
+  updateStats(i+1,seasons.length);if(i<seasons.length-1)await sleep(delay);
+ }
+ $("scanStatus").textContent=scanning?"Scanner finalizado.":"Scanner interrompido.";log("Processamento encerrado.","good");
+ }catch(e){$("scanStatus").textContent=e.message;log("SCANNER: "+e.message,"error");}
+ finally{scanning=false;$("startBtn").disabled=false;updateStats();}
+}
+function stopScanner(){if(!scanning){log("Nenhum scanner em execução.","warning");return;}scanning=false;scanToken++;$("scanStatus").textContent="Parada solicitada.";log("Parada solicitada.","warning");}
+function updateStats(current=0,total=0){$("seasonCount").textContent=discovered.length;$("episodeCount").textContent=episodeCount;$("pageCount").textContent=pageCount;$("progressBar").style.width=total?Math.round(current/total*100)+"%":(scanning?"0%":"100%");}
+function renderResults(){const c=$("results");c.innerHTML="";if(!discovered.length){c.textContent="Nenhum resultado.";return;}discovered.sort((a,b)=>a.number-b.number);discovered.forEach(s=>{const box=document.createElement("div");box.className="season";const h=document.createElement("h3");h.textContent="Temporada "+s.number+" • "+s.episodes.length+" episódios encontrados";const a=document.createElement("a");a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Abrir página da temporada";box.append(h,a);if(!s.episodes.length){const p=document.createElement("p");p.className="muted";p.textContent="Nenhum link de episódio reconhecido.";box.appendChild(p);}s.episodes.forEach(ep=>{const row=document.createElement("div");row.className="episode";const code=document.createElement("b");code.textContent="S"+pad(ep.season)+"E"+pad(ep.episode);const name=document.createElement("div");name.textContent=ep.tmdbName||ep.pageTitle;const status=document.createElement("div");status.className=ep.matched?"good":"muted";status.textContent=ep.matched?"Correspondência TMDB encontrada":"Página encontrada; título não confirmado";const link=document.createElement("a");link.href=ep.url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Abrir episódio";row.append(code,name,status,link);box.appendChild(row);});c.appendChild(box);});}
+function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+function exportJSON(){download(JSON.stringify({series:selectedSeries?{id:selectedSeries.id,name:selectedSeries.name}:null,seasons:discovered},null,2),"scanner.json","application/json");}
+function exportCSV(){const rows=[["Temporada","Episódio","Nome","URL"]];discovered.forEach(s=>s.episodes.forEach(e=>rows.push([s.number,e.episode,e.tmdbName||e.pageTitle,e.url])));const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(";")).join("\n");download("\uFEFF"+csv,"scanner.csv","text/csv;charset=utf-8");}
+window.addEventListener("DOMContentLoaded",restoreAPI);
+</script>
+</body>
+</html>
