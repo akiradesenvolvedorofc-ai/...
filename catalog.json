@@ -741,6 +741,23 @@
       "ageRating": "12",
       "source": "https://mgeb.space/mp4.php?url=https://video.playspelis.com/pt/detail/movie/trzjVPWEVG8UTvpOZKNYs-Captain-America-Civil-War"
     },
+    "277834": {
+      "title": "Moana: Um Mar de Aventuras",
+      "overview": "Moana Waialiki é uma corajosa jovem, filha do chefe de uma tribo na Oceania, vinda de uma longa linhagem de navegadores. Querendo descobrir mais sobre seu passado e ajudar a família, ela resolve partir em busca de seus ancestrais, habitantes de uma ilha mítica que ninguém sabe onde é. Acompanhada pelo lendário semideus Maui, Moana começa sua jornada em mar aberto, onde enfrenta terríveis criaturas marinhas e descobre histórias do submundo.",
+      "poster": "https://image.tmdb.org/t/p/w500/qc2dFKo9q50ljkS06D2c5kmlAtP.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/qLVNZFHYUR6Li64He67SWl6BHQe.jpg",
+      "year": "2016",
+      "rating": 7.564,
+      "genres": [
+        "Aventura",
+        "Comédia",
+        "Família",
+        "Animação"
+      ],
+      "ageRating": "L",
+      "source": "",
+      "addedAt": 1794923018564
+    },
     "293660": {
       "title": "Deadpool",
       "overview": "Depois de passar por um experimento desonesto que lhe concede um fator de cura acelerado, mas desfigura seu rosto, o ex-agente das Forças Especiais Wade Wilson assume o alter ego de Deadpool. Com suas novas habilidades e um senso de humor sombrio e perverso, Deadpool persegue o homem que quase destruiu sua vida.",
