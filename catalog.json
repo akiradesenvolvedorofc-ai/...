@@ -25730,6 +25730,449 @@
         }
       ]
     },
+    "220542": {
+      "title": "Diários de uma Apotecária",
+      "overview": "Maomao levava uma vida tranquila ao lado de seu pai, um boticário renomado. No entanto, sua vida muda da noite pro dia quando ela é vendida como uma simples serva no palácio do imperador. Incapaz de se adaptar à vida na realeza, Maomao decide tomar medidas drásticas quando os herdeiros imperiais adoecem, embarcando numa missão para encontrar a cura. Sua audácia chama a atenção de Jinshi, um belo funcionário do palácio que decide apoiá-la. Agora, Maomao se envolve em intrigas médicas enquanto sua fama se espalha pelos corredores do palácio!",
+      "poster": "https://image.tmdb.org/t/p/w500/t8fC3K3XnwE6Iso6b1bi5Fdo93n.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/gffVOVZ2Y9cmVIZ26Gt9ByMGCYH.jpg",
+      "year": "2023",
+      "rating": 8.7,
+      "genres": [
+        "Animação",
+        "Mistério",
+        "Drama"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Maomao",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Apotecária Antissocial",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Caso Perturbador do Espírito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Ameaça",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Por debaixo dos panos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A festa no jardim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Voltando para casa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Palitos de Trigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Suicídio ou Assassinato?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Mel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Reduzindo de dois a um",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Eunuco e a Cortesã",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Trabalho no Pátio Externo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Nova Pura Concubina",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Namasu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Pista",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Passeio pela cidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Lakan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Coincidência ou coisa do destino?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Saia-roxa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Plano para comprar uma cortesã",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Rosas azuis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Beijo-de-frade e três-corações",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Jinshi e Maomao",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Maomao e Maomao",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Caravana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Ophiocordyceps sapiens",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Espelhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Espírito da Lua",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "O Palácio de Cristal, pela terceira vez",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "O Templo da Escolha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "A Imperatriz Viúva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "O antigo imperador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "História assombrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "A caçada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Ka Zuigetsu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Banho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "O fantasma dançarino",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Gelo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Maldade fomentada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "O vilarejo das raposas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Alquequenje",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Festival",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Fortaleza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Taibon",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "Guarda Real",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Clã Shi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 48,
+              "label": "Episódio 48",
+              "title": "Começo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 49,
+              "label": "Episódio 49",
+              "title": "Gafanhotos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 50,
+              "label": "Episódio 50",
+              "title": "O Casaco de Pele de Rato de Fogo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 51,
+              "label": "Episódio 51",
+              "title": "Se não tiver pães...",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 52,
+              "label": "Episódio 52",
+              "title": "O último volume",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 53,
+              "label": "Episódio 53",
+              "title": "A Cobra Branca Iluminada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 54,
+              "label": "Episódio 54",
+              "title": "O Vilarejo do Papel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 55,
+              "label": "Episódio 55",
+              "title": "Episódio 55",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 56,
+              "label": "Episódio 56",
+              "title": "Episódio 56",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 57,
+              "label": "Episódio 57",
+              "title": "Episódio 57",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 58,
+              "label": "Episódio 58",
+              "title": "Episódio 58",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 59,
+              "label": "Episódio 59",
+              "title": "Episódio 59",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 60,
+              "label": "Episódio 60",
+              "title": "Episódio 60",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794919824523
+    },
     "240411": {
       "title": "DAN DA DAN",
       "overview": "Quando a estudante do ensino médio Momo – que vem de uma família de médiuns e não acredita em alienígenas – encontra Okarun, um garoto obcecado por ocultismo que acredita em extraterrestres, a rivalidade entre os dois coloca a dupla diante de ameaças paranormais reais. Momo descobre seus poderes espirituais, enquanto Okarun ganha habilidades ao ser possuído por uma maldição, o que faz com que se unam para lutar contra yokai, OVNIs e caos de outros mundos.",
