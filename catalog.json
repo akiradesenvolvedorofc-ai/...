@@ -17817,6 +17817,54 @@
       ],
       "addedAt": 1794897803907
     },
+    "89313": {
+      "title": "おやすみせっくす",
+      "overview": "",
+      "poster": "https://image.tmdb.org/t/p/w500/kcKV3zQyR8OmOwsXS4zHtYU1S8T.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/tSb2kAyi23tC8iE6eBxdQVfH0us.jpg",
+      "year": "2018",
+      "rating": 5.667,
+      "genres": [
+        "Animação"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/1",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/2",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/3",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/4",
+              "subtitles": {}
+            }
+          ]
+        }
+      ]
+    },
     "93392": {
       "title": "Criando Dion",
       "overview": "Uma viúva está determinada a desvendar o mistério dos superpoderes do filho e evitar que os dons dele sejam descobertos.",
@@ -27336,54 +27384,6 @@
           "number": 5,
           "label": "Temporada 5",
           "episodes": []
-        }
-      ]
-    },
-    "89313": {
-      "title": "おやすみせっくす",
-      "overview": "",
-      "poster": "https://image.tmdb.org/t/p/w500/kcKV3zQyR8OmOwsXS4zHtYU1S8T.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/original/tSb2kAyi23tC8iE6eBxdQVfH0us.jpg",
-      "year": "2018",
-      "rating": 5.667,
-      "genres": [
-        "Animação"
-      ],
-      "ageRating": "",
-      "seasons": [
-        {
-          "number": 1,
-          "label": "Temporada 1",
-          "episodes": [
-            {
-              "number": 1,
-              "label": "Episódio 1",
-              "title": "Episódio 1",
-              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/1",
-              "subtitles": {}
-            },
-            {
-              "number": 2,
-              "label": "Episódio 2",
-              "title": "Episódio 2",
-              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/2",
-              "subtitles": {}
-            },
-            {
-              "number": 3,
-              "label": "Episódio 3",
-              "title": "Episódio 3",
-              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/3",
-              "subtitles": {}
-            },
-            {
-              "number": 4,
-              "label": "Episódio 4",
-              "title": "Episódio 4",
-              "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/drama/nYkr1aVYSa7s0WaNsWi80-Oyasumi-Sex/4",
-              "subtitles": {}
-            }
-          ]
         }
       ]
     }
