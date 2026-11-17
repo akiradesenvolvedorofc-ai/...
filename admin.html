@@ -92,7 +92,7 @@ select option{background:#111}
 .field-eye{position:relative}.field-eye button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:6px 10px;font-size:.8rem}
 
 /* botões */
-button,.btn{position:relative;overflow:hidden;background:var(--grad);color:#fff;border:0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap;font-family:inherit}
+button,.btn{position:relative;overflow:hidden;background:var(--grad);color:#fff;border:0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(229,57,53,.35)}
 button:active{transform:translateY(0) scale(.97)}
 button.ghost{background:rgba(255,255,255,.07);border:1px solid var(--line)}
@@ -247,6 +247,7 @@ details>div,details>.ep{animation:panelIn .3s}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 <div class="bg-orbs"><i></i><i></i><i></i></div>
@@ -299,19 +300,72 @@ details>div,details>.ep{animation:panelIn .3s}
       <div class="preview" id="preview"></div>
 
       <div id="seriesTools" class="hidden">
-        <!-- ALL Seekee -->
+        <!-- ALL Seekee Scanner -->
         <div class="subcard" style="border-color:rgba(229,57,53,.45)">
-          <h3>🕷️ ALL Seekee (Turbo)</h3>
-          <p class="hint">Cole <b>qualquer link</b> da série (T1 ou T2+). O sistema lê o HTML, tenta todos os proxies, extrai as temporadas e busca cada episódio.</p>
+          <h3><i data-lucide="scan-search" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"></i>ALL Seekee — Scanner de Páginas Públicas</h3>
+          <p class="hint">Cole <b>qualquer link público</b> da série (T1, T2+ ou com <code>/1/1</code> no final). O sistema detecta a estrutura automaticamente, começa sempre pela <b>Temporada 1</b> e varre todas as temporadas/episódios encontrados.</p>
+
           <div class="row">
-            <div style="flex:3"><label>Link da Série</label><input id="scrapeUrl" placeholder="https://latino.solo-latino.com/.../Dexter-Resurrection/1"></div>
-            <div style="flex:0;display:flex;align-items:flex-end"><button onclick="autoScrapeTudo()" id="btnScrapeAll">🕷️ Varrer Tudo</button></div>
+            <div style="flex:3"><label>Link público da série</label>
+              <input id="scrapeUrl" placeholder="https://es.cuevana4br.com/pt/detail/drama/m9vlingZtf5NtglIau2WG-Black-Clover-Season-1">
+            </div>
+            <div style="flex:0;display:flex;align-items:flex-end">
+              <button onclick="autoScrapeTudo()" id="btnScrapeAll">
+                <i data-lucide="scan-search" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Varrer Tudo
+              </button>
+            </div>
           </div>
+
           <div class="row mt">
-            <div><label>Prefixar links?</label><select id="bulkPrefix"><option value="yes">Sim (mgeb.space)</option><option value="no">Não</option></select></div>
-            <div><label>Limite Temporadas (TMDB)</label><input type="number" id="tmdbMaxSeasons" value="10" readonly style="opacity:.6;cursor:not-allowed"></div>
+            <div><label>Prefixar links?</label>
+              <select id="bulkPrefix">
+                <option value="yes">Sim (mgeb.space)</option>
+                <option value="no">Não</option>
+              </select>
+            </div>
+            <div><label>Limite Temporadas (TMDB)</label>
+              <input type="number" id="tmdbMaxSeasons" value="10" readonly style="opacity:.6;cursor:not-allowed">
+            </div>
+            <div><label>Modo inteligente</label>
+              <select id="smartMode">
+                <option value="on">✅ Ativado (detecta T1 automaticamente)</option>
+                <option value="off">⛔ Desativado (só URLs explícitas)</option>
+              </select>
+            </div>
           </div>
+
+          <div class="row mt">
+            <div style="flex:2"><label>URL Template do Scanner (variáveis: <code>{season}</code>, <code>{episode}</code>)</label>
+              <input id="scrapeTemplate" placeholder="https://es.cuevana4br.com/pt/detail/drama/.../Black-Clover-Season-{season}/{episode}">
+            </div>
+            <div style="flex:0;display:flex;align-items:flex-end">
+              <button class="ghost" onclick="detectarTemplateScanner()">
+                <i data-lucide="wand-2" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Detectar
+              </button>
+            </div>
+          </div>
+
+          <!-- Barra de progresso -->
+          <div id="scrapeProgressWrap" class="hidden mt">
+            <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut);margin-bottom:6px">
+              <span id="scrapeProgressText">Aguardando…</span>
+              <span id="scrapeProgressPct">0%</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden">
+              <div id="scrapeProgressBar" style="height:100%;width:0;background:var(--grad);border-radius:6px;transition:width .4s"></div>
+            </div>
+          </div>
+
           <div class="progress-log" id="scrapeLog"></div>
+
+          <div class="row mt">
+            <button onclick="scrapeTodasTemporadas()" id="btnScrapeSeasons" style="flex:2">
+              <i data-lucide="layers" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Colocar todas as temporadas + episódios
+            </button>
+            <button class="ghost" onclick="scrapeParar()" id="btnScrapeStop" style="display:none">
+              <i data-lucide="square" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Parar
+            </button>
+          </div>
         </div>
 
         <!-- Aplicar por temporada / episódio -->
@@ -417,7 +471,7 @@ details>div,details>.ep{animation:panelIn .3s}
         <button class="ghost" onclick="fixHealth()" id="btnFix">🛠️ Corrigir automático</button>
         <button class="ghost" onclick="downloadBackup()">💾 Baixar backup local</button>
       </div>
-      <p class="muted" style="margin-top:10px">“Corrigir automático” remove prefixos repetidos e caracteres invisíveis. Antes de qualquer salvamento o painel guarda um backup no seu navegador.</p>
+      <p class="muted" style="margin-top:10px">"Corrigir automático" remove prefixos repetidos e caracteres invisíveis. Antes de qualquer salvamento o painel guarda um backup no seu navegador.</p>
     </div>
     <div id="healthOut"></div>
   </section>
@@ -952,7 +1006,7 @@ async function fetchContent() {
 }
 
 // ============================================================
-// FETCH COM PROXIES / EXTRAÇÃO / AUTO-REFRESH UQLOAD
+// FETCH COM PROXIES / EXTRAÇÃO
 // ============================================================
 async function fetchWithProxy(url, retries = 3) {
   for (let i = 0; i < PROXIES.length; i++) {
@@ -1027,10 +1081,8 @@ function extrairVideoDoHtml(html, fallbackUrl) {
 }
 
 // ============================================================
-// 🆕 AUTO-REFRESH UQLOAD
+// AUTO-REFRESH UQLOAD
 // ============================================================
-
-// Setup interval picker
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#autoIntervalPicker .minute-option').forEach(opt => {
     opt.addEventListener('click', () => {
@@ -1040,7 +1092,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Load auto sources do localStorage
   try {
     const saved = JSON.parse(localStorage.getItem('kiraflix_auto_uqload') || '[]');
     autoSources = saved.map(s => ({ ...s, timerId: null }));
@@ -1097,10 +1148,7 @@ async function addAutoUqload() {
 
   logMsg(`➕ Auto-Refresh adicionado: ${tmdbId} (a cada ${source.interval} min)`, "success", "autoLog");
 
-  // Executa primeira vez IMEDIATAMENTE
   await runAutoRefresh(source);
-
-  // Inicia timer
   startTimerForSource(source);
 
   toast(`✔ Auto-Refresh ativo para ID ${tmdbId}`);
@@ -1111,7 +1159,6 @@ function startTimerForSource(source) {
 
   const intervalMs = source.interval * 60 * 1000;
 
-  // Agenda próxima execução
   const scheduleNext = () => {
     source.nextRun = Date.now() + intervalMs;
     saveAutoSources();
@@ -1120,7 +1167,6 @@ function startTimerForSource(source) {
 
   scheduleNext();
 
-  // Timer com Date.now() (corrige bug de congelamento)
   source.timerId = setInterval(async () => {
     if (Date.now() >= source.nextRun) {
       await runAutoRefresh(source);
@@ -1150,7 +1196,6 @@ async function runAutoRefresh(source) {
   renderAutoList();
 
   try {
-    // Busca HTML do Uqload
     let proxyIdx = currentProxyForAuto;
     let html = null;
 
@@ -1178,11 +1223,9 @@ async function runAutoRefresh(source) {
 
     logMsg(`HTML: ${html.length} bytes`, "info", "autoLog");
 
-    // Extrai link
     const extracted = extrairVideoDoHtml(html, source.uqloadUrl);
     logMsg(`✓ Extraído via: ${extracted.tipo}`, "success", "autoLog");
 
-    // Aplica prefixo se necessário
     const finalLink = buildFinalUrl(extracted.url, source.prefix);
     source.currentLink = finalLink;
     source.status = "active";
@@ -1190,7 +1233,6 @@ async function runAutoRefresh(source) {
 
     logMsg(`🔗 Link: ${finalLink.slice(0, 80)}...`, "success", "autoLog");
 
-    // Salva no catalog.json
     await saveAutoToCatalog(source, finalLink);
 
     renderAutoList();
@@ -1251,7 +1293,7 @@ function renderAutoList() {
     const statusClass = s.status === 'active' ? 'active' : s.status === 'error' ? 'error' : '';
     const statusLabel = s.status === 'active' ? '✔ Ativa' : s.status === 'error' ? '✗ Erro' : '⏳ Aguardando';
     const statusColor = s.status === 'active' ? '#10b981' : s.status === 'error' ? '#ef4444' : '#f59e0b';
-    
+
     return `
       <div class="auto-item ${statusClass}" data-id="${s.id}">
         <div class="ai-countdown" style="color:${statusColor}">${remaining}s</div>
@@ -1303,7 +1345,6 @@ function escapeHtml(s) {
   return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
-// Atualiza countdowns a cada 1 segundo
 setInterval(() => {
   autoSources.forEach(s => {
     if (s.nextRun > 0) updateCountdownUI(s);
@@ -1311,143 +1352,324 @@ setInterval(() => {
 }, 1000);
 
 // ============================================================
-// ALL SEEKEE
+// ALL SEEKEE — SCANNER DE PÁGINAS PÚBLICAS (v2)
 // ============================================================
+let scrapeAbort = false;
+
+function scrapeLogClear() { const l = $("scrapeLog"); if (l) l.innerHTML = ""; }
+function scrapeProgress(pct, txt) {
+  const w = $("scrapeProgressWrap"), b = $("scrapeProgressBar"), t = $("scrapeProgressText"), p = $("scrapeProgressPct");
+  if (!w) return;
+  w.classList.remove("hidden");
+  if (b) b.style.width = Math.max(0, Math.min(100, pct)) + "%";
+  if (t && txt) t.textContent = txt;
+  if (p) p.textContent = Math.round(pct) + "%";
+}
+
+// Detecta o padrão de URL e devolve um template com {season}/{episode}
+function detectarPadraoScanner(url) {
+  if (!url) return null;
+  if (url.includes("mgeb.space/mp4.php?url=")) url = url.split("mgeb.space/mp4.php?url=")[1];
+
+  // Padrão A: .../Season-1/1
+  let m = url.match(/^(.*?[Ss]eason-?(\d+))\/(\d+)\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Ss]eason-?\d+$/, "");
+    return {
+      template: base + "Season-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base,
+      mode: "season-slug"
+    };
+  }
+
+  // Padrão B: .../Temporada-1/1
+  m = url.match(/^(.*?[Tt]emporada-?(\d+))\/(\d+)\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Tt]emporada-?\d+$/, "");
+    return {
+      template: base + "Temporada-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base,
+      mode: "temporada-slug"
+    };
+  }
+
+  // Padrão C: .../Black-Clover-Season-1 (SEM episódio — padrão do cuevana)
+  m = url.match(/^(.*?[Ss]eason-?(\d+))\/?$/);
+  if (m) {
+    const base = m[1].replace(/[Ss]eason-?\d+$/, "");
+    return {
+      template: base + "Season-{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: 1,
+      base,
+      mode: "season-only"
+    };
+  }
+
+  // Padrão D: .../nome-da-serie/1
+  m = url.match(/^(.*?)\/(\d+)\/?$/);
+  if (m) {
+    return {
+      template: m[1] + "/{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: 1,
+      base: m[1],
+      mode: "numeric-season"
+    };
+  }
+
+  // Padrão E: .../nome-da-serie/1/1
+  m = url.match(/^(.*?)\/(\d+)\/(\d+)\/?$/);
+  if (m) {
+    return {
+      template: m[1] + "/{season}/{episode}",
+      season: parseInt(m[2], 10),
+      episode: parseInt(m[3], 10),
+      base: m[1],
+      mode: "numeric-both"
+    };
+  }
+
+  // Padrão F: raiz
+  return {
+    template: url.replace(/\/+$/, "") + "/{season}/{episode}",
+    season: 1,
+    episode: 1,
+    base: url.replace(/\/+$/, ""),
+    mode: "root-inteligente"
+  };
+}
+
+function detectarTemplateScanner() {
+  const url = $("scrapeUrl").value.trim();
+  if (!url) return toast("Cole um link primeiro", true);
+  const p = detectarPadraoScanner(url);
+  if (!p) return toast("Não consegui detectar o padrão", true);
+  $("scrapeTemplate").value = p.template;
+  toast(`✔ Template detectado (${p.mode}) — T${p.season} E${p.episode}`);
+}
+
+async function descobrirTemporadasScanner(baseTemplate, maxSeasons) {
+  const temporadas = [];
+  const modoInteligente = $("smartMode").value === "on";
+
+  for (let s = 1; s <= maxSeasons; s++) {
+    const testUrl = baseTemplate.replace(/{season}/g, s).replace(/{episode}/g, 1);
+    logMsg(`🔎 Testando T${s} → ${shortLink(testUrl, 90)}`, "info");
+    try {
+      const res = await fetchWithProxy(testUrl);
+      if (!res) { logMsg(`  ↳ proxy falhou`, "warn"); continue; }
+      const html = await res.text();
+      if (html.length < 500) { logMsg(`  ↳ página vazia (${html.length}b)`, "warn"); continue; }
+      if (/<title>.*(404|not found|no encontrado).*<\/title>/i.test(html) && html.length < 3000) {
+        logMsg(`  ↳ 404`, "warn");
+        continue;
+      }
+      const temPlayer = /<video|player|iframe|\.mp4|\.m3u8|embed|source/i.test(html);
+      if (!temPlayer && !modoInteligente) {
+        logMsg(`  ↳ sem player detectável, ignorando`, "warn");
+        continue;
+      }
+      temporadas.push({ number: s, firstEpisodeUrl: testUrl });
+      logMsg(`  ✔ T${s} existe`, "success");
+    } catch (e) {
+      logMsg(`  ↳ erro: ${e.message}`, "warn");
+    }
+  }
+  return temporadas;
+}
+
+async function varrerEpisodiosScanner(template, seasonNumber, limite = 200) {
+  const found = [];
+  let fails = 0;
+
+  for (let ep = 1; ep <= limite; ep++) {
+    if (scrapeAbort) break;
+    const epUrl = template.replace(/{season}/g, seasonNumber).replace(/{episode}/g, ep);
+    logMsg(`📺 T${seasonNumber} E${ep} → ${shortLink(epUrl, 80)}`, "info");
+    try {
+      const res = await fetchWithProxy(epUrl);
+      if (!res) { fails++; if (fails >= 3) { logMsg(`3 falhas seguidas, parando T${seasonNumber} no E${ep}`, "warn"); break; } continue; }
+
+      const html = await res.text();
+      if (/<title>.*(404|not found|no encontrado).*<\/title>/i.test(html) && html.length < 3000) {
+        fails++; if (fails >= 3) break; continue;
+      }
+
+      const video = extrairVideoDoHtml(html, epUrl);
+      found.push({
+        number: ep,
+        label: `Episódio ${ep}`,
+        title: "",
+        source: video.url,
+        subtitles: {}
+      });
+      logMsg(`  ✔ T${seasonNumber} E${ep} [${video.tipo}]`, "success");
+      fails = 0;
+    } catch (e) {
+      fails++;
+      if (fails >= 3) break;
+    }
+    await new Promise(r => setTimeout(r, 120));
+  }
+
+  return found;
+}
+
 async function autoScrapeTudo() {
   let initialUrl = $("scrapeUrl").value.trim();
   if (!initialUrl) return toast("Cole o link da série", true);
   if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro.", true);
 
-  if (initialUrl.includes("mgeb.space/mp4.php?url=")) {
-    initialUrl = initialUrl.split("mgeb.space/mp4.php?url=")[1];
-  }
+  scrapeAbort = false;
+  $("btnScrapeAll").disabled = true;
+  $("btnScrapeStop").style.display = "inline-block";
+  $("btnScrapeAll").innerHTML = 'Raspando...<span class="spinner"></span>';
 
-  const maxSeasonsTMDB = parseInt($("tmdbMaxSeasons").value, 10) || 1;
-  const shouldPrefix = $("bulkPrefix").value === "yes";
+  scrapeLogClear();
+  logMsg(`🕷️ Scanner iniciado`, "title");
 
-  $("scrapeLog").innerHTML = "";
-  const btn = $("btnScrapeAll");
-  btn.disabled = true;
-  btn.innerHTML = 'Raspando...<span class="spinner"></span>';
-
-  const domain = new URL(initialUrl).origin;
-  let urlBase = initialUrl.replace(/\/\d+\/?$/, "").replace(/-Season-\d+$/i, "").replace(/-Temporada-\d+$/i, "");
-  const slugMatch = urlBase.match(/\/([^\/]+)$/);
-  const slug = slugMatch ? slugMatch[1] : "";
-  const hashPrefix = slug.substring(0, 8);
-
-  logMsg(`🕷️ Iniciando raspagem em: ${domain}`, 'title');
-  logMsg(`📌 Slug base: ${slug}`, 'info');
-
-  let seasonUrls = {};
-
-  // Passo 1: HTML
   try {
-    const res = await fetchWithProxy(initialUrl);
-    if (res) {
-      const html = await res.text();
-      logMsg(`✅ HTML baixado (${html.length} bytes)`, 'success');
+    const padrao = detectarPadraoScanner(initialUrl);
+    logMsg(`📌 Padrão: ${padrao.mode} | template: ${padrao.template}`, "info");
+    $("scrapeTemplate").value = padrao.template;
 
-      const linkRegex = /href=["']([^"']+)["']/gi;
-      let match;
-      while ((match = linkRegex.exec(html)) !== null) {
-        let url = match[1];
-        if (url.startsWith('/')) url = domain + url;
-        if (!url.startsWith('http')) continue;
-        let cleanUrl = url.replace(/\/\d+\/?$/, "").replace(/\/+$/, "");
-        if (cleanUrl.includes(hashPrefix)) {
-          let sNum = 1;
-          const sMatch = cleanUrl.match(/-Season-(\d+)/i) || cleanUrl.match(/-Temporada-(\d+)/i);
-          if (sMatch) sNum = parseInt(sMatch[1], 10);
-          if (sNum <= maxSeasonsTMDB && !seasonUrls[sNum]) {
-            seasonUrls[sNum] = cleanUrl;
-            logMsg(`🔗 T${sNum}: ${cleanUrl}`, 'success');
-          }
-        }
+    const shouldPrefix = $("bulkPrefix").value === "yes";
+    const maxSeasons = parseInt($("tmdbMaxSeasons").value, 10) || 10;
+
+    logMsg(`🌡️ Descobrindo temporadas...`, "title");
+    const temporadas = await descobrirTemporadasScanner(padrao.template, maxSeasons);
+    if (!temporadas.length) {
+      toast("Nenhuma temporada encontrada", true);
+      return;
+    }
+    logMsg(`✅ ${temporadas.length} temporada(s) detectada(s)`, "success");
+
+    let totalEp = 0;
+    for (let i = 0; i < temporadas.length; i++) {
+      if (scrapeAbort) break;
+      const t = temporadas[i];
+      scrapeProgress((i / temporadas.length) * 100, `Temporada ${t.number}…`);
+      logMsg(`📺 Varrendo T${t.number}...`, "title");
+      const eps = await varrerEpisodiosScanner(padrao.template, t.number);
+      if (!eps.length) { logMsg(`T${t.number} sem episódios`, "warn"); continue; }
+
+      eps.forEach(e => {
+        if (shouldPrefix && !e.source.startsWith(PREFIX)) e.source = PREFIX + e.source;
+      });
+
+      let sObj = current.seasons.find(x => x.number === t.number);
+      if (!sObj) {
+        sObj = { number: t.number, label: `Temporada ${t.number}`, episodes: [] };
+        current.seasons.push(sObj);
       }
+      eps.forEach(newEp => {
+        const ex = sObj.episodes.find(x => x.number === newEp.number);
+        if (ex) { ex.source = newEp.source; }
+        else sObj.episodes.push(newEp);
+      });
+      sObj.episodes.sort((a, b) => a.number - b.number);
+      totalEp += eps.length;
     }
-  } catch(e) {
-    logMsg(`⚠️ Falha ao ler HTML: ${e.message}`, 'warn');
-  }
 
-  // Passo 2: Força bruta
-  logMsg(`💪 Força bruta para temporadas faltantes...`, 'title');
-  const patterns = [
-    (s) => s === 1 ? urlBase : `${urlBase}-Season-${s}`,
-    (s) => s === 1 ? urlBase : `${urlBase}-Temporada-${s}`,
-    (s) => `${urlBase}/${s}`,
-    (s) => `${urlBase}/temporada-${s}`,
-    (s) => `${urlBase}/tp/${s}`
-  ];
-
-  for (let s = 1; s <= maxSeasonsTMDB; s++) {
-    if (seasonUrls[s]) continue;
-    for (const p of patterns) {
-      let testUrl = p(s) + "/1";
-      try {
-        const res = await fetchWithProxy(testUrl);
-        if (res) {
-          const text = await res.text();
-          if (text.length > 1000 && !text.match(/<title>.*404.*<\/title>/i)) {
-            seasonUrls[s] = p(s);
-            logMsg(`✔️ T${s}: ${p(s)}`, 'success');
-            break;
-          }
-        }
-      } catch(e) {}
-    }
-  }
-
-  // Passo 3: Episódios
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  let totalEpisodios = 0;
-
-  for (let s = 1; s <= maxSeasonsTMDB; s++) {
-    if (!seasonUrls[s]) continue;
-    logMsg(`📺 T${s}: ${seasonUrls[s]}`, 'title');
-    let epNum = 1;
-    let fails = 0;
-
-    while (epNum <= 200) {
-      let epUrl = `${seasonUrls[s]}/${epNum}`;
-      try {
-        const res = await fetchWithProxy(epUrl);
-        if (!res) { fails++; if (fails >= 3) break; continue; }
-
-        const html = await res.text();
-        if (html.match(/<title>.*404.*<\/title>/i)) break;
-
-        const videoData = extrairVideoDoHtml(html, epUrl);
-        let finalUrl = videoData.url;
-        if (shouldPrefix && !finalUrl.startsWith(PREFIX)) finalUrl = PREFIX + finalUrl;
-
-        let sObj = current.seasons.find(x => x.number === s);
-        if (!sObj) { sObj = { number: s, label: `Temporada ${s}`, episodes: [] }; current.seasons.push(sObj); }
-
-        let eObj = sObj.episodes.find(x => x.number === epNum);
-        if (eObj) eObj.source = finalUrl;
-        else sObj.episodes.push({ number: epNum, label: `Episódio ${epNum}`, title: "", source: finalUrl, subtitles: {} });
-
-        totalEpisodios++;
-        logMsg(`✔️ T${s} E${epNum} [${videoData.tipo}]`, 'success');
-        fails = 0;
-        epNum++;
-        await sleep(150);
-      } catch (err) { break; }
-    }
-  }
-
-  if (totalEpisodios > 0) {
-    current.seasons.sort((a,b) => a.number - b.number);
+    current.seasons.sort((a, b) => a.number - b.number);
     renderPreview();
-    toast(`✔️ ${totalEpisodios} episódios encontrados`);
-    logMsg(`✅ FIM! ${totalEpisodios} eps`, 'success');
-  } else {
-    toast("Nenhum episódio encontrado", true);
+    updateSeasonSelect();
+    scrapeProgress(100, "Concluído");
+
+    if (totalEp > 0) {
+      toast(`✔ ${totalEp} episódios encontrados em ${temporadas.length} temporada(s)`);
+      logMsg(`✅ FIM! ${totalEp} eps / ${temporadas.length} temporadas`, "success");
+    } else {
+      toast("Nenhum episódio encontrado", true);
+    }
+  } catch (err) {
+    logMsg(`❌ Erro fatal: ${err.message}`, "error");
+    toast("Erro: " + err.message, true);
+  } finally {
+    $("btnScrapeAll").disabled = false;
+    $("btnScrapeStop").style.display = "none";
+    $("btnScrapeAll").innerHTML = '<i data-lucide="scan-search" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Varrer Tudo';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+async function scrapeTodasTemporadas() {
+  if (!current || current.type !== "series") return toast("Busque a série no TMDB primeiro", true);
+
+  let template = $("scrapeTemplate").value.trim();
+  if (!template) {
+    const url = $("scrapeUrl").value.trim();
+    if (url) { detectarTemplateScanner(); template = $("scrapeTemplate").value.trim(); }
+  }
+  if (!template) return toast("Preencha o link ou o template", true);
+  if (!template.includes("{season}") || !template.includes("{episode}")) {
+    return toast("Template precisa de {season} e {episode}", true);
   }
 
-  btn.disabled = false;
-  btn.innerHTML = '🕷️ Varrer Tudo';
+  scrapeAbort = false;
+  $("btnScrapeSeasons").disabled = true;
+  $("btnScrapeStop").style.display = "inline-block";
+  $("btnScrapeSeasons").innerHTML = 'Varrendo...<span class="spinner"></span>';
+
+  scrapeLogClear();
+  logMsg(`🕷️ Scanner (modo batch) iniciado`, "title");
+
+  try {
+    const shouldPrefix = $("bulkPrefix").value === "yes";
+    const maxSeasons = parseInt($("tmdbMaxSeasons").value, 10) || 10;
+
+    const temporadas = await descobrirTemporadasScanner(template, maxSeasons);
+    if (!temporadas.length) { toast("Nenhuma temporada encontrada", true); return; }
+    logMsg(`✅ ${temporadas.length} temporada(s) detectada(s)`, "success");
+
+    let totalEp = 0;
+    for (let i = 0; i < temporadas.length; i++) {
+      if (scrapeAbort) break;
+      const t = temporadas[i];
+      scrapeProgress((i / temporadas.length) * 100, `Temporada ${t.number}…`);
+      const eps = await varrerEpisodiosScanner(template, t.number);
+      if (!eps.length) continue;
+      eps.forEach(e => { if (shouldPrefix && !e.source.startsWith(PREFIX)) e.source = PREFIX + e.source; });
+
+      let sObj = current.seasons.find(x => x.number === t.number);
+      if (!sObj) {
+        sObj = { number: t.number, label: `Temporada ${t.number}`, episodes: [] };
+        current.seasons.push(sObj);
+      }
+      eps.forEach(newEp => {
+        const ex = sObj.episodes.find(x => x.number === newEp.number);
+        if (ex) ex.source = newEp.source;
+        else sObj.episodes.push(newEp);
+      });
+      sObj.episodes.sort((a, b) => a.number - b.number);
+      totalEp += eps.length;
+    }
+
+    current.seasons.sort((a, b) => a.number - b.number);
+    renderPreview();
+    updateSeasonSelect();
+    scrapeProgress(100, "Concluído");
+    toast(`✔ ${totalEp} episódios em ${temporadas.length} temporada(s)`);
+  } catch (err) {
+    logMsg(`❌ Erro: ${err.message}`, "error");
+    toast("Erro: " + err.message, true);
+  } finally {
+    $("btnScrapeSeasons").disabled = false;
+    $("btnScrapeStop").style.display = "none";
+    $("btnScrapeSeasons").innerHTML = '<i data-lucide="layers" style="width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Colocar todas as temporadas + episódios';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+function scrapeParar() {
+  scrapeAbort = true;
+  toast("Parando scanner…", "warn");
+  logMsg(`⏹ Parada solicitada pelo usuário`, "warn");
 }
 
 // ============================================================
@@ -1710,7 +1932,6 @@ async function saveToCatalog() {
   }
 }
 
-// carrega item existente do catálogo para edição (usado pela Biblioteca)
 async function loadForEdit(type, id) {
   try {
     await ensureCatalog();
@@ -1745,7 +1966,6 @@ function resetForm() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Baixa SEMPRE o catálogo completo (relido) + o item que está aberto
 async function downloadCatalog() {
   try {
     collectCurrent();
@@ -1965,7 +2185,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (e.key === "Escape" && $("modal").classList.contains("show")) $("mCancel").click();
   });
+
+  // Inicializa Lucide
+  if (window.lucide) lucide.createIcons();
 });
+
+// Observer para ícones Lucide em conteúdo dinâmico
+new MutationObserver(() => { if (window.lucide) lucide.createIcons(); }).observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
 </html>
