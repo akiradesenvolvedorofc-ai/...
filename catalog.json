@@ -29829,6 +29829,84 @@
       ],
       "isAnime": true
     },
+    "291507": {
+      "title": "O Corpo",
+      "overview": "Na noite de Halloween, as garotas de um grupo de dança são tomadas por desejos profanos, visões fantasmagóricas e culpa católica depois que um ritual de iniciação dá errado.",
+      "poster": "https://image.tmdb.org/t/p/w500/iHG87S3P8409qOFtYA616BiNLPj.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/hYJqUoXRZnodGxgVZTM8uwr5kbC.jpg",
+      "year": "2026",
+      "rating": 7.8,
+      "genres": [
+        "Mistério",
+        "Drama"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Deus safado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Jesus, literalmente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Pensamentos profanos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Vi Grace Franklin com o Diabo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Fingindo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Brilho de estrela",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Santíssima Trindade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Assumindo",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794960996209
+    },
     "292554": {
       "title": "デキちゃうまで婚",
       "overview": "",
