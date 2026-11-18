@@ -183,6 +183,23 @@
       "ageRating": "L",
       "source": "https://mgeb.space/mp4.php?url=https://flixlat.com/pt/detail/movie/AVaQNlc7eTy1a6pYz8Spx-Shrek-the-Third"
     },
+    "862": {
+      "title": "Toy Story: Um Mundo de Aventuras",
+      "overview": "Buzz Lightyear é o novo e sofisticado astronauta de brinquedo do garoto Andy. Buzz não imaginava que encontraria um rival: Woody, um cowboy de brinquedo que, dominado pelo ciúme, acredita ter perdido um lugar precioso no coração do seu dono. Os dois brinquedos vivem brigando até que vão parar nas garras do vizinho, um verdadeiro destruidor de brinquedos. Agora, mais do que nunca, Buzz e Woody precisam precisam se unir para escapar do perigo. Com a ajuda de seus amigos da caixa de brinquedos, eles vão viver uma incrível aventura.",
+      "poster": "https://image.tmdb.org/t/p/w500/686F0CEPmI4ZXjFbWtIHQOBwnfI.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/8AqWECiUHnz1Crj69uB9vhiK9Le.jpg",
+      "year": "1995",
+      "rating": 7.99,
+      "genres": [
+        "Família",
+        "Comédia",
+        "Animação",
+        "Aventura"
+      ],
+      "ageRating": "L",
+      "source": "",
+      "addedAt": 1794967967016
+    },
     "920": {
       "title": "Carros",
       "overview": "Ao viajar para a Califórnia, o famoso carro de corridas Relâmpago McQueen se perde e vai parar em Radiator Springs, uma cidadezinha na Rota 66. Ele conhece novos amigos e aprende lições que mudam sua forma de encarar a vida.",
