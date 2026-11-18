@@ -12047,6 +12047,2115 @@
         }
       ]
     },
+    "12971": {
+      "title": "Dragon Ball Z",
+      "overview": "Cinco anos após vencer o Torneio Mundial de Artes Marciais, Goku vive uma vida tranquila com sua esposa e seu filho. No entanto, essa situação muda com a chegada de um inimigo misterioso chamado Raditz, que se apresenta como o irmão de Goku, há muito desaparecido. Ele revela que Goku é descendente da raça Saiyajin — outrora poderosa, mas agora praticamente extinta —, cujo planeta natal foi aniquilado. Quando foi enviado à Terra ainda bebê, o único objetivo de Goku era conquistar e destruir o planeta; porém, após sofrer amnésia devido a um ferimento na cabeça, sua natureza violenta e selvagem mudou, e ele acabou sendo criado como um garoto gentil e educado, passando a lutar para proteger os outros.",
+      "poster": "https://image.tmdb.org/t/p/w500/kbkuYkaFsDwL6cyMgnBf77LczEo.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/ydf1CeiBLfdxiyNTpskM0802TKl.jpg",
+      "year": "1989",
+      "rating": 8.4,
+      "genres": [
+        "Animação",
+        "Sci-Fi & Fantasy",
+        "Action & Adventure"
+      ],
+      "ageRating": "12",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Saga dos Saiyajins",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Surge um Mini Goku! Seu Nome é Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Um Guerreiro Muito Poderoso com Antecedentes Históricos: O Irmão Mais Velho de Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A Combinação Mais Forte Deste Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Piccolo Usa Sua Melhor Estratégia! Gohan É um Garoto Chorão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Goku se Sacrifica! Só Existe uma Chance!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Enma-Sama Também se Surpreende! Terá que Lutar no Outro Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "É Preciso Sobreviver aos Dinossauros! O Difícil Treinamento de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Uma Transformação por Causa da Lua! O Poder Secreto de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Perdão Sr. Robô! Lágrimas que Desaparecem no Deserto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Não Chore Gohan! É a Primeira Batalha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Os Guerreiros Mais Fortes do Universo! O Despertar dos Saiyajins",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Um Pequeno Descanso! Goku Cai do Caminho da Serpente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Não Toque Nisso! A Fruta Secreta de Enma-Sama",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Uma Doce Tentação! A Hospitalidade da Princesa Serpente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Fugindo de Piccolo! Gohan Enfrenta uma Tempestade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Corre Gohan! Chi-Chi o Espera na Montanha Paozu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Uma Cidade Sem Futuro! Um Longo Caminho Até a Vitória",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Final do Caminho da Serpente! É o Sr. Kaioh?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Domine a Força da Gravidade! Agarre Bubbles",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Lenda Revive! Os Antepassados de Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Sai Daí Shenlong! Os Saiyajins Chegaram à Terra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Impossível! Saibaimans Nascidos da Terra?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Yamcha Morre! Os Temíveis Saibaimans",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Adeus Tenshin! A Arte do Sacrifício de Chaos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Sacrifício de Tenshinhan! O Último Kikohou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Só Restam Três Horas de Vida na Terra! Apresse-se Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Explode a Fúria de Gohan!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "O Ataque dos Saiyajins! Kami-Sama e Piccolo Morrem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Papai Você é Incrível! Uma Técnica Mortal Chamada Kaioh-ken",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Uma Luta Além dos Limites! Goku Contra Vegeta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Arrisque a Vida Goku! A Última Opção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Seu Poder de Luta Aumentou Dez Vezes!! A Transformação de Vegeta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Não Morra Pai!! O Poder Oculto de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Pegue-o Kuririn! Uma Genkidama Cheia de Esperança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Ocorre um Milagre! A Transformação de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Vamos ao Planeta de Piccolo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Um Lugar Misterioso Chamado Yunzabit! Vamos Procurar a Nave Espacial de Kami-Sama!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Vamos Para Namekusei!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Serão Amigos ou Inimigos? Os Garotos Daquela Misteriosa Nave Espacial",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Saga de Namekusei",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Isso é Namekusei?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Extraterrestres Muitos Gentis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Planeta Freeza Nº 79! Vegeta é Revivido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Reunimos as Esferas do Dragão! Já Podemos Reviver Piccolo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Um Novo Inimigo! O Imperador do Universo, Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Ambição de Vegeta! Sou o Guerreiro Mais Forte do Universo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Viagem de Goku à Namekusei",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Um Ataque Surpresa! O Ancião Destrói os Rastreadores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Gohan se Arrisca! O Perseguidor Dodória",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Morte de Dodória!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Goku Usa um Kamehameha Para Salvar a Pele!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Os Grandes Lutadores se Reúnem Com o Senhor Kaioh!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Preste Atenção Goku! Não Chegue Perto de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Incrível Transformação de Zarbon",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "É Preciso Proteger o Planeta da Esperança!! Kuririn Aumenta o Seu Poder",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Vegeta Revive Milagrosamente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Complô de Freeza se Desfaz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Goku Treina Numa Gravidade 100 Vezes Maior!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Grupo Secreto de Freeza! As Terríveis Forças Especiais Ginyu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Tome Cuidado Bulma! A Esfera de Quatro Estrelas Pode Cair nas Mãos de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "A Vontade Indestrutível de Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "A Batalha se Aproxima! Chegam as Forças Especiais Ginyu!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Goku se Aproxima! Os Temíveis Homens de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Sr. Gurdo se Aborrece e Utiliza um Truque Mágico",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Terrível Rikum",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Não Morra Gohan! Goku Chega Finalmente ao Campo de Batalha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Goku, o Lendário Saiyajin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Yuz e Botter Atacam Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "A Aparição do Capitão Ginyu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Já Viram o Verdadeiro Poder de Goku!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Freeza Encontra Com o Patriarca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Goku é Ginyu!? E Ginyu é Goku!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Saia Daí Shenlong! E Realize o Meu Desejo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Eu Não Sou Ele! Gohan Ataque Seu Pai Sem Medo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Ginyu se Transforma Numa Rã",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Saga de Freeza",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Diga o Código Secreto das Esferas do Dragão!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Piccolo e Kami-Sama Revivem Com a Ajuda do Super Shenlong",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Será que Surge um Novo Guerreiro!? Piccolo e Nail se Unem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Um Pesadelo de Transformação! Freeza Possui o Poder de Um Milhão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Gohan É Atacado Pelo Impiedoso Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Chegada de Piccolo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Piccolo se Encarrega de Vencer Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Segunda Transformação de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Freeza Tem a Batalha Ganha Com Sua Terceira Transformação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Morte de Dendê",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Goku se Recupera",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Morre Vegeta! Um Orgulhoso Saiyajin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Começa a Batalha Final",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Uma Luta Corpo a Corpo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Freeza Luta Sem Usar as Mãos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Goku É Muito Valente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Goku Faz um Kaioh-Ken Aumentado 20 Vezes!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "A Gigantesca Genkidama! É a Última Esperança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Não Deixem Passar Essa Oportunidade! Piccolo Ajuda Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Poder Destrutivo da Genki-Dama",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Goku Finalmente se Transforma no Lendário Super Saiyajin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Goku Vingará Todas as Mortes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Uma Grande Faísca Atravessa Namekusei",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Freeza Utiliza seu Poder Máximo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Namekusei Está Prestes a Explodir! Shenlong Realize Nosso Desejo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Eu Sou o Filho de Goku! Gohan Aparece Novamente no Campo de Batalha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "O Último Desejo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Uma Batalha Extraordinária!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "O Desespero de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "A Autodestruição de Freeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Freeza Perde a Luta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Namekusei Explode",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Os Guerreiros Z Ressuscitam",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Saga dos Androides",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Problemas no Templo Sagrado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Neblina do Mal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Piccolo se Torna Parte da Família do Mal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Piccolo Enfrenta Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Plano de Piccolo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Kami-Sama e Sr. Popo Vão ao Local Sagrado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Vida de Kami-Sama Está em Perigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Água Ultra Sagrada Salva o Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Gohan Destrói o Planeta Maligno",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Kuririn Pede Maron em Casamento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Este É o Planeta Terra Papai!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Eu Me Encarregarei de Vencer Freeza!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Fim de Freeza!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Goku Voltou!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "A Identidade do Jovem Misterioso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "A Técnica Especial de Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Vou Superar Goku!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Uma Prova Muito Difícil Para Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Quem São os Androides!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Os Terríveis Androides Nº 19 e 20!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Goku Tem Dois Problemas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Vegeta se Transforma Num Super Saiyajin!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "O Segredo do Dr. Maki",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "A Realidade É Muito Pior do Que o Futuro!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "É Preciso Encontrar o Laboratório do Dr. Maki!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Os Androides Nº 17 e 18 Despertam!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "O Exército Encarregado de Matar Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "As Habilidades do Androide Nº 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Será Este o Fim dos Guerreiros Z!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "A Decisão de Piccolo!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Os Androides Destruidores!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Bulma Descobre um Grande Mistério!",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Saga de Cell",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Um Ovo Misterioso Encontrado na Máquina do Tempo!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Nascimento de um Novo Guerreiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Monstro que Tem o Ki de Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Androide Cell!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Cell Escapa das Mãos de Piccolo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Esconderijo Secreto do Laboratório do Dr. Gero!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Goku se Recupera!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Vamos à Sala do Tempo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Piccolo Contra o Androide Nº 17!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Cell Está Perto de Aperfeiçoar Seu Corpo!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Piccolo Luta com Todas as Suas Forças!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Última Esperança! O Androide Nº 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cell Absorve o Androide Nº 17!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Novo Desafio de Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Apareça, Nº 18!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Super Poder de Vegeta!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Eu Sou o Super Vegeta!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Um Guerreiro Orgulhoso!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "A Decisão de Kuririn!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Cell Quer Aperfeiçoar o Seu Corpo!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Cell, o Deus da Destruição!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Super Vegeta Corre Perigo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Trunks Fica Furioso!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Salvem Meu Pai!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Desespero de Viver Num Futuro Infernal!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "O Ponto Fraco de Super Trunks!!",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Saga Jogos de Cell",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Mistério do Novo Torneio de Artes Marciais!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Anúncio do Torneio de Cell!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Os Novos Poderes de Goku e Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Tranquilidade de Goku!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Descanso dos Guerreiros!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Quando Gohan Era Bebê!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Vamos Procurar um Novo Kami-Sama!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "As Esferas do Dragão Voltam a Existir!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Sofrimento de Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Começa o Torneio de Cell!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Exército do Sr. Satan!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Goku Contra Cell!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Super Kamehameha de Cell!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Cell Muda as Regras do Jogo!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Goku se Rende!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Gohan... O Jovem Mais Forte!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Gohan Libera Todo o Seu Poder!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Ataque dos Cells Juniores!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Gohan Fica Nervoso!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Destruição dos Cells Juniores!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Cell É Golpeado!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "A Transformação de Cell!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Adeus a Todos!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Um Terrível Pesadelo em Pleno Dia!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Uma Mensagem Para Gohan!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "A Luta Terminou... Obrigado Goku!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Goku Vai Treinar no Além!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Pai, Jamais Vou Me Dar por Vencido!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Outro Final Feliz!!",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Saga do 25º Torneio de Artes Marciais",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Lutador Mais Forte do Outro Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Encontro dos Lutadores Mais Valentes!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Torneio Fica Emocionante!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Quem Vai Ganhar!? Goku ou Paikuhan!?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Goku Faz um Kamehameha com Toda Rapidez!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Gohan Vai Para a Escola",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Guerreiro que Luta Pela Justiça! O Grande Saiyaman",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Primeiro Encontro de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Gohan Salva Videl",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O Ladrão É o Grande Saiyaman?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Goku Vai Voltar?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Poder Surpreendente de Goten",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Treinamento Para Voar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Os Guerreiros Z se Reúnem Novamente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Tenha Cuidado, Grande Saiyaman",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Pequeno Trunks",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Goten Fica Nervoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Campeão do Torneio Infantil",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Que Pretende Fazer, Mr. Satan?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "As Lutas das Artes Marciais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "O Que Está Acontecendo, Piccolo?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Mistério de Spopovich",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Gohan se Enfurece",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Gohan É o Grande Saiyaman",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Poder de Gohan É Roubado",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "label": "Saga de Majin Boo (Parte 1)",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Perverso Mago Babidi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Um Diabo do Inferno",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Vegeta Fica Aborrecido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Poder Máximo de Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Mr. Satan Contra Três Super Guerreiros",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Uma Luta Difícil Contra a Número 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "É a Sua Vez, Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Ideia de Dabura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Vegeta, o Rei da Destruição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Goku Contra Vegeta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Espere, Babidi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Majin Boo Aparece",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Não Deixaremos que Majin Boo Desperte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Lamento do Supremo Senhor Kaioh",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Gohan Corre Perigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Vou Te Comer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Eu Acabarei com Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Vegeta Luta por Seus Entes Queridos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Majin Boo Continua Vivo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Procurem as Esferas do Dragão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "A Técnica Especial para Goten e Trunks",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Goten e Trunks, a Esperança de Salvar o Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Gohan Revive",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "A Lendária Espada Z",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Detenha-se Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "O Super Saiyajin 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Até Nunca, Babidi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "A Técnica da Fusão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Goku Volta Para o Outro Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Onde está Gohan?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "A Espada Z se Quebra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Nasce um Novo Guerreiro! Seu Nome É Gotenks",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "O Mr. Satan Salva a Terra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Majin Boo Deixa de Matar as Pessoas",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "label": "Saga de Majin Boo (Parte 2)",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Fúria de Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Qual dos Dois Vencerá?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Fim da Raça Humana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Treinamento É um Perfeito Sucesso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Poder de Super Gotenks",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Técnica dos Fantasmas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Super Gotenks 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Voleibol de Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Gohan Volta Para a Terra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O Poder Milagroso de Gohan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "A Grande Explosão de Majin-Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Gotenks É Absorvido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Goku Volta à Terra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Acontece Outro Milagre",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Orgulho de Vegeta e a Fúria de Goku",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Poder do Grande Vegetto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Majin Boo É Perturbado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Transforme-se em Um Doce",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Vegetto É Absorvido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Que Tem no Estômago de Majin Boo?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "A Luta Entre Pais e Filhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Segredo de Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Onde Fica a Saída?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "A Terra Desaparece",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Ataque de Majin Boo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Uma Luta Para o Futuro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Goku, Você É o Melhor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Resista, Vegeta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Não Machuque Satan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "A Estratégia de Vegeta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "A Última Esperança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Uma Genki-Dama Feita por Todos!!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Goku É o Homem Mais Forte do Universo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Majin Boo Luta a Favor da Justiça?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Goku, Você Chegou Tarde",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Meu Nome É Pan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Eu Sou Oob",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "O Sonho de Goku",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794960027620,
+      "isAnime": true
+    },
     "30984": {
       "title": "Bleach",
       "overview": "Ichigo Kurosaki, um adolescente de quinze anos, nunca pediu o dom de ver fantasmas — ele simplesmente nasceu com essa habilidade. Quando sua família é atacada por um Hollow, uma alma perdida e maligna, Ichigo conhece Rukia, uma Ceifeira de Almas que acaba lhe transferindo seus poderes. A partir desse momento, Ichigo passa a dedicar sua vida a proteger os inocentes e ajudar almas atormentadas a encontrar a paz.",
