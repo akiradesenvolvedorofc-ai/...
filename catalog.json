@@ -30815,6 +30815,100 @@
       "addedAt": 1794963066913,
       "isAnime": true
     },
+    "229544": {
+      "title": "Among Us",
+      "overview": "Os excêntricos tripulantes de uma nave que transporta sucata pela galáxia precisam descobrir quem é o impostor entre eles antes de serem vítimas dos planos maliciosos dele. Baseada no fenômeno mundial dos videogames da Innersloth, de mesmo nome.",
+      "poster": "https://image.tmdb.org/t/p/w500/2xKFj7D79gZm6rYroNmyKzm6Q6q.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/zoa11EvyuasC3j7PmH1QGftrSvf.jpg",
+      "year": "2026",
+      "rating": 9.007,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Mistério",
+        "Sci-Fi & Fantasy"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Uma Pizza Onde Nada de Ruim Acontece",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Não Dá Para Ser Bonito e Inteligente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A NOVA CASA DO CAOS!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "E GOSTAM DE MATAR!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Só Boas Energias",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Segurança Insegura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "6 Tripulantes Indignados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Síndrome do Impostor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Só Estou Desabafando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Todos Ainda Vivem. Ninguém Morreu",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794999269574
+    },
     "240411": {
       "title": "DAN DA DAN",
       "overview": "Quando a estudante do ensino médio Momo – que vem de uma família de médiuns e não acredita em alienígenas – encontra Okarun, um garoto obcecado por ocultismo que acredita em extraterrestres, a rivalidade entre os dois coloca a dupla diante de ameaças paranormais reais. Momo descobre seus poderes espirituais, enquanto Okarun ganha habilidades ao ser possuído por uma maldição, o que faz com que se unam para lutar contra yokai, OVNIs e caos de outros mundos.",
