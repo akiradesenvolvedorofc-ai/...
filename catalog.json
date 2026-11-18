@@ -295,6 +295,23 @@
       "ageRating": "10",
       "source": "https://mgeb.space/mp4.php?url=https://ver.123pelicula.com/pt/detail/movie/jqfI2uY99vjhdTsGyFqoY-The-Amazing-Spider-Man"
     },
+    "2062": {
+      "title": "Ratatouille",
+      "overview": "Remy, morador de Paris, aprecia boa comida e tem um paladar bastante sofisticado. Ele adoraria se tornar um chef para poder criar e desfrutar de obras-primas culinárias para o deleite de seu coração. O único problema é que Remy é um rato. Quando acaba no esgoto debaixo de um dos melhores restaurantes de Paris, o roedor gourmet encontra-se na posição ideal para realizar o seu sonho.",
+      "poster": "https://image.tmdb.org/t/p/w500/41Co0TRUJNyvjr2vHBEcAKAEFpX.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/zeoaHdXRDd5IoUiMVsNhwTZm78B.jpg",
+      "year": "2007",
+      "rating": 7.851,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Família",
+        "Fantasia"
+      ],
+      "ageRating": "L",
+      "source": "",
+      "addedAt": 1794971933492
+    },
     "4232": {
       "title": "Pânico",
       "overview": "Após uma série de mortes misteriosas, um grupo de amigos são ameaçados por um assassino. Em uma mistura de emoções fortes e muitos sustos, aqui a única coisa que se pode ter certeza é que todos são vítimas e todos são suspeitos.",
