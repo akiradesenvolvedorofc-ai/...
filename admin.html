@@ -1900,7 +1900,7 @@ function siteBase() { let u = (siteCfg().url || "").trim().replace(/\/+$/, ""); 
 const siteNameOf = () => siteCfg().name || "KiraFlix";
 const slugify = t => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const TYPE_LABEL = { movie: "🎬 Filme", series: "📺 Série", anime: "🎌 Anime" };
-const TYPE_WORD = { movie: "filme", series: "serie", anime: "anime" };
+const TYPE_WORD = { movie: "filme", series: "serie", anime: "serie" };
 function embedLink(info) {
   const out = getEmbedCfg().linkTpl.replace(/\{site\}/g, siteBase()).replace(/\{id\}/g, info.id).replace(/\{type\}/g, TYPE_WORD[info.kind]).replace(/\{slug\}/g, slugify(info.title));
   return /^https?:\/\/\S+$/i.test(out) ? out : "";
