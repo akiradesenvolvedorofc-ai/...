@@ -21384,6 +21384,99 @@
         }
       ]
     },
+    "72296": {
+      "title": "My First Girlfriend is a Gal",
+      "overview": "Com o começo do novo período escolar, começa também um novo período de encontros. Diante de sua sala de aula cheia de casaizinhos, Jun'Ichi Hashiba fica perturbado. \"Por que eu ainda sou virgem?\" Quando seus amigos lhe contam que a maneira mais fácil de deixar de fazer parte da associação dos encalhados é se render a uma gal, Jun'Ichi decide convidar sua colega Yukana para sair - e por incrível que possa parecer, ela acaba concordando. O que será da vida de Jun'Ichi de agora em diante?",
+      "poster": "https://image.tmdb.org/t/p/w500/qGXd58PIikQdX5vDXecAMgns6w6.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/xlTEOHMYP8ECyPhbZZ9eUMqmnSK.jpg",
+      "year": "2017",
+      "rating": 8.243,
+      "genres": [
+        "Animação",
+        "Comédia"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Minha Primeira Vez me Curvando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Minha Primeira Vez no Karaoke",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Minha Primeira Gal Bronzeada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Minha Primeira Gal Certinha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Minha Primeira Gal Meia-Boca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Minha Primeira Vez na Casa da Yame-san",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Meu Primeiro Trabalho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Minha Primeira Viagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Minha Primeira Briga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Minha Primeira Confissão",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794969698346,
+      "isAnime": true
+    },
     "72517": {
       "title": "Classroom of the Elite",
       "overview": "Kiyotaka Ayanokouji se matricula na prestigiosa Academia Tokyo Koudo Ikusei, mas é designado para a Classe 1-D, onde ficam os alunos com problemas de comportamento. A escola concede pontos equivalentes a 100.000 ienes por mês e permite uma liberdade incomum nas aulas, mascarando um sistema mais complexo.",
