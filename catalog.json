@@ -31215,6 +31215,114 @@
       ],
       "isAnime": true
     },
+    "324502": {
+      "title": "Overgeared",
+      "overview": "Youngwoo Shin é um fracassado na vida real, fazendo bicos para mal conseguir pagar suas dívidas. Até sua família o considera um viciado em videogame sem esperança. Mas quando ele entra no popularíssimo jogo de realidade virtual Satisfy, Youngwoo se transforma em Grid, o Guerreiro… que também é terrivelmente medíocre. Tudo muda quando ele encontra um tomo contendo o conhecimento perdido de um ferreiro lendário. O problema é que usá-lo reinicia todos os seus níveis! Para sobreviver depois de ser forçado a recomeçar do zero, Grid precisará aprimorar suas habilidades e reunir aliados confiáveis… ou não! Quem precisa disso quando se tem equipamentos divinos?!",
+      "poster": "https://image.tmdb.org/t/p/w500/fmAQ2lOtLAoEU2p6wQ12wXbIgLM.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/745xqHbiUWwO51TM60MXRCR4Onm.jpg",
+      "year": "2026",
+      "rating": 7.7,
+      "genres": [
+        "Animação",
+        "Sci-Fi & Fantasy",
+        "Action & Adventure"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Classe Lendária",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Primeiro Passo de Um Ferreiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Segunda Classe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Duelo de Criação de Itens",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Confiança da Família",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Primeira Raid de Chefe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Dança da Espada de Fagma",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Sumo Sacerdote de Yatan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794963957236,
+      "isAnime": true
+    },
     "328010": {
       "title": "Devils' Crest",
       "overview": "Enquanto \"Sword Art Online\" traz a realidade virtual e \"Sword Art Online the Movie: Ordinal Scale\" explora a realidade aumentada, \"Devils' Crest\" mergulha na realidade mista. Quando Actual Magic, o primeiro VRMMO-RPG de imersão total, se funde com o mundo real, um jogo mortal se inicia. Um jogo que também é real.",
