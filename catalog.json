@@ -26886,6 +26886,140 @@
         }
       ]
     },
+    "112888": {
+      "title": "Beleza Verdadeira",
+      "overview": "Uma adolescente insegura aprende os truques da maquiagem e começa a fazer um enorme sucesso na escola. Mas não vai ser fácil manter as aparências.",
+      "poster": "https://image.tmdb.org/t/p/w500/g7ocbs1UieVybM3kypqXBfPczaL.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/3E1GroTJCRdIYHa5n62GqjmqxQR.jpg",
+      "year": "2020",
+      "rating": 8.288,
+      "genres": [
+        "Comédia",
+        "Drama"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Garota de Recados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Com ou sem Maquiagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A vingança é um Prato que se Serve Frio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Ju Kyung Vai a um Encontro às Cegas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Se Ele Tem Sentimentos por Mim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ju Kyung Enfrenta Valentões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Sentimentos Mútuos de Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Mal-entendido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Namorado Secreto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Entre o Amor e a Amizade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "A verdade Sobre Se Yeon",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Estudante Transferido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Somente os Tolos Julgam os Outros",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Viagem ao Mar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Encontro Inesperado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Final Feliz",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1794961597844
+    },
     "113268": {
       "title": "Caçadores de Demônios",
       "overview": "De dia, trabalham num restaurante. À noite, são caçadores de demônios. Eles usam seus poderes especiais para perseguir espíritos malignos que atacam os humanos.",
