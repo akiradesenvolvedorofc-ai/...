@@ -26141,6 +26141,327 @@
         }
       ]
     },
+    "71446": {
+      "title": "La casa de papel",
+      "overview": "Um homem misterioso que atende pelo nome de El Profesor, está planejando o maior assalto do século. A fim de realizar o ambicioso plano ele recruta uma gangue de oito pessoas com certas habilidades que não tem nada a perder. O objetivo é infiltrar na Casa da Moeda, de modo que eles possam imprimir 2,4 bilhões de euros. Para fazer isso eles precisam de onze dias de reclusão, durante o qual eles vão ter que lidar com sessenta e sete reféns e as forças da Polícia de Elite, com cenas de muita ação e planos brilhantes de El Profesor.",
+      "poster": "https://image.tmdb.org/t/p/w500/k8ytNZ32uf4JtrtpfIw54MD0oZX.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/xGexTKCJDkl12dTW4YCBDXWb1AD.jpg",
+      "year": "2017",
+      "rating": 8.229,
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Estamos de volta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Aikido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "48 metros de profundidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Hora do golfinho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Bum, bum, ciao",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Tudo parecia insignificante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Férias curtas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "À deriva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Fim de Jogo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Casamento de Berlim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Aula de Anatomia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Suspiros da Espanha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cinco Minutos Antes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Nocaute Técnico",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Derrube a Barraca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Plano Paris",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Fim da Estrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Você Acredita em Reencarnação?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Bem-Vindos ao Show da Vida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Seu Lugar no Céu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Muitas Vidas Para Viver",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Válvula de Escape",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Voluntarismo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Teoria da Elegância",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Conversas na Cama",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Uma Tradição Familiar",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795121611437
+    },
     "72296": {
       "title": "My First Girlfriend is a Gal",
       "overview": "Com o começo do novo período escolar, começa também um novo período de encontros. Diante de sua sala de aula cheia de casaizinhos, Jun'Ichi Hashiba fica perturbado. \"Por que eu ainda sou virgem?\" Quando seus amigos lhe contam que a maneira mais fácil de deixar de fazer parte da associação dos encalhados é se render a uma gal, Jun'Ichi decide convidar sua colega Yukana para sair - e por incrível que possa parecer, ela acaba concordando. O que será da vida de Jun'Ichi de agora em diante?",
