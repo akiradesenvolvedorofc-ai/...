@@ -1244,7 +1244,7 @@ function renderAutomate() {
     <div class="card" id="apiCard"><div class="cardhead"><span class="icobox">${ic("plug", 22)}</span><div style="flex:1"><h2>API KiraFlix — buscar temporadas e episódios</h2><div class="muted" style="font-size:.8rem">Cole o link de um episódio; a API devolve os links, você confere e edita antes de salvar na série escolhida no passo 1.</div></div></div>
       <div class="field"><label>Link do episódio / série</label><input id="apiLink" placeholder="https://www3.dramasfree.com/pt/detail/drama/ID-Nome-Season-1/1" autocomplete="off"></div>
       <div class="row"><div><label>Prefixo dos links</label><select id="apiPfx" onchange="renderApiPreview()">${pfxOptions()}</select></div><div><label>Se o episódio já existir</label><select id="apiMode"><option value="update">Só preencher os sem link</option><option value="ignore">Ignorar os que já existem</option><option value="replace">Substituir os links existentes</option></select></div></div>
-      <label class="switchrow"><input type="checkbox" id="apiSweep" checked><b style="font-size:.84rem">Varrer todas as temporadas (troca o -Season-N do link e consulta a API de cada uma)</b></label>
+      <label class="switchrow"><input type="checkbox" id="apiSweep"><b style="font-size:.84rem">Varrer temporada por temporada (só se a API devolver uma temporada; o api.php v6.1 já devolve todas numa chamada)</b></label>
       <details style="margin-top:12px"><summary>Endereço da API</summary><div class="row nofl mt"><input style="flex:1;min-width:0" id="apiBase" value="${esc(getApiBase())}"><button class="btn ghost" onclick="saveApiBase()">Salvar</button></div></details>
       <div class="row nofl mt"><button class="btn" id="btnApiGo" onclick="apiFetchSeasons()">${ic("search", 16)} Buscar temporadas</button><button class="btn ghost" id="btnApiTest" onclick="apiTest()">Testar API</button></div>
       <div class="progress hidden" id="apiProg"><b id="apiBar"></b></div>
@@ -1584,11 +1584,18 @@ async function apiFetchSeasons() {
   const m = link.match(/(Season|Temporada)-(\d+)/i), sweep = $("apiSweep").checked && !!m;
   const btn = $("btnApiGo"), old = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Buscando'; apiProgress(4);
   apiLog("Consultando a API: " + shortLink(link, 90), "title");
+  apiLog("URL chamada: " + getApiBase() + encodeURIComponent(link), "info");
   try {
     let found = [];
     if (!sweep) {
       const r = await apiCallSafe(link); apiLog(`✔ Resposta recebida (${r.bytes} bytes)`, "success");
       found = parseApiSeasons(r.json, m ? parseInt(m[2], 10) : 1);
+      const d = r.json && r.json.data;
+      if (d && typeof d === "object") {
+        if (d.title) apiLog("Título na fonte: " + d.title, "info");
+        if (Array.isArray(d.failed_pages) && d.failed_pages.length) apiLog(`⚠ ${d.failed_pages.length} página(s) falharam na API: ` + d.failed_pages.slice(0, 3).map(f => (f.error || "erro") + " — " + shortLink(f.url || "", 50)).join(" | "), "warn");
+        if (d.complete === false) apiLog("⚠ A API marcou a busca como incompleta; confira as temporadas.", "warn");
+      }
     } else {
       let misses = 0;
       for (let n = 1; n <= 40 && misses < 2; n++) {
