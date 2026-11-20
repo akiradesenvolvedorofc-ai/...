@@ -60945,6 +60945,99 @@
         }
       ],
       "isAnime": true
+    },
+    "341822": {
+      "title": "Unstable SMP",
+      "overview": "Unstable SMP é uma série cinematográfica de Minecraft que acompanha diferentes criadores em um mundo repleto de alianças, conflitos, rivalidades e acontecimentos inesperados. A história é apresentada por diferentes perspectivas, permitindo acompanhar os eventos pelos pontos de vista de cada protagonista.",
+      "poster": "https://image.tmdb.org/t/p/w500/myA9rhEGvJKxEPGx0JekiC5NPam.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/4zmBTwe7kN32ArHJQXp2saR8oKl.jpg",
+      "year": "2024",
+      "rating": 10,
+      "genres": [
+        "Action & Adventure",
+        "Crime",
+        "War & Politics"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Season 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "How to Destroy the Unstable SMP (Spoke)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "This Button Destroys the World (Parrot)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Breaking Into Minecraft's Most Illegal Vault (Wemmbu)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "How I Stole 10,356,000 Duped Items (Spoke)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "I Uncovered Minecraft's Greatest Secret (Parrot)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "It's Impossible to Catch this Player (Wemmbu)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "I Broke into Minecraft's Most Secure Prison (Parrot)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "I Created Minecraft's Greatest Civilization (Wemmbu)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "I Got Hunted by Minecraft's Deadliest Players (Parrot)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Why I Destroyed the Unstable SMP (Wemmbu)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795144963020
     }
   },
   "reels": {}
