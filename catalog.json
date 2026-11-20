@@ -15663,6 +15663,3358 @@
       "addedAt": 1795122226031,
       "isAnime": true
     },
+    "1434": {
+      "title": "Uma Família da Pesada",
+      "overview": "A série animada apresenta as aventuras da família Griffin. O ignorante Peter e sua esposa Lois residem em Quahog, em Rhode Island e têm três filhos. Meg, a filha mais velha, é uma pária social, e o adolescente Chris é estranho e sem noção quando se trata do sexo oposto. O mais novo, Stewie, é um bebê gênio decidido a matar sua mãe e destruir o mundo. O cachorro falante, Brian, mantém Stewie sob controle enquanto toma martinis e resolve seus próprios problemas de vida.",
+      "poster": "https://image.tmdb.org/t/p/w500/j28XGzAhvJNGWEHbYrzvREw7kKd.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/jbTqU6BJMufoMnPSlO4ThrcXs3Y.jpg",
+      "year": "1999",
+      "rating": 7.417,
+      "genres": [
+        "Animação",
+        "Comédia"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Morte Tem Uma Sombra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Nunca Encontrei um Homem Morto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Homem de Branco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Mente Perigosa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Grande Herói",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Filho Desenhista",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Retrato de um Cachorro",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Peter na Alta Sociedade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Minha Nossa!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A Bomba",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Brian Apaixonado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Ame Seu Troféu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Morte É uma Droga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Rei Está Morto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Eu Sou Peter, Ouça a Minha Voz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Que Caia um Raio na Minha Cabeça",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Colegas de Eleição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Uma Imagem Vale Mais que Mil Pratas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Quinze Minutos de Vergonha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Estrada para Rhode Island",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Vamos ao Topo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Maldita Janet!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Quem Vai Ficar com Paulie?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Ele É Muito Sexy para a Sua Gordura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Peter, o Presidente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "A História da Primeira Página",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Talento Desperdiçado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Pai Adotivo",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Tênue Linha Branca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Brian Ataca Hollywood",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Sr. Griffin Vai a Washington",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Retomada da Nação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "E o Vencedor é...",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Morte Vive",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Máquinas Mortíferas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Beijo Visto no Mundo Todo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Cavaleiro Medieval",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Um Peixe Fora d'Água",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Emissão Impossível",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Amar e Morrer no Sul",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cobrindo a Cadela",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Peter Griffin: Marido, Pai... Irmão?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Preparado, Disposto e Incapaz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Um Episódio de Natal Muito Especial",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Brian, Peter e o Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Do Método à Loucura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Colados, Separados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Estrada Para a Europa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Cartas de Fãs",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Quando se Faz um Pedido",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Intriga Nacional",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Tempos Rápidos no Colégio Buddy Cianci, Jr.",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Ambição Cega",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Mudança Radical",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Cleveland-Loretta Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Petardado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Brian, o Solteirão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "8 Regrinhas Básicas Para Comprar Minha Filha Adolescente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "É Difícil Parar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Mau Comportamento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Peter e James Woods",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Naufrágio Perfeito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Amor Selvagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "PTV",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Brian Volta à Faculdade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "A Cortesia do Pai de Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Estrangulador de Gordos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Em Nome do Pai, do Filho e do Espírito Fonz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Brian Canta e Dança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Jogos Patrióticos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Eu Te Aceito, Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Rivalidade Fraterna",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Gargantas Profundas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Peterótico",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Você Agora Pode Beijar... Esse Cara",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Petergeist",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "A História da Família Griffin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Stewie, Seja Bonzinho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Chana Era o Nome Dele!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "As Aventuras de Stu e Stewie",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Temporada 5",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Stewie Ama Lois",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Mamãe Tucker",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Inferno Vem a Quahog",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Resgate do Soldado Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Assobie Enquanto a Sua Esposa Trabalha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Escute Bem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Câncer Feminino",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Quase Ilegal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Estrada Para Rupert",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Os Dois Pais de Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Bronzeado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Aeroporto 07",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "A Jornada Fictícia de Bill e Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sem Refeições Sobre as Rodas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Garotos Choram",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Chris Não Vai Ser Deixado Para Trás",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "É Preciso um Idiota da Aldeia (e Eu Me Casei Com Um)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Conheça os Quagmire",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Temporada 6",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Colheita Azul",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Morando Juntos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Acredite se Quiser, o Joe Está Andando no Ar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Stewie Mata Lois (Parte 1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Lois Mata Stewie (Parte 2)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Pai de Família",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Filha de Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Derrame",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Troca de Identidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Sonhos de Um Sedutor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "A Antiga Vida de Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Primeiro Amor de Peter",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Temporada 7",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Amor Blacontece",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Eu sonho com Jesus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Estrada Para a Alemanha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Bebê Não Está a Bordo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Homem dos Dois Brians",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Quero me Formar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Três Homens e Meio e um Segredo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Um Gay da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Suco está à solta!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Grande Reportagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Nem Todos os Cães Merecem o Céu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "4:20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Stew-roids",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Nós Te Amamos, Conrad",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Rei do Suspense",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Progresso de Peter",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "label": "Temporada 8",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Estrada para o Multiverso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Família de Judeus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Espiões Remanescentes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Um Amor para Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Hannah Banana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Bebê de Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Jerome é o Novo Preto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Cão se Foi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Homem de Negócios",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Ele é o Cara",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Chame Meg para a Morte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Vidente GG",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Vai, Stewie!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Peter Assediado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Roteiro de Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Abril em Quahog",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Brian e Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Pai de Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "A Fonte Perfeita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Lado Negro da Coisa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "label": "Temporada 9",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "E Então Eles Eram Menos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Excelência em Transmissão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Bem-Vindo de Volta, Carter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Halloween na Rua Spooner",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Baby, Você Me Nocauteou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Brian Escreve Um Livro de Sucesso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Estrada Para o Polo Norte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Novo Rim na Cidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "E Eu Sou Joyce Kinney",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Amigos de Peter G.",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Alemão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Mão Que Balança a Cadeira de Rodas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Trocando de Papéis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Tiegs para dois",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Irmãos & Irmãs",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "A Teoria do Big Bang",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Relacionamentos Clandestinos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "É uma Armadilha",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "label": "Temporada 10",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Dinheiro Subiu à Cabeça",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Chuva Ácida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Gritos do Silêncio: A História de Brenda Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Stewie Dá uma Volta de Carro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "De Volta ao Episódio Piloto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ação de Graças",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Garoto Amish",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Os Presidiários",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Velho Emburrado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Quagmire e Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Um Sonho Possível",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Livin' on a Prayer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Tom Tucker: O Homem e o Seu Sonho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Cuidado com o Que Você Peixeja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Queimando a Bayit",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Assassino à Solta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Não-Esqueças-de-Mim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Você Não Pode Fazer Isso na Televisão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Sr. e Sra. Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Resgate da Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Peter do Chá",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Cartas de Fãs",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Casos Internos",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 11,
+          "label": "Temporada 11",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Escalada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Campeão de Audiência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A Máquina do Tempo Pirou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Yog Ylimaf",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Vingança de Joe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Vida Nova para Lois",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Amigos Sem Benefícios",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Jesus, Maria e José!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Acampamento Espacial",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Uma Moda Passageira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "A Esposa do Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Dia dos Namorados em Quahog",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cris em Crise",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Garota do Disque Sexy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Cowboy de Turbante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "12 Homens e Meia Sentença",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Barrigudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Recall Total",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Salve a Ostra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Bancando o Fazendeiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Rumo a Las Vegas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Somente para Sócios",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 12,
+          "label": "Temporada 12",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Achou, Levou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Peter Atrofiado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Quagmire é Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Pedaço de Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Férias na Itália",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Vida de Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Em Busca de Harmonia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Um Natal da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Peter em Apuros",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "História de Ninar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Brian é um Péssimo Pai",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Minha Mãe é Meu Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "3 Atos de Deus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Herança Maldita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Viciado Por Conveniência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Irmãos de Sangue",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Homem Mais Interessante do Mundo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Amor Sem Preconceito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Segredo de Pai e Filha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Um Conflito Racial",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Stewie Britânico",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 13,
+          "label": "Temporada 13",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Os Simpsons Guy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Livro de Joe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Truque Assado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Brian, o Mais Próximo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Peru de Ação de Graças",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Virgem de 2000 Anos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Aventura Excelente de Stewie, Chris e Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Nosso Brian Idiota",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Este Porquinho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Mãe de Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Enciclopédia Griffin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Stewie Engravida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Dr. C & As Mulheres",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "#sóseviveumavez",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Uma Vez Mordido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Cara Assado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Irlandês Brigão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Leve a Minha Esposa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 14,
+          "label": "Temporada 14",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Prescrevendo Pílulas Fracas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Papai Tem um Filho Chegando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Guy, Robô",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Atividade Peternormal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Peter, Chris & Brian",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Irmã de Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Discar Por Engano",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Brokeback Swanson",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Um Tiro no Escuro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Candy Quahog Marshmellow!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "A Criança do Creme de Amendoim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Yankees Enganados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Um Aplicativo Por Dia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Peter de Menor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Muita Coisa Rolando Lá em Cima",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Cão Arrasa-Corações",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Leve uma Carta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "As Novas Aventuras do Velho Tom",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Corra, Chris, Corra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Caminho da Índia",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 15,
+          "label": "Temporada 15",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Os Meninos da Banda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Apostador do Ano",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Gigg-olo Americano",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Dentro de Uma Família da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Chris Tem um Par, Par, Par, Par, Par",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Injeção Letal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Inglês do Ensino Médio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Carter e Tricia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Como o Griffin Roubou o Natal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Passageiro Cheinho-Sete",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Gronkowsabelha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Def Jam de Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "As Cordas Mais Finas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Jogo da Sedução",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Policial e um Imbecil",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Gordura Saturada da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "A Juventude Perdida de Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Diretor Peter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Cara Deportada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Uma Casa Cheia de Peters",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 16,
+          "label": "Temporada 16",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio Que Ganha o Emmy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Foxx na Casa dos Homens",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A Babá",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Sigam o Dinheiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Três Diretores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O D no Apartamento 23",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Petei IV",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Crimes e o Comportamento de Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Não Seja um Dickens no Natal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Menino (Cão) Conhece uma Menina (Cadela)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Cão Morde Urso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Chame Stewie, Por Favor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "V de Mistério",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Veterano da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Lobo de Wall Street",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "\"Uma Família da Pesada\" ao Longo dos Anos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Mude a Chave",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "HTTPete",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Corte Mais Cruel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Está Aí, Deus? Sou Eu, Peter",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 17,
+          "label": "Temporada 17",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Casado com o Câncer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Cão Morto-Vivo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Amigo Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Problemão na Pequena Quahog",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Sobre Carter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ao Lado de Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Jogos de Inverno dos Griffin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Herdeira de Golpe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Pawtucket Pete",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Fortes Tons de Cinza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Um Trunfo da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Brian, Robô",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Gordura Trans",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Uma Leve Família da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Sem Risinho, Sem Dúvida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Você Não Consegue Lidar com a Cabinel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Aventura na Ilha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Jogue Fora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Menina, Na Internet",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Adam West High",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 18,
+          "label": "Temporada 18",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Yacht Rocky",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Bri-Da",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Absolutamente Babulosos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Disney é o Recomeço",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Briga de Gato",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Casamento de Peter & Lois",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Azia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Ação de Hastes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Natal Está Chegando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Connie Celestial",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Atalhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Subterrâneo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Velho e Rico Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Movimento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Bebê Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Iniciação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Um Coma da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Meg Bem de Vida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Bíblia Sagrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "De Mudança (Canção do Diretor Shepherd)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 19,
+          "label": "Temporada 19",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Primeira Palavra de Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Talentoso Stewie",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Meninos e Esquilos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Mundo dos Cortes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "La Famiglia da Pesada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Casamento de Meg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Wild Wild West",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Pawtucket Pat",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "The First No L",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Coliformes Fecais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Melhor Amigo do Garoto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Aí Está a Fraude",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "PeTerminator",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Tipo Que Se Casa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Cliente da Semana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Quem é o Brian Agora?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "A Armadilha de Jovens Pais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Meg Vai para a Faculdade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Gato da Família",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Contos das Glórias Passadas",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 20,
+          "label": "Temporada 20",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Instinto a Laser",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Rock Pesado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Tem Que Gostar de Cachorro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Cara dos Anos 80",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Breve Encontro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Enfermo e o Bufão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Mansão Peterschmidt",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Contrabandista de Aniversários",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Gordo Bate a Sua Porta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Crime Natalino",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Canto do Coral",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Lois Quagmire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Advogado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "HBO-Não",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Meg Cozida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Heroína Prescrita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Tudo Sobre Alana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Namorada, Hein?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Primeiro Sangue",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Chatice de Jersey",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 21,
+          "label": "Temporada 21",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Oscars Guy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 22,
+          "label": "Temporada 22",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 23,
+          "label": "Temporada 23",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 24,
+          "label": "Temporada 24",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795144192668
+    },
     "1622": {
       "title": "Sobrenatural",
       "overview": "Os irmãos Dean e Sam vasculham o país em busca de atividades paranormais, brigando com demônios, fantasmas e monstros no caminho.",
