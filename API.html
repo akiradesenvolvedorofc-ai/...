@@ -575,18 +575,14 @@ video::-moz-media-controls { display: none !important; }
 const CONFIG={
   TMDB_TOKEN:'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM',
   TMDB_ID:'', TIPO:'movie', TEMPORADA:1, EPISODIO:1, VIDEO:'',
-  // Reserva: se o ID não estiver no catalog.json, monta o link pelo ID ({id}, {temp}, {ep}). Deixe '' para desligar.
   LINK_FILME:'',
   LINK_SERIE:'',
-  // Fonte em inglês (usada no botão Áudio > Áudio em inglês). {id}, {temp} e {ep} são trocados sozinhos.
   LINK_EN_FILME:'https://cinextream.cc/api/embed/movie/{id}',
   LINK_EN_SERIE:'https://cinextream.cc/api/embed/tv/{id}/{temp}/{ep}',
-  // Cargos marcados no pedido de fonte: coloque o ID de cada cargo (deixe '' para não marcar)
   CARGOS_FONTE:['ID_DO_CARGO_1','ID_DO_CARGO_2','ID_DO_CARGO_3'],
-  // Webhooks do Discord (pode ser o mesmo canal ou canais diferentes)
-  WEBHOOK_FONTE:'https://discord.com/api/webhooks/1571591946437267466/YHDiixz5XGAVZ6AZVt12CpRMreFn76R8adpxTmIvou7SN6CToDDO3APyJEcRmdZ4JFdV',     // pedido quando o título não tem fonte
-  WEBHOOK_FEEDBACK:'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu',  // botão Feedback
-  TUTORIAL_SEMPRE:false,   // true = mostra o tutorial de gestos toda vez que entrar em tela cheia
+  WEBHOOK_FONTE:'https://discord.com/api/webhooks/1571591946437267466/YHDiixz5XGAVZ6AZVt12CpRMreFn76R8adpxTmIvou7SN6CToDDO3APyJEcRmdZ4JFdV',
+  WEBHOOK_FEEDBACK:'https://discord.com/api/webhooks/1571561839828144168/MJ8Zrjvy4skOGqKmjo0O0Xm2P7OXIQhNGYLbTscr8amQkcv1cTtvFg6hweejWvVf1-Xu',
+  TUTORIAL_SEMPRE:false,
   PROXY:'https://mgeb.space/mp4.php?url=', USAR_PROXY:false, MODO:'auto',
   VIDEO_EN:'', VIDEO_ES:'', VIDEO_540:'', VIDEO_360:'', LEGENDA:'', TITULO:'',
   OS_API_KEY:'wo7fkIUiWzDG9jdN8b2kDkXEVm1VGc0O'
@@ -614,7 +610,6 @@ const g=id=>document.getElementById(id);
 const $$=s=>[...document.querySelectorAll(s)];
 const P=g('player'),V=g('v'),EMB=g('embed'),TRK=g('trk');
 
-/* ⚠️ PROTEÇÃO CONTRA CONTROLES NATIVOS */
 function killNativeControls(){
   V.controls = false;
   V.removeAttribute('controls');
@@ -665,314 +660,294 @@ const PROG = {
 };
 let lastSave = 0;
 
+/* ============================================================
+   SISTEMA DE LEGENDAS HÍBRIDO (Scraping + API OpenSubtitles)
+   ============================================================ */
 const SubManager = {
   _reqId: 0,
+  _subtitleCache: {},
 
-  async fetchSubs() {
-    if (!CONFIG.TMDB_ID) {
-      toast('ID TMDB não configurado');
-      return;
+  // --- Funções de Scraping ---
+  getPageProps(html) {
+    const match = html.match(/<script\b[^>]*\bid=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i);
+    if (!match?.[1]) return null;
+    try { return JSON.parse(match[1])?.props?.pageProps ?? null; } catch { return null; }
+  },
+
+  languageName(code) {
+    const names = {
+      pt: "Português", "pt-br": "Português Brasileiro", en: "English",
+      es: "Español", fr: "Français", de: "Deutsch", it: "Italiano",
+      ja: "日本語", ko: "한국어",
+    };
+    return names[code.toLowerCase()] ?? code;
+  },
+
+  extractSubtitleLinks(html, episodeUrl) {
+    const pageProps = this.getPageProps(html);
+    if (!pageProps) return [];
+    const found = new Map();
+
+    const walk = (value, depth = 0) => {
+      if (!value || typeof value !== "object" || depth > 15) return;
+      if (Array.isArray(value)) { value.forEach(item => walk(item, depth + 1)); return; }
+      const object = value;
+      const rawUrl = [object.subtitlingUrl, object.subtitleUrl, object.subtitle_url, object.srtUrl, object.vttUrl]
+        .find(item => typeof item === "string");
+      
+      if (rawUrl) {
+        try {
+          const subUrl = new URL(rawUrl, episodeUrl);
+          if (subUrl.protocol === "https:" && /\.(srt|vtt)$/i.test(subUrl.pathname)) {
+            const lang = String(object.languageAbbr ?? object.lang ?? object.language_code ?? object.language ?? "und").toLowerCase();
+            const label = String(object.languageName ?? object.language ?? object.label ?? this.languageName(lang));
+            if (!found.has(subUrl.toString())) found.set(subUrl.toString(), { lang, label, url: subUrl.toString() });
+          }
+        } catch {}
+      }
+      Object.values(object).forEach(child => walk(child, depth + 1));
+    };
+    walk(pageProps);
+    return [...found.values()];
+  },
+
+  srtToVtt(content) {
+    const normalized = content.replace(/^\uFEFF/, "").replace(/\r/g, "");
+    if (/^WEBVTT\b/i.test(normalized)) return normalized;
+    const timestampsFixed = normalized.replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2");
+    return "WEBVTT\n\n" + timestampsFixed;
+  },
+
+  async downloadSubtitle(url) {
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0", Accept: "text/plain,text/vtt,*/*" }, signal: AbortSignal.timeout(10000) });
+      if (!res.ok) return null;
+      const content = await res.text();
+      if (content.length > 1500000 || !/-->/i.test(content)) return null;
+      return this.srtToVtt(content);
+    } catch { return null; }
+  },
+
+  async loadSubtitlesFromPage(pageUrl) {
+    if (!pageUrl) return [];
+    try {
+      const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(pageUrl)}`;
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const html = await res.text();
+      const links = this.extractSubtitleLinks(html, pageUrl);
+      
+      const results = await Promise.all(links.map(async (sub) => {
+        const vtt = await this.downloadSubtitle(sub.url);
+        if (!vtt) return null;
+        return { lang: sub.lang, label: sub.label, vtt };
+      }));
+      return results.filter(Boolean);
+    } catch (e) {
+      console.warn('[Legendas] Scraping falhou:', e.message);
+      return [];
     }
+  },
+
+  // --- Funções da API OpenSubtitles ---
+  async fetchFromAPI() {
+    if (!CONFIG.TMDB_ID) return [];
+    try {
+      const isTv = S.type === 'tv';
+      let apiUrl = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${encodeURIComponent(CONFIG.TMDB_ID)}&languages=pt-br,en,es&type=${isTv ? 'episode' : 'movie'}`;
+      if (isTv) apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
+
+      const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
+      let res;
+      try {
+        res = await fetch(proxyUrl, { headers: { 'Api-Key': CONFIG.OS_API_KEY, 'User-Agent': 'KiraFlixPlayer v1.0', 'Accept': 'application/json' } });
+      } catch {
+        const fallbackUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+        res = await fetch(fallbackUrl, { headers: { 'Api-Key': CONFIG.OS_API_KEY, 'User-Agent': 'KiraFlixPlayer v1.0', 'Accept': 'application/json' } });
+      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      return (data.data || []).map(sub => ({
+        lang: String(sub.attributes.language || '??').toLowerCase(),
+        label: String(sub.attributes.release || sub.attributes.language || 'Legenda'),
+        id: sub.attributes.files[0].file_id
+      }));
+    } catch (e) {
+      console.warn('[Legendas] API falhou:', e.message);
+      return [];
+    }
+  },
+
+  async downloadFromAPI(fileId, label, lang) {
+    try {
+      const downloadApiUrl = 'https://api.opensubtitles.com/api/v1/download';
+      let dlRes;
+      try {
+        dlRes = await fetch(`https://corsproxy.io/?url=${encodeURIComponent(downloadApiUrl)}`, {
+          method: 'POST', headers: { 'Api-Key': CONFIG.OS_API_KEY, 'User-Agent': 'KiraFlixPlayer v1.0', 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ file_id: fileId })
+        });
+      } catch {
+        dlRes = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(downloadApiUrl)}`, {
+          method: 'POST', headers: { 'Api-Key': CONFIG.OS_API_KEY, 'User-Agent': 'KiraFlixPlayer v1.0', 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ file_id: fileId })
+        });
+      }
+      if (!dlRes.ok) throw new Error(`Erro ${dlRes.status}`);
+      const dlData = await dlRes.json();
+      if (!dlData.link) throw new Error('Sem link');
+      
+      const subRes = await fetch(dlData.link);
+      const text = await subRes.text();
+      if (!text || text.length < 30) throw new Error('Arquivo vazio');
+      
+      return { lang, label, vtt: this.srtToVtt(text) };
+    } catch (e) {
+      console.warn('[Legendas] Erro no download API:', e.message);
+      return null;
+    }
+  },
+
+  // --- Função Principal de Busca ---
+  async fetchSubs() {
+    if (!CONFIG.TMDB_ID) { toast('ID TMDB não configurado'); return; }
 
     const listEl = g('l-c');
     listEl.innerHTML = '<div style="color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)">Buscando legendas...</div>';
 
-    try {
-      const isTv = S.type === 'tv';
-      let apiUrl = `https://api.opensubtitles.com/api/v1/subtitles?tmdb_id=${encodeURIComponent(CONFIG.TMDB_ID)}&languages=pt-br,en,es&type=${isTv ? 'episode' : 'movie'}`;
-      if (isTv) {
-        apiUrl += `&season_number=${S.season}&episode_number=${S.ep}`;
-      }
-
-      const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
-      let res;
-      
-      try {
-        res = await fetch(proxyUrl, {
-          method: 'GET',
-          headers: {
-            'Api-Key': CONFIG.OS_API_KEY,
-            'User-Agent': 'KiraFlixPlayer v1.0',
-            'Accept': 'application/json'
-          }
-        });
-      } catch (e) {
-        console.warn('[Legendas] corsproxy falhou, tentando allorigins');
-        const fallbackUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-        res = await fetch(fallbackUrl, {
-          method: 'GET',
-          headers: {
-            'Api-Key': CONFIG.OS_API_KEY,
-            'User-Agent': 'KiraFlixPlayer v1.0',
-            'Accept': 'application/json'
-          }
-        });
-      }
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      const data = await res.json();
-      S.subList = Array.isArray(data.data) ? data.data : [];
-      listEl.innerHTML = '';
-
-      const btnOff = document.createElement('button');
-      btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
-      btnOff.textContent = 'Desativado';
-      btnOff.onclick = () => this.setSub(-1);
-      listEl.appendChild(btnOff);
-
-      if (S.subList.length === 0) {
-        const empty = document.createElement('div');
-        empty.style.cssText = 'color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)';
-        empty.textContent = 'Nenhuma legenda encontrada para este título.';
-        listEl.appendChild(empty);
-        return;
-      }
-
-      S.subList.forEach((sub, idx) => {
-        const attrs = sub.attributes || {};
-        const lang = String(attrs.language || '??').toUpperCase();
-        const release = attrs.release || attrs.feature_details?.title || attrs.feature_details?.movie_name || `Legenda ${lang}`;
-        const downloads = attrs.download_count || 0;
-
-        const btn = document.createElement('button');
-        btn.className = 'opt' + (S.subIdx === idx ? ' sel' : '');
-        const shortRelease = release.length > 40 ? release.substring(0, 40) + '…' : release;
-        btn.innerHTML = `<span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <b style="color:#4ea1ff">${lang}</b>
-          <span>${shortRelease}</span>
-          ${downloads > 0 ? `<small style="color:#666;font-size:0.7em">${downloads}↓</small>` : ''}
-        </span>`;
-        btn.onclick = () => this.setSub(idx);
-        listEl.appendChild(btn);
-      });
-    } catch (e) {
-      console.error('[Legendas] Erro na busca:', e);
-      listEl.innerHTML = `<div style="color:#ff6b6b;text-align:center;padding:20px;font-size:calc(var(--u)*22)">
-        Erro ao buscar legendas.<br>
-        <small style="color:#888">${(e && e.message) || 'desconhecido'}</small>
-      </div>`;
+    // 1. Tenta raspar do site da fonte
+    let pageSubs = [];
+    const pageUrl = S.links.pt || S.cur;
+    if (pageUrl && pageUrl.startsWith('http')) {
+      console.log('[Legendas] Tentando raspar:', pageUrl);
+      pageSubs = await this.loadSubtitlesFromPage(pageUrl);
     }
-  },
 
-  async setSub(idx) {
-    const reqId = ++this._reqId;
+    // 2. Tenta API
+    console.log('[Legendas] Tentando API OpenSubtitles');
+    const apiSubs = await this.fetchFromAPI();
 
-    if (idx === -1) {
-      S.subIdx = -1;
-      S.sub = false;
-      S.subData = null;
-      const ov = g('sub-overlay');
-      if (ov) {
-        ov.style.display = 'none';
-        const sp = ov.querySelector('span');
-        if (sp) sp.innerHTML = '';
-      }
-      g('o-c').classList.remove('sel');
-      if (S._subBlobUrl) {
-        try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
-        S._subBlobUrl = null;
-      }
-      TRK.removeAttribute('src');
-      try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
-      closePanels();
-      toast('Legenda desativada');
+    listEl.innerHTML = '';
+    const btnOff = document.createElement('button');
+    btnOff.className = 'opt' + (!S.sub ? ' sel' : '');
+    btnOff.textContent = 'Desativado';
+    btnOff.onclick = () => this.setSub(-1, null);
+    listEl.appendChild(btnOff);
+
+    if (pageSubs.length === 0 && apiSubs.length === 0) {
+      listEl.innerHTML += '<div style="color:#aaa;text-align:center;padding:20px;font-size:calc(var(--u)*24)">Nenhuma legenda encontrada.</div>';
       return;
     }
 
-    S.subIdx = idx;
-    closePanels();
-    toast('Baixando legenda...');
-
-    try {
-      const sub = S.subList[idx];
-      const files = (sub && sub.attributes && Array.isArray(sub.attributes.files)) ? sub.attributes.files : [];
-      if (!files.length) throw new Error('Nenhum arquivo disponível');
-
-      const fileId = files[0].file_id;
-      if (!fileId) throw new Error('file_id inválido');
-
-      const downloadApiUrl = 'https://api.opensubtitles.com/api/v1/download';
-      const proxyDownloadUrl = `https://corsproxy.io/?url=${encodeURIComponent(downloadApiUrl)}`;
+    // Renderiza as do site
+    if (pageSubs.length > 0) {
+      const h = document.createElement('div');
+      h.style.cssText = 'color:#4ea1ff;font-size:calc(var(--u)*20);padding:10px 0;font-weight:700';
+      h.textContent = '📄 Do site';
+      listEl.appendChild(h);
       
-      let dlRes;
-      try {
-        dlRes = await fetch(proxyDownloadUrl, {
-          method: 'POST',
-          headers: {
-            'Api-Key': CONFIG.OS_API_KEY,
-            'User-Agent': 'KiraFlixPlayer v1.0',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({ file_id: fileId })
-        });
-      } catch (e) {
-        console.warn('[Legendas] corsproxy falhou no download, tentando allorigins');
-        const fallbackDownloadUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(downloadApiUrl)}`;
-        dlRes = await fetch(fallbackDownloadUrl, {
-          method: 'POST',
-          headers: {
-            'Api-Key': CONFIG.OS_API_KEY,
-            'User-Agent': 'KiraFlixPlayer v1.0',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({ file_id: fileId })
-        });
-      }
+      pageSubs.forEach((sub, idx) => {
+        const b = document.createElement('button');
+        b.className = 'opt';
+        b.innerHTML = `<span style="display:flex;gap:8px;align-items:center"><b style="color:#4ea1ff">${sub.lang.toUpperCase()}</b> <span>${sub.label}</span></span>`;
+        b.onclick = () => this.setSubFromData(sub, b);
+        listEl.appendChild(b);
+      });
+    }
 
-      if (reqId !== this._reqId) return;
+    // Renderiza as da API
+    if (apiSubs.length > 0) {
+      const h = document.createElement('div');
+      h.style.cssText = 'color:#ffb86b;font-size:calc(var(--u)*20);padding:10px 0;font-weight:700;margin-top:10px';
+      h.textContent = '🌐 API OpenSubtitles';
+      listEl.appendChild(h);
 
-      if (!dlRes.ok) {
-        if (dlRes.status === 406) throw new Error('Limite diário de downloads atingido');
-        if (dlRes.status === 401) throw new Error('API Key inválida');
-        if (dlRes.status === 429) throw new Error('Muitas requisições');
-        throw new Error(`HTTP ${dlRes.status}`);
-      }
-
-      const dlData = await dlRes.json();
-
-      if (!dlData.link) {
-        throw new Error('API não retornou link de download');
-      }
-
-      const subRes = await fetch(dlData.link);
-      if (!subRes.ok) throw new Error(`Falha ao baixar arquivo (${subRes.status})`);
-
-      const text = await subRes.text();
-      if (!text || text.length < 30) throw new Error('Arquivo de legenda vazio ou inválido');
-
-      if (reqId !== this._reqId) return;
-
-      this.parseAndLoad(text);
-    } catch (e) {
-      if (reqId !== this._reqId) return;
-      console.error('[Legendas] Erro no download:', e);
-      toast('Erro: ' + ((e && e.message) || 'falha ao baixar'));
-      S.subIdx = -1;
-      S.sub = false;
-      g('o-c').classList.remove('sel');
+      apiSubs.forEach(sub => {
+        const b = document.createElement('button');
+        b.className = 'opt';
+        b.innerHTML = `<span style="display:flex;gap:8px;align-items:center"><b style="color:#ffb86b">${sub.lang.toUpperCase()}</b> <span>${sub.label.substring(0,40)}</span></span>`;
+        b.onclick = async () => {
+          closePanels();
+          toast('Baixando legenda...');
+          const data = await this.downloadFromAPI(sub.id, sub.label, sub.lang);
+          if (data) this.setSubFromData(data, b);
+          else toast('Erro ao baixar');
+        };
+        listEl.appendChild(b);
+      });
     }
   },
 
-  parseAndLoad(srtText) {
-    srtText = String(srtText).replace(/^\ufeff/, '');
-    srtText = srtText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-
-    let vtt = 'WEBVTT\n\n';
-    const lines = srtText.split('\n');
-    let isTime = false;
-
-    for (let i = 0; i < lines.length; i++) {
-      let line = lines[i];
-
-      if (line.includes('-->')) {
-        line = line.replace(/,/g, '.');
-        line = line.replace(/(\.\d{3})\s+[XY]\d*:[^\n]*$/i, '$1').trim();
-        isTime = true;
-        vtt += line + '\n';
-      } else if (line.trim() === '' && isTime) {
-        vtt += '\n';
-        isTime = false;
-      } else if (isTime) {
-        line = line.replace(/<[^>]*>/g, '');
-        line = line.replace(/\{[^}]*\}/g, '');
-        vtt += line + '\n';
-      }
-    }
-
-    const blob = new Blob([vtt], { type: 'text/vtt;charset=utf-8' });
-
-    if (S._subBlobUrl) {
-      try { URL.revokeObjectURL(S._subBlobUrl); } catch (e) {}
-    }
-    const url = URL.createObjectURL(blob);
-    S._subBlobUrl = url;
-
-    TRK.src = url;
-    try { if (V.textTracks[0]) V.textTracks[0].mode = 'hidden'; } catch (e) {}
-
+  setSubFromData(sub, btn) {
+    S.subIdx = -1; // Reset
     S.sub = true;
-    this.renderCustomSubs(vtt);
+    
+    // Converte para cues customizadas
+    this.renderCustomSubs(sub.vtt);
+    
+    if (btn) {
+      document.querySelectorAll('#l-c .opt').forEach(x => x.classList.remove('sel'));
+      btn.classList.add('sel');
+    }
     g('o-c').classList.add('sel');
-    toast('Legenda ativada');
+    closePanels();
+    toast(`Legenda: ${sub.label}`);
+  },
+
+  setSub(idx, btn) {
+    if (idx === -1) {
+      S.sub = false;
+      S.subData = null;
+      const ov = g('sub-overlay');
+      if (ov) { ov.style.display = 'none'; ov.querySelector('span').innerHTML = ''; }
+      g('o-c').classList.remove('sel');
+      if (S._subBlobUrl) { URL.revokeObjectURL(S._subBlobUrl); S._subBlobUrl = null; }
+      TRK.removeAttribute('src');
+      closePanels();
+      toast('Legenda desativada');
+    }
   },
 
   renderCustomSubs(vttText) {
     const cues = [];
     const body = vttText.replace(/^WEBVTT[^\n]*\n+/, '');
     const blocks = body.split(/\n\n+/);
-
     blocks.forEach(block => {
       if (!block.trim()) return;
       const lines = block.split('\n');
       const timeLineIdx = lines.findIndex(l => l.includes('-->'));
       if (timeLineIdx === -1) return;
-
-      const timeLine = lines[timeLineIdx];
-      const timeMatch = timeLine.match(
-        /(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/
-      );
+      const timeMatch = lines[timeLineIdx].match(/(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[.,]\d{1,3}|\d{1,3}:\d{2}[.,]\d{1,3})/);
       if (!timeMatch) return;
-
-      const parseTime = (t) => {
-        t = t.replace(',', '.');
-        const parts = t.split(':').map(parseFloat);
-        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
-        if (parts.length === 2) return parts[0] * 60 + parts[1];
-        return parts[0];
-      };
-
+      const parseTime = (t) => { t = t.replace(',', '.'); const p = t.split(':').map(parseFloat); return p.length===3 ? p[0]*3600+p[1]*60+p[2] : p[0]*60+p[1]; };
       const text = lines.slice(timeLineIdx + 1).join('\n').trim();
-      if (text) {
-        cues.push({
-          start: parseTime(timeMatch[1]),
-          end: parseTime(timeMatch[2]),
-          text
-        });
-      }
+      if (text) cues.push({ start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]), text });
     });
-
     cues.sort((a, b) => a.start - b.start);
-
     S.subData = cues;
-    console.log(`[Legendas] ${cues.length} cues carregados`);
     this.updateOverlay();
   },
 
   updateOverlay() {
     const ov = g('sub-overlay');
     if (!ov) return;
-
-    if (!S.sub || !S.subData || !S.subData.length) {
-      ov.style.display = 'none';
-      return;
-    }
+    if (!S.sub || !S.subData || !S.subData.length) { ov.style.display = 'none'; return; }
     ov.style.display = 'block';
-
     const span = ov.querySelector('span');
     if (!span) return;
-
     ov.style.bottom = S.subPos + '%';
     span.style.fontSize = S.subSize + 'px';
     span.style.color = S.subColor;
     span.style.backgroundColor = S.subBg ? 'rgba(0,0,0,0.7)' : 'transparent';
-
     const t = V.currentTime;
-    const cues = S.subData;
-    let lo = 0, hi = cues.length - 1, active = null;
-
+    let active = null, lo = 0, hi = S.subData.length - 1;
     while (lo <= hi) {
       const mid = (lo + hi) >> 1;
-      const c = cues[mid];
+      const c = S.subData[mid];
       if (t < c.start) hi = mid - 1;
       else if (t > c.end) lo = mid + 1;
       else { active = c; break; }
     }
-
     span.innerHTML = active ? active.text.replace(/\n/g, '<br>') : '';
   }
 };
@@ -998,23 +973,15 @@ new ResizeObserver(resize).observe(P);
 window.addEventListener('resize',resize);
 P.addEventListener('contextmenu',e=>e.preventDefault());
 
-/* ---------- tela de carregamento + início automático ---------- */
 let splT=null;
 function showSplash(){g('splash').classList.remove('off');clearTimeout(splT);splT=setTimeout(hideSplash,45000)}
 function hideSplash(){clearTimeout(splT);g('splash').classList.add('off')}
 V.addEventListener('playing',hideSplash);
 V.addEventListener('canplay',()=>setTimeout(()=>{if(V.paused)hideSplash()},1500));
 EMB.addEventListener('load',()=>{if(P.classList.contains('embed'))hideSplash()});
-function tryPlay(){
-  const p=V.play();
-  if(p&&p.catch)p.catch(()=>{hideSplash()});
-}
+function tryPlay(){const p=V.play();if(p&&p.catch)p.catch(()=>{hideSplash()});}
 
-/* ---------- Discord (webhooks) ---------- */
-function paginaAtual(){
-  const tv=S.type==='tv';
-  return location.origin+(tv?`/serie/${S.id}/${S.season}/${S.ep}`:`/filme/${S.id}`);
-}
+function paginaAtual(){const tv=S.type==='tv';return location.origin+(tv?`/serie/${S.id}/${S.season}/${S.ep}`:`/filme/${S.id}`);}
 function embedTitulo(titulo,desc,cor){
   const tv=S.type==='tv';
   const fields=[
@@ -1038,11 +1005,10 @@ async function enviarDiscord(url,embed,cargos){
   if(!r.ok)throw new Error('HTTP '+r.status);
 }
 
-/* ---------- título sem fonte ---------- */
 function nsKey(){return `rep_${S.type}_${S.id}_${S.season}_${S.ep}`}
 function nsMsg(t,c){const e=g('ns-msg');e.textContent=t||'';e.className='ns-msg'+(c?' '+c:'')}
 function nsBtn(t){g('ns-btn-t').textContent=t}
-function nsSent(msg){const b=g('ns-btn');b.disabled=true;b.classList.add('done');nsBtn('Pedido enviado');nsMsg(msg||'Obrigado! Nossa equipe vai adicionar a fonte.','ok')}
+function nsSent(msg){const b=g('ns-btn');b.disabled=true;b.classList.add('done');nsBtn('Pedido enviado');nsMsg(msg||'Obrigado!','ok')}
 function hideNoSource(){g('nosrc').classList.remove('on')}
 function showNoSource(){
   const tv=S.type==='tv',has=!!S.id;
@@ -1050,38 +1016,29 @@ function showNoSource(){
   g('ns-t').textContent=!has?'Nenhum título selecionado':(tv?'Este episódio ainda não tem fonte':'Este filme ainda não tem fonte');
   g('ns-name').textContent=has?`${S.metaOk?S.title+ep+' · ':''}ID ${S.id}${S.metaOk?'':ep}`:'';
   g('ns-p').style.display=has?'':'none';
-  if(!has)g('ns-t').textContent='Nenhum título selecionado';
   g('ns-bg').style.backgroundImage=(S.backdropImg||S.poster)?`url("${S.backdropImg||S.poster}")`:'none';
-  const b=g('ns-btn');
-  b.disabled=false;b.classList.remove('done');nsBtn(tv?'Pedir episódio':'Pedir filme');nsMsg('');
+  const b=g('ns-btn');b.disabled=false;b.classList.remove('done');nsBtn(tv?'Pedir episódio':'Pedir filme');nsMsg('');
   b.classList.toggle('hide',!has||!CONFIG.WEBHOOK_FONTE);
   const prev=LS.get(nsKey(),0);
-  if(has&&prev&&Date.now()-prev<86400000)nsSent('Você já avisou a equipe sobre este título. Obrigado!');
+  if(has&&prev&&Date.now()-prev<86400000)nsSent('Você já avisou a equipe. Obrigado!');
   g('nosrc').classList.add('on');
 }
 async function sendReport(){
   const b=g('ns-btn');if(b.disabled||!CONFIG.WEBHOOK_FONTE)return;
-  if(Date.now()-LS.get('rep_last',0)<30000){nsMsg('Aguarde alguns segundos antes de enviar outro pedido.','warn');return}
+  if(Date.now()-LS.get('rep_last',0)<30000){nsMsg('Aguarde alguns segundos.','warn');return}
   b.disabled=true;nsBtn('Enviando…');nsMsg('');
   try{
     await enviarDiscord(CONFIG.WEBHOOK_FONTE,embedTitulo('🎬 Pedido de fonte','Este título está sem fonte no catálogo. Alguém da staff pode adicionar?',0xE0201F),CONFIG.CARGOS_FONTE);
     LS.set('rep_last',Date.now());LS.set(nsKey(),Date.now());nsSent();
   }catch(e){
     console.warn('[Player] Webhook fonte:',e);
-    b.disabled=false;nsBtn('Tentar de novo');nsMsg('Não foi possível enviar agora. Tente de novo em instantes.','err');
+    b.disabled=false;nsBtn('Tentar de novo');nsMsg('Não foi possível enviar agora.','err');
   }
 }
 g('ns-btn').onclick=sendReport;
-g('emb-back').onclick=()=>{
-  S.audio='pt';
-  if(!srcFor()){S.audio='en';toast('Sem fonte em português para este título');return}
-  updateTitle();updateMedia();changeSource();
-};
+g('emb-back').onclick=()=>{ S.audio='pt'; if(!srcFor()){S.audio='en';toast('Sem fonte em português');return} updateTitle();updateMedia();changeSource(); };
 
-/* ---------- BOTÃO NUVEM SEM FUNÇÃO ---------- */
-g('f-dl').onclick = (e) => {
-  e.stopPropagation();
-};
+g('f-dl').onclick = (e) => { e.stopPropagation(); };
 
 function tick(){
   const d=dur(),c=V.currentTime||0,p=d?clamp(c/d*100,0,100):0;
@@ -1098,9 +1055,7 @@ function tick(){
   r.addEventListener('change',end);r.addEventListener('pointerup',end);r.addEventListener('pointercancel',end);
 });
 
-V.addEventListener('timeupdate', () => {
-  if (Date.now() - lastSave > 5000) { PROG.save(V.currentTime); lastSave = Date.now(); }
-});
+V.addEventListener('timeupdate', () => { if (Date.now() - lastSave > 5000) { PROG.save(V.currentTime); lastSave = Date.now(); } });
 V.addEventListener('pause', () => PROG.save(V.currentTime));
 window.addEventListener('beforeunload', () => { if (!V.paused && V.currentTime > 0) PROG.save(V.currentTime); });
 
@@ -1117,18 +1072,13 @@ V.addEventListener('ended',()=>{
   P.classList.remove('playing');P.classList.add('paused');wlOff();PROG.clear();
   if (S.type === 'tv') {
     const next = S.eps.find(e => e.n > S.ep);
-    if (next) {
-      toast(`Próximo: Episódio ${next.n}`);
-      setTimeout(() => loadEpisode(next.n, true), 1500);
-    } else toast('Fim da temporada');
+    if (next) { toast(`Próximo: Episódio ${next.n}`); setTimeout(() => loadEpisode(next.n, true), 1500); }
+    else toast('Fim da temporada');
   }
 });
 V.addEventListener('waiting',()=>P.classList.add('loading'));
 ['playing','canplay','pause'].forEach(e=>V.addEventListener(e,()=>P.classList.remove('loading')));
-V.addEventListener('error',()=>{
-  console.warn('[Player] Erro no vídeo');
-  if(S.cur&&!P.classList.contains('embed'))fallback();
-});
+V.addEventListener('error',()=>{ console.warn('[Player] Erro no vídeo'); if(S.cur&&!P.classList.contains('embed'))fallback(); });
 
 function toggle(){
   if (!S.cur || P.classList.contains('embed')) {
@@ -1136,17 +1086,10 @@ function toggle(){
     else toast('Nenhum vídeo carregado');
     return;
   }
-  if(V.paused) {
-    V.play().catch(e => {
-      console.error('[Player] Erro ao tocar:', e);
-      toast('Erro ao reproduzir: ' + e.message);
-    });
-  } else V.pause();
+  if(V.paused) { V.play().catch(e => { console.error('[Player] Erro ao tocar:', e); toast('Erro ao reproduzir: ' + e.message); }); }
+  else V.pause();
 }
-function seekBy(s){
-  if (!S.cur || !isFinite(V.duration) || P.classList.contains('embed')) return;
-  V.currentTime=clamp((V.currentTime||0)+s,0,dur()||1e9);showUI();
-}
+function seekBy(s){ if (!S.cur || !isFinite(V.duration) || P.classList.contains('embed')) return; V.currentTime=clamp((V.currentTime||0)+s,0,dur()||1e9);showUI(); }
 
 function setBri(v,quiet){
   v=clamp(v,0,100);S.bri=v;g('vs-b-fill').style.height=v+'%';
@@ -1190,12 +1133,7 @@ gest.addEventListener('pointerdown',e=>{
   try{gest.setPointerCapture(e.pointerId)}catch(_){}
   if (!P.classList.contains('embed') && !V.paused) {
     holdTimer = setTimeout(() => {
-      if (gs && !gs.mode) {
-        is2x = true;
-        speedBeforeHold = V.playbackRate;
-        V.playbackRate = 2;
-        ind('2X', '▶▶');
-      }
+      if (gs && !gs.mode) { is2x = true; speedBeforeHold = V.playbackRate; V.playbackRate = 2; ind('2X', '▶▶'); }
     }, 500);
   }
 });
@@ -1209,10 +1147,8 @@ gest.addEventListener('pointermove',e=>{
     clearTimeout(holdTimer);
   }
   if(!isFull()) return;
-  if(gs.mode==='seek'){
-    const d=dur();gs.target=clamp(gs.c+dx/gs.r.width*Math.min(d||600,300),0,d||1e9);
-    ind(`${dx>=0?'▶▶':'◀◀'} ${fmt(gs.target)} / ${fmt(d)}`);
-  }else if(gs.mode==='bri'){setBri(gs.b-dy/(gs.r.height*.7)*100)}
+  if(gs.mode==='seek'){ const d=dur();gs.target=clamp(gs.c+dx/gs.r.width*Math.min(d||600,300),0,d||1e9); ind(`${dx>=0?'▶▶':'◀◀'} ${fmt(gs.target)} / ${fmt(d)}`); }
+  else if(gs.mode==='bri'){setBri(gs.b-dy/(gs.r.height*.7)*100)}
   else{setVol(gs.v-dy/(gs.r.height*.7)*100)}
 });
 
@@ -1235,7 +1171,6 @@ P.addEventListener('mousemove',()=>{if(!isFull())showUI()});
 
 function onEnterFull(){
   P.classList.add('is-full');resize();
-  // Tutorial só aparece se não estiver salvo no localStorage
   if(!LS.get('guide',false)) g('guide').classList.add('on');
   showUI();
 }
@@ -1363,7 +1298,7 @@ g('fb-send').onclick=async()=>{
   const btn=g('fb-send'),sel=fbChecks();
   if(!sel.length){toast('Selecione ao menos uma opção');return}
   if(btn.disabled)return;
-  if(Date.now()-LS.get('fb_last',0)<30000){toast('Aguarde alguns segundos para enviar outro');return}
+  if(Date.now()-LS.get('fb_last',0)<30000){toast('Aguarde alguns segundos');return}
   const lista=sel.map(x=>'• '+x).join('\n');
   const a=LS.get('feedback',[]);a.push({t:lista,when:Date.now(),title:S.title});LS.set('feedback',a);
   const limpar=()=>{$$('#fb-list input').forEach(i=>{i.checked=false});fbRefresh()};
@@ -1375,15 +1310,13 @@ g('fb-send').onclick=async()=>{
     limpar();closePanels();toast('Feedback enviado, obrigado!');
   }catch(e){
     console.warn('[Player] Webhook feedback:',e);
-    toast('Não foi possível enviar. Tente de novo');
+    toast('Não foi possível enviar.');
   }
   btn.disabled=false;btn.textContent='Enviar Feedback';
 };
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden){
-    if(!V.paused&&S.pip&&document.pictureInPictureEnabled&&!document.pictureInPictureElement){
-      V.requestPictureInPicture().catch(()=>{});
-    }
+    if(!V.paused&&S.pip&&document.pictureInPictureEnabled&&!document.pictureInPictureElement){ V.requestPictureInPicture().catch(()=>{}); }
   }else if(!V.paused)wlOn();
 });
 
@@ -1396,14 +1329,13 @@ async function pip(){
 }
 function castNote(t){const n=g('castNote');n.textContent=t;n.style.display=t?'block':'none'}
 async function cast(){
-  const full=isFull();
-  if(!full) openPanel('p-cast');
+  const full=isFull(); if(!full) openPanel('p-cast');
   castNote('Buscando...');
   if(P.classList.contains('embed')){castNote('Indisponível');return}
   if(V.remote && V.remote.prompt){
     try{await V.remote.prompt();castNote('Conectado!');setTimeout(()=>closePanels(),1500)}
-    catch(err){castNote('Cancelado ou não suportado')}
-  }else{castNote('Navegador não suporta')}
+    catch(err){castNote('Cancelado')}
+  }else{castNote('Não suporta')}
 }
 g('c-pip').onclick=pip;
 g('c-cast').onclick=cast;
@@ -1432,8 +1364,7 @@ document.addEventListener('keydown',e=>{
 });
 
 function montarLink(raw){
-  raw=(raw||'').trim();
-  if(!raw)return '';
+  raw=(raw||'').trim(); if(!raw)return '';
   raw=raw.replace(/\{ep\}/g,S.ep).replace(/\{temp\}/g,S.season).replace(/\{id\}/g,S.id);
   if(!CONFIG.USAR_PROXY||!CONFIG.PROXY||S.noProxy||/\/embed\//i.test(raw))return raw;
   if(raw.startsWith(CONFIG.PROXY))return raw;
@@ -1448,9 +1379,7 @@ function srcFor(){
     return montarLink(raw);
   }
   let url = S.links[S.audio] || S.links['pt'] || '';
-  if(S.quality !== '720' && S.q[S.quality]){
-    url = S.q[S.quality];
-  }
+  if(S.quality !== '720' && S.q[S.quality]){ url = S.q[S.quality]; }
   return montarLink(url);
 }
 
@@ -1466,12 +1395,7 @@ function loadVideo(resume,auto,forceStage){
   if(hls){hls.destroy();hls=null}
   if(V._go){V.removeEventListener('loadedmetadata',V._go);V._go=null}
   if(!u){
-    P.classList.remove('embed');
-    P.classList.add('novideo');
-    V.removeAttribute('src');
-    V.load();
-    P.classList.add('paused');
-    P.classList.add('show');
+    P.classList.remove('embed');P.classList.add('novideo');V.removeAttribute('src');V.load();P.classList.add('paused');P.classList.add('show');
     return false;
   }
   P.classList.remove('novideo');
@@ -1500,9 +1424,7 @@ function loadVideo(resume,auto,forceStage){
   const go=()=>{
     if(resume){try{V.currentTime=resume}catch(e){}}
     V.playbackRate=S.speed;
-    killNativeControls();
-    P.classList.add('paused');
-    P.classList.add('show');
+    killNativeControls();P.classList.add('paused');P.classList.add('show');
     if(auto)tryPlay();
   };
   V._go=go;
@@ -1512,9 +1434,7 @@ function loadVideo(resume,auto,forceStage){
     hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyHlsQuality();go()});
     hls.on(Hls.Events.ERROR,(_,d)=>{if(d&&d.fatal)fallback()});
   }else{
-    V.src=u;
-    V.addEventListener('loadedmetadata',go,{once:true});
-    V.load();
+    V.src=u;V.addEventListener('loadedmetadata',go,{once:true});V.load();
   }
   return true;
 }
@@ -1533,7 +1453,6 @@ function loadEpisode(n,auto){
   updateTitle();setNextState();V.pause();showSplash();hideNoSource();
   if(!loadVideo(0,auto)){hideSplash();showNoSource()}
   tick();
-  SubManager.setSub(-1);
 }
 
 function updateTitle(){
@@ -1553,11 +1472,7 @@ function applySub(){
 }
 function updateMedia(){
   if(!('mediaSession' in navigator))return;
-  try{navigator.mediaSession.metadata=new MediaMetadata({
-    title:S.title,
-    artist:(AUDIOS.find(a=>a.k===S.audio)||AUDIOS[2]).tag,
-    artwork:S.poster?[{src:S.poster,sizes:'1280x720'}]:[]
-  })}catch(e){}
+  try{navigator.mediaSession.metadata=new MediaMetadata({ title:S.title, artist:(AUDIOS.find(a=>a.k===S.audio)||AUDIOS[2]).tag, artwork:S.poster?[{src:S.poster,sizes:'1280x720'}]:[] })}catch(e){}
 }
 function setMediaHandlers(){
   if(!('mediaSession' in navigator))return;
@@ -1606,28 +1521,14 @@ async function loadFromCatalog(){
   const path = location.pathname;
   const filmeMatch = path.match(/\/filme\/([\w-]+)/i);
   const serieMatch = path.match(/\/serie\/([\w-]+)\/(\d+)\/(\d+)/i);
-  if (filmeMatch) {
-    id = filmeMatch[1];
-    typeParam = 'movie';
-  } else if (serieMatch) {
-    id = serieMatch[1];
-    typeParam = 'series';
-    season = serieMatch[2];
-    ep = serieMatch[3];
-  }
+  if (filmeMatch) { id = filmeMatch[1]; typeParam = 'movie'; } 
+  else if (serieMatch) { id = serieMatch[1]; typeParam = 'series'; season = serieMatch[2]; ep = serieMatch[3]; }
 
   const hash = location.hash;
   const hashTv = hash.match(/#\/(tv|serie)\/([\w-]+)(?:\/(\d+)\/(\d+))?/i);
   const hashMovie = hash.match(/#\/(movie|filme)\/([\w-]+)/i);
-  if (hashTv) {
-    id = hashTv[2];
-    typeParam = 'series';
-    if (hashTv[3]) season = hashTv[3];
-    if (hashTv[4]) ep = hashTv[4];
-  } else if (hashMovie) {
-    id = hashMovie[2];
-    typeParam = 'movie';
-  }
+  if (hashTv) { id = hashTv[2]; typeParam = 'series'; if (hashTv[3]) season = hashTv[3]; if (hashTv[4]) ep = hashTv[4]; } 
+  else if (hashMovie) { id = hashMovie[2]; typeParam = 'movie'; }
 
   if (id) CONFIG.TMDB_ID = String(id);
   let type = 'movie';
@@ -1640,17 +1541,11 @@ async function loadFromCatalog(){
   if (season) CONFIG.TEMPORADA = parseInt(season) || 1;
   if (ep) CONFIG.EPISODIO = parseInt(ep) || 1;
 
-  if (!id) {
-    console.warn('[Player] Nenhum ID informado na URL.');
-    return false;
-  }
+  if (!id) { console.warn('[Player] Nenhum ID informado na URL.'); return false; }
 
   try {
     const res = await fetch('/catalog.json?t=' + Date.now());
-    if (!res.ok) {
-      console.warn('[Player] catalog.json não encontrado (HTTP ' + res.status + ')');
-      return false;
-    }
+    if (!res.ok) { console.warn('[Player] catalog.json não encontrado'); return false; }
     const catalog = await res.json();
     const bucket = type === 'tv' ? catalog.series : catalog.movies;
     let item = bucket?.[id];
@@ -1660,43 +1555,30 @@ async function loadFromCatalog(){
       else if (catalog.movies?.[id]) { type = 'movie'; item = catalog.movies[id]; CONFIG.TIPO = 'movie'; }
     }
 
-    if (!item) {
-      console.warn('[Player] ID ' + id + ' não encontrado no catálogo.');
-      return false;
-    }
-
+    if (!item) { console.warn('[Player] ID ' + id + ' não encontrado.'); return false; }
     if (item.title) CONFIG.TITULO = item.title;
 
     if (type === 'movie') {
       CONFIG.VIDEO = item.source || '';
       if (item.subtitles?.pt) CONFIG.LEGENDA = item.subtitles.pt;
-      console.log('[Player] Filme carregado:', item.title, '| Fonte:', CONFIG.VIDEO);
     } else {
       S.episodeSources = {};
       if (item.seasons && Array.isArray(item.seasons)) {
         item.seasons.forEach(s => {
           if (s.episodes && Array.isArray(s.episodes)) {
-            s.episodes.forEach(e => {
-              if (e.source) S.episodeSources[`${s.number}_${e.number}`] = e.source;
-            });
+            s.episodes.forEach(e => { if (e.source) S.episodeSources[`${s.number}_${e.number}`] = e.source; });
           }
         });
       }
       const direct = S.episodeSources[`${CONFIG.TEMPORADA}_${CONFIG.EPISODIO}`];
-      if (direct) {
-        CONFIG.VIDEO = direct;
-      } else {
+      if (direct) { CONFIG.VIDEO = direct; } 
+      else {
         const firstEp = S.episodeSources[`${CONFIG.TEMPORADA}_1`];
-        if (firstEp) {
-          CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}');
-        }
+        if (firstEp) { CONFIG.VIDEO = firstEp.replace(new RegExp('/' + '1' + '(?=/|$|\\.)'), '/{ep}'); }
       }
     }
     return true;
-  } catch(e) {
-    console.warn('[Player] Erro ao carregar catálogo:', e);
-    return false;
-  }
+  } catch(e) { console.warn('[Player] Erro:', e); return false; }
 }
 
 async function start(){
@@ -1727,33 +1609,22 @@ async function start(){
     }
     if(CONFIG.TITULO){ S.title = CONFIG.TITULO; S.metaOk = true; }
     applySub();
-    updateTitle();
-    setNextState();
-    updateMedia();
-    setMediaHandlers();
+    updateTitle();setNextState();updateMedia();setMediaHandlers();
     if(!V.paused) V.pause();
     const saved = PROG.get();
     if (saved > 0) toast(`Retomando de ${fmt(saved)}`);
     const ok = loadVideo(saved, true);
     tick();
-    
-    P.classList.add('paused');
-    P.classList.add('show');
-    
+    P.classList.add('paused');P.classList.add('show');
     if(!ok){ hideSplash(); showNoSource(); }
   } catch(err) {
     console.error('[Player] Erro fatal:', err);
-    hideSplash();
-    toast('Erro: ' + err.message);
-    P.classList.add('paused');
-    P.classList.add('show');
+    hideSplash(); toast('Erro: ' + err.message); P.classList.add('paused'); P.classList.add('show');
   }
 }
 
 window.KiraPlayer={ load(o){Object.assign(CONFIG,o||{});return start()}, config:CONFIG, link:montarLink };
-
 P.classList.add('show');
-
 resize();tick();start();
 })();
 </script>
