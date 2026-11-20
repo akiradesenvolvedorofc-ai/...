@@ -60658,6 +60658,177 @@
         }
       ]
     },
+    "105248": {
+      "title": "Cyberpunk: Mercenários",
+      "overview": "Para sobreviver em uma realidade distópica na qual a corrupção e os implantes cibernéticos controlam tudo, um jovem talentoso e impulsivo decide se tornar um mercenário.",
+      "poster": "https://image.tmdb.org/t/p/w500/nWvAY8yHE873adMws83XqBPf7W2.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/bknKZO7DWVYKeByuJMnGI46PFZg.jpg",
+      "year": "2022",
+      "rating": 8.501,
+      "genres": [
+        "Animação",
+        "Action & Adventure",
+        "Sci-Fi & Fantasy",
+        "Crime"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Cyberpunk: Mercenários",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Decepção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Força feminina",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Conhecendo a gangue",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Sorte?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Chamando atenção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Morte e fogueira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Mais forte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Fique",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Estado geral da gangue",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Pouso na lua",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Cyberpunk: Mercenários 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Última chance para uma dança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Me dá mais um dia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "0+2=1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Alguém que eu conhecia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Além da Distância",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Ódio Total",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Para as profundezas com você",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Coração",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Reservado só para você",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Então todos foram para casa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795184036388,
+      "isAnime": true
+    },
     "105556": {
       "title": "DON'T TOY WITH ME, MISS NAGATORO",
       "overview": "Certo dia, ao visitar a biblioteca do colégio, Senpai vira o alvo de uma novata super-sádica! O nome da garota que provoca, atormenta e bulina o Senpai é Nagatoro! Ela é pentelha, mas adorável. Estar ao lado dela é agonizante, mas irresistível. Esta é a história de uma garota extremamente sádica e temperamental que vai despertar algo dentro de você.",
