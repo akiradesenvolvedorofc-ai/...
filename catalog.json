@@ -47379,6 +47379,393 @@
       ],
       "isAnime": true
     },
+    "216467": {
+      "title": "A Missão da Família Yozakura",
+      "overview": "Uma família fora do comum! O aluno do ensino médio, Asano Taiyo, perdeu sua família num acidente trágico. A única pessoa com quem consegue falar é Mutsumi Yozakura, sua amiga de infância. Mas Mutsumi guarda um grande segredo: ela vem de uma família de espiões. Seu irmão, Kyoichiro, um espião extremamente habilidoso, fará de tudo para eliminar Taiyo. Para salvar Mutsumi e a si mesmo, Taiyo concorda casar com Mutsumi e se tornar parte da família Yozakura, embarcando numa aventura surpreendente!",
+      "poster": "https://image.tmdb.org/t/p/w500/xSQa7R6egOcTo7nCU1fFf295OFJ.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/xlMVEbNl7ZBGFyhX2WEhQ8Kifm4.jpg",
+      "year": "2024",
+      "rating": 7.5,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Action & Adventure"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Anel de Flor de Cerejeira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Tábua de Salvação dos Yozakuras",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Sentimentos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Kengo/Shinzo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Interrogatório/Encontro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Erro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Espiões do Governo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Festa Kuroyuri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Significado da Flor de Kuroyuri (Lírio Negro)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Empregada da Família Yozakura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Histórias de Fantasmas da Família Yozakura/Licença de Espião",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Vovô Fugitivo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Tanpopo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Mirem a Suíte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Sangue Yozakura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Limpando o Quintal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Uma Solução para Nanao",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Os Yozakura nas Fontes Termais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Uma Droga Chamada Tanpopo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Brincos de Sol",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Linha de Frente Yozakura / O Florescimento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Festa da Cerejeira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Vento / Arma Oriental",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Shion e Kengo Contra Chacha e Aonuma",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Ai e Mizuki",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Sangue Antigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Missão Completa / Recepção",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Episódio 23",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Episódio 24",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795141906907,
+      "isAnime": true
+    },
     "217390": {
       "title": "A Veterana Pitica da Firma",
       "overview": "Quando Shinozaki começou em seu novo trabalho, ele não esperava que sua chefe fosse tão... fofa! Ele deu seu melhor para pegar o jeito das coisas no trabalho, mas Katase, sua pequena e amável senpai, o colocou sob sua proteção. Mas à medida que se os dois aproximam, ele espera que a atenção dela possa significar algo mais...",
