@@ -3090,6 +3090,4744 @@
     }
   },
   "series": {
+    "387": {
+      "title": "Bob Esponja",
+      "overview": "Uma esponja-do-mar chamada Bob Esponja Calça Quadrada mora com seu caracol de estimação na Fenda do Biquíni, no fundo do oceano. Bob trabalha no Siri Cascudo e, nas horas vagas, vive arrumando confusões com seu melhor amigo, a estrela-do-mar Patrick.",
+      "poster": "https://image.tmdb.org/t/p/w500/yXrtQINkVRyNmfUQFyVG2LuoTqm.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/f3f5OzzYd8m3zN47DAjKs0sbx00.jpg",
+      "year": "1999",
+      "rating": 7.723,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Família"
+      ],
+      "ageRating": "12",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Precisa-se de Ajudante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Assoprador de Recife",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Chá em Terra Firme",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Bolhas de Sabão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Calça Rasgada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Caçando Água-Viva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Plankton!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Vizinhos Náuticos Terríveis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Escola de Pilotagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Entrega de Pizza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Lar, Doce Abacaxi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Homem Sereia e o Mexilhãozinho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Picles",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Monitor da Classe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Festa das Águas-Vivas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Foguete da Sandy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Botas Que Rangem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Com Calças Naturais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Dia do Contra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Choque Cultural",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Diversão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Bob Músculo Calça Cheia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Lula Molusco, O Fantasma Não Amigável",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "O Acompanhante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Empregado do Mês",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Calças Assustadoras",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Eu Era Um Gary Adolescente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "SB-129",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Caratecas Fatiadores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Hora da Soneca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Espuma",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Dia de São Valentim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "O Papel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Sim Capitão!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Fenda da Pedra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Texas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Passos Pequeninos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Primeiro de Abril",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Espátula de Netuno",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Anzóis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "Homem Sereia e o Mexilhãozinho II",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Está Cheirando Alguma Coisa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Nas Botas do Chefe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Sapatos Desamarrados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Dia de Folga do Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Grande Fracassado Cor-de-Rosa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Amigo da Bolha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Homem-Sereia e o Mexilhãozinho 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Piadas de Esquilos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Natal Quem?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Morrendo Por Uma Torta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Imitação de Caranguejo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Lagartinha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Hambúrguer Decepcionante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Sobrevivência dos Idiotas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Descartado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Beijos da Vovó",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Cidade de Lula",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Pilotar Sem Saber Não Vale",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Sou Seu Maior Fã",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Pressão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "O Amendoim de Fumar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Marujo na Marra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Semana Pré-Hibernação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Vida de Crime",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "A Caixa Secreta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Doidos Pela Banda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Boca de Marinheiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Artista Desconhecido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Caçador de Águas Vivas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Os Jogos do Mestre Cuca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Só Uma Mordida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "O Incômodo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Lula em Greve",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Sandy, Bob Esponja e a Minhoca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Delonga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Sou Pelos Idiotas",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Homem Sereia e o Menino Mexilhão IV",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Fazendo Tempo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Bem-Vindo ao Balde de Lixo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Frankenrabisco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Efeito Bola de Neve",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Um Lixo de Siri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Hambúrguer Perigoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Caixa Idiota",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Como Visto Na TV",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Você Pode Poupar Um Centavo?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Não São Permitidos Pirralhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Retorno de Squilliam",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "As algas são sempre mais verdes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Salva vidas, Bob Esponja em serviço",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Siri Borg",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Nana neném conchinha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Pintores molhados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Vídeo de treinamento de Siri em Siri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Festa da Calça Saltitante (Festa de Bob Esponja)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Chocolate com nozes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Homem Sereia e o Menino Mexilhão V",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Clube do Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "O meu belo cavalo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Turno Macabro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Amor Cascudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Aluno novo, Estrela do Mar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Mexilhão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "A Grande corrida de caracóis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Crustáceo de meia-idade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "A esponja que poderia voar (o episódio perdido)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "O Banho do Gary",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Sirigueijo nasci de novo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Eu tive um acidente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Identidade perdida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Exército de Plâncton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Bob Esponja B.C ( Antes da comédia)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Sirilândia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "O episódio do acampamento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Bob Esponja encontra o estrangulador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Brincadeiras aos montes",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Medo de Hambúrguer de Siri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Másculo Mesmo sem Casca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Colchão Perdido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Sirigueijo X Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Gancho Habilidoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Bons Vizinhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "À Venda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Calça Engraçada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Homem-Sereia e o Mexilhãozinho VI: O Filme",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Padrasto Inimigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Patrick Calça Esperta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Bob Lula Calça Tentáculos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cadê Esse Caracol?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Masmorras e Dragões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "A Torre Cascuda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Sra. Puff, Está Demitida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Olá Chimpanzés",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Anfitrião do Fantasma",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Aniversário da Baleia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Ilha do Karatê",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Nem Tudo Que Reluz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Poço dos Desejos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Virando a Página",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "A Mordida Contagiosa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Viagem Lulástica",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Férias Desastrosas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "O Melhor Dia de Todos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Peruca da Moda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Não É Uma Dama",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "A Coisa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Conversa Fiada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Pilotando de Chorar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Reinado de Idiotas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "O Ladrão Cor de Rosa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "O Presente da Goma de Mascar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Acorde Disposto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Esperando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "A Música do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Nascido Para Ser Selvagem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Grandes Aminimigos",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Temporada 5",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Amigo ou Inimigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Amigos Espiões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Pilotagem Consciente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Qual É O Nome Dele?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Esponja Cascuda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Lula de Madeira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Novas Acomodações",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Siri A La Mode",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Adoro a Patty",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O Gostinho do Novo Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Medo de Montanha-Russa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Balde Doce Balde",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Mestre-Cuca Original",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Luz Noturna",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Dinheiro Fala",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Bob Esponja Vs. A Máquina de Fazer Hambúrguer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Dança Pegajosa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Uma Pulga no Domo Dela",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "A Rosquinha da Vergonha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Prato Cascudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "O Dia da Foto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Patrick Não Paga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "BlackJack",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Esponja Roxa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Homem Sereia vs. Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "La Grande Troca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Tem Fungo Entre Nós",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Descobrindo a Atlântida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Os Reclusos do Verão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "As Duas Caras do Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "A Batalha da Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Interdição da Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Monumento de Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "20.000 Hambúrguer Submarino",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Stanley S. Calça Quadrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Salvando Um Esquilo",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Temporada 6",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Estrada do Carsiri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Não é Normal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Desaparecidos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Sinfonia das Ventosas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Doidos por Tostôes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Novato Náutico",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Esponjicus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Peste do Oeste",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "A Farpa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Lula Molusco Gigante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Uma vida num dia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Alvejado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Casa Chique",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Nenhum nariz sabe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Hamburguer e Delito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Cliente Assíduo do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Amigos Pilotos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "A Gazeta do Siri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Que Aconteceu Com Bob Esponja?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "A Festa do Pijama",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Gary Enfeitado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Bolsos Porosos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Os Crocantes Apetitosos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "A FIgurinha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Queridos Vikings",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "A Trapaça",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Embarque Atrapalhado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Os Palhaços do Assobio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Loja Maçônica Cefalópode",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "O Vovô Pirata",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Professor Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Castelos de Areia na Areia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Loja de Brinquedos Ameaçadores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Mascotes ou Pestes?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Computador Sobrecarregado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Os Rapazes Do Coro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Bob Esponja e a Onda Gigante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Casca Em Choque",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Tempo de Abacaxi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Aniversário de Casamento do Unicelular",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "Visita do Lula",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Calça Ingênua",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Para o Calça Quadrada ou Não?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Nada de Chapéu pro Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Sobrecarregado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "Balde de Lixo Supremo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Cavernas de Salmão",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Temporada 7",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Visão de Tentáculos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Adoro Dançar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Período de crescimento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Preso no rolo espremedor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Tem Alguém Na Cozinha Com a Sandy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Crime Caseiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Gás Gugu Dada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Feitiço da Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Bob Esponja Entrando Numa Fria",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Esponja Modelo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Bolos Engordurados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Um Companheiro para o Gary",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Mantenha a Fenda do Bikini Bonita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "O Gary Apaixonado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Confusão no Rodeio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "De Volta ao Passado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Clube dos Vilões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Um Dia Sem Lágrimas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Emprego de Verão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Lula Molusco na Clarinetalândia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Refeição Grosseira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Negócio é Teatro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Bob Esponja Protesta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Os Sonhos Encantados de Tiki",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "A Fúria de Tritão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "A Fórmula Secreta da Vovó",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Faro de Dinheiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "No Fundo do Poço",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Estrela do Karatê",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Você Não Conhece a Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Esconda-se, E Aí, O Que Acontece?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Seu, Meu e Meu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Siri Rachado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Enterrado na Hora Certa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Trapaça com a Casca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "A Obra Prima",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Ataque de Búzios",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Cascudo Quente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "o Naufrágio do Mauna Loa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "O Grande Assalto ao Trem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "O Lado Abrasivo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Verme de Ouvido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Peixe Novo na Cidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Sam, a Irmã Mais Velha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Esponja Vulcão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "O Ralo Principal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "O Monstro que Foi para Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 48,
+              "label": "Episódio 48",
+              "title": "Bem-vindo ao Triângulo da Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 49,
+              "label": "Episódio 49",
+              "title": "Caipiras Durões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 50,
+              "label": "Episódio 50",
+              "title": "Adoro Essa Lula",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 51,
+              "label": "Episódio 51",
+              "title": "O Túnel da Luva Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 52,
+              "label": "Episódio 52",
+              "title": "Química Perfeita",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "label": "Temporada 8",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Um Jogo Amistoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Relatório Oral",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Esponja Sentimental",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Escola para Adultos do Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Feitiço da Bruxa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "A Celebridade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Outro Hambúrguer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Confronto Congelado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Acidentes Acontecem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Drive Thru",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Lula Doce e Amarga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "o Artista dos Olhos Enviesados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Cara de Mexilhão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Pat, Babá de Mascotes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Inicio do Homem Sereia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "O Olho Bom do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Tomando Conta da Casa da Sandy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Jazz Suave na Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Tem Gente Que Acredita em Fantasmas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Passeando com Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Fiquérias do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "O Sr. Sirigueijo Tira Férias",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Férias Lunares",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Férias da Família Calça Quadrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Hambúrguer de Siri que Comeu a Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "O Retorno do Amigo Bolha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "O Jeito da Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Bolhas Problemáticas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Está Feliz Agora?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Planeta das Águas Vivas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Ordem de Restrição ao Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Mundo da Luva, Descanse em Paz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Lar Doce Entolho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Fiasco!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Amostra Grátis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Esponja com Insônia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Petiscos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Lulite",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Para Comer Aqui ou Para Viagem?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Karen 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "Esportes Radicais",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Recorde do Esquilo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Ignorante na Corrida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Careta Definitiva!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Em Nome do Siri Cascudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "O Bebê Lula",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Licença Para Fazer Milk Shake",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 48,
+              "label": "Episódio 48",
+              "title": "Olá Fenda do Bikini!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 49,
+              "label": "Episódio 49",
+              "title": "A Equipe do Vilão Aquático Super Malvado Ataca",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 50,
+              "label": "Episódio 50",
+              "title": "O Brinquedo Novo do Gary",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 51,
+              "label": "Episódio 51",
+              "title": "Fricassé de Salmão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 52,
+              "label": "Episódio 52",
+              "title": "Mexa-se ou Perca",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "label": "Temporada 9",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Patrick-Man",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Ouriço Não!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Congestionamento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Natal do Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Defesa Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Bicho de Estimação do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Caderninho Amarelo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Espátula do Mal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Fuga da Prisão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Cofre do Sirigueijo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Não Olhe Agora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Sessão Espírita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Bob Esponja, Você está Despedido!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Bolha de Grude",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Gato Kenny",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Siri das Neves",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Perdido na Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Aula de Volante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Tratamento Executivo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Lula Molusco Acompanhado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Puxe um Barril",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Piquenique da Empresa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Quem Como Mais?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Abrigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "O Jogo do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "O Esgoto da Fenda do Bikini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Bob Esponja Calça Comprida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Academia do Larry",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Um Trabalho para Pérola",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Dedo de Menos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "A Experiência",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Casado Com o Dinheiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Tubarões Contra Lulas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Bob Cópia Quadrada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Vendida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Sorte Boba",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Pesadelo de Avelãs",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Perdidos na Food-Con",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Invasão ao Abacaxi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Molho Bobísticus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "Quadro de Avisos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Motim na Lanchonete",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Cérebros Voadores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Correio Caramujo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Homem Sereia Calça Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "Dente de Leite",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Adeus, Hamburguer de Siri?",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "label": "Temporada 10",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Pesadelo de Imitação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Minhocas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Pare de Dormir",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Festa Cascuda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Lanchonete do Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Plankton é Expulso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Seguro de Vida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Bolha Furada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Plankton Se Aposenta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Tridente Problema",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Casa Surreal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Código Amarelo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "A Fuga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Achados e Perdidos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "O Cupom do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Fora do Tempo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Retorno do Mancha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Check-Up",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Esportz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Gire a Garrafa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 11,
+          "label": "Temporada 11",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Esponja das Cavernas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Encantador de Mariscos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Retorno do Homem-Raio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Larry, o Gerente Temporário",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Amigos Selvagens",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Não Acorde o Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Lenda Assustadora da Fenda do Boo-Kini",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Criatura Zumbi Hambúrguer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Aprontando na Escola",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Sem Fotos, Por Favor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Preso no Telhado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Tem uma Esponja na Minha Sopa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Abraço e Chamego",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Bob-Caçada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Lula Mistério",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "A Incrível Esponja Encolhida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Cavalo Pat",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Gary Falante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Não Alimente os Palhaços",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Dirija Feliz",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Velho Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Amigos de Tamanhos Divertidos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Vovó Sabe das Coisas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Dimensão Rabisco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Mudança do Robalo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Caça ao Coelho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Mergulho em Alto Mar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Ladrões de Garrafa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Loucura de Limpeza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Minha Perna",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Limonada de Tinta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Minha Mostarda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "Babá de Baleia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Faxina Cascuda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Patrinóquio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Chef Bob",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Lista de Compras",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Biblioteca em Casa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Paranoia de Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Chame a Polícia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "A Chapa Sumiu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "O Hambúrguer da Noite",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "Cidade das Bolhas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "TV com Hora Marcada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "O Vírus da Karen",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "Noite das Garotas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Barco na Garrafa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 48,
+              "label": "Episódio 48",
+              "title": "Bob Fazendeiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 49,
+              "label": "Episódio 49",
+              "title": "Sandy Água-Viva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 50,
+              "label": "Episódio 50",
+              "title": "A Linha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 51,
+              "label": "Episódio 51",
+              "title": "Confusões na Lua",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 12,
+          "label": "Temporada 12",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Bobalhice",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Balada do Lodo Sujo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Prisão Cascuda",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Rei Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Tempo Chuvoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "As Sobrinhas da Sandy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Guardas da Insegurança",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Despertador Quebrado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Desconto de Idoso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Especial de Aniversário do Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Gary e Mancha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Gary Tem Pernas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Balde Cascudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Bebê da Karen",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Cuide da Falha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Intervalo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Bob Esponja na Terra Aleatória",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Mau Hábito de Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Novato Amendobobo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Lula no Ônibus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "O Fantasma do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Uma Cabana na Floresta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "A Volta do Bolha Suja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Luva Encrenqueira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Lixão do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "O Desejo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Fuga do Mundo da Luva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Zoológico de Bolhas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Babá da Ranzinza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Casco de Pedra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Hóspede Contente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Parceiros do Pântano",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "o Truque da Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "Chefe Por Um Dia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "Abacaxi Móvel",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 13,
+          "label": "Temporada 13",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Um Lugar Para os Bichinhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Confinamento do Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "No Pequeno Picadeiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Saltadores de Sonhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Siri em Dose Dupla",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Louie do Farol",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "A Conta do Robalo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Comidas Estranhas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "No Pequeno Picadeiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Dia de Passar Mal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Toc Toc, Quem É?",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Estagiária do Plankton",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Cachorro Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Pat Ama Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Tem Narval na Frente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "G.O.R.O.R.O.B.A.",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "O Caminho para o Natal de Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "O Chilique do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Amendo Conchas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Pegadinha do Soluço",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Batata Puff",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Muita Gordura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Siri em Quarentena",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "O Grande Robalo Mau",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Clube dos que Não Suportam o Bob Esponja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Cascudomóvel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 27,
+              "label": "Episódio 27",
+              "title": "Meninas Chiques",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 28,
+              "label": "Episódio 28",
+              "title": "Diga Awww!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 29,
+              "label": "Episódio 29",
+              "title": "Patrick, O Carteiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 30,
+              "label": "Episódio 30",
+              "title": "Capitão Pirralho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 31,
+              "label": "Episódio 31",
+              "title": "Avião Para o Mar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 32,
+              "label": "Episódio 32",
+              "title": "Lula Nosferatu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 33,
+              "label": "Episódio 33",
+              "title": "A Viagem de Slappy",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 34,
+              "label": "Episódio 34",
+              "title": "A Fenda Binária",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 35,
+              "label": "Episódio 35",
+              "title": "O Preço do Telefone",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 36,
+              "label": "Episódio 36",
+              "title": "Uma Ruga no Tempo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 37,
+              "label": "Episódio 37",
+              "title": "Abandonar Bobões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 38,
+              "label": "Episódio 38",
+              "title": "Paredilândia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 39,
+              "label": "Episódio 39",
+              "title": "Esponja Salgada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 40,
+              "label": "Episódio 40",
+              "title": "Karen, a Babá do Mancha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 41,
+              "label": "Episódio 41",
+              "title": "Folia da Mamãe e do Papai",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 42,
+              "label": "Episódio 42",
+              "title": "Asfalto Amarelo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 43,
+              "label": "Episódio 43",
+              "title": "A Floricultura",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 44,
+              "label": "Episódio 44",
+              "title": "Bob em Desfile",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 45,
+              "label": "Episódio 45",
+              "title": "Entrega na Ilha dos Monstros",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 46,
+              "label": "Episódio 46",
+              "title": "Pedala, Patrick, Pedala",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 47,
+              "label": "Episódio 47",
+              "title": "Bolotas Defumadas e Picantes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 48,
+              "label": "Episódio 48",
+              "title": "Ouri-Sir e Caracol Bobol",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 49,
+              "label": "Episódio 49",
+              "title": "Amizadeversário",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 50,
+              "label": "Episódio 50",
+              "title": "Curso de Música Obrigatório",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 51,
+              "label": "Episódio 51",
+              "title": "A Revolta do Dia da Árvore",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 52,
+              "label": "Episódio 52",
+              "title": "A Fada do Crime",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 53,
+              "label": "Episódio 53",
+              "title": "Bobo Dick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 54,
+              "label": "Episódio 54",
+              "title": "Plankton e o Pé de Feijão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 55,
+              "label": "Episódio 55",
+              "title": "Meu Amigo Hambúrguer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 56,
+              "label": "Episódio 56",
+              "title": "Sensacio-Crível",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 57,
+              "label": "Episódio 57",
+              "title": "A Espátula Divina",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 58,
+              "label": "Episódio 58",
+              "title": "A Casinha do Gary",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 59,
+              "label": "Episódio 59",
+              "title": "Se Essa Piscina Fosse Minha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 60,
+              "label": "Episódio 60",
+              "title": "O Poderoso Amendochefão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 61,
+              "label": "Episódio 61",
+              "title": "Ataque dos Mexilhões",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 62,
+              "label": "Episódio 62",
+              "title": "Crise de Alergia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 63,
+              "label": "Episódio 63",
+              "title": "O Circo do Fracasso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 64,
+              "label": "Episódio 64",
+              "title": "Sandy, Nos Ajude!",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 14,
+          "label": "Temporada 14",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Plankton-Defesa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Sammy Limpa Tudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Episódio 23",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 15,
+          "label": "Temporada 15",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Polvo Agitado Não Identificado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "A Disputa dos Biscoitos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Preso no Elevador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Proteção a Testelula",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Sozinha no Domo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Preso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Episódio 23",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Episódio 24",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 16,
+          "label": "Temporada 16",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Confusão Temporal do Bob Esponja e do Patrick",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Fenda do Bizarro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Cara Durão Lula Molusco",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Maldição do Rabisomem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Dia do Traje de Gorila",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Aluno de Intercâmbio de Direção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Sinistro Cascudo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 17,
+          "label": "Temporada 17",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Episódio 23",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Episódio 24",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Episódio 25",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Episódio 26",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 18,
+          "label": "Temporada 18",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795144013461
+    },
     "456": {
       "title": "Os Simpsons",
       "overview": "Uma animação sobre uma típica família dos Estados Unidos. Homer é o pai de família nada saudável ou inteligente, que adora beber cerveja. Marge é a esposa e mãe de família dedicada. Bart é o filho de 10 anos, que não leva a escola a sério e tem orgulho disso. Lisa é a garota de 8 anos, um gênio não apreciado. E Maggie é a bebê que não larga a chupeta.",
