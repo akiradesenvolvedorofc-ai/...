@@ -44056,6 +44056,1332 @@
       ],
       "addedAt": 1795142583841
     },
+    "65334": {
+      "title": "Miraculous: As Aventuras de Ladybug",
+      "overview": "Ladybug é uma heroína que tem a missão de defender Paris de um vilão misterioso. Junto com o parceiro Cat Noir, eles devem conciliar o dia a dia com a vida de super-heróis.",
+      "poster": "https://image.tmdb.org/t/p/w500/24wf3O8SJeUSJJvDowQR5FDgHGO.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/lH22EnM0ofC7GsVGU8dAA2RXV1c.jpg",
+      "year": "2015",
+      "rating": 8.1,
+      "genres": [
+        "Action & Adventure",
+        "Animação",
+        "Kids"
+      ],
+      "ageRating": "L",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Tormenta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Homem-Bolha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Faraó",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Lady Wifi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Temporizadora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Sr. Pombo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Ilustrador do Mal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Rogercop",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Copycat",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Cupido Negro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Horrificador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Lâmina Negra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "O Mímico",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Kung Food",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Jogador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Animan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Antibug",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "A Marionetista",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Reflecta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Guitarrista Malvado",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Pixelador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Princesa Perfume",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Simon Mandou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Volpina",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Ladybug & Cat Noir (Origem – Parte 1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Coração de Pedra",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Colecionador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Urso Maligno",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Rainha Repórter",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Befana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Revanche",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Robustus",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Gigantitã",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Coruja Negra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Glaciator",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Sapotis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Gorizilla",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Capitã Hardrock",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Zombizou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "A Sereia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "A Cantora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Encrenqueira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Anansi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Sonhador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Reverso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Frozer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "A Batalha das Rainhas (1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "A Batalha das Rainhas (2)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "O Ditador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Dia dos Heróis (1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Dia dos Heróis (2)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Regressa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Lobipai",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Camaleoa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Animestre",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Bakerix",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Silenciador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Oblívio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Tormenta 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Reflekdoll",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Oni-Chan",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Miraculer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "A Marionetista 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Desperada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Startrain",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Caçadora de Kwamis",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Faminto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Ikari Iozen",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Tagueador do Tempo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "O Penetra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Jogador 2.0",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Cat Blanc",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Félix",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Ladybug",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Chris Master",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "A Batalha dos Miraculous (1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "A Batalha dos Miraculous (2)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Verdade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Mentira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "A Gangue dos Segredos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Sr. Pombo 72",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Furioso Fu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Esmagadora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Rainha Banana",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Remorso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Crocoduel",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Optigami",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Sentibolha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Lastimador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Sanguessuga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Realizador de Sonhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Hack-San",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Simplificador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Glaciator 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Família Querida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Efêmero",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Gabriel Agreste",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Psicomédia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Kuro Neko",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Penaltime",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Qilin",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Risco (O Ataque Final de Shadow Moth – Parte 1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Contra-Ataque (O Ataque Final de Shadow Moth – Parte 2)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "label": "Temporada 5",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Evolução",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Multiplicação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Destruição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Júbilo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Determinação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Paixão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Reunião",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Ilusão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Colisão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Transmissão: A Escolha Dos Kwamis (1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Deflagração (A Escolha Dos Kwamis – Parte 2)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Perfeição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Migração",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Zombaria",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Intuição",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Proteção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Adoração",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Emoção",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Pretensão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Revelação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Confrontação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Conspiração",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Revolução",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Representação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Configurção (O Último Dia – Parte 1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Recriação (O Último Dia – Parte 2)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "label": "Temporada 6",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Desenhista",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Sublimação",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Lobiavôs",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Papaicop",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Revelador",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Rainha Tormenta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "El Toro de Piedra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A Alinhadora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Senhor Agreste",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "A Sereia Adormecida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Doutora Psicopiloto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Castelo Sombrio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Yaksi Iozen",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Noe",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Fraldizer",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Vampigami",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Fada dos Bons Sonhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Conserta-Coração",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Lady Caos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Frianansi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Rigina Razione",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Titãs Acorrentados",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "As Sujinhas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Rainha Do Domo Do Medo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Protocolo Secreto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Nêmesis",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "label": "Temporada 7",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Dra. Flashback (A Hora Certa - Parte 1)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Chrysalis (A Hora Certa - Parte 2)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Desamor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Gerente",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Marinette Dupain-Cheng",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Glaciator Extremo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Episódio 13",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Episódio 14",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Episódio 15",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Episódio 16",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Episódio 17",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Episódio 18",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Episódio 19",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Episódio 20",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Episódio 21",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "Episódio 22",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Episódio 23",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Episódio 24",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "Episódio 25",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 26,
+              "label": "Episódio 26",
+              "title": "Episódio 26",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795144560987
+    },
     "65930": {
       "title": "My Hero Academia",
       "overview": "Por toda a sua vida, Izuku sonhou ser um herói — um objetivo ambicioso para qualquer um, mas especialmente desafiador para um garoto sem superpoderes. Isso mesmo: em um mundo onde 80% da população tem algum tipo de Dom especial, Izuku teve a má sorte de nascer completamente normal. Mas isso não vai impedi-lo de se matricular em uma das academias de herois mais prestigiosas do mundo.",
