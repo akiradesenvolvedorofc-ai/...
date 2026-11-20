@@ -1074,6 +1074,23 @@
       "ageRating": "12",
       "source": "https://mgeb.space/mp4.php?url=https://flixlat.com/pt/detail/movie/uHBdNYPsAwyM6e28QAoKi-The-Amazing-Spider-Man-2"
     },
+    "109445": {
+      "title": "Frozen: Uma Aventura Congelante",
+      "overview": "A destemida e otimista Anna sai em uma jornada épica, ao lado de Kristoff e sua leal rena Sven, para encontrar sua irmã Elsa, cujos poderes congelantes aprisionaram o reino de Arendelle em um inverno eterno. Encontrando condições de Everest, trolls místicos e um hilário boneco de neve chamado Olaf, Anna e Kristoff enfrentam obstáculos em uma corrida para salvar o reino.",
+      "poster": "https://image.tmdb.org/t/p/w500/hOZKUJGN0m717LRSQDxhgABqWrf.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg",
+      "year": "2013",
+      "rating": 7.249,
+      "genres": [
+        "Animação",
+        "Família",
+        "Aventura",
+        "Fantasia"
+      ],
+      "ageRating": "L",
+      "source": "",
+      "addedAt": 1795182779414
+    },
     "116711": {
       "title": "Reino Escondido",
       "overview": "A adolescente Mary Katherine é magicamente transportada para um universo secreto e vai precisar contar com a ajuda dos seres fantásticos que o habitam para conseguir salvar o mundo dos humanos e este novo reino descoberto de uma força maligna, que ameaça destruir a Terra.",
