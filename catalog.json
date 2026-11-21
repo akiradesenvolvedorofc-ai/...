@@ -63236,6 +63236,146 @@
       ],
       "addedAt": 1795141555407
     },
+    "200709": {
+      "title": "Classe dos Heróis Fracos",
+      "overview": "Com a ajuda de amigos inesperados, um aluno talentoso e introvertido decide enfrentar os valentões do colégio, sem fazer ideia do perigo que está correndo.",
+      "poster": "https://image.tmdb.org/t/p/w500/kZeJeV8L3WlVp3L6DZS0WaDelfj.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/cLTAda6fMRirkCY1xfO4pmcHVkk.jpg",
+      "year": "2022",
+      "rating": 8.675,
+      "genres": [
+        "Action & Adventure",
+        "Drama"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Classe 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Classe 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795236183305
+    },
     "200875": {
       "title": "IT: Bem-Vindos a Derry",
       "overview": "Durante as férias de 1962, em uma pacata cidadezinha chamada Derry, um grupo de sete amigos começa a ver coisas bizarras. Um conta que viu um palhaço, outro que viu uma múmia. Finalmente, acabam descobrindo que estavam todos vendo a mesma coisa: um ser sobrenatural e maligno que pode assumir várias formas. Ele mesmo. O Pennywise.",
