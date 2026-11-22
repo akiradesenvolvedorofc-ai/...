@@ -67413,6 +67413,113 @@
       "addedAt": 1794912043913,
       "isAnime": true
     },
+    "295509": {
+      "title": "A Lenda do Soldado Cozinheiro",
+      "overview": "Kang Seong-jae, um cozinheiro militar, aceita a missão de se tornar lendário. Com companheiros excêntricos — um sargento boca-suja, um tenente rigoroso e um cozinheiro veterano completamente alheio à situação — ele traz caos e um humor cativante ao acampamento.",
+      "poster": "https://image.tmdb.org/t/p/w500/tAzPcuN0GwSAnysSzzPaN1frBXa.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/9lQZ18CYk5n3YNbOfmSjkiBrfrk.jpg",
+      "year": "2026",
+      "rating": 8.6,
+      "genres": [
+        "Sci-Fi & Fantasy",
+        "Comédia",
+        "Drama"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Episódio 11",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Episódio 12",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795378496605
+    },
     "298505": {
       "title": "Coven Academy",
       "overview": "Ao chegar a uma misteriosa escola de magia em Nova Orleans, a adolescente Briar Roberts tenta desvendar o que aconteceu com sua mãe em meio a um conflito entre bruxas e vampiros. Com seu clã de bruxas em treinamento, ela precisa combater uma ameaça sombria e encarar os perigos de um colégio sobrenatural. E em meio a tantos desafios, um primeiro amor proibido floresce.",
