@@ -188,6 +188,7 @@ textarea{resize:vertical;min-height:120px}
 .chip{padding:9px 0;text-align:center;border-radius:10px;font-size:.78rem;font-weight:800;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--mut);cursor:pointer}
 .chip.has{color:#6ee7b7;border-color:rgba(16,185,129,.35)}
 .chip.sel{background:var(--red);color:#fff;border-color:transparent}
+.btn.ghost.sel{background:var(--red);color:#fff;border-color:transparent}
 .savebar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;bottom:14px;z-index:20;padding:12px;background:rgba(13,15,22,.94);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;margin-top:18px}
 .savebar .btn{flex:1;min-width:140px}
 .dirty{color:var(--warn);font-size:.8rem;font-weight:700}
@@ -312,13 +313,29 @@ details summary{cursor:pointer;color:var(--mut);font-size:.8rem;padding:8px 4px}
 </head>
 <body>
 
-<!-- LOGIN LOCAL (só aparece depois que você definir uma senha em Minha Conta) -->
+<!-- LOGIN / CADASTRO LOCAL (contas salvas só neste navegador, sem Supabase) -->
 <div class="login hidden" id="login">
-  <div class="card">
-    <div class="brand">KIRA<span>FLIX</span></div>
-    <div class="field"><label>E-mail</label><input id="lgEmail" type="email" autocomplete="username"></div>
-    <div class="field"><label>Senha</label><input id="lgPass" type="password" autocomplete="current-password"></div>
-    <button class="btn block" onclick="doLogin()">Entrar</button>
+  <div class="card" style="max-width:380px">
+    <div class="brand center">KIRA<span>FLIX</span></div>
+    <div class="muted center" style="letter-spacing:.14em;font-size:.72rem;font-weight:700;margin:-8px 0 14px">PAINEL ADMINISTRATIVO</div>
+    <div class="row nofl" style="background:var(--card2);border-radius:12px;padding:4px;margin-bottom:16px">
+      <button class="btn ghost sm" id="tabEntrar" style="flex:1" onclick="authTab('entrar')">Entrar</button>
+      <button class="btn ghost sm" id="tabCadastrar" style="flex:1" onclick="authTab('cadastrar')">Cadastrar</button>
+    </div>
+    <div id="formEntrar">
+      <div class="field"><label>Usuário (Telegram) ou E-mail</label><input id="lgUser" autocomplete="username"></div>
+      <div class="field"><label>Senha</label><input id="lgPass" type="password" autocomplete="current-password"></div>
+      <label style="display:flex;gap:8px;align-items:center;font-size:.82rem;margin:4px 0 12px"><input type="checkbox" id="lgRemember" style="width:auto" checked> Lembrar de mim</label>
+      <button class="btn block" onclick="doLogin()">Entrar no Painel</button>
+      <p class="hint center" style="cursor:pointer;margin-top:10px" onclick="forgotPw()">Esqueci minha senha</p>
+    </div>
+    <div id="formCadastrar" class="hidden">
+      <div class="field"><label>Nome Completo</label><input id="rgName" autocomplete="name"></div>
+      <div class="field"><label>Usuário do Telegram</label><input id="rgTel" placeholder="@seu_usuario" autocomplete="off"></div>
+      <div class="field"><label>E-mail</label><input id="rgMail" type="email" autocomplete="email"></div>
+      <div class="row"><div><label>Senha</label><input id="rgPw1" type="password" autocomplete="new-password"></div><div><label>Repita</label><input id="rgPw2" type="password" autocomplete="new-password"></div></div>
+      <button class="btn block mt" onclick="doRegister()">Criar Conta</button>
+    </div>
   </div>
 </div>
 
@@ -326,7 +343,8 @@ details summary{cursor:pointer;color:var(--mut);font-size:.8rem;padding:8px 4px}
   <aside id="sidebar">
     <div class="brand">KIRA<span>FLIX</span></div>
     <div class="navwrap"><div class="navlabel">GERAL</div><nav id="nav"></nav></div>
-    <div class="usercard" onclick="go('account')"><div class="av" id="avSide">A</div><div><b id="userName">Admin</b><small>Moderador</small></div></div>
+    <div class="usercard" onclick="go('account')"><div class="av" id="avSide">A</div><div><b id="userName">Admin</b><small id="userRole">Suporte</small></div></div>
+    <button class="btn ghost sm block" style="margin:8px 14px 14px;width:calc(100% - 28px)" onclick="doLogout()">Sair</button>
   </aside>
   <div id="overlay" onclick="toggleMenu(false)"></div>
 
@@ -352,7 +370,7 @@ details summary{cursor:pointer;color:var(--mut);font-size:.8rem;padding:8px 4px}
       <section class="page" id="p-health"></section>
       <section class="page" id="p-files"></section>
       <section class="page" id="p-users"></section>
-      <section class="page" id="p-legendas"></section>
+      <section class="page" id="p-lancamentos"></section>
       <section class="page" id="p-account"></section>
       <section class="page" id="p-edit"></section>
     </div>
@@ -467,12 +485,12 @@ const NAV = [
   { id: "automate", label: "Automatizar", icon: "spark" },
   { id: "embed", label: "Embed", icon: "send" },
   { id: "xtream", label: "API Xtream", icon: "server" },
-  { id: "importapi", label: "API de Importação", icon: "rocket", badge: "NOVO" },
+  { id: "importapi", label: "API de Importação", icon: "rocket" },
   { id: "mysite", label: "Meu Site", icon: "site" },
   { id: "health", label: "Saúde do catálogo", icon: "pulse" },
   { id: "files", label: "Arquivos", icon: "folder" },
-  { id: "users", label: "Usuários", icon: "users", badge: "NOVO" },
-  { id: "legendas", label: "Legendas Automáticas", icon: "file", badge: "NOVO" },
+  { id: "users", label: "Usuários", icon: "users" },
+  { id: "lancamentos", label: "Lançamentos e Atualizações", icon: "film" },
   { id: "account", label: "Minha Conta", icon: "user" }
 ];
 
@@ -764,7 +782,7 @@ function toggleMenu(open) { $("sidebar").classList.toggle("open", open); $("over
 const RENDER = {
   dashboard: () => renderDashboard(), movies: () => renderLib("movie"), series: () => renderLib("series"), animes: () => renderLib("anime"), embed: () => renderEmbed(),
   reels: () => renderReels(), import: () => renderImport(), automate: () => { renderAutomate(); refreshPrefixUI(); }, xtream: () => renderXtream(),
-  importapi: () => renderImportApi(), mysite: () => renderMySite(), health: () => renderHealth(), files: () => renderFiles(), users: () => renderUsers(), legendas: () => renderLegendas(), account: () => renderAccount(), edit: () => {}
+  importapi: () => renderImportApi(), mysite: () => renderMySite(), health: () => renderHealth(), files: () => renderFiles(), users: () => renderUsers(), lancamentos: () => renderLancamentos(), account: () => renderAccount(), edit: () => {}
 };
 function go(p) {
   curPage = p;
@@ -809,7 +827,7 @@ function renderDashboard() {
   const st = (bg, fc, bd) => `--bgc:${bg};--fc:${fc};--bdc:${bd}`;
   $("p-dashboard").innerHTML = `
     <div class="ph"><div><h1>Dashboard</h1><p>Olá, <b>${esc($("userName").textContent)}</b> — aqui está um resumo do conteúdo.</p></div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="pill ${connState.s}" id="connPill">${esc(connState.t)}</span><button class="btn ghost sm" onclick="reloadCatalog(true)">${ic("refresh", 15)} Atualizar</button><span class="modbadge">${ic("shield", 16)} Moderador</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="pill ${connState.s}" id="connPill">${esc(connState.t)}</span><button class="btn ghost sm" onclick="reloadCatalog(true)">${ic("refresh", 15)} Atualizar</button><span class="modbadge">${ic("shield", 16)} ${roleLabel(currentRole())}</span></div></div>
     <div class="stats">
       <div class="stat"><div class="si" style="${st("rgba(37,99,235,.18)", "#60a5fa", "rgba(37,99,235,.3)")}">${ic("film")}</div><div class="n">${mc.toLocaleString("pt-BR")}</div><div class="l">Total Filmes</div><div class="ghost">${ic("film", 80)}</div></div>
       <div class="stat"><div class="si" style="${st("rgba(245,158,11,.15)", "#fbbf24", "rgba(245,158,11,.3)")}">${ic("tv")}</div><div class="n">${(sc + ac).toLocaleString("pt-BR")}</div><div class="l">Total Séries${ac ? " + Animes" : ""}</div><div class="ghost">${ic("tv", 80)}</div></div>
@@ -822,13 +840,11 @@ function renderDashboard() {
       <button class="qa" onclick="openEditor('series')"><span class="qi" style="${st("rgba(37,99,235,.18)", "#60a5fa", "")}">${ic("plus")}</span><span><b>Adicionar Série</b><small>Cadastrar nova série</small></span><span class="ar">${ic("arrow")}</span></button>
       <button class="qa" onclick="go('import')"><span class="qi" style="${st("rgba(16,185,129,.18)", "#34d399", "")}">${ic("imp")}</span><span><b>Importar do TMDB</b><small>Buscar e importar mídia</small></span><span class="ar">${ic("arrow")}</span></button>
     </div>
-    <div class="card"><div class="cardhead"><span class="icobox">${ic("pulse", 22)}</span><div style="flex:1"><h2>Lançamentos e Atualizações</h2><div class="muted" style="font-size:.8rem">Próximos episódios das séries do seu catálogo e estreias de filmes no Brasil, pelo TMDB. O TMDB não informa dublagem: aqui mostramos a data oficial de lançamento/exibição, não quando sai dublado.</div></div><button class="btn ghost sm" onclick="loadReleases(true)">${ic("refresh", 15)} Atualizar</button></div>
-      <div id="relBox"><div class="empty"><span class="spin"></span> Consultando o TMDB…</div></div></div>
     <div class="tblwrap">
       <div class="tblhead"><h2>Atividade Recente</h2><div class="search" style="min-width:230px;flex:0 1 290px">${ic("search", 17)}<input id="dashQ" placeholder="Buscar mídia..." value="${esc(dashQ)}" oninput="dashQ=this.value;dashRows()"></div></div>
       <div class="tbl-scroll"><table><thead><tr><th>Título</th><th>Tipo</th><th>Adicionado</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table></div>
     </div>`;
-  dashRows(); loadReleases();
+  dashRows();
 }
 function dashRows() {
   const q = dashQ.trim().toLowerCase();
@@ -847,10 +863,19 @@ function dashRows() {
 }
 function thumbImg(p) { const t = p ? p.replace("/w500/", "/w185/") : ""; return `<img class="thumb" loading="lazy" src="${esc(t)}" alt="" onerror="this.style.visibility='hidden'">`; }
 
-// ---- Lançamentos (próximos episódios + estreias de filmes, via TMDB)
+// ---- Lançamentos (próximos episódios + continuações + estreias de filmes, via TMDB) — TAB própria
 const REL_CACHE_MS = 6 * 3600 * 1000;
 const getRelCache = () => { try { return JSON.parse(localStorage.getItem("kiraflix_releases") || "{}"); } catch (e) { return {}; } };
 const putRelCache = o => { try { localStorage.setItem("kiraflix_releases", JSON.stringify(o)); } catch (e) {} };
+function renderLancamentos() {
+  const sec = $("p-lancamentos");
+  sec.innerHTML = `
+    <div class="ph"><div><h1>Lançamentos e Atualizações</h1><p>Próximos episódios das séries do seu catálogo, séries com nova temporada em produção e estreias de filmes no Brasil — tudo pelo TMDB. O TMDB não informa dublagem: a data mostrada é a de lançamento/exibição original, com cronômetro ao vivo.</p></div>
+      <button class="btn ghost sm" onclick="loadReleases(true)">${ic("refresh", 15)} Atualizar</button></div>
+    <div class="card"><div id="relBox"><div class="empty"><span class="spin"></span> Consultando o TMDB…</div></div></div>`;
+  loadReleases();
+  if (!window._relTimer) window._relTimer = setInterval(() => { if (curPage === "lancamentos") renderReleases(getRelCache()); }, 60000);
+}
 async function loadReleases(force) {
   const box = $("relBox"); if (!box) return;
   const cache = getRelCache();
@@ -858,34 +883,41 @@ async function loadReleases(force) {
   box.innerHTML = '<div class="empty"><span class="spin"></span> Consultando o TMDB…</div>';
   try {
     const up = await tmdb(`/movie/upcoming?region=BR&language=${LANG}&page=1`);
-    const movies = (up.results || []).filter(m => m.release_date).slice(0, 10).map(m => ({ id: m.id, title: m.title, date: m.release_date, inCatalog: !!catalog.movies[m.id] }));
+    const movies = (up.results || []).filter(m => m.release_date).slice(0, 12).map(m => ({ id: m.id, title: m.title, date: m.release_date, poster: m.poster_path ? `https://image.tmdb.org/t/p/w185${m.poster_path}` : "", inCatalog: !!catalog.movies[m.id] }));
     const series = Object.entries(catalog.series || {}).filter(([id]) => /^\d+$/.test(id));
-    const eps = [];
+    const eps = [], continuations = [];
     for (const [id, it] of series) {
       try {
         const d = await tmdb(`/tv/${id}?language=${LANG}`);
         const nx = d.next_episode_to_air;
-        if (nx && nx.air_date) eps.push({ id, title: it.title, season: nx.season_number, episode: nx.episode_number, date: nx.air_date, isAnime: !!it.isAnime });
+        if (nx && nx.air_date) eps.push({ id, title: it.title, season: nx.season_number, episode: nx.episode_number, date: nx.air_date, isAnime: !!it.isAnime, poster: it.poster || "" });
+        else if (d.in_production && d.status === "Returning Series") continuations.push({ id, title: it.title, isAnime: !!it.isAnime, poster: it.poster || "", seasons: d.number_of_seasons || 0 });
       } catch (e) {}
     }
     eps.sort((a, b) => new Date(a.date) - new Date(b.date));
-    const data = { t: Date.now(), movies, eps };
+    const data = { t: Date.now(), movies, eps, continuations };
     putRelCache(data); renderReleases(data);
   } catch (e) { box.innerHTML = `<div class="empty">❌ ${esc(e.message)}</div>`; }
 }
+function relCountdown(s) {
+  const target = new Date(s + "T00:00:00").getTime(), diffMs = target - Date.now(), absH = Math.abs(diffMs) / 36e5;
+  if (diffMs < 0) return `<span class="tag a">há ${Math.max(1, Math.round(absH / 24))}d</span>`;
+  if (absH < 1) return `<span class="tag s">em ${Math.max(1, Math.round(diffMs / 60000))}min</span>`;
+  if (absH < 48) return `<span class="tag s">em ${Math.floor(absH)}h ${Math.round((absH % 1) * 60)}min</span>`;
+  return `<span class="tag m">em ${Math.ceil(absH / 24)}d</span>`;
+}
+function relPoster(p) { return p ? `<img class="thumb" loading="lazy" src="${esc(p)}" alt="" onerror="this.style.visibility='hidden'">` : `<div class="thumb" style="display:grid;place-items:center;color:var(--mut2);background:var(--card2)">${ic("film", 18)}</div>`; }
 function renderReleases(data) {
   const box = $("relBox"); if (!box) return;
-  const today = new Date(); today.setHours(0, 0, 0, 0);
   const fmt = s => { const d = new Date(s + "T00:00:00"); return isNaN(d) ? s : d.toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }); };
-  const daysUntil = s => Math.round((new Date(s + "T00:00:00") - today) / 864e5);
-  const movies = data.movies || [];
-  const eps = (data.eps || []).filter(x => { const d = daysUntil(x.date); return d >= -3 && d <= 60; });
-  if (!movies.length && !eps.length) { box.innerHTML = '<div class="empty">Nada por vir no radar agora. Clique em Atualizar para consultar de novo.</div>'; return; }
-  const epRow = x => { const d = daysUntil(x.date), tag = d < 0 ? '<span class="tag a">atrasado</span>' : d === 0 ? '<span class="tag s">hoje</span>' : `<span class="tag m">em ${d}d</span>`;
-    return `<div class="eprow"><div style="flex:1;min-width:0"><b style="font-size:.86rem">${esc(x.title)}</b> <span class="muted">T${x.season}E${x.episode}</span> ${tag}</div><div class="muted" style="font-size:.76rem;white-space:nowrap">${fmt(x.date)}</div><button class="ib" title="Abrir" onclick="openEditor('${x.isAnime ? "anime" : "series"}','${esc(x.id)}')">${ic("edit", 15)}</button></div>`; };
-  const mvRow = m => `<div class="eprow"><div style="flex:1;min-width:0"><b style="font-size:.86rem">${esc(m.title)}</b></div><div class="muted" style="font-size:.76rem;white-space:nowrap">${fmt(m.date)}</div>${m.inCatalog ? '<span class="muted" style="font-size:.74rem">no catálogo</span>' : `<button class="ib" title="Adicionar pelo TMDB" onclick="go('movies');setTimeout(()=>openEditor('movie','${m.id}'),50)">${ic("plus", 15)}</button>`}</div>`;
-  box.innerHTML = (eps.length ? `<h3 style="font-size:.84rem;margin:0 0 8px">📺 Próximos episódios (séries do seu catálogo)</h3>${eps.slice(0, 12).map(epRow).join("")}` : "") +
-    (movies.length ? `<h3 style="font-size:.84rem;margin:${eps.length ? "16px" : "0"} 0 8px">🎬 Estreias de filmes no Brasil</h3>${movies.map(mvRow).join("")}` : "");
+  const movies = data.movies || [], eps = (data.eps || []).filter(x => { const d = (new Date(x.date + "T00:00:00") - Date.now()) / 864e5; return d >= -3 && d <= 90; }), cont = data.continuations || [];
+  if (!movies.length && !eps.length && !cont.length) { box.innerHTML = '<div class="empty">Nada por vir no radar agora. Clique em Atualizar para consultar de novo.</div>'; return; }
+  const epRow = x => `<div class="eprow"><div style="display:flex;gap:12px;align-items:center;flex:1;min-width:0">${relPoster(x.poster)}<div style="min-width:0"><b style="font-size:.86rem">${esc(x.title)}</b> <span class="muted">T${x.season}E${x.episode}</span></div></div><div style="display:flex;gap:8px;align-items:center;white-space:nowrap">${relCountdown(x.date)}<span class="muted" style="font-size:.76rem">${fmt(x.date)}</span><button class="ib" title="Abrir" onclick="openEditor('${x.isAnime ? "anime" : "series"}','${esc(x.id)}')">${ic("edit", 15)}</button></div></div>`;
+  const mvRow = m => `<div class="eprow"><div style="display:flex;gap:12px;align-items:center;flex:1;min-width:0">${relPoster(m.poster)}<b style="font-size:.86rem">${esc(m.title)}</b></div><div style="display:flex;gap:8px;align-items:center;white-space:nowrap">${relCountdown(m.date)}<span class="muted" style="font-size:.76rem">${fmt(m.date)}</span>${m.inCatalog ? '<span class="muted" style="font-size:.74rem">no catálogo</span>' : `<button class="ib" title="Adicionar pelo TMDB" onclick="go('movies');setTimeout(()=>openEditor('movie','${m.id}'),50)">${ic("plus", 15)}</button>`}</div></div>`;
+  const contRow = c => `<div class="eprow"><div style="display:flex;gap:12px;align-items:center;flex:1;min-width:0">${relPoster(c.poster)}<b style="font-size:.86rem">${esc(c.title)}</b></div><div style="display:flex;gap:8px;align-items:center"><span class="tag s">temporada ${c.seasons + 1} em produção</span><button class="ib" title="Abrir" onclick="openEditor('${c.isAnime ? "anime" : "series"}','${esc(c.id)}')">${ic("edit", 15)}</button></div></div>`;
+  box.innerHTML = (eps.length ? `<h3 style="font-size:.84rem;margin:0 0 8px">📺 Próximos episódios</h3>${eps.slice(0, 16).map(epRow).join("")}` : "") +
+    (cont.length ? `<h3 style="font-size:.84rem;margin:16px 0 8px">🔄 Possíveis continuações (sem data definida ainda)</h3>${cont.slice(0, 10).map(contRow).join("")}` : "") +
+    (movies.length ? `<h3 style="font-size:.84rem;margin:16px 0 8px">🎬 Estreias de filmes no Brasil</h3>${movies.map(mvRow).join("")}` : "");
 }
 
 
@@ -962,6 +994,7 @@ async function detectAnimes() {
   catch (e) { toast("Erro: " + e.message, true); }
 }
 async function deleteItem(kind, id) {
+  if (!canDelete()) return toast("Seu cargo não tem permissão para excluir. Só o Dono pode.", true);
   const it = bucketOf(catalog, kind)[id]; const name = it?.title || id;
   if (!await askConfirm("Excluir do catálogo?", `“${name}” será removido do catalog.json no GitHub. (Dá para recuperar pelo histórico de commits.)`, "Excluir")) return;
   try { await commitCatalog(`Remove ${name}`, cat => { delete bucketOf(cat, kind)[id]; }, { allowShrink: 1 }); toast(`🗑 “${name}” excluído`); }
@@ -1355,7 +1388,7 @@ function aSuggest() {
     }
     if (out.length >= 8) break;
   }
-  box.innerHTML = out.length ? out.map(o => `<button data-k="${o.kind}" data-i="${esc(o.id)}"><span>${esc(o.t || o.id)}</span><span class="muted">${KINDS[o.kind].label} · #${esc(o.id)}</span></button>`).join("") : `<div class="muted" style="font-size:.82rem;padding:6px 2px">Nada no catálogo com esse nome. Adicione em Importar Mídia primeiro.</div>`;
+  box.innerHTML = out.length ? out.map(o => { const it = bucketOf(catalog, o.kind)[o.id]; return `<button data-k="${o.kind}" data-i="${esc(o.id)}" style="display:flex;align-items:center;gap:12px;text-align:left">${thumbImg(it && it.poster)}<span style="flex:1;min-width:0"><span style="display:block">${esc(o.t || o.id)}</span><span class="muted">${KINDS[o.kind].label} · #${esc(o.id)}</span></span></button>`; }).join("") : `<div class="muted" style="font-size:.82rem;padding:6px 2px">Nada no catálogo com esse nome. Adicione em Importar Mídia primeiro.</div>`;
 }
 function aPick(kind, id) {
   autoSel = { kind, id };
@@ -1893,6 +1926,7 @@ async function addReel() {
   try { await commitCatalog(`Reel ${t}`, cat => { if (!cat.reels) cat.reels = {}; cat.reels["r" + Date.now()] = { title: t, url: u, poster: p, addedAt: Date.now() }; }); toast("✔ Reel adicionado"); renderReels(); } catch (e) { toast("Erro: " + e.message, true); }
 }
 async function delReel(id) {
+  if (!canDelete()) return toast("Seu cargo não tem permissão para excluir. Só o Dono pode.", true);
   if (!await askConfirm("Excluir reel?", "Esse reel será removido do catálogo.", "Excluir")) return;
   try { await commitCatalog("Remove reel", cat => { delete (cat.reels || {})[id]; }); renderReels(); } catch (e) { toast("Erro: " + e.message, true); }
 }
@@ -2085,12 +2119,22 @@ async function ghPut(path, b64, message, sha) {
 }
 async function ghSha(path) { try { const m = await ghJson(`/contents/${encPath(path)}`); return Array.isArray(m) ? null : m.sha; } catch (e) { return null; } }
 
+function ghCard() {
+  const gh = getGithubConfig() || {};
+  if (!isOwner()) return `<div class="card"><div class="cardhead"><span class="icobox">${ic("git", 22)}</span><div style="flex:1"><h2>GitHub (salvar catálogo)</h2><div class="muted" style="font-size:.8rem">Só o Dono pode ver/alterar o token e mexer nos arquivos do repositório.</div></div><span class="pill ${gh.token ? "ok" : "warn"}" style="margin-left:auto">${gh.token ? "Configurado" : "Pendente"}</span></div></div>`;
+  return `<div class="card"><div class="cardhead"><span class="icobox">${ic("git", 22)}</span><div style="flex:1"><h2>GitHub (salvar catálogo)</h2><div class="muted" style="font-size:.8rem">O painel salva o catalog.json direto no seu repositório. A configuração fica só neste navegador.</div></div><span class="pill ${gh.token ? "ok" : "warn"}" style="margin-left:auto">${gh.token ? "Configurado" : "Pendente"}</span></div>
+    <div class="row"><div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva" value="${esc(gh.owner || "akiradesenvolvedorofc-ai")}" autocomplete="off"></div><div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix" value="${esc(gh.repo || "")}" autocomplete="off"></div></div>
+    <div class="field mt fld-eye"><label>Personal Access Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..." value="${esc(gh.token || "")}" autocomplete="off"><button class="btn ghost sm" onclick="const i=$('ghToken');i.type=i.type==='password'?'text':'password'">${ic("eye", 16)}</button></div>
+    <div class="row nofl mt"><button class="btn" onclick="saveGithubConfig()">💾 Salvar configuração</button><button class="btn ghost" id="btnTest" onclick="testGithubConnection()">${ic("check", 16)} Testar conexão</button></div>
+    <div class="hint">✔ Antes de salvar, o painel relê o catálogo do GitHub e só altera o item mexido. ✔ Se o salvamento fosse apagar itens, ele cancela. ✔ Backup local antes de cada salvamento.</div></div>`;
+}
 function renderFiles() {
   const sec = $("p-files"), cfg = getGithubConfig();
   const head = `<div class="ph"><div><h1>Arquivos</h1><p>Baixe, edite e restaure os arquivos do seu repositório no GitHub.</p></div></div>`;
-  if (!cfg) { sec.innerHTML = head + `<div class="card center" style="padding:34px 20px"><div class="icobox" style="margin:0 auto 14px">${ic("git", 22)}</div><h2>GitHub não conectado</h2><p class="sub">Configure usuário, repositório e token em Minha Conta.</p><button class="btn" onclick="go('account')">Ir para Minha Conta</button></div>`; return; }
-  sec.innerHTML = head + `
-    ${legacyMoved ? `<div class="card" style="border-color:rgba(245,158,11,.45)"><h2>⚠ Animes na pasta errada</h2><p class="sub">O catalog.json do GitHub tem <b>${legacyMoved}</b> animes numa pasta “animes”, que o seu site não lê (por isso aparece “sem fonte”). As fontes estão salvas. Clique para juntar tudo em Séries.</p><button class="btn amber block" id="btnFixAn" onclick="fixLegacyAnimes()">🛠️ Corrigir catálogo (juntar animes em Séries)</button></div>` : ""}
+  if (!cfg) { sec.innerHTML = head + ghCard() + (isOwner() ? "" : `<div class="card center" style="padding:34px 20px"><div class="icobox" style="margin:0 auto 14px">${ic("git", 22)}</div><h2>GitHub não conectado</h2><p class="sub">Peça ao Dono para configurar.</p></div>`); return; }
+  sec.innerHTML = head + ghCard() +
+    (!isOwner() ? `<div class="card"><p class="muted">Seu cargo pode ver os arquivos abaixo, mas editar, restaurar versão, enviar ou apagar arquivos é só para o Dono.</p></div>` : "") +
+    `${legacyMoved ? `<div class="card" style="border-color:rgba(245,158,11,.45)"><h2>⚠ Animes na pasta errada</h2><p class="sub">O catalog.json do GitHub tem <b>${legacyMoved}</b> animes numa pasta “animes”, que o seu site não lê (por isso aparece “sem fonte”). As fontes estão salvas. Clique para juntar tudo em Séries.</p><button class="btn amber block" id="btnFixAn" onclick="fixLegacyAnimes()">🛠️ Corrigir catálogo (juntar animes em Séries)</button></div>` : ""}
     <div class="card"><div class="cardhead"><span class="icobox">${ic("download", 22)}</span><div><h2>Catálogo (catalog.json)</h2><div class="muted" style="font-size:.8rem">Baixa direto do GitHub o arquivo que está no repositório agora.</div></div></div>
       <div class="row nofl"><button class="btn" id="btnDlCat" onclick="dlCatalogGh()">${ic("download", 17)} Baixar catalog.json do GitHub</button><button class="btn ghost" onclick="downloadBackup()">💾 Backup local</button><button class="btn ghost" onclick="openFileEditor('catalog.json')">${ic("edit", 16)} Editar catalog.json</button></div></div>
     <div class="card"><div class="cardhead"><span class="icobox">${ic("history", 22)}</span><div><h2>Versões anteriores</h2><div class="muted" style="font-size:.8rem">Cada salvamento vira uma versão no GitHub. Baixe ou restaure qualquer uma.</div></div></div>
@@ -2139,6 +2183,7 @@ async function dlVersion(i) {
   catch (e) { toast("Erro: " + e.message, true); }
 }
 async function restoreVersion(i) {
+  if (!canManageGithubFiles()) return toast("Seu cargo não pode mexer nos arquivos do GitHub. Só o Dono pode.", true);
   const c = fs.hist[i]; if (!c) return;
   const d = new Date(c.commit.author.date).toLocaleString("pt-BR");
   if (!await askConfirm("Restaurar esta versão?", `“${fs.histPath}” volta para a versão de ${d} (${c.sha.slice(0, 7)}). A versão atual continua guardada no histórico, então dá para desfazer.`, "Restaurar")) return;
@@ -2167,6 +2212,7 @@ async function loadDir(dir) {
 function showFileHist(path) { $("histPath").value = path; loadHistory(true); $("histPath").scrollIntoView({ behavior: "smooth", block: "center" }); }
 async function dlFile(i) { const it = fs.items[i]; try { const blob = await ghRaw(it.path); saveBlob(blob, it.name); toast("📥 " + it.name); } catch (e) { toast("Erro: " + e.message, true); } }
 async function delFile(i) {
+  if (!canDelete() || !canManageGithubFiles()) return toast("Seu cargo não pode excluir arquivos do GitHub. Só o Dono pode.", true);
   const it = fs.items[i];
   if (it.path === "catalog.json") return toast("Por segurança o catalog.json não pode ser excluído por aqui.", "warn");
   if (!await askConfirm("Excluir arquivo?", `“${it.path}” será removido do repositório. Dá para recuperar pelo histórico do GitHub.`, "Excluir")) return;
@@ -2174,6 +2220,7 @@ async function delFile(i) {
   catch (e) { toast("Erro: " + e.message, true); }
 }
 async function uploadFiles(inp) {
+  if (!canManageGithubFiles()) { inp.value = ""; return toast("Seu cargo não pode mexer nos arquivos do GitHub. Só o Dono pode.", true); }
   const files = [...inp.files]; inp.value = ""; if (!files.length) return;
   let n = 0;
   for (const f of files) {
@@ -2185,6 +2232,7 @@ async function uploadFiles(inp) {
   if (n) { toast(`✔ ${n} arquivo(s) enviado(s)`); if (files.some(f => f.name === "catalog.json") && !fs.dir) reloadCatalog(false); loadDir(fs.dir); }
 }
 function newFile() {
+  if (!canManageGithubFiles()) return toast("Seu cargo não pode mexer nos arquivos do GitHub. Só o Dono pode.", true);
   openModal(`<h3>Novo arquivo</h3><p>Será criado em <b>/${esc(fs.dir)}</b></p><div class="field"><label>Nome do arquivo</label><input id="nfName" placeholder="exemplo.txt"></div><div class="field"><label>Conteúdo</label><textarea id="nfBody" style="min-height:160px;font-family:ui-monospace,monospace;font-size:.8rem"></textarea></div><div class="row"><button class="btn ghost" onclick="closeModal()">Cancelar</button><button class="btn" onclick="saveNewFile()">Criar</button></div>`);
 }
 async function saveNewFile() {
@@ -2258,6 +2306,7 @@ async function openFileEditor(path, mode) {
   } catch (e) { closeModal(); toast("Erro: " + e.message, true); }
 }
 async function saveFileEdit(path) {
+  if (!canManageGithubFiles()) return toast("Seu cargo não pode mexer nos arquivos do GitHub. Só o Dono pode.", true);
   const text = $("feText").value;
   if (/\.json$/i.test(path)) { try { JSON.parse(text); } catch (e) { return toast("JSON inválido: " + e.message, true); } }
   if (path === "catalog.json") { const d = JSON.parse(text); const n = countEntries(d) + Object.keys(d.animes || {}).length; if (catalogCountAtLoad > 0 && n < catalogCountAtLoad * 0.9 && !await askConfirm("Muitos itens a menos", `O catálogo tinha ${catalogCountAtLoad} títulos e esse texto tem ${n}. Salvar mesmo assim?`, "Salvar")) return; }
@@ -2270,7 +2319,7 @@ async function saveFileEdit(path) {
 // ============================================================
 // USUÁRIOS (Supabase Auth via Edge Function)
 // ============================================================
-const SB_DEF = { url: "", anon: "", fn: "admin-users", key: "" };
+const SB_DEF = { url: "https://ahtuhrzizlwcvrgbzivx.supabase.co", anon: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFodHVocnppemx3Y3ZyZ2J6aXZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDY4NzMsImV4cCI6MjEwNzA4Mjg3M30.Wy2EfRP8UicZBi-ViUOVd_K6E19Peq1PIPVlVuEV7wI", fn: "admin-users", key: atob("QWtpcmF6ZzIyMzQ1QA==") };
 const getSb = () => { try { return { ...SB_DEF, ...(JSON.parse(localStorage.getItem("kiraflix_supabase") || "{}")) }; } catch (e) { return { ...SB_DEF }; } };
 const sbOk = () => { const c = getSb(); return !!(c.url && c.anon && c.fn && c.key); };
 function saveSb() {
@@ -2302,22 +2351,32 @@ const EDGE_CODE = "import { createClient } from \"https://esm.sh/@supabase/supab
 let sbUsers = null, sbNext = 1, sbMore = false, sbQ = "", sbFilter = "all", sbBusy = false, sbTotal = null;
 const fmtDT = v => { if (!v) return "—"; const d = new Date(v); return isNaN(d) ? "—" : d.toLocaleDateString("pt-BR") + " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); };
 const sbBanned = u => !!(u.banned_until && new Date(u.banned_until) > new Date());
+function sbCard() {
+  const sb = getSb();
+  if (!isOwner()) return `<div class="card"><div class="cardhead"><span class="icobox">${ic("users", 22)}</span><div style="flex:1"><h2>Supabase (login do site)</h2><div class="muted" style="font-size:.8rem">Só o Dono pode ver/alterar essas chaves.</div></div><span class="pill ${sbOk() ? "ok" : "warn"}" style="margin-left:auto">${sbOk() ? "Configurado" : "Pendente"}</span></div></div>`;
+  return `<div class="card"><div class="cardhead"><span class="icobox">${ic("users", 22)}</span><div style="flex:1"><h2>Supabase (login do site)</h2><div class="muted" style="font-size:.8rem">Liga o painel aos usuários de Authentication do seu Supabase. A chave secreta (service_role) fica só no servidor, numa Edge Function; aqui entram apenas dados públicos e a chave do painel.</div></div><span class="pill ${sbOk() ? "ok" : "warn"}" style="margin-left:auto">${sbOk() ? "Configurado" : "Pendente"}</span></div>
+    <div class="field"><label>Link público do Supabase (Project URL)</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(sb.url)}" autocomplete="off"></div>
+    <div class="field"><label>Chave pública (anon / publishable key)</label><input id="sbAnon" placeholder="eyJhbGciOi..." value="${esc(sb.anon)}" autocomplete="off"></div>
+    <div class="row"><div><label>Nome da função</label><input id="sbFn" placeholder="admin-users" value="${esc(sb.fn)}" autocomplete="off"></div><div class="fld-eye"><label>Chave do painel (ADMIN_PANEL_KEY)</label><input id="sbKey" type="password" placeholder="a senha que você criou na função" value="${esc(sb.key)}" autocomplete="off"><button class="btn ghost sm" onclick="const i=$('sbKey');i.type=i.type==='password'?'text':'password'">${ic("eye", 16)}</button></div></div>
+    <div class="row nofl mt"><button class="btn" onclick="saveSb()">💾 Salvar</button><button class="btn ghost" id="btnSbTest" onclick="testSb()">${ic("check", 16)} Testar conexão</button></div>
+    <div class="hint">Fica só neste navegador. Para criar a função e a chave do painel, veja “Como configurar” abaixo.</div></div>`;
+}
 function renderUsers() {
   const sec = $("p-users");
-  const head = `<div class="ph"><div><h1>Usuários</h1><p>Quem criou conta no seu site (Authentication do Supabase). Resete senha, altere, bana ou exclua, tudo por aqui.</p></div></div>`;
-  const guide = `<details class="card" ${sbOk() ? "" : "open"}><summary style="cursor:pointer;font-weight:800">Como configurar (1 vez)</summary>
+  const head = `<div class="ph"><div><h1>Usuários</h1><p>Quem criou conta no seu site (Authentication do Supabase)${isOwner() ? ". Resete senha, altere, bana ou exclua, tudo por aqui." : " — seu cargo só pode visualizar."}</p></div></div>`;
+  const guide = `<details class="card" ${sbOk() || !isOwner() ? "" : "open"}><summary style="cursor:pointer;font-weight:800">Como configurar (1 vez)</summary>
     <div class="muted" style="font-size:.84rem;line-height:1.7;margin-top:10px">
     <b>Por quê uma função?</b> Listar e mexer em usuários exige a chave secreta <code>service_role</code>. Ela <b>nunca</b> pode ficar num painel/HTML. A função abaixo guarda a chave no servidor do Supabase e só responde ao seu painel, com uma senha sua.<br><br>
     1. No Supabase: <b>Edge Functions → Create a new function</b> com o nome <code>admin-users</code> e cole o código abaixo (ou use <code>supabase functions deploy admin-users</code>).<br>
     2. Em <b>Edge Functions → Secrets</b>, crie <code>ADMIN_PANEL_KEY</code> com uma senha longa inventada por você. (<code>SUPABASE_URL</code> e <code>SUPABASE_SERVICE_ROLE_KEY</code> já existem lá.)<br>
-    3. Aqui em <b>Minha Conta → Supabase</b> coloque o Project URL, a anon key, o nome da função e a mesma senha. Clique em Testar conexão.</div>
-    <div class="row nofl mt"><button class="btn ghost sm" onclick="copyText(EDGE_CODE,'Código da função copiado')">${ic("copy", 15)} Copiar código da função</button><button class="btn ghost sm" onclick="go('account')">Ir para Minha Conta</button></div>
+    3. Preencha o Project URL, a anon key, o nome da função e a mesma senha acima. Clique em Testar conexão.</div>
+    <div class="row nofl mt"><button class="btn ghost sm" onclick="copyText(EDGE_CODE,'Código da função copiado')">${ic("copy", 15)} Copiar código da função</button></div>
     <div class="previewbox" style="max-height:260px;overflow:auto;font-size:.7rem;white-space:pre;margin-top:12px">${esc(EDGE_CODE)}</div></details>`;
-  if (!sbOk()) { sec.innerHTML = head + `<div class="card center" style="padding:30px 20px"><div class="icobox" style="margin:0 auto 14px">${ic("users", 22)}</div><h2>Supabase não configurado</h2><p class="sub">Coloque o link público, a anon key e a chave do painel em Minha Conta.</p><button class="btn" onclick="go('account')">Ir para Minha Conta</button></div>` + guide; return; }
-  sec.innerHTML = head + `<div class="stats" id="sbStats"></div>
+  if (!sbOk()) { sec.innerHTML = head + sbCard() + guide; return; }
+  sec.innerHTML = head + sbCard() + `<div class="stats" id="sbStats"></div>
     <div class="card"><div class="row nofl" style="flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px"><input id="sbSearch" placeholder="Buscar por e-mail, nome ou ID" value="${esc(sbQ)}" oninput="sbQ=this.value;renderUserList()"></div>
       <select id="sbFil" onchange="sbFilter=this.value;renderUserList()" style="max-width:190px"><option value="all">Todos</option><option value="unconf">E-mail não confirmado</option><option value="banned">Banidos</option><option value="recent">Entraram em 7 dias</option></select>
-      <button class="btn ghost" onclick="loadUsers(true)">${ic("refresh", 16)} Atualizar</button><button class="btn" onclick="sbCreateUser()">${ic("plus", 16)} Novo usuário</button></div>
+      <button class="btn ghost" onclick="loadUsers(true)">${ic("refresh", 16)} Atualizar</button>${isOwner() ? `<button class="btn" onclick="sbCreateUser()">${ic("plus", 16)} Novo usuário</button>` : ""}</div>
       <div id="sbList" class="mt"><div class="empty"><span class="spin"></span> Carregando usuários…</div></div></div>` + guide;
   $("sbFil").value = sbFilter;
   if (!sbUsers) loadUsers(true); else { renderUserStats(); renderUserList(); }
@@ -2352,7 +2411,7 @@ function renderUserList() {
     <div style="flex:1;min-width:210px"><b style="font-size:.9rem;word-break:break-all">${esc(u.email || u.phone || "(sem e-mail)")}</b>${u.name ? ` <span class="muted" style="font-size:.78rem">${esc(u.name)}</span>` : ""}
       <div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:6px">${(u.providers || []).map(p => `<span class="tag m">${esc(p)}</span>`).join("")}${u.confirmed ? "" : '<span class="tag s">não confirmado</span>'}${sbBanned(u) ? '<span class="tag a" style="color:#f87171">banido</span>' : ""}</div>
       <div class="muted" style="font-size:.72rem;margin-top:4px;line-height:1.5">Criado: ${fmtDT(u.created_at)} · Último login: ${fmtDT(u.last_sign_in_at)}<br>ID: ${esc(u.id)}</div></div>
-    <div class="acts" style="flex-wrap:wrap"><button class="ib" title="Resetar senha" onclick="sbReset('${esc(u.id)}')">${ic("mail", 16)}</button><button class="ib" title="Definir nova senha" onclick="sbSetPw('${esc(u.id)}')">${ic("lock", 16)}</button><button class="ib" title="Alterar e-mail" onclick="sbSetMail('${esc(u.id)}')">${ic("edit", 16)}</button>${u.confirmed ? "" : `<button class="ib" title="Confirmar e-mail" onclick="sbConfirm('${esc(u.id)}')">${ic("checkc", 16)}</button>`}<button class="ib" title="${sbBanned(u) ? "Desbanir" : "Banir"}" onclick="sbBan('${esc(u.id)}')">${ic("ban", 16)}</button><button class="ib" title="Copiar ID" onclick="copyText('${esc(u.id)}','ID copiado')">${ic("copy", 16)}</button><button class="ib dng" title="Excluir conta" onclick="sbDelete('${esc(u.id)}')">${ic("trash", 16)}</button></div></div>`).join("") +
+    <div class="acts" style="flex-wrap:wrap">${isOwner() ? `<button class="ib" title="Resetar senha" onclick="sbReset('${esc(u.id)}')">${ic("mail", 16)}</button><button class="ib" title="Definir nova senha" onclick="sbSetPw('${esc(u.id)}')">${ic("lock", 16)}</button><button class="ib" title="Alterar e-mail" onclick="sbSetMail('${esc(u.id)}')">${ic("edit", 16)}</button>${u.confirmed ? "" : `<button class="ib" title="Confirmar e-mail" onclick="sbConfirm('${esc(u.id)}')">${ic("checkc", 16)}</button>`}<button class="ib" title="${sbBanned(u) ? "Desbanir" : "Banir"}" onclick="sbBan('${esc(u.id)}')">${ic("ban", 16)}</button>` : ""}<button class="ib" title="Copiar ID" onclick="copyText('${esc(u.id)}','ID copiado')">${ic("copy", 16)}</button>${isOwner() ? `<button class="ib dng" title="Excluir conta" onclick="sbDelete('${esc(u.id)}')">${ic("trash", 16)}</button>` : ""}</div></div>`).join("") +
     (list.length > 300 ? `<div class="muted center" style="padding:10px;font-size:.8rem">Mostrando 300 de ${list.length}. Use a busca para achar os outros.</div>` : "") +
     (sbMore ? `<button class="btn ghost block mt" onclick="loadUsers(false)">Carregar mais usuários</button>` : "");
 }
@@ -2364,8 +2423,9 @@ function sbReset(id) {
   openModal(`<h3>Resetar senha</h3><p style="word-break:break-all"><b>${esc(u.email)}</b></p><p>Escolha como resetar:</p>
     <div class="row nofl" style="flex-direction:column;align-items:stretch;gap:10px"><button class="btn" onclick="sbResetMail('${esc(id)}')">${ic("mail", 16)} Enviar e-mail de recuperação</button><button class="btn ghost" onclick="sbResetLink('${esc(id)}')">${ic("link", 16)} Gerar link (copiar e mandar você mesmo)</button><button class="btn ghost" onclick="closeModal()">Cancelar</button></div>`);
 }
-async function sbResetMail(id) { const u = sbFind(id); closeModal(); await sbDo("E-mail de recuperação enviado para " + u.email, () => sbCall("reset_email", { email: u.email, redirectTo: siteBase() || undefined })); }
+async function sbResetMail(id) { if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true); const u = sbFind(id); closeModal(); await sbDo("E-mail de recuperação enviado para " + u.email, () => sbCall("reset_email", { email: u.email, redirectTo: siteBase() || undefined })); }
 async function sbResetLink(id) {
+  if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true);
   const u = sbFind(id); const j = await sbDo("Link gerado", () => sbCall("reset_link", { email: u.email, redirectTo: siteBase() || undefined })); if (!j) return;
   openModal(`<h3>Link de recuperação</h3><p>Quem abrir esse link define uma nova senha. Ele expira e vale para um uso.</p><textarea readonly id="sbLinkOut" style="min-height:110px;font-size:.74rem;word-break:break-all">${esc(j.link)}</textarea><div class="row mt"><button class="btn ghost" onclick="closeModal()">Fechar</button><button class="btn" onclick="copyText($('sbLinkOut').value,'Link copiado')">${ic("copy", 16)} Copiar</button></div>`);
 }
@@ -2373,19 +2433,21 @@ function sbSetPw(id) {
   const u = sbFind(id); if (!u) return;
   openModal(`<h3>Definir nova senha</h3><p style="word-break:break-all"><b>${esc(u.email)}</b></p><div class="field"><label>Nova senha (mín. 6 caracteres)</label><input id="sbNewPw" type="text" autocomplete="off" placeholder="nova senha"></div><div class="row"><button class="btn ghost" onclick="closeModal()">Cancelar</button><button class="btn ghost" onclick="$('sbNewPw').value=Math.random().toString(36).slice(2,6)+Math.random().toString(36).slice(2,6).toUpperCase()+'#'+Math.floor(Math.random()*90+10)">Gerar</button><button class="btn" onclick="sbSetPwGo('${esc(id)}')">Salvar senha</button></div>`);
 }
-async function sbSetPwGo(id) { const pw = $("sbNewPw").value; if (pw.length < 6) return toast("Mínimo 6 caracteres", true); closeModal(); await sbDo("Senha alterada", () => sbCall("set_password", { id, password: pw })); }
+async function sbSetPwGo(id) { if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true); const pw = $("sbNewPw").value; if (pw.length < 6) return toast("Mínimo 6 caracteres", true); closeModal(); await sbDo("Senha alterada", () => sbCall("set_password", { id, password: pw })); }
 function sbSetMail(id) {
   const u = sbFind(id); if (!u) return;
   openModal(`<h3>Alterar e-mail</h3><p class="muted" style="word-break:break-all">Atual: ${esc(u.email)}</p><div class="field"><label>Novo e-mail</label><input id="sbNewMail" type="email" placeholder="novo@email.com"></div><div class="row"><button class="btn ghost" onclick="closeModal()">Cancelar</button><button class="btn" onclick="sbSetMailGo('${esc(id)}')">Salvar</button></div>`);
 }
-async function sbSetMailGo(id) { const m = $("sbNewMail").value.trim(); if (!/^\S+@\S+\.\S+$/.test(m)) return toast("E-mail inválido", true); closeModal(); if (await sbDo("E-mail alterado", () => sbCall("set_email", { id, email: m }))) { const u = sbFind(id); if (u) { u.email = m; u.confirmed = true; } renderUserList(); } }
-async function sbConfirm(id) { if (await sbDo("E-mail confirmado", () => sbCall("confirm", { id }))) { const u = sbFind(id); if (u) u.confirmed = true; renderUserStats(); renderUserList(); } }
+async function sbSetMailGo(id) { if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true); const m = $("sbNewMail").value.trim(); if (!/^\S+@\S+\.\S+$/.test(m)) return toast("E-mail inválido", true); closeModal(); if (await sbDo("E-mail alterado", () => sbCall("set_email", { id, email: m }))) { const u = sbFind(id); if (u) { u.email = m; u.confirmed = true; } renderUserList(); } }
+async function sbConfirm(id) { if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true); if (await sbDo("E-mail confirmado", () => sbCall("confirm", { id }))) { const u = sbFind(id); if (u) u.confirmed = true; renderUserStats(); renderUserList(); } }
 async function sbBan(id) {
+  if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não alterar. Só o Dono pode.", true);
   const u = sbFind(id), banned = sbBanned(u);
   if (!await askConfirm(banned ? "Desbanir usuário?" : "Banir usuário?", `${u.email}${banned ? " poderá entrar de novo." : " não conseguirá mais entrar no site (as sessões atuais deixam de renovar)."}`, banned ? "Desbanir" : "Banir")) return;
   if (await sbDo(banned ? "Usuário desbanido" : "Usuário banido", () => sbCall(banned ? "unban" : "ban", { id }))) { u.banned_until = banned ? null : new Date(Date.now() + 876000 * 3600e3).toISOString(); renderUserStats(); renderUserList(); }
 }
 async function sbDelete(id) {
+  if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não excluir. Só o Dono pode.", true);
   const u = sbFind(id);
   if (!await askConfirm("Excluir conta?", `A conta ${u.email || u.id} será apagada do Supabase. Isso não tem como desfazer.`, "Excluir")) return;
   if (await sbDo("Conta excluída", () => sbCall("delete", { id }))) { sbUsers = sbUsers.filter(x => x.id !== id); if (sbTotal != null) sbTotal--; renderUserStats(); renderUserList(); }
@@ -2394,6 +2456,7 @@ function sbCreateUser() {
   openModal(`<h3>Novo usuário</h3><p>Cria a conta já com o e-mail confirmado.</p><div class="field"><label>E-mail</label><input id="sbCMail" type="email" placeholder="email@exemplo.com"></div><div class="field"><label>Senha (mín. 6)</label><input id="sbCPw" type="text" autocomplete="off"></div><div class="row"><button class="btn ghost" onclick="closeModal()">Cancelar</button><button class="btn" onclick="sbCreateGo()">Criar</button></div>`);
 }
 async function sbCreateGo() {
+  if (!canManageUsers()) return toast("Seu cargo só pode ver usuários, não criar. Só o Dono pode.", true);
   const m = $("sbCMail").value.trim(), pw = $("sbCPw").value; if (!/^\S+@\S+\.\S+$/.test(m)) return toast("E-mail inválido", true); if (pw.length < 6) return toast("Senha: mínimo 6 caracteres", true);
   closeModal(); const j = await sbDo("Usuário criado", () => sbCall("create", { email: m, password: pw })); if (j && j.user) { sbUsers.unshift(j.user); if (sbTotal != null) sbTotal++; renderUserStats(); renderUserList(); }
 }
@@ -2401,7 +2464,7 @@ async function sbCreateGo() {
 // ============================================================
 // EMBED (webhook do Discord)
 // ============================================================
-const EMBED_DEF = { webhook: "", username: "", avatar: "", pingMode: "none", roles: "", msg: "{ping} 📢 **Conteúdo adicionado!** {tipo}: **{titulo}**", color: "#dc2626", footer: "", linkTpl: "{site}/{type}/{id}", showCast: true, showSeasons: true, showThumb: true, showBanner: true, showRating: true, showGenres: true, auto: false, autoMode: "save" };
+const EMBED_DEF = { webhook: "https://discord.com/api/webhooks/1572395457353617504/DCe17WSavLhog6xOxGrEBiEeH8OSYY7zUKuPOltTTuUO_nLewI39J4dt8tXMUUDtJGSn", username: "KiraFlix", avatar: "https://i.ibb.co/Ljk2cdc/Gemini-Generated-Image-jcex9ajcex9ajcex.jpg", pingMode: "none", roles: "", msg: "{ping} 📢 **Conteúdo adicionado!** {tipo}: **{titulo}**", color: "#dc2626", footer: "", linkTpl: "{site}/{type}/{id}", showCast: true, showSeasons: true, showThumb: true, showBanner: true, showRating: true, showGenres: true, auto: false, autoMode: "save" };
 function getEmbedCfg() { try { return { ...EMBED_DEF, ...(JSON.parse(localStorage.getItem("kiraflix_embed") || "{}")) }; } catch (e) { return { ...EMBED_DEF }; } }
 function putEmbedCfg(c) { try { localStorage.setItem("kiraflix_embed", JSON.stringify(c)); return true; } catch (e) { return false; } }
 const getSent = () => { try { return JSON.parse(localStorage.getItem("kiraflix_embed_sent") || "[]"); } catch (e) { return []; } };
@@ -2602,347 +2665,125 @@ async function embedBatch() {
 }
 
 // ============================================================
-// MINHA CONTA (local) + LOGIN
+// CONTAS LOCAIS + CARGOS (Dono / Moderador / Suporte) — sem Supabase, tudo em localStorage
 // ============================================================
+// Coloque aqui o(s) e-mail(s) que devem ser DONO (acesso total: excluir, mexer no GitHub, gerenciar usuários, Xtream).
+// Quem não estiver em nenhuma lista abaixo entra como Suporte (só visualiza e usa automação, não apaga nada).
+const OWNER_EMAILS = [/* "seu@email.com" */];
+const MOD_EMAILS = [/* "moderador@email.com" */];
+
 async function hashPw(p) {
   try { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("kiraflix:" + p)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, "0")).join(""); }
   catch (e) { return "b64:" + btoa(unescape(encodeURIComponent("kiraflix:" + p))); }
 }
-const getAcc = () => { try { return JSON.parse(localStorage.getItem("kiraflix_account") || "{}"); } catch (e) { return {}; } };
-const putAcc = a => { try { localStorage.setItem("kiraflix_account", JSON.stringify(a)); return true; } catch (e) { return false; } };
+const getAccounts = () => { try { return JSON.parse(localStorage.getItem("kiraflix_accounts") || "[]"); } catch (e) { return []; } };
+const putAccounts = arr => { try { localStorage.setItem("kiraflix_accounts", JSON.stringify(arr)); return true; } catch (e) { return false; } };
+const findAccount = email => getAccounts().find(a => a.email.toLowerCase() === String(email || "").toLowerCase() || (a.telegram || "").replace(/^@/, "").toLowerCase() === String(email || "").replace(/^@/, "").toLowerCase());
+function getSession() { try { return JSON.parse(localStorage.getItem("kiraflix_session") || sessionStorage.getItem("kiraflix_session") || "null"); } catch (e) { return null; } }
+function putSession(s, remember) {
+  try {
+    if (!s) { localStorage.removeItem("kiraflix_session"); sessionStorage.removeItem("kiraflix_session"); return; }
+    if (remember) { localStorage.setItem("kiraflix_session", JSON.stringify(s)); sessionStorage.removeItem("kiraflix_session"); }
+    else { sessionStorage.setItem("kiraflix_session", JSON.stringify(s)); localStorage.removeItem("kiraflix_session"); }
+  } catch (e) {}
+}
+function roleFor(email) {
+  const e = String(email || "").toLowerCase();
+  if (OWNER_EMAILS.map(x => x.toLowerCase()).includes(e)) return "dono";
+  if (MOD_EMAILS.map(x => x.toLowerCase()).includes(e)) return "moderador";
+  return "suporte";
+}
+function currentRole() { const s = getSession(); return s ? roleFor(s.email) : "suporte"; }
+function roleLabel(r) { return { dono: "Dono", moderador: "Moderador", suporte: "Suporte" }[r] || "Suporte"; }
+function isOwner() { return currentRole() === "dono"; }
+function canDelete() { return isOwner(); }
+function canManageGithubFiles() { return isOwner(); }
+function canManageUsers() { return isOwner(); }
+
 function applyUser() {
-  const a = getAcc(), nm = a.email ? a.email.split("@")[0] : "Admin";
-  $("userName").textContent = nm; $("avSide").textContent = $("avTop").textContent = (nm[0] || "A").toUpperCase();
+  const s = getSession(), nm = s ? (s.name || s.email.split("@")[0]) : "Visitante";
+  $("userName").textContent = nm; $("userRole").textContent = roleLabel(currentRole());
+  $("avSide").textContent = $("avTop").textContent = (nm[0] || "A").toUpperCase();
+}
+function authTab(which) {
+  $("tabEntrar").classList.toggle("sel", which === "entrar"); $("tabCadastrar").classList.toggle("sel", which === "cadastrar");
+  $("formEntrar").classList.toggle("hidden", which !== "entrar"); $("formCadastrar").classList.toggle("hidden", which !== "cadastrar");
+}
+async function doRegister() {
+  const name = $("rgName").value.trim(), tel = $("rgTel").value.trim(), mail = $("rgMail").value.trim(), p1 = $("rgPw1").value, p2 = $("rgPw2").value;
+  if (!name) return toast("Digite seu nome", true);
+  if (!/^\S+@\S+\.\S+$/.test(mail)) return toast("E-mail inválido", true);
+  if (p1.length < 6) return toast("A senha precisa ter ao menos 6 caracteres", true);
+  if (p1 !== p2) return toast("As senhas não conferem", true);
+  if (findAccount(mail)) return toast("Já existe uma conta com esse e-mail", true);
+  const accs = getAccounts();
+  accs.push({ name, telegram: tel, email: mail, hash: await hashPw(p1), createdAt: Date.now() });
+  if (!putAccounts(accs)) return toast("Não consegui salvar a conta neste navegador", true);
+  putSession({ email: mail, name }, true);
+  toast("✔ Conta criada"); $("login").classList.add("hidden"); afterLogin();
+}
+async function doLogin() {
+  const u = $("lgUser").value.trim(), pw = $("lgPass").value, remember = $("lgRemember").checked;
+  const a = findAccount(u);
+  if (!a || (await hashPw(pw)) !== a.hash) return toast("Usuário/e-mail ou senha incorretos", true);
+  putSession({ email: a.email, name: a.name }, remember);
+  $("login").classList.add("hidden"); afterLogin();
+}
+function doLogout() { putSession(null); location.reload(); }
+function forgotPw() {
+  alert("Esse login é só deste navegador (sem servidor de e-mail), então não dá pra recuperar a senha automaticamente.\n\nPeça para o Dono do painel criar uma conta nova pra você, ou apague o cadastro antigo nas configurações do navegador para se cadastrar de novo.");
+}
+function afterLogin() { applyUser(); buildNav(); go(curPage || "dashboard"); }
+function checkLogin() {
+  const s = getSession();
+  if (!s || !findAccount(s.email)) { $("login").classList.remove("hidden"); authTab("entrar"); }
+  else applyUser();
+  $("lgPass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+  $("rgPw2").addEventListener("keydown", e => { if (e.key === "Enter") doRegister(); });
 }
 function renderAccount() {
-  const a = getAcc(), gh = getGithubConfig() || {};
-  $("p-account").innerHTML = `<div class="ph"><div><h1>Minha Conta</h1><p>Gerencie suas credenciais de acesso.</p></div></div>
-    <div class="card"><div class="cardhead"><span class="icobox">${ic("git", 22)}</span><div style="flex:1"><h2>GitHub (salvar catálogo)</h2><div class="muted" style="font-size:.8rem">O painel salva o catalog.json direto no seu repositório. A configuração fica só neste navegador.</div></div><span class="pill ${gh.token ? "ok" : "warn"}" style="margin-left:auto">${gh.token ? "Configurado" : "Pendente"}</span></div>
-      <div class="row"><div><label>Usuário/Org</label><input id="ghOwner" placeholder="ex: joaosilva" value="${esc(gh.owner || "")}" autocomplete="off"></div><div><label>Repositório</label><input id="ghRepo" placeholder="ex: kiraflix" value="${esc(gh.repo || "")}" autocomplete="off"></div></div>
-      <div class="field mt fld-eye"><label>Personal Access Token (repo)</label><input id="ghToken" type="password" placeholder="ghp_..." value="${esc(gh.token || "")}" autocomplete="off"><button class="btn ghost sm" onclick="const i=$('ghToken');i.type=i.type==='password'?'text':'password'">${ic("eye", 16)}</button></div>
-      <div class="row nofl mt"><button class="btn" onclick="saveGithubConfig()">💾 Salvar configuração</button><button class="btn ghost" id="btnTest" onclick="testGithubConnection()">${ic("check", 16)} Testar conexão</button></div>
-      <div class="hint">✔ Antes de salvar, o painel relê o catálogo do GitHub e só altera o item mexido. ✔ Se o salvamento fosse apagar itens, ele cancela. ✔ Backup local antes de cada salvamento.</div></div>
-    <div class="card"><div class="cardhead"><span class="icobox">${ic("users", 22)}</span><div style="flex:1"><h2>Supabase (aba Usuários)</h2><div class="muted" style="font-size:.8rem">Liga o painel aos usuários de Authentication do seu Supabase. A chave secreta (service_role) fica só no servidor, numa Edge Function; aqui entram apenas dados públicos e a chave do painel.</div></div><span class="pill ${sbOk() ? "ok" : "warn"}" style="margin-left:auto">${sbOk() ? "Configurado" : "Pendente"}</span></div>
-      <div class="field"><label>Link público do Supabase (Project URL)</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(getSb().url)}" autocomplete="off"></div>
-      <div class="field"><label>Chave pública (anon / publishable key)</label><input id="sbAnon" placeholder="eyJhbGciOi..." value="${esc(getSb().anon)}" autocomplete="off"></div>
-      <div class="row"><div><label>Nome da função</label><input id="sbFn" placeholder="admin-users" value="${esc(getSb().fn)}" autocomplete="off"></div><div class="fld-eye"><label>Chave do painel (ADMIN_PANEL_KEY)</label><input id="sbKey" type="password" placeholder="a senha que você criou na função" value="${esc(getSb().key)}" autocomplete="off"><button class="btn ghost sm" onclick="const i=$('sbKey');i.type=i.type==='password'?'text':'password'">${ic("eye", 16)}</button></div></div>
-      <div class="row nofl mt"><button class="btn" onclick="saveSb()">💾 Salvar</button><button class="btn ghost" id="btnSbTest" onclick="testSb()">${ic("check", 16)} Testar conexão</button><button class="btn ghost" onclick="go('users')">${ic("users", 16)} Abrir Usuários</button></div>
-      <div class="hint">Fica só neste navegador. Para criar a função e a chave do painel, abra a aba Usuários e siga “Como configurar (1 vez)”.</div></div>
+  const s = getSession(), a = findAccount(s && s.email) || {};
+  $("p-account").innerHTML = `<div class="ph"><div><h1>Minha Conta</h1><p>Cargo atual: <b>${esc(roleLabel(currentRole()))}</b>. Gerencie seu e-mail, telegram e senha.</p></div></div>
     <div class="card"><div class="cardhead"><span class="icobox">${ic("mail", 24)}</span><h2>Alterar E-mail</h2></div>
-      <div class="field"><label>E-mail Atual</label><input readonly value="${esc(a.email || "")}" placeholder="(nenhum definido)"></div>
+      <div class="field"><label>E-mail Atual</label><input readonly value="${esc(a.email || "")}"></div>
       <div class="field"><label>Novo E-mail</label><input id="acNewMail" type="email" placeholder="novo@email.com"></div>
       <div class="field"><label>Sua Senha Atual (para confirmar)</label><input id="acPw1" type="password" placeholder="••••••••" autocomplete="current-password"></div>
       <button class="btn block" onclick="accMail()">Atualizar E-mail</button></div>
+    <div class="card"><div class="cardhead"><span class="icobox">${ic("edit", 24)}</span><h2>Telegram</h2></div>
+      <div class="field"><label>Usuário do Telegram</label><input id="acTel" placeholder="@seu_usuario" value="${esc(a.telegram || "")}"></div>
+      <button class="btn block" onclick="accTel()">Salvar Telegram</button></div>
     <div class="card"><div class="cardhead"><span class="icobox">${ic("lock", 24)}</span><h2>Alterar Senha</h2></div>
       <div class="field"><label>Senha Atual</label><input id="acPw2" type="password" placeholder="••••••••" autocomplete="current-password"></div>
       <div class="field"><label>Nova Senha</label><input id="acNew" type="password" placeholder="Min. 6 caracteres" autocomplete="new-password"></div>
       <div class="field"><label>Confirmar Nova Senha</label><input id="acNew2" type="password" placeholder="Repita a nova senha" autocomplete="new-password"></div>
-      <button class="btn block" onclick="accPw()">Atualizar Senha</button>
-      <p class="hint">Conta local deste navegador: depois de definir uma senha, o painel passa a pedir login ao abrir.</p></div>`;
+      <button class="btn block" onclick="accPw()">Atualizar Senha</button></div>`;
 }
-async function accCheck(pw) { const a = getAcc(); if (!a.hash) return true; return (await hashPw(pw)) === a.hash; }
+function updateAcc(mutator) {
+  const s = getSession(); if (!s) return false;
+  const accs = getAccounts(), i = accs.findIndex(x => x.email.toLowerCase() === s.email.toLowerCase());
+  if (i < 0) return false;
+  mutator(accs[i]); if (!putAccounts(accs)) return false;
+  putSession({ email: accs[i].email, name: accs[i].name }, !!localStorage.getItem("kiraflix_session"));
+  return true;
+}
+async function accCheck(pw) { const s = getSession(); const a = findAccount(s && s.email); if (!a) return false; return (await hashPw(pw)) === a.hash; }
 async function accMail() {
   const m = $("acNewMail").value.trim(); if (!/^\S+@\S+\.\S+$/.test(m)) return toast("E-mail inválido", true);
   if (!await accCheck($("acPw1").value)) return toast("Senha atual incorreta", true);
-  const a = getAcc(); a.email = m; if (putAcc(a)) { toast("✔ E-mail atualizado"); applyUser(); renderAccount(); } else toast("Não consegui salvar", true);
+  if (findAccount(m)) return toast("Já existe uma conta com esse e-mail", true);
+  if (updateAcc(a => { a.email = m; })) { toast("✔ E-mail atualizado"); applyUser(); buildNav(); renderAccount(); } else toast("Não consegui salvar", true);
+}
+function accTel() {
+  const t = $("acTel").value.trim();
+  if (updateAcc(a => { a.telegram = t; })) toast("✔ Telegram salvo"); else toast("Não consegui salvar", true);
 }
 async function accPw() {
   const n = $("acNew").value, n2 = $("acNew2").value;
   if (n.length < 6) return toast("A nova senha precisa ter ao menos 6 caracteres", true);
   if (n !== n2) return toast("As senhas não conferem", true);
   if (!await accCheck($("acPw2").value)) return toast("Senha atual incorreta", true);
-  const a = getAcc(); a.hash = await hashPw(n); if (putAcc(a)) { try { sessionStorage.setItem("kf_ok", "1"); } catch (e) {} toast("✔ Senha atualizada"); renderAccount(); } else toast("Não consegui salvar", true);
-}
-async function doLogin() {
-  const a = getAcc();
-  if (a.email && $("lgEmail").value.trim().toLowerCase() !== a.email.toLowerCase()) return toast("E-mail ou senha incorretos", true);
-  if (!await accCheck($("lgPass").value)) return toast("E-mail ou senha incorretos", true);
-  try { sessionStorage.setItem("kf_ok", "1"); } catch (e) {} $("login").classList.add("hidden");
-}
-function checkLogin() {
-  const a = getAcc(); let ok = false; try { ok = sessionStorage.getItem("kf_ok") === "1"; } catch (e) {}
-  if (a.hash && !ok) { $("login").classList.remove("hidden"); $("lgEmail").value = a.email || ""; }
-  $("lgPass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-}
-
-// ============================================================
-// LEGENDAS AUTOMÁTICAS (CART3R — descoberta, conversão e publicação)
-// ============================================================
-const SUBS_CFG_KEY = "kiraflix_subs_cfg", SUBS_RESULTS_KEY = "kiraflix_subs_results", SUBS_PROG_KEY = "kiraflix_subs_progress";
-function getSubsCfg() {
-  let c = {}; try { c = JSON.parse(localStorage.getItem(SUBS_CFG_KEY) || "{}"); } catch (e) {}
-  return { enabled: false, concurrency: 2, delayMs: 500, langs: "pt,en,es", types: "movie,series", ...c };
-}
-function saveSubsCfg(patch) { const c = { ...getSubsCfg(), ...patch }; try { localStorage.setItem(SUBS_CFG_KEY, JSON.stringify(c)); } catch (e) {} return c; }
-function getSubResults() { try { return JSON.parse(localStorage.getItem(SUBS_RESULTS_KEY) || "[]"); } catch (e) { return []; } }
-function saveSubResults(arr) { try { localStorage.setItem(SUBS_RESULTS_KEY, JSON.stringify(arr.slice(-6000))); } catch (e) {} }
-let subResultsMem = null;
-function subResultsLoad() { if (!subResultsMem) subResultsMem = getSubResults(); return subResultsMem; }
-function subKey(r) { return [r.type, r.id, r.season ?? "-", r.ep ?? "-", r.lang].join("|"); }
-function subUpsert(r) {
-  const arr = subResultsLoad(), k = subKey(r), i = arr.findIndex(x => subKey(x) === k);
-  const row = { ...r, ts: Date.now() };
-  if (i >= 0) arr[i] = { ...arr[i], ...row }; else arr.push(row);
-}
-function subClearResults() { subResultsMem = []; saveSubResults([]); subRenderTable(); subRenderCounts(); }
-
-// Raiz da API, sem o "?url=..." fixo, para montarmos nossos próprios parâmetros (action/mode/lang)
-function apiSubRoot() { return getApiBase().replace(/\?.*$/, ""); }
-async function apiSubCall(targetUrl, mode, lang) {
-  const qs = new URLSearchParams({ action: "subtitles", mode: mode || "fetch", url: targetUrl });
-  if (lang) qs.set("lang", lang);
-  const full = apiSubRoot() + "?" + qs.toString();
-  const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 30000); let res;
-  try { res = await fetch(full, { headers: { Accept: "application/json" }, signal: ctl.signal }); }
-  catch (e) { clearTimeout(to); if (e.name === "AbortError") throw apiErr("timeout", "A busca de legenda demorou demais e foi cancelada."); throw apiErr("cors", "Não consegui falar com a API de legendas (Failed to fetch). Se você usa um Worker como proxy, confirme que ele repassa todos os parâmetros da URL (action, mode, lang, url), não só \"url\"."); }
-  clearTimeout(to);
-  const text = await res.text();
-  if (!res.ok) throw apiErr("http", `Erro HTTP ${res.status}`, text, res.status);
-  let json; try { json = JSON.parse(text.replace(/^﻿/, "")); } catch (e) { throw apiErr("json", "A resposta da API de legendas não é um JSON válido.", text, res.status); }
-  apiAssert(json);
-  return json.data !== undefined ? json.data : json;
-}
-
-function subBuildQueue(cfg) {
-  const types = (cfg.types || "movie,series").split(",").map(s => s.trim()).filter(Boolean);
-  const q = [];
-  if (types.includes("movie")) for (const [id, m] of Object.entries(catalog.movies || {})) if (m && m.source) q.push({ type: "movie", id, title: m.title || id, season: null, ep: null, source: m.source, isAnime: false });
-  if (types.includes("series")) for (const [id, s] of Object.entries(catalog.series || {})) {
-    if (s.isAnime && !types.includes("anime")) { /* animes ficam no bucket series; só pulamos se o usuário desmarcou "anime" explicitamente */ }
-    (s.seasons || []).forEach(se => (se.episodes || []).forEach(e => { if (e.source) q.push({ type: "series", id, title: s.title || id, season: se.number, ep: e.number, source: e.source, isAnime: !!s.isAnime }); }));
-  }
-  return q;
-}
-function subFindEntryByKey(type, id, season, ep) {
-  if (type === "movie") return catalog.movies && catalog.movies[id] ? { type, id, title: catalog.movies[id].title || id, source: catalog.movies[id].source } : null;
-  const s = catalog.series && catalog.series[id]; if (!s) return null;
-  const se = (s.seasons || []).find(x => x.number === season); if (!se) return null;
-  const e = (se.episodes || []).find(x => x.number === ep); if (!e) return null;
-  return { type, id, title: s.title || id, season, ep, source: e.source, isAnime: !!s.isAnime };
-}
-
-let subCtl = { running: false, paused: false, stop: false };
-let subQ = { queue: [], idx: 0, langs: ["pt"] };
-function subSaveProgress() { try { localStorage.setItem(SUBS_PROG_KEY, JSON.stringify({ idx: subQ.idx, total: subQ.queue.length, ts: Date.now() })); } catch (e) {} }
-function subLoadProgress() { try { return JSON.parse(localStorage.getItem(SUBS_PROG_KEY) || "null"); } catch (e) { return null; } }
-
-async function subScanOne(entry, langs) {
-  let data;
-  try { data = await apiSubCall(entry.source, "scan"); }
-  catch (e) { subUpsert({ type: entry.type, id: entry.id, title: entry.title, season: entry.season, ep: entry.ep, isAnime: entry.isAnime, lang: "-", status: "erro", note: apiFail(e) }); return; }
-  const cands = data.candidates || data.tracks || [];
-  if (!cands.length) { subUpsert({ type: entry.type, id: entry.id, title: entry.title, season: entry.season, ep: entry.ep, isAnime: entry.isAnime, lang: "-", status: "nao_encontrada", note: data.note || "Nenhuma legenda localizada na fonte." }); return; }
-  const seen = new Set();
-  cands.forEach(c => {
-    const lang = c.lang || "und";
-    if (langs.length && !langs.includes("*") && !langs.includes(lang)) return;
-    if (seen.has(lang)) return; seen.add(lang);
-    subUpsert({ type: entry.type, id: entry.id, title: entry.title, season: entry.season, ep: entry.ep, isAnime: entry.isAnime, lang, status: "encontrada", note: c.label || langLabel_(lang) });
-  });
-  if (!seen.size) subUpsert({ type: entry.type, id: entry.id, title: entry.title, season: entry.season, ep: entry.ep, isAnime: entry.isAnime, lang: "-", status: "nao_encontrada", note: "Encontrei legenda(s), mas em nenhum dos idiomas filtrados." });
-}
-function langLabel_(l) { const m = { pt: "Português", "pt-br": "Português", en: "English", es: "Español", fr: "Français", de: "Deutsch", it: "Italiano", ja: "日本語", ko: "한국어", und: "Desconhecido" }; return m[String(l).toLowerCase()] || l; }
-
-async function subWorker(delay) {
-  while (true) {
-    if (subCtl.stop) return;
-    while (subCtl.paused) { await sleep(400); if (subCtl.stop) return; }
-    if (subQ.idx >= subQ.queue.length) return;
-    const entry = subQ.queue[subQ.idx++];
-    await subScanOne(entry, subQ.langs);
-    subSaveProgress();
-    if (curPage === "legendas") { subRenderTable(); subRenderCounts(); subRenderControls(); }
-    if (delay) await sleep(delay);
-  }
-}
-async function subScanAll(resume) {
-  const cfg = getSubsCfg();
-  if (!cfg.enabled) return toast("Ative o sistema em Legendas Automáticas primeiro.", true);
-  await ensureCatalog();
-  const queue = subBuildQueue(cfg);
-  if (!queue.length) return toast("Nenhum filme/episódio com link de vídeo cadastrado ainda.", true);
-  const langs = (cfg.langs || "pt").split(",").map(s => s.trim()).filter(Boolean);
-  const prog = resume ? subLoadProgress() : null;
-  subQ = { queue, idx: prog && prog.total === queue.length ? prog.idx : 0, langs };
-  subCtl = { running: true, paused: false, stop: false };
-  subRenderControls();
-  const conc = Math.max(1, Math.min(6, parseInt(cfg.concurrency) || 2)), delay = Math.max(0, parseInt(cfg.delayMs) || 0);
-  await Promise.all(Array.from({ length: conc }, () => subWorker(delay)));
-  subCtl.running = false; subSaveProgress(); saveSubResults(subResultsLoad());
-  subRenderControls(); subRenderTable(); subRenderCounts();
-  toast(subCtl.stop ? "⏹ Varredura parada." : "✔ Varredura concluída.");
-}
-function subPause() { subCtl.paused = true; subRenderControls(); }
-function subResume() { subCtl.paused = false; subRenderControls(); }
-function subStop() { subCtl.stop = true; subCtl.paused = false; subRenderControls(); }
-
-async function getDefaultBranch() {
-  try {
-    const c = getGithubConfig(); if (!c) return "main";
-    let cache = null; try { cache = JSON.parse(localStorage.getItem("kiraflix_gh_branch") || "null"); } catch (e) {}
-    if (cache && cache.owner === c.owner && cache.repo === c.repo && cache.branch) return cache.branch;
-    const meta = await ghJson("");
-    const br = (meta && meta.default_branch) || "main";
-    try { localStorage.setItem("kiraflix_gh_branch", JSON.stringify({ owner: c.owner, repo: c.repo, branch: br })); } catch (e) {}
-    return br;
-  } catch (e) { return "main"; }
-}
-async function subFetchContent(entry, lang) {
-  const data = await apiSubCall(entry.source, "fetch", lang && lang !== "-" ? lang : undefined);
-  const tracks = data.tracks || [];
-  const t = tracks.find(x => (x.lang || "und") === lang) || tracks[0];
-  if (!t || !t.vtt) throw new Error(data.note || "A fonte não entregou o conteúdo da legenda desta vez.");
-  return t;
-}
-async function subPublish(entry, lang, vttText) {
-  const c = getGithubConfig(); if (!c) throw new Error("Conecte o GitHub em Minha Conta antes de publicar legendas.");
-  const branch = await getDefaultBranch();
-  const safeId = String(entry.id).replace(/[^a-zA-Z0-9_-]/g, "");
-  const path = entry.type === "movie" ? `legendas/filme-${safeId}/${lang}.vtt` : `legendas/serie-${safeId}/t${entry.season}-e${entry.ep}/${lang}.vtt`;
-  const sha = await ghSha(path);
-  await ghPut(path, textToB64(vttText), `Legenda ${lang}: ${entry.title}${entry.type === "series" ? " T" + entry.season + "E" + entry.ep : ""}`, sha);
-  const url = `https://raw.githubusercontent.com/${c.owner}/${c.repo}/${branch}/${encPath(path)}`;
-  await commitCatalog(`Legenda ${lang} — ${entry.title}`, data => {
-    if (entry.type === "movie") {
-      const m = data.movies[entry.id]; if (!m) throw new Error("Esse filme não existe mais no catálogo.");
-      if (!m.subtitles) m.subtitles = {}; m.subtitles[lang] = url;
-    } else {
-      const s = data.series[entry.id]; if (!s) throw new Error("Essa série não existe mais no catálogo.");
-      const se = (s.seasons || []).find(x => x.number === entry.season); if (!se) throw new Error("Temporada não encontrada.");
-      const ep = (se.episodes || []).find(x => x.number === entry.ep); if (!ep) throw new Error("Episódio não encontrado.");
-      if (!ep.subtitles) ep.subtitles = {}; ep.subtitles[lang] = url;
-    }
-  });
-  return url;
-}
-function subCatalogUrlFor(entry, lang) {
-  if (entry.type === "movie") return (catalog.movies[entry.id] && catalog.movies[entry.id].subtitles || {})[lang] || "";
-  const s = catalog.series[entry.id]; if (!s) return "";
-  const se = (s.seasons || []).find(x => x.number === entry.season); if (!se) return "";
-  const e = (se.episodes || []).find(x => x.number === entry.ep); if (!e) return "";
-  return (e.subtitles || {})[lang] || "";
-}
-async function subRowUpdate(type, id, season, ep, lang, btn) {
-  const entry = subFindEntryByKey(type, id, season, ep);
-  if (!entry || !entry.source) return toast("Não achei mais esse link no catálogo.", true);
-  if (btn) btn.innerHTML = '<span class="spin"></span>';
-  try {
-    const t = await subFetchContent(entry, lang === "-" ? undefined : lang);
-    const url = await subPublish(entry, t.lang || lang, t.vtt);
-    subUpsert({ type, id, title: entry.title, season, ep, isAnime: entry.isAnime, lang: t.lang || lang, status: "publicada", note: "Publicada no GitHub" });
-    saveSubResults(subResultsLoad());
-    toast("✔ Legenda publicada e salva no catálogo.");
-  } catch (e) { toast("❌ " + e.message, true); subUpsert({ type, id, title: entry.title, season, ep, isAnime: entry.isAnime, lang, status: "erro", note: e.message }); saveSubResults(subResultsLoad()); }
-  subRenderTable(); subRenderCounts();
-}
-async function subRowRemove(type, id, season, ep, lang) {
-  const entry = subFindEntryByKey(type, id, season, ep); if (!entry) return;
-  if (!confirm("Remover essa legenda do catálogo? O arquivo publicado no GitHub não será apagado, só a referência.")) return;
-  try {
-    await commitCatalog(`Remover legenda ${lang}: ${entry.title}`, data => {
-      if (type === "movie") { const m = data.movies[id]; if (m && m.subtitles) delete m.subtitles[lang]; }
-      else { const s = data.series[id]; const se = s && (s.seasons || []).find(x => x.number === season); const e = se && (se.episodes || []).find(x => x.number === ep); if (e && e.subtitles) delete e.subtitles[lang]; }
-    });
-    const arr = subResultsLoad(), i = arr.findIndex(x => subKey(x) === [type, id, season ?? "-", ep ?? "-", lang].join("|"));
-    if (i >= 0) { arr[i].status = "nao_encontrada"; arr[i].note = "Removida do catálogo"; }
-    saveSubResults(arr); toast("✔ Legenda removida do catálogo.");
-  } catch (e) { toast("❌ " + e.message, true); }
-  subRenderTable();
-}
-async function subRowTest(type, id, season, ep, lang) {
-  const entry = subFindEntryByKey(type, id, season, ep); if (!entry) return toast("Item não encontrado.", true);
-  const already = subCatalogUrlFor(entry, lang);
-  openModal(`<h3>Testar legenda — ${esc(entry.title)}</h3><p id="subTestP" class="muted" style="margin-top:6px">Buscando pré-visualização…</p>`);
-  try {
-    let text;
-    if (already) { const r = await fetch(already); if (!r.ok) throw new Error("HTTP " + r.status + " ao baixar o .vtt publicado"); text = await r.text(); }
-    else { const t = await subFetchContent(entry, lang === "-" ? undefined : lang); text = t.vtt; }
-    const cues = text.split(/\n\n+/).filter(b => b.includes("-->")).slice(0, 5).join("\n\n");
-    $("subTestP").outerHTML = `<div class="muted" style="margin:6px 0">Pré-visualização em texto das primeiras falas (não reproduz vídeo — é uma checagem do conteúdo da legenda antes de publicar):</div><pre style="white-space:pre-wrap;background:var(--inp);border:1px solid var(--inpb);border-radius:10px;padding:12px;max-height:300px;overflow:auto;font-size:.8rem">${esc(cues || text.slice(0, 1500))}</pre>`;
-  } catch (e) { $("subTestP").textContent = "❌ " + e.message; }
-}
-
-function subRenderControls() {
-  const b = $("subCtlBtns"); if (!b) return;
-  b.innerHTML = !subCtl.running
-    ? `<button class="btn" onclick="subScanAll(true)">${ic("play", 16)} Iniciar / Continuar varredura</button><button class="btn ghost" onclick="subClearResults()">${ic("trash", 16)} Limpar resultados</button>`
-    : (subCtl.paused
-      ? `<button class="btn" onclick="subResume()">${ic("play", 16)} Continuar</button><button class="btn ghost" onclick="subStop()">${ic("ban", 16)} Parar</button>`
-      : `<button class="btn ghost" onclick="subPause()">${ic("pulse", 16)} Pausar</button><button class="btn ghost" onclick="subStop()">${ic("ban", 16)} Parar</button>`);
-  const p = $("subProg");
-  if (p) { const pct = subQ.queue.length ? Math.round((subQ.idx / subQ.queue.length) * 100) : 0; p.style.display = subCtl.running || subQ.idx ? "block" : "none"; const bar = $("subBar"); if (bar) bar.style.width = pct + "%"; const tx = $("subProgTxt"); if (tx) tx.textContent = `${subQ.idx} / ${subQ.queue.length} (${pct}%)`; }
-}
-function subRenderCounts() {
-  const el = $("subCounts"); if (!el) return;
-  const arr = subResultsLoad();
-  const byKind = k => new Set(arr.filter(r => r.type === k).map(r => r.type + r.id + r.season + r.ep)).size;
-  const found = arr.filter(r => r.status === "encontrada" || r.status === "publicada").length;
-  const none = arr.filter(r => r.status === "nao_encontrada").length, err = arr.filter(r => r.status === "erro").length;
-  const seasons = new Set(arr.filter(r => r.type === "series").map(r => r.id + "_" + r.season)).size;
-  const tile = (ic_, n, l, cls) => `<div class="stat ${cls || ""}" style="--bgc:rgba(220,38,38,.12);--fc:#f87171;--bdc:rgba(220,38,38,.3)"><div class="si">${ic(ic_, 20)}</div><div class="n">${n}</div><div class="l">${l}</div></div>`;
-  el.innerHTML = tile("film", byKind("movie"), "Filmes analisados", "hl") + tile("tv", new Set(arr.filter(r => r.type === "series").map(r => r.id)).size, "Séries analisadas") + tile("folder", seasons, "Temporadas") + tile("video", byKind("series"), "Episódios analisados") + tile("check", found, "Legendas encontradas") + tile("warn", none, "Sem legenda") + tile("ban", err, "Erros");
-}
-let subFilter = { lang: "", status: "", q: "" };
-function subRenderTable() {
-  const tb = $("subBody"); if (!tb) return;
-  let arr = subResultsLoad().slice().sort((a, b) => b.ts - a.ts);
-  if (subFilter.lang) arr = arr.filter(r => r.lang === subFilter.lang);
-  if (subFilter.status) arr = arr.filter(r => r.status === subFilter.status);
-  if (subFilter.q) { const q = subFilter.q.toLowerCase(); arr = arr.filter(r => (r.title || "").toLowerCase().includes(q)); }
-  arr = arr.slice(0, 500);
-  const stMap = { encontrada: ["part", "Encontrada"], publicada: ["ok", "Publicada"], nao_encontrada: ["none", "Não encontrada"], erro: ["none", "Erro"] };
-  tb.innerHTML = arr.length ? arr.map(r => {
-    const [cls, lbl] = stMap[r.status] || ["none", r.status];
-    const already = subCatalogUrlFor(r, r.lang);
-    return `<tr><td><div class="tt">${esc(r.title)}</div>${r.isAnime ? '<div class="tm">Anime</div>' : ""}</td><td>${r.season ?? "—"}</td><td>${r.ep ?? "—"}</td><td>${esc(langLabel_(r.lang))}</td><td><span class="st ${cls}" title="${esc(r.note || "")}">${lbl}</span></td><td><div class="acts">
-      <button class="ib" title="Buscar/Atualizar" onclick="subRowUpdate('${r.type}','${esc(r.id)}',${r.season ?? "null"},${r.ep ?? "null"},'${r.lang}',this)">${ic("download", 15)}</button>
-      <button class="ib" title="Testar" onclick="subRowTest('${r.type}','${esc(r.id)}',${r.season ?? "null"},${r.ep ?? "null"},'${r.lang}')">${ic("eye", 15)}</button>
-      ${already ? `<button class="ib dng" title="Remover do catálogo" onclick="subRowRemove('${r.type}','${esc(r.id)}',${r.season ?? "null"},${r.ep ?? "null"},'${r.lang}')">${ic("trash", 15)}</button>` : ""}
-    </div></td></tr>`;
-  }).join("") : `<tr><td colspan="6"><div class="empty"><div class="big">📄</div>Nenhum resultado ainda. Clique em “Iniciar varredura”.</div></td></tr>`;
-}
-function subApplyFilters() { subFilter.lang = $("subFLang").value; subFilter.status = $("subFStatus").value; subFilter.q = $("subFQ").value; subRenderTable(); }
-function subSaveCfgFromForm() {
-  saveSubsCfg({ enabled: $("subEnabled").checked, concurrency: parseInt($("subConc").value) || 2, delayMs: parseInt($("subDelay").value) || 0, langs: $("subLangs").value.trim() || "pt", types: [$("subTMovie").checked && "movie", $("subTSeries").checked && "series"].filter(Boolean).join(",") || "movie,series" });
-  toast("✔ Configuração salva");
-}
-function renderLegendas() {
-  const sec = $("p-legendas"), cfg = getSubsCfg(), gh = getGithubConfig();
-  const langOpts = ["", "pt", "en", "es", "fr", "de", "it", "ja", "ko", "und"].map(l => `<option value="${l}">${l ? langLabel_(l) : "Todos os idiomas"}</option>`).join("");
-  const statusOpts = [["", "Todos os status"], ["encontrada", "Encontrada"], ["publicada", "Publicada"], ["nao_encontrada", "Não encontrada"], ["erro", "Erro"]].map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
-  sec.innerHTML = `
-    <div class="ph"><div><h1>Legendas Automáticas</h1><p>Encontra, converte (SRT→VTT) e publica legendas para os filmes e episódios já cadastrados, usando a API KiraFlix (<code>action=subtitles</code>). Funciona junto com o player: ele já lê <code>subtitles.pt</code> de cada filme e pode ser ajustado para ler por episódio também — veja a nota abaixo da tabela.</p></div></div>
-    ${!gh ? `<div class="card" style="border-color:var(--warn)"><b style="color:var(--warn)">⚠ Conecte o GitHub em Minha Conta</b><p class="muted" style="margin-top:6px">A varredura funciona sem o GitHub, mas publicar (gravar o .vtt e salvar no catálogo) exige a conexão.</p></div>` : ""}
-    <div class="card">
-      <label class="switchrow"><input type="checkbox" id="subEnabled" ${cfg.enabled ? "checked" : ""}><b>Ativar o sistema de Legendas Automáticas</b></label>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:14px">
-        <div><label>Idiomas (separados por vírgula)</label><input id="subLangs" value="${esc(cfg.langs)}" placeholder="pt,en,es"></div>
-        <div><label>Concorrência (itens em paralelo)</label><input id="subConc" type="number" min="1" max="6" value="${cfg.concurrency}"></div>
-        <div><label>Intervalo entre itens (ms)</label><input id="subDelay" type="number" min="0" step="100" value="${cfg.delayMs}"></div>
-        <div><label>Conteúdo</label><div style="display:flex;gap:14px;align-items:center;height:42px"><label style="display:flex;gap:6px;align-items:center;font-weight:500"><input type="checkbox" id="subTMovie" style="width:auto" ${cfg.types.includes("movie") ? "checked" : ""}> Filmes</label><label style="display:flex;gap:6px;align-items:center;font-weight:500"><input type="checkbox" id="subTSeries" style="width:auto" ${cfg.types.includes("series") ? "checked" : ""}> Séries/Animes</label></div></div>
-      </div>
-      <button class="btn ghost" style="margin-top:14px" onclick="subSaveCfgFromForm()">${ic("check", 16)} Salvar configuração</button>
-    </div>
-    <div class="card"><div class="cardhead"><span class="icobox">${ic("spark", 22)}</span><div style="flex:1"><h2>Varredura</h2><div class="muted" style="font-size:.8rem">Passa pelo catálogo chamando a API em modo rápido (<code>mode=scan</code>, só identifica — não baixa tudo) para preencher a tabela. Pode pausar/continuar/parar a qualquer momento; o progresso fica salvo.</div></div></div>
-      <div id="subCtlBtns" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px"></div>
-      <div class="progress" id="subProg" style="display:none;margin-top:12px"><b id="subBar" style="width:0%"></b></div>
-      <div class="muted" id="subProgTxt" style="font-size:.78rem;margin-top:6px"></div>
-    </div>
-    <div class="card"><div class="cardhead"><h2>Resumo</h2></div><div class="stats" id="subCounts"></div></div>
-    <div class="card">
-      <div class="tblhead" style="flex-wrap:wrap;gap:10px"><h2>Resultados</h2>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-left:auto">
-          <select id="subFLang" onchange="subApplyFilters()">${langOpts}</select>
-          <select id="subFStatus" onchange="subApplyFilters()">${statusOpts}</select>
-          <div class="search" style="min-width:200px">${ic("search", 16)}<input id="subFQ" placeholder="Buscar título..." oninput="subApplyFilters()"></div>
-        </div>
-      </div>
-      <div class="tbl-scroll"><table><thead><tr><th>Conteúdo</th><th>Temporada</th><th>Episódio</th><th>Idioma</th><th>Status</th><th>Ação</th></tr></thead><tbody id="subBody"></tbody></table></div>
-    </div>
-    <div class="card"><div class="cardhead"><h2>Como fica no player</h2></div>
-      <p class="muted">Atualizei seu player (o arquivo que você me mandou como <code>API_5.html</code> — aqui chamo de <code>player.html</code>) para também ler <code>episode.subtitles</code>, igual já fazia com <code>movie.subtitles</code>. Agora, pra filme <b>e</b> pra episódio: se o item tiver <code>subtitles.pt</code> no catálogo, a legenda carrega sozinha como faixa nativa; e no botão “Legendas”, aparece uma seção <b>📦 Do catálogo</b> com todos os idiomas que você publicou aqui, sem precisar raspar o site de novo. O botão continua tentando raspagem ao vivo e OpenSubtitles como reforço quando não há nada publicado.</p>
-    </div>`;
-  subRenderControls(); subRenderCounts(); subRenderTable();
+  const h = await hashPw(n);
+  if (updateAcc(a => { a.hash = h; })) { toast("✔ Senha atualizada"); renderAccount(); } else toast("Não consegui salvar", true);
 }
 
 // ============================================================
