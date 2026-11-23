@@ -65634,6 +65634,187 @@
       "addedAt": 1795451349700,
       "isAnime": true
     },
+    "211684": {
+      "title": "The Walking Dead: Daryl Dixon",
+      "overview": "Daryl Dixon chega à costa da França e luta para entender como chegou lá e por quê. A série acompanha a sua jornada por uma França quebrada, mas resiliente, enquanto ele tenta encontrar um caminho de volta para casa. As conexões que ele forma no caminho, no entanto, complicam os seus planos.",
+      "poster": "https://image.tmdb.org/t/p/w500/72kaL0YYGYyPCDSEkW9QXyQZrzl.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/hXRAKps7stKEcRZzub7YPHFTJkK.jpg",
+      "year": "2023",
+      "rating": 8.013,
+      "genres": [
+        "Sci-Fi & Fantasy",
+        "Action & Adventure",
+        "Drama"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Alma Perdida",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Alouette",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Paris Sempre Será Paris",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Dama de Ferro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Dois Amores",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Voltando Pra Casa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "O Livro de Carol",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "A Bondade dos Estranhos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Moinho Vermelho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Invisível",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Paraíso para Você",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Querer é Poder",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Adeus Criança",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "label": "Temporada 3",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Costa da Morte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Oferta",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Sacrifício",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Justiça da Fronteira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Limbo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Contrabando",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Consolo do Mar",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "label": "Temporada 4",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795471782192
+    },
     "215072": {
       "title": "Uma Loja Para Assassinos",
       "overview": "O único familiar vivo de Jian, seu tio, morre repentinamente. Só então ela descobre que ele tinha uma loja suspeita. Quem era o tio dela, e que tipo de loja ele gerenciava? Antes que Jian possa entender o que está acontecendo, ela é atacada por homens desconhecidos que estão atrás dos produtos do tio. Agora que está sozinha, Jian vai conseguir sobreviver?",
