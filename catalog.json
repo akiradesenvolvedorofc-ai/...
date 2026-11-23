@@ -64548,6 +64548,147 @@
       "addedAt": 1795451349700,
       "isAnime": true
     },
+    "215072": {
+      "title": "Uma Loja Para Assassinos",
+      "overview": "O único familiar vivo de Jian, seu tio, morre repentinamente. Só então ela descobre que ele tinha uma loja suspeita. Quem era o tio dela, e que tipo de loja ele gerenciava? Antes que Jian possa entender o que está acontecendo, ela é atacada por homens desconhecidos que estão atrás dos produtos do tio. Agora que está sozinha, Jian vai conseguir sobreviver?",
+      "poster": "https://image.tmdb.org/t/p/w500/hx84Fg4I35nkxtH69e9aOmUVtdR.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/lg134VJrvY3ZdOlP4lTu1onOhcf.jpg",
+      "year": "2024",
+      "rating": 8.5,
+      "genres": [
+        "Drama",
+        "Action & Adventure",
+        "Mistério"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Murthehelp",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Jeong Jinman, Jeong Jinman, Jeong Jinman",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Os Fortes Não Berram",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "A Loja",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Babilônia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Jeong Jinman",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Armadilha",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Escute, Jian",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795452488294
+    },
     "216467": {
       "title": "A Missão da Família Yozakura",
       "overview": "Uma família fora do comum! O aluno do ensino médio, Asano Taiyo, perdeu sua família num acidente trágico. A única pessoa com quem consegue falar é Mutsumi Yozakura, sua amiga de infância. Mas Mutsumi guarda um grande segredo: ela vem de uma família de espiões. Seu irmão, Kyoichiro, um espião extremamente habilidoso, fará de tudo para eliminar Taiyo. Para salvar Mutsumi e a si mesmo, Taiyo concorda casar com Mutsumi e se tornar parte da família Yozakura, embarcando numa aventura surpreendente!",
