@@ -63923,6 +63923,184 @@
         }
       ]
     },
+    "207332": {
+      "title": "SAKAMOTO DAYS",
+      "overview": "Taro Sakamoto já foi o maior assassino de aluguel de todos os tempos, mas largou tudo por amor. Agora, com o passado à espreita, ele vai ter que lutar como nunca.",
+      "poster": "https://image.tmdb.org/t/p/w500/qTNIxDIzKjLLuS17fxdXjcKAlW7.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/blSthAPRbEOJBowdxppeQqNPRh9.jpg",
+      "year": "2025",
+      "rating": 8,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Action & Adventure"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O assassino lendário",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Contra Son Hee e Bacho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Bem-vindos ao Parque Sugar!",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Durão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O motivo da força",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Heisuke Mashimo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Jurássico maldito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Mercadinho Sakamoto contra Labo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Todos a bordo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Modo combate no banho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Batalha no Cassino",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Sobrecarga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Execrável",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Assalto",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Girando e girando na torre",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Dança fatiadora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Tenha um bom combate",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Kanaguri",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Terceira fase",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "Mesmo ídolo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Dificuldade máxima",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "A missão de cada um",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795399644107,
+      "isAnime": true
+    },
     "207493": {
       "title": "Crônicas de um Aristocrata em Outro Mundo",
       "overview": "Após morrer protegendo uma jovem desafortunada, Kazuya Shiina acorda no tipo de mundo com o qual sempre sonhou: um mundo de magia e espadas! Ele reencarna como Cain von Silford, terceiro filho de uma família aristocrata. Em seu quinto aniversário, ele é submetido ao tradicional batismo na igreja... e os deuses lhe conferem inúmeras bênçãos divinas, além de atributos que só podem ser descritos como extraordinários! Nesta nova vida, seja na guerra, no amor ou nos estudos, ele sempre se sobressai um pouco demais, e logo percebe que esforço e dedicação só o colocam em apuros!",
