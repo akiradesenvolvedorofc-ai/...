@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Editor de Legendas • Player + SRT/VTT</title>
+<style>
+  :root{
+    --bg:#0d1017; --panel:#151922; --panel-2:#1c212c; --border:#2a3040;
+    --text:#e6e9f0; --muted:#8b93a8; --accent:#4f8cff; --accent-hover:#6ba0ff;
+    --green:#22c55e; --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(1200px 600px at 20% -10%, #1a2233 0%, var(--bg) 60%);
+    color:var(--text); min-height:100vh; padding:14px;
+  }
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    margin-bottom:14px; padding:10px 14px;
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  }
+  .brand{font-weight:700; font-size:15px; white-space:nowrap;}
+  .url-row{display:flex; gap:8px; flex:1; min-width:260px;}
+  .url-row input{
+    flex:1; background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+    padding:9px 12px; border-radius:8px; font-size:13px; outline:none; transition:.15s;
+  }
+  .url-row input:focus{border-color:var(--accent);}
+
+  .btn{
+    background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+    padding:8px 12px; border-radius:8px; font-size:13px; cursor:pointer;
+    font-weight:500; transition:.15s; white-space:nowrap;
+  }
+  .btn:hover{background:#252b38; border-color:#3a4356;}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.primary:hover{background:var(--accent-hover);}
+  .btn.success{background:var(--green); border-color:var(--green); color:#fff;}
+  .btn.success:hover{filter:brightness(1.1);}
+  .btn.danger{color:#ff8080;}
+  .btn.danger:hover{background:#3a1e1e; border-color:#5a2a2a;}
+
+  /* ---------- LAYOUT ---------- */
+  .app{
+    display:grid; grid-template-columns:minmax(0,1fr) 440px;
+    gap:14px; align-items:start;
+  }
+  @media (max-width:1000px){ .app{grid-template-columns:1fr;} }
+
+  /* ---------- PLAYER ---------- */
+  .player-col{display:flex; flex-direction:column; gap:12px;}
+  .video-wrap{
+    position:relative; background:#000; border-radius:var(--radius);
+    overflow:hidden; border:1px solid var(--border); aspect-ratio:16/9;
+  }
+  .video-wrap video{width:100%; height:100%; display:block; background:#000;}
+
+  .sub-overlay{
+    position:absolute; left:5%; right:5%; bottom:64px; text-align:center;
+    font-size:clamp(14px,2.2vw,26px); font-weight:600; color:#fff; line-height:1.35;
+    text-shadow:0 0 4px #000, 0 2px 8px #000, 0 0 2px #000;
+    pointer-events:none; opacity:0; transition:opacity .1s; z-index:3;
+  }
+  .sub-overlay.visible{opacity:1;}
+
+  .time-strip{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--panel); border:1px solid var(--border);
+    border-radius:var(--radius); padding:10px 14px;
+  }
+  .label{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;}
+  .time-big{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:22px; font-weight:700; color:var(--accent); letter-spacing:.02em;
+  }
+  .spacer{flex:1;}
+  .file-btn{
+    background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+    padding:8px 12px; border-radius:8px; font-size:13px; cursor:pointer;
+    font-weight:500; transition:.15s; display:inline-flex; align-items:center; gap:6px;
+  }
+  .file-btn:hover{background:#252b38; border-color:#3a4356;}
+
+  /* ---------- EDITOR ---------- */
+  .editor-col{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    display:flex; flex-direction:column; overflow:hidden;
+    max-height:calc(100vh - 60px); min-height:420px;
+  }
+  .editor-head{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 14px; border-bottom:1px solid var(--border); flex-wrap:wrap;
+  }
+  .editor-head h2{margin:0; font-size:14px; display:flex; align-items:center; gap:8px;}
+  .badge{
+    background:var(--panel-2); border:1px solid var(--border); border-radius:20px;
+    padding:1px 8px; font-size:11px; color:var(--muted);
+  }
+  .actions{display:flex; gap:6px;}
+  .actions .btn{padding:6px 9px; font-size:12px;}
+
+  .offset-row{
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    padding:8px 14px; border-bottom:1px solid var(--border);
+    font-size:12px; color:var(--muted);
+  }
+  .offset-row button{
+    background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+    border-radius:6px; padding:3px 8px; font-size:11.5px; cursor:pointer; transition:.15s;
+  }
+  .offset-row button:hover{border-color:var(--accent); color:var(--accent);}
+
+  .sub-list{
+    overflow-y:auto; padding:10px; display:flex; flex-direction:column; gap:8px; flex:1;
+  }
+  .sub-list::-webkit-scrollbar{width:8px;}
+  .sub-list::-webkit-scrollbar-thumb{background:#2a3040; border-radius:8px;}
+  .sub-list::-webkit-scrollbar-thumb:hover{background:#3a4356;}
+
+  .empty{color:var(--muted); text-align:center; font-size:13px; padding:40px 10px; line-height:1.7;}
+
+  .sub-item{
+    background:var(--panel-2); border:1px solid var(--border); border-radius:9px;
+    padding:8px 10px; transition:border-color .12s, background .12s, box-shadow .12s;
+  }
+  .sub-item.active{
+    border-color:var(--accent); background:#1a2438;
+    box-shadow:0 0 0 1px var(--accent) inset;
+  }
+  .sub-head{display:flex; align-items:center; gap:6px; margin-bottom:6px; flex-wrap:wrap;}
+  .sub-num{font-size:11px; color:var(--muted); font-family:monospace; min-width:20px;}
+  .time-group{display:flex; align-items:center; gap:3px; flex-wrap:wrap;}
+  .time-value{
+    font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px;
+    background:#0e131c; border:1px solid var(--border); color:#9fd0ff;
+    padding:3px 6px; border-radius:5px; cursor:pointer; transition:.15s;
+  }
+  .time-value:hover{border-color:var(--accent); color:#cfe4ff;}
+  .capture{
+    background:transparent; border:1px solid transparent; color:var(--muted);
+    cursor:pointer; padding:2px 4px; border-radius:5px; font-size:12px; line-height:1;
+    transition:.15s;
+  }
+  .capture:hover{color:var(--accent); border-color:var(--border); background:#0e131c;}
+  .arrow{color:var(--muted); font-size:11px;}
+  .del{
+    margin-left:auto; background:transparent; border:1px solid transparent; color:var(--muted);
+    cursor:pointer; font-size:13px; padding:2px 6px; border-radius:5px; line-height:1; transition:.15s;
+  }
+  .del:hover{color:#ff6b6b; background:#2a1414; border-color:#4a2222;}
+
+  .sub-text{
+    width:100%; background:#0e131c; border:1px solid var(--border); border-radius:6px;
+    color:var(--text); padding:7px 9px; font-size:13px; font-family:inherit;
+    resize:vertical; min-height:42px; outline:none; line-height:1.45; transition:.15s;
+  }
+  .sub-text:focus{border-color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">🎬 Editor de Legendas</div>
+  <div class="url-row">
+    <input id="videoUrl" type="url" placeholder="Cole o link do vídeo (.mp4, .webm, .ogg, .m3u8...)" />
+    <button id="loadVideo" class="btn primary">Carregar vídeo</button>
+  </div>
+</header>
+
+<main class="app">
+  <!-- PLAYER -->
+  <section class="player-col">
+    <div class="video-wrap">
+      <video id="video" controls playsinline crossorigin="anonymous"></video>
+      <div id="subOverlay" class="sub-overlay"></div>
+    </div>
+
+    <div class="time-strip">
+      <span class="label">Tempo atual</span>
+      <span id="timeDisplay" class="time-big">00:00:00.000</span>
+      <span class="spacer"></span>
+      <label class="file-btn">
+        📂 Carregar .srt / .vtt
+        <input id="subFile" type="file" accept=".srt,.vtt,text/vtt,application/x-subrip" hidden />
+      </label>
+      <button id="addSub" class="btn success">+ Nova legenda</button>
+    </div>
+  </section>
+
+  <!-- EDITOR -->
+  <aside class="editor-col">
+    <div class="editor-head">
+      <h2>Legendas <span id="count" class="badge">0</span></h2>
+      <div class="actions">
+        <button id="exportSrt" class="btn">⬇ SRT</button>
+        <button id="exportVtt" class="btn">⬇ VTT</button>
+        <button id="clearAll" class="btn danger">Limpar</button>
+      </div>
+    </div>
+
+    <div class="offset-row">
+      <span>Deslocar tudo:</span>
+      <button data-off="-1">−1s</button>
+      <button data-off="-0.1">−0.1s</button>
+      <button data-off="0.1">+0.1s</button>
+      <button data-off="1">+1s</button>
+    </div>
+
+    <div id="subList" class="sub-list">
+      <div class="empty">Nenhuma legenda carregada.<br>Carregue um arquivo .srt/.vtt ou crie uma nova.<br><br><small>Dica: arraste o arquivo para a página.</small></div>
+    </div>
+  </aside>
+</main>
+
+<script>
+/* ============================================================
+   ESTADO
+============================================================ */
+const video      = document.getElementById('video');
+const overlay    = document.getElementById('subOverlay');
+const timeDisplay= document.getElementById('timeDisplay');
+const subList    = document.getElementById('subList');
+const countBadge = document.getElementById('count');
+
+let subtitles = [];   // [{ start:Number(sec), end:Number(sec), text:String }]
+let lastActive = -2;  // -2 força atualização
+let lastTimeStr = '';
+
+/* ============================================================
+   UTILITÁRIOS DE TEMPO
+============================================================ */
+function timeToSec(str){
+  const parts = str.trim().replace(',', '.').split(':').map(Number);
+  if (parts.length === 3) return parts[0]*3600 + parts[1]*60 + parts[2];
+  if (parts.length === 2) return parts[0]*60 + parts[1];
+  return parts[0] || 0;
+}
+
+function formatTime(sec, sep = ','){
+  if (!isFinite(sec) || sec < 0) sec = 0;
+  const total = Math.round(sec * 1000);
+  const ms = total % 1000;
+  const s  = Math.floor(total / 1000) % 60;
+  const m  = Math.floor(total / 60000) % 60;
+  const h  = Math.floor(total / 3600000);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}${sep}${String(ms).padStart(3,'0')}`;
+}
+
+const roundMs = t => Math.round(t * 1000) / 1000;
+
+/* ============================================================
+   PARSER SRT / VTT
+============================================================ */
+const TIME_RE = /(\d{1,3}:\d{2}:\d{2}[,.]\d{1,3}|\d{1,2}:\d{2}[,.]\d{1,3})\s*-->\s*(\d{1,3}:\d{2}:\d{2}[,.]\d{1,3}|\d{1,2}:\d{2}[,.]\d{1,3})/;
+
+function parseSubs(raw){
+  const text = raw
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .replace(/^\uFEFF/, '');
+
+  const blocks = text.split(/\n{2,}/);
+  const cues = [];
+
+  for (const block of blocks){
+    const lines = block.split('\n').map(l => l);
+    let idx = -1;
+    for (let i = 0; i < lines.length; i++){
+      if (TIME_RE.test(lines[i])){ idx = i; break; }
+    }
+    if (idx === -1) continue;
+
+    const m = lines[idx].match(TIME_RE);
+    if (!m) continue;
+
+    const start = timeToSec(m[1]);
+    const end   = timeToSec(m[2]);
+    const txt   = lines.slice(idx + 1).join('\n').trim();
+    if (!txt) continue;
+
+    cues.push({ start, end, text: txt });
+  }
+
+  cues.sort((a, b) => a.start - b.start);
+  return cues;
+}
+
+/* ============================================================
+   CARREGAR ARQUIVO DE LEGENDA (com detecção de encoding)
+============================================================ */
+function readSubFile(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    const buf = reader.result;
+    let text;
+    try {
+      text = new TextDecoder('utf-8', { fatal: true }).decode(buf);
+    } catch {
+      text = new TextDecoder('windows-1252').decode(buf); // fallback p/ arquivos antigos
+    }
+    const cues = parseSubs(text);
+    if (!cues.length){
+      alert('Nenhuma legenda encontrada no arquivo. Verifique se é um .srt ou .vtt válido.');
+      return;
+    }
+    subtitles = cues;
+    renderList();
+    updateOverlay(video.currentTime);
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+document.getElementById('subFile').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  readSubFile(f);
+  e.target.value = '';
+});
+
+/* ============================================================
+   RENDERIZAÇÃO DA LISTA
+============================================================ */
+function renderList(){
+  countBadge.textContent = subtitles.length;
+  lastActive = -2;
+
+  if (!subtitles.length){
+    subList.innerHTML = '<div class="empty">Nenhuma legenda carregada.<br>Carregue um arquivo .srt/.vtt ou crie uma nova.<br><br><small>Dica: arraste o arquivo para a página.</small></div>';
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  subtitles.forEach((cue, i) => frag.appendChild(buildItem(cue, i)));
+  subList.innerHTML = '';
+  subList.appendChild(frag);
+}
+
+function buildItem(cue, i){
+  const el = document.createElement('div');
+  el.className = 'sub-item';
+  el.dataset.index = i;
+
+  el.innerHTML = `
+    <div class="sub-head">
+      <span class="sub-num">${i + 1}</span>
+      <div class="time-group">
+        <button class="time-value start" title="Ir para este tempo">${formatTime(cue.start)}</button>
+        <button class="capture cap-start" title="Definir início = tempo atual">⏱</button>
+        <span class="arrow">→</span>
+        <button class="time-value end" title="Ir para este tempo">${formatTime(cue.end)}</button>
+        <button class="capture cap-end" title="Definir fim = tempo atual">⏱</button>
+      </div>
+      <button class="del" title="Excluir legenda">✕</button>
+    </div>
+    <textarea class="sub-text" placeholder="Texto da legenda..."></textarea>
+  `;
+
+  const ta = el.querySelector('.sub-text');
+  ta.value = cue.text;
+
+  // edição ao vivo
+  ta.addEventListener('input', () => {
+    cue.text = ta.value;
+    updateOverlay(video.currentTime);
+  });
+
+  // clicar no tempo = ir para lá
+  el.querySelector('.start').onclick = () => seekTo(cue.start);
+  el.querySelector('.end').onclick   = () => seekTo(cue.end);
+
+  // capturar tempo atual
+  el.querySelector('.cap-start').onclick = () => {
+    cue.start = roundMs(video.currentTime);
+    el.querySelector('.start').textContent = formatTime(cue.start);
+    updateOverlay(video.currentTime);
+  };
+  el.querySelector('.cap-end').onclick = () => {
+    cue.end = roundMs(video.currentTime);
+    el.querySelector('.end').textContent = formatTime(cue.end);
+    updateOverlay(video.currentTime);
+  };
+
+  // excluir
+  el.querySelector('.del').onclick = () => {
+    subtitles.splice(i, 1);
+    renderList();
+    updateOverlay(video.currentTime);
+  };
+
+  return el;
+}
+
+/* ============================================================
+   OVERLAY + DESTAQUE
+============================================================ */
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+function updateOverlay(t){
+  const active = subtitles.filter(c => t >= c.start && t < c.end);
+  if (!active.length){
+    overlay.innerHTML = '';
+    overlay.classList.remove('visible');
+    return;
+  }
+  overlay.innerHTML = active.map(c => escapeHtml(c.text).replace(/\n/g, '<br>')).join('<br>');
+  overlay.classList.add('visible');
+}
+
+function findActive(t){
+  for (let i = 0; i < subtitles.length; i++){
+    const c = subtitles[i];
+    if (t >= c.start && t < c.end) return i;
+  }
+  return -1;
+}
+
+function updateHighlight(idx){
+  const items = subList.querySelectorAll('.sub-item');
+  items.forEach((el, i) => el.classList.toggle('active', i === idx));
+
+  if (idx >= 0 && !subList.contains(document.activeElement)){
+    const el = subList.querySelector(`[data-index="${idx}"]`);
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const lr = subList.getBoundingClientRect();
+    if (r.top < lr.top || r.bottom > lr.bottom){
+      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+}
+
+/* ============================================================
+   LOOP DE ATUALIZAÇÃO
+============================================================ */
+function tick(){
+  requestAnimationFrame(tick);
+
+  const t = video.currentTime || 0;
+
+  // relógio grande (só atualiza quando o texto muda)
+  const str = formatTime(t, '.');
+  if (str !== lastTimeStr){
+    lastTimeStr = str;
+    timeDisplay.textContent = str;
+  }
+
+  // legenda ativa
+  const idx = findActive(t);
+  if (idx !== lastActive){
+    lastActive = idx;
+    updateOverlay(t);
+    updateHighlight(idx);
+  }
+}
+
+/* ============================================================
+   AÇÕES
+============================================================ */
+function seekTo(t){
+  try { video.currentTime = Math.max(0, t); } catch {}
+}
+
+document.getElementById('loadVideo').onclick = loadVideoUrl;
+document.getElementById('videoUrl').addEventListener('keydown', e => {
+  if (e.key === 'Enter') loadVideoUrl();
+});
+
+function loadVideoUrl(){
+  const url = document.getElementById('videoUrl').value.trim();
+  if (!url) return;
+  video.src = url;
+  video.load();
+  video.play().catch(() => {});
+}
+
+video.addEventListener('error', () => {
+  if (video.getAttribute('src')){
+    console.warn('Erro ao carregar vídeo:', video.error);
+  }
+});
+
+/* --- nova legenda no tempo atual --- */
+document.getElementById('addSub').onclick = () => {
+  const t = roundMs(video.currentTime || 0);
+  const novo = { start: t, end: roundMs(t + 2), text: '' };
+  subtitles.push(novo);
+  subtitles.sort((a, b) => a.start - b.start);
+  renderList();
+
+  const idx = subtitles.indexOf(novo);
+  const el = subList.querySelector(`[data-index="${idx}"]`);
+  if (el){
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    el.querySelector('.sub-text').focus();
+  }
+  updateOverlay(video.currentTime);
+};
+
+/* --- deslocar todas --- */
+document.querySelectorAll('.offset-row button').forEach(btn => {
+  btn.onclick = () => {
+    const off = parseFloat(btn.dataset.off);
+    if (!subtitles.length) return;
+    subtitles.forEach(c => {
+      c.start = Math.max(0, roundMs(c.start + off));
+      c.end   = Math.max(0, roundMs(c.end + off));
+    });
+    renderList();
+    updateOverlay(video.currentTime);
+  };
+});
+
+/* --- exportar --- */
+function buildSRT(){
+  return subtitles.map((c, i) =>
+    `${i + 1}\n${formatTime(c.start, ',')} --> ${formatTime(c.end, ',')}\n${c.text}\n`
+  ).join('\n');
+}
+
+function buildVTT(){
+  return 'WEBVTT\n\n' + subtitles.map((c, i) =>
+    `${i + 1}\n${formatTime(c.start, '.')} --> ${formatTime(c.end, '.')}\n${c.text}\n`
+  ).join('\n');
+}
+
+function download(filename, content){
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+document.getElementById('exportSrt').onclick = () => {
+  if (!subtitles.length) return alert('Não há legendas para exportar.');
+  download('legenda.srt', buildSRT());
+};
+
+document.getElementById('exportVtt').onclick = () => {
+  if (!subtitles.length) return alert('Não há legendas para exportar.');
+  download('legenda.vtt', buildVTT());
+};
+
+document.getElementById('clearAll').onclick = () => {
+  if (!subtitles.length) return;
+  if (!confirm('Remover todas as legendas?')) return;
+  subtitles = [];
+  renderList();
+  updateOverlay(0);
+};
+
+/* ============================================================
+   DRAG & DROP (vídeo ou legenda)
+============================================================ */
+['dragenter','dragover','dragleave','drop'].forEach(evt => {
+  document.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); });
+});
+
+document.addEventListener('drop', e => {
+  const f = e.dataTransfer.files[0];
+  if (!f) return;
+
+  if (/\.(srt|vtt)$/i.test(f.name)){
+    readSubFile(f);
+  } else if (f.type.startsWith('video/')){
+    video.src = URL.createObjectURL(f);
+    video.play().catch(() => {});
+  }
+});
+
+/* ============================================================
+   ATALHOS
+============================================================ */
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input, textarea')) return;
+
+  if (e.code === 'Space'){
+    e.preventDefault();
+    video.paused ? video.play().catch(()=>{}) : video.pause();
+  }
+  if (e.code === 'ArrowLeft'){
+    e.preventDefault();
+    video.currentTime = Math.max(0, video.currentTime - (e.shiftKey ? 5 : 1));
+  }
+  if (e.code === 'ArrowRight'){
+    e.preventDefault();
+    video.currentTime = Math.min(video.duration || 0, video.currentTime + (e.shiftKey ? 5 : 1));
+  }
+});
+
+/* ============================================================
+   INICIALIZAÇÃO
+============================================================ */
+tick();
+</script>
+</body>
+</html>
