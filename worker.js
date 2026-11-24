@@ -324,7 +324,6 @@ function uqExtract(html, pageUrl) {
 async function uqGet(url, opt = {}) {
   const h = { "User-Agent": UQ_UA, "Accept": opt.accept || "text/html,application/xhtml+xml,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8" };
   if (opt.referer) { h.Referer = opt.referer; h.Origin = new URL(opt.referer).origin; }
-  if (opt.headers) Object.assign(h, opt.headers);
   const init = { headers: h, redirect: "follow" };
   if (opt.post) { init.method = "POST"; init.body = new URLSearchParams(opt.post).toString(); h["Content-Type"] = "application/x-www-form-urlencoded"; }
   const r = await fetch(url, init);
@@ -434,14 +433,13 @@ async function uqMp4(request, url, target, cors, json, fail, ctx) {
 
 
 /* ================= PLAYERS (qualquer player: bysebuho e cia) ================= */
-// Opcional: ajustes por domínio (referer próprio etc.). Com ANY_DOMAIN = true não precisa cadastrar nada.
+// 1) COLOQUE AQUI OS DOMÍNIOS DOS PLAYERS (subdomínios entram sozinhos).  driver: "auto" = lê a página/iframes | "byse" = API criptografada da Byse/Filemoon
 const PLAYER_DOMAINS = {
   "bysebuho.com": { driver: "byse" },
   // "outroplayer.com": { driver: "auto" },
   // "meuplayer.net": { driver: "auto", referer: "https://meusite.com/" },
 };
 const PLAYERS_API = "https://kiraflix-api.site.je/players.php";    // PHP de reserva (mesma lógica)
-const ANY_DOMAIN = true;                                            // true = lê QUALQUER site (não precisa cadastrar). false = só PLAYER_DOMAINS (ou REMOTE_KEY)
 const REMOTE_KEY = "";                                             // "" = só domínios da lista. Se preencher (ex.: "minhasenha"), com &key=minhasenha QUALQUER domínio/link direto funciona (URL remota)
 const SIGN_KEY = "troque-esta-chave";                              // assina os links de segmento (deve ser igual ao do players.php)
 
@@ -493,113 +491,23 @@ function plExtract(html, pageUrl) {
 }
 
 const b64u = s => { s = String(s).replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), c => c.charCodeAt(0)); };
-const plBytes = s => { s = String(s).trim(); return /^[0-9a-f]+$/i.test(s) && (s.length === 32 || s.length === 64) ? hex2(s) : b64u(s); };
-
-// AES-GCM: objeto {iv,payload,key_parts[]|key|decrypt_keys{}} (e variantes iv2/payload2) -> texto
-async function plDecryptBlob(o, sfx) {
-  let iv, ct; try { iv = plBytes(o["iv" + sfx]); ct = plBytes(o["payload" + sfx]); } catch (e) { return null; }
-  const cands = [], kp = o["key_parts" + sfx] || o.key_parts, k1 = o["key" + sfx] || o.key, dk = o.decrypt_keys;
-  if (Array.isArray(kp)) cands.push(kp);
-  if (typeof k1 === "string") cands.push([k1]);
-  if (dk && typeof dk === "object") for (const v of Object.values(dk)) if (typeof v === "string" || Array.isArray(v)) cands.push(Array.isArray(v) ? v : [v]);
-  for (const parts of cands) {
-    try {
-      const arrs = parts.map(plBytes), key = new Uint8Array(arrs.reduce((n, a) => n + a.length, 0)); let off = 0; arrs.forEach(a => { key.set(a, off); off += a.length; });
-      if (key.length !== 16 && key.length !== 32) continue;
-      const ck = await crypto.subtle.importKey("raw", key, "AES-GCM", false, ["decrypt"]);
-      return new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv }, ck, ct));
-    } catch (e) {}
-  }
-  return null;
-}
-function plSourcesFromText(t, base) {
-  const out = [], seen = new Set();
-  const add = (u, lab, mt, h) => {
-    try { u = new URL(String(u).replace(/\\\//g, "/"), base).toString(); } catch (e) { return; }
-    if (seen.has(u) || /\.(vtt|srt|jpe?g|png|webp|gif|svg)(\?|$)/i.test(u)) return; seen.add(u);
-    const o = plMk(u, lab || ""); if (/mpegurl/i.test(mt || "")) o.type = "hls"; else if (/dash/i.test(mt || "")) o.type = "dash"; if (h) o.height = +h; out.push(o);
-  };
-  let j = null; try { j = JSON.parse(t); } catch (e) {}
-  const walk = (o, d) => {
-    if (!o || typeof o !== "object" || d > 8) return;
-    if (!Array.isArray(o)) {
-      const u = o.url || o.file || o.src || o.link, mt = String(o.mime_type || o.mimeType || o.type || "");
-      if (typeof u === "string" && (/\.(m3u8|mp4|mpd)(\?|$)/i.test(u) || /mpegurl|mp4|dash/i.test(mt))) add(u, String(o.label || o.quality || (o.height ? o.height + "p" : "")), mt, o.height);
-    }
-    for (const v of Object.values(o)) walk(v, d + 1);
-  };
-  if (j) walk(j, 0);
-  for (const m of String(t).replace(/\\\//g, "/").matchAll(/https?:\/\/[^\s"'<>\\)]+?\.(?:m3u8|mp4|mpd)(?:\?[^\s"'<>\\)]*)?/gi)) add(m[0], "");
-  return out;
-}
-// resposta JSON de API -> fontes (descriptografa blobs AES-GCM se houver). Devolve null se não achar vídeo
-async function plFromJson(j, base) {
-  const texts = [JSON.stringify(j)], parsed = [j], stack = [j];
-  while (stack.length) {
-    const o = stack.pop(); if (!o || typeof o !== "object") continue;
-    if (!Array.isArray(o)) for (const sfx of ["", "2", "_2"]) if (o["iv" + sfx] && o["payload" + sfx]) { const t = await plDecryptBlob(o, sfx); if (t) { texts.push(t); try { parsed.push(JSON.parse(t)); } catch (e) {} } }
-    for (const v of Object.values(o)) stack.push(v);
-  }
-  const sources = [], seen = new Set();
-  for (const t of texts) for (const sv of plSourcesFromText(t, base)) if (!seen.has(sv.url)) { seen.add(sv.url); sources.push(sv); }
-  if (!sources.length) return null;
-  sources.sort((a, b) => (b.type === "hls") - (a.type === "hls") || b.height - a.height);
-  let title = "", poster = []; const subtitles = [];
-  const walk = (o, d) => {
-    if (!o || typeof o !== "object" || d > 8) return;
-    if (!Array.isArray(o)) {
-      if (!title && typeof o.title === "string") title = o.title;
-      for (const k of ["poster", "poster_url", "thumbnail", "thumbnail_url", "image"]) if (typeof o[k] === "string" && /^https?:/i.test(o[k])) poster.push(o[k]);
-      const u = o.url || o.file; if (typeof u === "string" && /\.(vtt|srt)(\?|$)/i.test(u) && !/_sli|thumb|sprite/i.test(u)) subtitles.push({ language: normLang(o.lang || o.language || "und"), label: o.label || o.lang || "Legenda", url: u });
-    }
-    for (const v of Object.values(o)) walk(v, d + 1);
-  };
-  parsed.forEach(o => walk(o, 0));
-  return { sources, subtitles, title, poster: poster[0] || "" };
-}
-
-// SPA / player em JavaScript: baixa os .js do site, acha as chamadas /api/... do player, testa cada uma e descriptografa
-async function plDeep(target, ref, errs, depth) {
-  const x = new URL(target), segs = x.pathname.split("/").filter(Boolean), code = segs[segs.length - 1] || "";
-  const parent = ref ? new URL(ref).origin : x.origin;
-  const hdr = { "x-embed-origin": parent, "x-embed-parent": target, "x-embed-referer": ref || target, "x-requested-with": "XMLHttpRequest" };
-  const page = await uqGet(target, { referer: ref || x.origin + "/" });
-  if (page.status >= 400) { errs.push("página " + page.status); return null; }
-  const html = page.text, cands = new Map();
-  const addCand = t => {
-    let p = String(t).replace(/\$\{[^}]*\}/g, code).replace(/\{[a-z_]+\}/gi, code).replace(/\/:[a-z_]+/gi, "/" + code);
-    if (/[`$]/.test(p) || !/embed|playback|source|stream|video|player|detail|media/i.test(p)) return;
-    if (/\.(js|css|png|jpe?g|svg|woff2?)(\?|$)/i.test(p)) return;
-    try { const u = new URL(p, x.origin).toString(); if (liveOk(u)) cands.set(u, 1); if (p.endsWith("/")) cands.set(new URL(p + code, x.origin).toString(), 1); } catch (e) {}
-  };
-  const queue = [];
-  for (const m of html.matchAll(/<script[^>]+src=["']([^"']+)["']/gi)) queue.push(m[1]);
-  for (const m of html.matchAll(/<link[^>]+href=["']([^"']+\.js[^"']*)["']/gi)) queue.push(m[1]);
-  const base0 = page.url, done = new Set(); let n = 0;
-  const q2 = queue.map(u => { try { return new URL(u, base0).toString(); } catch (e) { return ""; } }).filter(Boolean);
-  while (q2.length && n < 10) {
-    const su = q2.shift(); if (done.has(su) || !/^https?:/i.test(su) || !liveOk(su)) continue; done.add(su); n++;
-    let js; try { const g = await uqGet(su, { referer: target, accept: "*/*" }); if (g.status >= 400) continue; js = g.text.slice(0, 3000000); } catch (e) { continue; }
-    for (const m of js.matchAll(/["'](\/api\/[^"']*\/)["']\s*\+\s*[\w$.\[\]]+\s*\+\s*["'](\/[^"']+)["']/g)) addCand(m[1] + code + m[2]);   // "/api/x/"+id+"/embed/playback"
-    for (const m of js.matchAll(/["'`]((?:https?:\/\/[^"'`\s]+)?\/api\/[^"'`\s]{2,140})["'`]/g)) addCand(m[1]);
-    for (const m of js.matchAll(/["'`]((?:\.\/|\/)?(?:assets\/)?[A-Za-z0-9_\-]+-[A-Za-z0-9_\-]{6,}\.js)["'`]/g)) {
-      try { const cu = new URL(/^(?:assets\/)/.test(m[1]) ? "/" + m[1] : m[1], su).toString(); if (/embed|player|video|watch/i.test(m[1])) q2.unshift(cu); else q2.push(cu); } catch (e) {}
-    }
-  }
-  const fixed = ["/api/videos/" + code + "/embed/playback", "/api/videos/" + code + "/embed/details", "/api/videos/" + code];
-  fixed.forEach(f => cands.set(new URL(f, x.origin).toString(), 1));
-  const list = [...cands.keys()].sort((a, b) => (/playback/.test(b) ? 1 : 0) - (/playback/.test(a) ? 1 : 0) || (/embed/.test(b) ? 1 : 0) - (/embed/.test(a) ? 1 : 0)).slice(0, 14);
-  for (const u of list) {
-    try {
-      const g = await uqGet(u, { referer: ref || target, accept: "application/json, text/plain, */*", headers: hdr });
-      if (g.status >= 400) { errs.push(new URL(u).pathname.slice(0, 40) + " " + g.status); continue; }
-      let j; try { j = JSON.parse(g.text); } catch (e) { continue; }
-      const res = await plFromJson(j, u); if (res) return { ...res, page: target, via: u };
-      const nx = JSON.stringify(j).match(/"(?:embed_frame_url|embed_url|iframe_url|player_url)"\s*:\s*"(https?:[^"]+)"/);
-      if (nx && depth > 0) { const nu = nx[1].replace(/\\\//g, "/"); if (liveOk(nu) && new URL(nu).host !== x.host) { const y = (await plGeneric(nu, target, 1, errs)) || (await plDeep(nu, target, errs, depth - 1)); if (y) return y; } }
-    } catch (e) { errs.push(e.message); }
-  }
-  return null;
+// Byse/Filemoon: /api/videos/CODE/embed/playback -> {playback:{iv,payload,key_parts[]}} (AES-GCM) -> {sources:[{url,...}]}   [formato de memória: pode mudar]
+async function plByse(target) {
+  const x = new URL(target), m = x.pathname.match(/\/(?:e|embed|d|v|f)\/([a-z0-9]{6,20})/i);
+  if (!m) throw new Error("byse: código não encontrado no link");
+  const code = m[1], origin = x.origin;
+  const r = await uqGet(origin + "/api/videos/" + code + "/embed/playback", { referer: origin + "/e/" + code, accept: "application/json" });
+  if (r.status >= 400) throw new Error("byse: HTTP " + r.status);
+  const j = JSON.parse(r.text), pb = j.playback || j;
+  if (!pb.iv || !pb.payload || !Array.isArray(pb.key_parts)) throw new Error("byse: formato inesperado");
+  const parts = pb.key_parts.map(b64u), key = new Uint8Array(parts.reduce((n, a) => n + a.length, 0));
+  let o = 0; parts.forEach(a => { key.set(a, o); o += a.length; });
+  const ck = await crypto.subtle.importKey("raw", key, "AES-GCM", false, ["decrypt"]);
+  const plain = new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64u(pb.iv) }, ck, b64u(pb.payload)));
+  const d = JSON.parse(plain), list = d.sources || d.streams || [];
+  const sources = list.map(sv => { const u = sv.url || sv.file; if (!u) return null; const lab = sv.label || sv.quality || (sv.height ? sv.height + "p" : ""); const o2 = plMk(u, String(lab)); if (sv.height) o2.height = +sv.height; return o2; }).filter(Boolean);
+  if (!sources.length) throw new Error("byse: sem fontes");
+  return { sources, subtitles: (d.tracks || d.subtitles || []).filter(t => t.url || t.file).map(t => ({ language: normLang(t.lang || t.language || "und"), label: t.label || t.lang || "Legenda", url: t.url || t.file })), title: d.title || "", poster: d.poster || "" };
 }
 
 async function plGeneric(url, ref, depth, errs) {
@@ -610,9 +518,8 @@ async function plGeneric(url, ref, depth, errs) {
   if (depth > 0) {
     for (const m of r.text.matchAll(/<iframe[^>]+src=["']([^"']+)["']/gi)) {
       let u; try { u = new URL(m[1].replace(/&amp;/g, "&"), r.url).toString(); } catch (e) { continue; }
-      if (!/^https?:/i.test(u) || !liveOk(u) || !(ANY_DOMAIN || plCfg(u) || REMOTE_KEY)) continue;
+      if (!/^https?:/i.test(u) || !(plCfg(u) || REMOTE_KEY)) continue;
       const y = await plGeneric(u, r.url, depth - 1, errs); if (y) return y;
-      const z = await plDeep(u, r.url, errs, 0); if (z) return z;
     }
   }
   return null;
@@ -623,10 +530,10 @@ async function plScrape(target, cfg, opt) {
   let ref = (cfg && cfg.referer) || origin + "/", res = null;
   if (opt.direct) res = { sources: [plMk(target)], subtitles: [], title: "", poster: "" };
   else {
-    res = await plGeneric(target, ref, 2, errs);
-    if (!res) { try { res = await plDeep(target, opt.ref || "", errs, 1); } catch (e) { errs.push(e.message); } }
+    if (cfg && cfg.driver === "byse") { try { res = await plByse(target); } catch (e) { errs.push(e.message); } }
+    if (!res) res = await plGeneric(target, ref, 2, errs);
   }
-  if (!res) throw new Error("não achei o vídeo no player (" + errs.slice(0, 4).join("; ") + ")");
+  if (!res) throw new Error("não achei o vídeo no player (" + errs.slice(0, 3).join("; ") + ")");
   if (opt.ref) ref = opt.ref;
   const exps = res.sources.map(sv => plExpiry(sv.url)).filter(Boolean);
   return { ...res, referer: ref, expires: exps.length ? Math.min(...exps) : 0 };
@@ -854,7 +761,7 @@ export default {
     const url = new URL(request.url);
     const action = url.searchParams.get("action") || "";
 
-    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.3", sites: ["uqload", ANY_DOMAIN ? "qualquer site" : "players: " + Object.keys(PLAYER_DOMAINS).join(","), "(filmes/series)"], any_domain: ANY_DOMAIN, actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "config", "(demais: repassa ao PHP)"] }, error: null });
+    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.2", sites: ["uqload", "players: " + Object.keys(PLAYER_DOMAINS).join(","), "(filmes/series)"], remote: !!REMOTE_KEY, actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "config", "(demais: repassa ao PHP)"] }, error: null });
 
     if (action === "tracks") {
       const target = cleanTarget(url.searchParams.get("url") || url.searchParams.get("link") || "");
@@ -902,7 +809,7 @@ export default {
     // json devolve TUDO junto: link com token, qualidades, idiomas, legendas e partes (full=1 junta as legendas de todos os idiomas)
     if (action === "mp4") {
       const target = cleanTarget(url.searchParams.get("url") || "");
-      const open = (ANY_DOMAIN || (!!REMOTE_KEY && url.searchParams.get("key") === REMOTE_KEY)) && liveOk(target);
+      const open = !!REMOTE_KEY && url.searchParams.get("key") === REMOTE_KEY && liveOk(target);
       if (!target || !(hostOk(target) || open)) return fail("Link inválido ou domínio não autorizado (adicione o domínio em PLAYER_DOMAINS).", 403);
       if (isUq(target)) return uqMp4(request, url, target, cors, json, fail, ctx);
       if (!isFilmHost(target) && (plCfg(target) || open)) return plMp4(request, url, target, cors, json, fail, ctx, open);
