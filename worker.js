@@ -5,7 +5,7 @@ const UA = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/130.0 Mobi
 
 const HOSTS = [
   "www3.dramasfree.com","peliculaplay.com","latino.solo-latino.com","es.cuevana4br.com","flixlat.com",
-  "video.playspelis.com","ww1.123flmsfree.com","ver.123pelicula.com","play.cuevana19.com","ww20.321moviesfree.com",
+  "video.playspelis.com","ww1.123flmsfree.com","ver.123pelicula.com","play.cuevana19.com","ww20.321moviesfree.com", "uqload.vc",
 ];
 const SUB_HOST_RE = /(^|\.)(dramasfree|peliculaplay|solo-latino|cuevana4br|cuevana19|flixlat|playspelis|123flmsfree|123pelicula|321moviesfree)\.com$/i;
 
