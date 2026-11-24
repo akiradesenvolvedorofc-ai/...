@@ -36,6 +36,7 @@
     background:var(--panel-2); border:1px solid var(--border); color:var(--text);
     padding:8px 12px; border-radius:8px; font-size:13px; cursor:pointer;
     font-weight:500; transition:.15s; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:6px;
   }
   .btn:hover{background:#252b38; border-color:#3a4356;}
   .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
@@ -47,7 +48,7 @@
 
   /* ---------- LAYOUT ---------- */
   .app{
-    display:grid; grid-template-columns:minmax(0,1fr) 440px;
+    display:grid; grid-template-columns:minmax(0,1fr) 460px;
     gap:14px; align-items:start;
   }
   @media (max-width:1000px){ .app{grid-template-columns:1fr;} }
@@ -104,17 +105,30 @@
   .actions{display:flex; gap:6px;}
   .actions .btn{padding:6px 9px; font-size:12px;}
 
-  .offset-row{
-    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
-    padding:8px 14px; border-bottom:1px solid var(--border);
-    font-size:12px; color:var(--muted);
+  /* ---------- PAINEL DE EXPORTAÇÃO ---------- */
+  .export-panel{
+    display:flex; flex-direction:column; gap:8px;
+    padding:10px 14px; border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, #181d27 0%, #141924 100%);
   }
-  .offset-row button{
-    background:var(--panel-2); border:1px solid var(--border); color:var(--text);
-    border-radius:6px; padding:3px 8px; font-size:11.5px; cursor:pointer; transition:.15s;
+  .export-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--muted); font-weight:600;
   }
-  .offset-row button:hover{border-color:var(--accent); color:var(--accent);}
+  .filename-row{display:flex; align-items:center; gap:6px;}
+  .filename-row input{
+    flex:1; background:#0e131c; border:1px solid var(--border); color:var(--text);
+    padding:6px 9px; border-radius:6px; font-size:12.5px; outline:none; transition:.15s;
+    font-family:inherit;
+  }
+  .filename-row input:focus{border-color:var(--accent);}
+  .filename-row .ext{
+    color:var(--muted); font-size:12px; font-family:monospace;
+  }
+  .export-buttons{display:flex; gap:6px; flex-wrap:wrap;}
+  .export-buttons .btn{flex:1; justify-content:center; padding:8px 10px; font-size:12.5px;}
 
+  /* ---------- LISTA ---------- */
   .sub-list{
     overflow-y:auto; padding:10px; display:flex; flex-direction:column; gap:8px; flex:1;
   }
@@ -160,6 +174,43 @@
     resize:vertical; min-height:42px; outline:none; line-height:1.45; transition:.15s;
   }
   .sub-text:focus{border-color:var(--accent);}
+
+  /* ---------- TOAST ---------- */
+  .toast-wrap{
+    position:fixed; bottom:20px; right:20px; z-index:9999;
+    display:flex; flex-direction:column; gap:8px; align-items:flex-end;
+    pointer-events:none;
+  }
+  .toast{
+    background:#1f2937; border:1px solid #374151; color:#fff;
+    padding:10px 16px; border-radius:9px; font-size:13px; font-weight:500;
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
+    display:flex; align-items:center; gap:8px;
+    animation:slideIn .25s ease-out, fadeOut .35s ease-in 2.4s forwards;
+    pointer-events:auto;
+  }
+  .toast.success{border-color:var(--green);}
+  .toast.success .ico{color:var(--green);}
+  .toast.info{border-color:var(--accent);}
+  .toast.info .ico{color:var(--accent);}
+  .toast.warn{border-color:#eab308;}
+  .toast.warn .ico{color:#eab308;}
+  .toast .ico{font-weight:700; font-size:15px;}
+  @keyframes slideIn{
+    from{transform:translateX(110%); opacity:0;}
+    to{transform:translateX(0); opacity:1;}
+  }
+  @keyframes fadeOut{
+    to{transform:translateX(110%); opacity:0;}
+  }
+
+  /* ---------- SAVE INDICATOR ---------- */
+  .save-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--muted);
+    display:inline-block; transition:.3s;
+  }
+  .save-dot.saving{background:#eab308; box-shadow:0 0 6px #eab308;}
+  .save-dot.saved{background:var(--green); box-shadow:0 0 6px var(--green);}
 </style>
 </head>
 <body>
@@ -167,7 +218,7 @@
 <header class="topbar">
   <div class="brand">🎬 Editor de Legendas</div>
   <div class="url-row">
-    <input id="videoUrl" type="url" placeholder="Cole o link do vídeo (.mp4, .webm, .ogg, .m3u8...)" />
+    <input id="videoUrl" type="url" placeholder="Cole o link do vídeo (.mp4, .webm, .ogg...)" />
     <button id="loadVideo" class="btn primary">Carregar vídeo</button>
   </div>
 </header>
@@ -195,11 +246,25 @@
   <!-- EDITOR -->
   <aside class="editor-col">
     <div class="editor-head">
-      <h2>Legendas <span id="count" class="badge">0</span></h2>
+      <h2>
+        Legendas <span id="count" class="badge">0</span>
+        <span id="saveDot" class="save-dot" title="Estado de salvamento"></span>
+      </h2>
       <div class="actions">
-        <button id="exportSrt" class="btn">⬇ SRT</button>
-        <button id="exportVtt" class="btn">⬇ VTT</button>
         <button id="clearAll" class="btn danger">Limpar</button>
+      </div>
+    </div>
+
+    <!-- PAINEL DE EXPORTAÇÃO -->
+    <div class="export-panel">
+      <div class="export-title">💾 Baixar legenda editada</div>
+      <div class="filename-row">
+        <input id="filename" type="text" value="legenda" placeholder="nome-do-arquivo" />
+        <span class="ext" id="extLabel">.srt</span>
+      </div>
+      <div class="export-buttons">
+        <button id="exportSrt" class="btn success">⬇ Baixar SRT</button>
+        <button id="exportVtt" class="btn primary">⬇ Baixar VTT</button>
       </div>
     </div>
 
@@ -217,19 +282,40 @@
   </aside>
 </main>
 
+<div class="toast-wrap" id="toastWrap"></div>
+
 <script>
 /* ============================================================
    ESTADO
 ============================================================ */
-const video      = document.getElementById('video');
-const overlay    = document.getElementById('subOverlay');
-const timeDisplay= document.getElementById('timeDisplay');
-const subList    = document.getElementById('subList');
-const countBadge = document.getElementById('count');
+const video       = document.getElementById('video');
+const overlay     = document.getElementById('subOverlay');
+const timeDisplay = document.getElementById('timeDisplay');
+const subList     = document.getElementById('subList');
+const countBadge  = document.getElementById('count');
+const filenameIn  = document.getElementById('filename');
+const extLabel    = document.getElementById('extLabel');
+const saveDot     = document.getElementById('saveDot');
 
-let subtitles = [];   // [{ start:Number(sec), end:Number(sec), text:String }]
-let lastActive = -2;  // -2 força atualização
+let subtitles  = [];
+let lastActive = -2;
 let lastTimeStr = '';
+let saveTimer  = null;
+
+const STORAGE_KEY = 'legendas_editor_autosave_v1';
+
+/* ============================================================
+   TOAST
+============================================================ */
+function toast(msg, type = 'info'){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  const icons = { success:'✓', info:'ℹ', warn:'⚠' };
+  el.innerHTML = `<span class="ico">${icons[type] || 'ℹ'}</span><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
 
 /* ============================================================
    UTILITÁRIOS DE TEMPO
@@ -268,7 +354,7 @@ function parseSubs(raw){
   const cues = [];
 
   for (const block of blocks){
-    const lines = block.split('\n').map(l => l);
+    const lines = block.split('\n');
     let idx = -1;
     for (let i = 0; i < lines.length; i++){
       if (TIME_RE.test(lines[i])){ idx = i; break; }
@@ -291,7 +377,7 @@ function parseSubs(raw){
 }
 
 /* ============================================================
-   CARREGAR ARQUIVO DE LEGENDA (com detecção de encoding)
+   CARREGAR ARQUIVO DE LEGENDA
 ============================================================ */
 function readSubFile(file){
   const reader = new FileReader();
@@ -301,16 +387,18 @@ function readSubFile(file){
     try {
       text = new TextDecoder('utf-8', { fatal: true }).decode(buf);
     } catch {
-      text = new TextDecoder('windows-1252').decode(buf); // fallback p/ arquivos antigos
+      text = new TextDecoder('windows-1252').decode(buf);
     }
     const cues = parseSubs(text);
     if (!cues.length){
-      alert('Nenhuma legenda encontrada no arquivo. Verifique se é um .srt ou .vtt válido.');
+      toast('Nenhuma legenda encontrada no arquivo.', 'warn');
       return;
     }
     subtitles = cues;
     renderList();
     updateOverlay(video.currentTime);
+    autoSave();
+    toast(`${cues.length} legenda(s) carregada(s).`, 'success');
   };
   reader.readAsArrayBuffer(file);
 }
@@ -363,33 +451,34 @@ function buildItem(cue, i){
   const ta = el.querySelector('.sub-text');
   ta.value = cue.text;
 
-  // edição ao vivo
   ta.addEventListener('input', () => {
     cue.text = ta.value;
     updateOverlay(video.currentTime);
+    autoSave();
   });
 
-  // clicar no tempo = ir para lá
   el.querySelector('.start').onclick = () => seekTo(cue.start);
   el.querySelector('.end').onclick   = () => seekTo(cue.end);
 
-  // capturar tempo atual
   el.querySelector('.cap-start').onclick = () => {
     cue.start = roundMs(video.currentTime);
     el.querySelector('.start').textContent = formatTime(cue.start);
     updateOverlay(video.currentTime);
+    autoSave();
   };
   el.querySelector('.cap-end').onclick = () => {
     cue.end = roundMs(video.currentTime);
     el.querySelector('.end').textContent = formatTime(cue.end);
     updateOverlay(video.currentTime);
+    autoSave();
   };
 
-  // excluir
   el.querySelector('.del').onclick = () => {
     subtitles.splice(i, 1);
     renderList();
     updateOverlay(video.currentTime);
+    autoSave();
+    toast('Legenda removida.', 'info');
   };
 
   return el;
@@ -441,17 +530,14 @@ function updateHighlight(idx){
 ============================================================ */
 function tick(){
   requestAnimationFrame(tick);
-
   const t = video.currentTime || 0;
 
-  // relógio grande (só atualiza quando o texto muda)
   const str = formatTime(t, '.');
   if (str !== lastTimeStr){
     lastTimeStr = str;
     timeDisplay.textContent = str;
   }
 
-  // legenda ativa
   const idx = findActive(t);
   if (idx !== lastActive){
     lastActive = idx;
@@ -478,21 +564,16 @@ function loadVideoUrl(){
   video.src = url;
   video.load();
   video.play().catch(() => {});
+  toast('Carregando vídeo...', 'info');
 }
 
-video.addEventListener('error', () => {
-  if (video.getAttribute('src')){
-    console.warn('Erro ao carregar vídeo:', video.error);
-  }
-});
-
-/* --- nova legenda no tempo atual --- */
 document.getElementById('addSub').onclick = () => {
   const t = roundMs(video.currentTime || 0);
   const novo = { start: t, end: roundMs(t + 2), text: '' };
   subtitles.push(novo);
   subtitles.sort((a, b) => a.start - b.start);
   renderList();
+  autoSave();
 
   const idx = subtitles.indexOf(novo);
   const el = subList.querySelector(`[data-index="${idx}"]`);
@@ -503,21 +584,24 @@ document.getElementById('addSub').onclick = () => {
   updateOverlay(video.currentTime);
 };
 
-/* --- deslocar todas --- */
 document.querySelectorAll('.offset-row button').forEach(btn => {
   btn.onclick = () => {
     const off = parseFloat(btn.dataset.off);
-    if (!subtitles.length) return;
+    if (!subtitles.length) return toast('Nenhuma legenda para deslocar.', 'warn');
     subtitles.forEach(c => {
       c.start = Math.max(0, roundMs(c.start + off));
       c.end   = Math.max(0, roundMs(c.end + off));
     });
     renderList();
     updateOverlay(video.currentTime);
+    autoSave();
+    toast(`Deslocado ${off > 0 ? '+' : ''}${off}s`, 'info');
   };
 });
 
-/* --- exportar --- */
+/* ============================================================
+   DOWNLOAD / EXPORTAÇÃO
+============================================================ */
 function buildSRT(){
   return subtitles.map((c, i) =>
     `${i + 1}\n${formatTime(c.start, ',')} --> ${formatTime(c.end, ',')}\n${c.text}\n`
@@ -530,37 +614,109 @@ function buildVTT(){
   ).join('\n');
 }
 
-function download(filename, content){
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+function sanitizeName(name){
+  return (name || 'legenda')
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .trim() || 'legenda';
+}
+
+function download(filename, content, mime){
+  const blob = new Blob([content], { type: mime || 'text/plain;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = filename;
   document.body.appendChild(a);
   a.click();
   a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-document.getElementById('exportSrt').onclick = () => {
-  if (!subtitles.length) return alert('Não há legendas para exportar.');
-  download('legenda.srt', buildSRT());
-};
+function doExport(kind){
+  if (!subtitles.length){
+    toast('Não há legendas para baixar.', 'warn');
+    return;
+  }
+  const name = sanitizeName(filenameIn.value);
+  const isSrt = kind === 'srt';
+  const ext = isSrt ? '.srt' : '.vtt';
+  const content = isSrt ? buildSRT() : buildVTT();
+  const mime = isSrt ? 'application/x-subrip;charset=utf-8' : 'text/vtt;charset=utf-8';
 
-document.getElementById('exportVtt').onclick = () => {
-  if (!subtitles.length) return alert('Não há legendas para exportar.');
-  download('legenda.vtt', buildVTT());
-};
+  download(name + ext, content, mime);
+  toast(`${name}${ext} baixado com sucesso!`, 'success');
+}
 
+document.getElementById('exportSrt').onclick = () => doExport('srt');
+document.getElementById('exportVtt').onclick = () => doExport('vtt');
+
+/* atualiza a extensão mostrada conforme o botão hover */
+document.getElementById('exportSrt').addEventListener('mouseenter', () => extLabel.textContent = '.srt');
+document.getElementById('exportVtt').addEventListener('mouseenter', () => extLabel.textContent = '.vtt');
+
+/* ============================================================
+   AUTOSAVE (localStorage) + INDICADOR
+============================================================ */
+function autoSave(){
+  saveDot.classList.remove('saved');
+  saveDot.classList.add('saving');
+
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        subtitles,
+        filename: filenameIn.value,
+        savedAt: Date.now()
+      }));
+      saveDot.classList.remove('saving');
+      saveDot.classList.add('saved');
+    } catch (e){
+      console.warn('Falha ao autosalvar:', e);
+      saveDot.classList.remove('saving');
+    }
+  }, 400);
+}
+
+filenameIn.addEventListener('input', autoSave);
+
+function tryRestore(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (!data || !Array.isArray(data.subtitles) || !data.subtitles.length) return;
+
+    const when = data.savedAt ? new Date(data.savedAt).toLocaleString('pt-BR') : 'há pouco tempo';
+    const ok = confirm(`Encontramos um backup automático (${when}) com ${data.subtitles.length} legenda(s).\n\nRestaurar?`);
+    if (!ok) return;
+
+    subtitles = data.subtitles;
+    filenameIn.value = data.filename || 'legenda';
+    renderList();
+    updateOverlay(video.currentTime);
+    saveDot.classList.add('saved');
+    toast('Backup restaurado!', 'success');
+  } catch (e){
+    console.warn('Falha ao restaurar:', e);
+  }
+}
+
+/* ============================================================
+   LIMPAR
+============================================================ */
 document.getElementById('clearAll').onclick = () => {
   if (!subtitles.length) return;
-  if (!confirm('Remover todas as legendas?')) return;
+  if (!confirm('Remover todas as legendas? Essa ação apaga também o backup automático.')) return;
   subtitles = [];
   renderList();
   updateOverlay(0);
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
+  saveDot.classList.remove('saved');
+  toast('Todas as legendas removidas.', 'info');
 };
 
 /* ============================================================
-   DRAG & DROP (vídeo ou legenda)
+   DRAG & DROP
 ============================================================ */
 ['dragenter','dragover','dragleave','drop'].forEach(evt => {
   document.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); });
@@ -569,10 +725,8 @@ document.getElementById('clearAll').onclick = () => {
 document.addEventListener('drop', e => {
   const f = e.dataTransfer.files[0];
   if (!f) return;
-
-  if (/\.(srt|vtt)$/i.test(f.name)){
-    readSubFile(f);
-  } else if (f.type.startsWith('video/')){
+  if (/\.(srt|vtt)$/i.test(f.name)) readSubFile(f);
+  else if (f.type.startsWith('video/')) {
     video.src = URL.createObjectURL(f);
     video.play().catch(() => {});
   }
@@ -582,6 +736,13 @@ document.addEventListener('drop', e => {
    ATALHOS
 ============================================================ */
 document.addEventListener('keydown', e => {
+  // Ctrl+S / Cmd+S → baixar SRT
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's'){
+    e.preventDefault();
+    doExport('srt');
+    return;
+  }
+
   if (e.target.matches('input, textarea')) return;
 
   if (e.code === 'Space'){
@@ -602,6 +763,7 @@ document.addEventListener('keydown', e => {
    INICIALIZAÇÃO
 ============================================================ */
 tick();
+setTimeout(tryRestore, 300);
 </script>
 </body>
 </html>
