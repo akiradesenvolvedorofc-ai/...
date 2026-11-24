@@ -1,4 +1,4 @@
-// KiraFlix Worker v2 - action=tracks (qualidades, legendas, audios), action=sub, demais acoes vao para o PHP
+// KiraFlix Worker v4.1 - tracks/mp4/play/seg/sub/live + UQLOAD (uqload.vc e espelhos); demais acoes vao para o PHP
 const API = "https://kiraflix-api.site.je/api.php";
 const ALLOWED = ["https://kiraflix.qd.je", "https://www.kiraflix.qd.je"];
 const UA = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36";
@@ -31,7 +31,7 @@ function cleanTarget(raw) {
   const u = v.match(/https?:\/\/[^\s"'<>]+/i);
   return u ? u[0] : "";
 }
-const hostOk = u => { try { return HOSTS.includes(new URL(u).hostname.toLowerCase()); } catch (e) { return false; } };
+const hostOk = u => { try { const h = new URL(u).hostname.toLowerCase(); return HOSTS.includes(h) || UQ_HOST_RE.test(h); } catch (e) { return false; } };
 
 function parseDetail(u) {
   const x = new URL(u);
@@ -240,6 +240,197 @@ function absolutize(text, base, token, viaSeg) {
   }).join("\n");
 }
 
+
+/* ================= UQLOAD ================= */
+// link do vídeo vem dentro da página (jwplayer.setup empacotado). O token vale ~4h (s=início, e=duração) e é renovado sozinho.
+const UQ_HOST_RE = /(^|\.)uqload\.[a-z]{2,}$/i;
+const UQ_DOMAINS = ["uqload.vc"];                                  // se o site mudar de domínio, adicione os espelhos aqui
+const UQ_API = "https://kiraflix-api.site.je/uqload.php";           // PHP de reserva (se o Worker não conseguir ler a página)
+const UQ_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
+const isUq = u => { try { return UQ_HOST_RE.test(new URL(u).hostname); } catch (e) { return false; } };
+function uqCode(u) {
+  let p = ""; try { p = new URL(u).pathname; } catch (e) { p = "/" + u; }
+  const m = p.match(/(?:^|[\/-])([a-z0-9]{12})(?=_[a-z]\b|\.html|\/|$)/i);
+  return m ? m[1] : "";
+}
+function uqHost(u) { try { const h = new URL(u).hostname.toLowerCase(); if (UQ_HOST_RE.test(h)) return h.replace(/^(www\.|strm\d+\.)/, ""); } catch (e) {} return UQ_DOMAINS[0]; }
+
+// Dean Edwards p,a,c,k,e,d  (eval(function(p,a,c,k,e,d){...}('...',36,395,'...'.split('|'))))
+function readQ(s, i) {
+  let o = "";
+  for (let j = i + 1; j < s.length; j++) {
+    const ch = s[j];
+    if (ch === "\\") { const n = s[j + 1] || ""; o += n === "n" ? "\n" : n === "t" ? "\t" : n === "r" ? "\r" : n; j++; continue; }
+    if (ch === "'") return [o, j + 1];
+    o += ch;
+  }
+  return [null, s.length];
+}
+function unpackJs(src) {
+  let out = "", pos = 0;
+  for (;;) {
+    const i = src.indexOf("eval(function(p,a,c,k,e,d)", pos); if (i < 0) break;
+    pos = i + 10;
+    const j = src.indexOf("}('", i); if (j < 0) break;
+    const [p, n] = readQ(src, j + 2); if (p === null) break;
+    const m = /^,(\d+),(\d+),/.exec(src.slice(n, n + 40)); if (!m) continue;
+    const a = +m[1], c = +m[2], n2 = n + m[0].length;
+    if (src[n2] !== "'") continue;
+    const [k, n3] = readQ(src, n2); if (k === null) continue;
+    const keys = k.split("|"), dict = new Map();
+    const enc = x => (x < a ? "" : enc(Math.floor(x / a))) + ((x = x % a) > 35 ? String.fromCharCode(x + 29) : x.toString(36));
+    for (let x = 0; x < c; x++) { const e = enc(x); dict.set(e, keys[x] ? keys[x] : e); }
+    out += p.replace(/\b\w+\b/g, w => (dict.has(w) ? dict.get(w) : w)) + "\n";
+    pos = n3;
+  }
+  return out;
+}
+
+function uqExtract(html, pageUrl) {
+  const all = (unpackJs(html) + "\n" + html).replace(/\\\//g, "/").replace(/&amp;/g, "&");
+  let m = all.match(/file\s*:\s*["'](https?:\/\/[^"']+?\.m3u8[^"']*)["']/i) || all.match(/(https?:\/\/[^\s"'<>\\]+\.m3u8[^\s"'<>\\]*)/i);
+  const master = m ? m[1] : null;
+  m = all.match(/file\s*:\s*["'](https?:\/\/[^"']+?\.mp4[^"']*)["']/i);
+  const mp4 = m ? m[1] : null;
+  if (!master && !mp4) return null;
+  const src = master || mp4;
+  let exp = 0;
+  try {
+    const q = new URL(src).searchParams, e = parseInt(q.get("e") || "", 10), s0 = parseInt(q.get("s") || "", 10);
+    if (e > 1e9) exp = e; else if (e > 0 && s0 > 0) exp = s0 + e;
+  } catch (e) {}
+  let quality = "Auto", height = 0;
+  m = all.match(/qualityLabels['"]?\s*:\s*\{([^}]*)\}/);
+  if (m) { const l = m[1].match(/"\d+"\s*:\s*"([^"]+)"/); if (l) { quality = l[1]; const hh = l[1].match(/(\d{3,4})\s*p/i); if (hh) height = +hh[1]; } }
+  let title = "";
+  m = html.match(/<h1[^>]*download-title[^>]*>([\s\S]*?)<\/h1>/i); if (m) title = clean(m[1]);
+  if (!title) { m = html.match(/<title>\s*(?:Watch\s+)?([\s\S]*?)\s*<\/title>/i); if (m) title = clean(m[1]); }
+  m = all.match(/image\s*:\s*"([^"]+)"/); const poster = m ? m[1] : "";
+  m = all.match(/duration\s*:\s*"?([\d.]+)/); const duration = m ? +m[1] : 0;
+  const root = new URL(pageUrl).origin;
+  const subtitles = [];
+  const sre = /\{\s*file\s*:\s*"([^"]+)"\s*,\s*(?:label\s*:\s*"([^"]*)"\s*,\s*)?kind\s*:\s*"(?:captions|subtitles)"/gi;
+  while ((m = sre.exec(all))) {
+    if (/empty\.srt/i.test(m[1])) continue;
+    const lang = normLang(m[2] || "und");
+    subtitles.push({ language: lang, label: m[2] || NAMES[lang] || lang, url: new URL(m[1], root + "/").toString() });
+  }
+  const dl = { page: "", resolution: "", size: "" };
+  m = html.match(/href="(https?:\/\/[^"]+\/d\/[a-z0-9]{10,14}_[a-z])"/i); if (m) dl.page = m[1];
+  m = html.match(/(\d{3,4}x\d{3,4}),\s*([\d.]+\s*[KMGT]?B)/i); if (m) { dl.resolution = m[1]; dl.size = m[2]; if (!height) { const hh = m[1].match(/x(\d{3,4})/); if (hh) height = +hh[1]; } }
+  return { master, mp4, quality, height, title, poster, duration, subtitles, download: dl, expires: exp };
+}
+
+async function uqGet(url, opt = {}) {
+  const h = { "User-Agent": UQ_UA, "Accept": opt.accept || "text/html,application/xhtml+xml,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8" };
+  if (opt.referer) { h.Referer = opt.referer; h.Origin = new URL(opt.referer).origin; }
+  const init = { headers: h, redirect: "follow" };
+  if (opt.post) { init.method = "POST"; init.body = new URLSearchParams(opt.post).toString(); h["Content-Type"] = "application/x-www-form-urlencoded"; }
+  const r = await fetch(url, init);
+  return { status: r.status, url: r.url || url, text: await r.text() };
+}
+
+async function uqScrape(code, hostHint) {
+  const hosts = [...new Set([hostHint, ...UQ_DOMAINS].filter(Boolean))], errs = [];
+  for (const h of hosts) {
+    const base = "https://" + h;
+    const tries = [
+      { u: base + "/" + code + ".html", ref: base + "/" },
+      { u: base + "/dl", post: { op: "embed", file_code: code, auto: "1", referer: "" }, ref: base + "/e/" + code },   // "segundo/terceiro link"
+      { u: base + "/embed-" + code + ".html", ref: base + "/" },
+    ];
+    for (const t of tries) {
+      try {
+        const r = await uqGet(t.u, { referer: t.ref, post: t.post });
+        if (r.status >= 400 || !r.text) { errs.push(h + " " + r.status); continue; }
+        const info = uqExtract(r.text, r.url);
+        if (info) return { ...info, page: base + "/" + code + ".html", host: h };
+        if (/File Not Found|was deleted|has been removed|No such file/i.test(r.text)) { errs.push(h + ": arquivo removido"); break; }
+      } catch (e) { errs.push(h + " " + e.message); }
+    }
+  }
+  throw new Error("não achei o link do vídeo (" + errs.slice(0, 4).join("; ") + ")");
+}
+
+// reserva: se o Worker não conseguir ler a página, pergunta ao uqload.php
+async function uqViaPhp(target) {
+  const t = new URL(UQ_API); t.searchParams.set("mode", "json"); t.searchParams.set("nocache", "1"); t.searchParams.set("url", target);
+  const r = await callApi(t.toString()); const j = JSON.parse(r.text);
+  if (!j.success || !j.data) throw new Error(j.error || "PHP sem resposta");
+  const d = j.data;
+  return { master: d.url, mp4: d.mp4 || null, quality: d.quality || "Auto", height: d.height || 0, title: d.title || "", poster: d.poster || "", duration: d.duration || 0,
+           subtitles: d.subtitles || [], download: d.download || {}, expires: d.expires || 0, page: d.source_page || target, host: uqHost(target) };
+}
+
+async function uqInfo(target, ctx, nocache) {
+  const code = uqCode(target); if (!code) throw new Error("não achei o código do vídeo no link");
+  const key = new Request("https://kf-cache.local/uq?c=" + code);
+  if (!nocache) {
+    const hit = await caches.default.match(key);
+    if (hit) { try { const d = await hit.json(); if (!(d.expires && d.expires - Date.now() / 1000 < 120)) return d; } catch (e) {} }
+  }
+  let raw;
+  try { raw = await uqScrape(code, uqHost(target)); }
+  catch (e) { try { raw = await uqViaPhp(target); } catch (e2) { throw new Error(e.message); } }
+  const src = raw.master || raw.mp4;
+  const info = {
+    code, title: raw.title, poster: raw.poster, duration: raw.duration, page: raw.page, master: raw.master, mp4: raw.mp4, download: raw.download,
+    qualities: [{ label: raw.quality, height: raw.height, url: src }],
+    subtitles: raw.subtitles, audio: null, audios: [], parts: [], expires: raw.expires, fetched_at: Math.floor(Date.now() / 1000),
+  };
+  const life = info.expires ? Math.min(600, Math.floor(info.expires - Date.now() / 1000 - 120)) : 300;
+  if (life > 0) ctx.waitUntil(caches.default.put(key, new Response(JSON.stringify(info), { headers: { "Cache-Control": "max-age=" + life } })));
+  return info;
+}
+
+// playlist: resolve os links e passa o token da playlist para itens sem token (se o CDN precisar)
+function absUq(text, base, viaSeg) {
+  const b = new URL(base), inherit = b.search;
+  const fix = u => {
+    let a; try { a = new URL(u, b); } catch (e) { return u; }
+    if (!a.search && /[?&]t=/.test(inherit)) a.search = inherit;
+    const out = a.toString();
+    return viaSeg ? viaSeg + encodeURIComponent(out) : out;
+  };
+  return text.split("\n").map(line => {
+    const t = line.trim(); if (!t) return line;
+    if (t.startsWith("#")) return line.replace(/URI="([^"]+)"/g, (m, u) => 'URI="' + fix(u) + '"');
+    return fix(t);
+  }).join("\n");
+}
+const uqReferer = () => "https://" + UQ_DOMAINS[0] + "/";
+async function uqFetchPlaylist(u, referer) {
+  return fetch(u, { headers: { "User-Agent": UQ_UA, Referer: referer, Origin: referer.replace(/\/$/, ""), Accept: "*/*" } });
+}
+
+// /?action=mp4&url=LINK_UQLOAD&mode=json|m3u8(padrão)|master|redirect&proxy=1&nocache=1
+async function uqMp4(request, url, target, cors, json, fail, ctx) {
+  const mode = url.searchParams.get("mode") || "m3u8", proxy = !!url.searchParams.get("proxy");
+  let nocache = !!url.searchParams.get("nocache"), info;
+  try { info = await uqInfo(target, ctx, nocache); } catch (e) { return fail("Não consegui ler o Uqload: " + e.message); }
+  const self = new URL(request.url);
+  const common = "&url=" + encodeURIComponent(target) + (proxy ? "&proxy=1" : "");
+  const q = info.qualities[0];
+  if (mode === "json") {
+    return json({ success: true, data: { url: q.url, quality: q.label, height: q.height, title: info.title, poster: info.poster, duration: info.duration,
+      qualities: info.qualities, audios: [], subtitles: info.subtitles, parts: [], download: info.download, mp4: info.mp4,
+      expires: info.expires, expires_in: info.expires ? Math.max(0, info.expires - Math.floor(Date.now() / 1000)) : null, fetched_at: info.fetched_at,
+      master: self.origin + "/?action=mp4&mode=master" + common + "&x=.m3u8" }, error: null }, 200, { "Cache-Control": "no-store" });
+  }
+  if (mode === "redirect") return new Response(null, { status: 302, headers: { ...cors, Location: q.url, "Cache-Control": "no-store" } });
+  if (!info.master) return fail("Esse vídeo só tem MP4: use mode=redirect", 404);
+  const ref = info.page || uqReferer();
+  let r = await uqFetchPlaylist(info.master, ref), txt = r.ok ? await r.text() : "";
+  if ((!r.ok || !txt.includes("#EXTM3U")) && !nocache) {            // token vencido -> pega outro e tenta de novo (renovação automática)
+    try { info = await uqInfo(target, ctx, true); } catch (e) { return fail("Não consegui renovar o link: " + e.message); }
+    r = await uqFetchPlaylist(info.master, ref); txt = r.ok ? await r.text() : "";
+  }
+  if (!r.ok || !txt.includes("#EXTM3U")) return fail("O servidor do vídeo respondeu HTTP " + r.status + " mesmo com token novo.", 502);
+  const viaSeg = proxy ? self.origin + "/?action=seg&url=" : "";
+  return new Response(absUq(txt, r.url || info.master, viaSeg), { status: 200, headers: { ...cors, "Content-Type": "application/vnd.apple.mpegurl", "Cache-Control": "no-store",
+    "X-Quality": q.label, "X-Expires": String(info.expires || 0), "Access-Control-Expose-Headers": "X-Quality, X-Expires" } });
+}
+
 /* ---------- AES (verificação anti-robô do seu PHP) ---------- */
 const hex2 = h => new Uint8Array(h.match(/../g).map(x => parseInt(x, 16)));
 const toHex = u => [...u].map(x => x.toString(16).padStart(2, "0")).join("");
@@ -359,12 +550,17 @@ export default {
     const url = new URL(request.url);
     const action = url.searchParams.get("action") || "";
 
-    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.0", actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "config", "(demais: repassa ao PHP)"] }, error: null });
+    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.1", sites: ["uqload", "(filmes/series)"], actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "config", "(demais: repassa ao PHP)"] }, error: null });
 
     if (action === "tracks") {
       const target = cleanTarget(url.searchParams.get("url") || url.searchParams.get("link") || "");
       if (!target) return fail("Informe o link da página em url=", 400);
       if (!hostOk(target)) return fail("Domínio não autorizado: " + new URL(target).hostname, 403);
+      if (isUq(target)) {
+        try { const i = await uqInfo(target, ctx, !!url.searchParams.get("nocache"));
+          return json({ success: true, data: { title: i.title, poster: i.poster, duration: i.duration, qualities: i.qualities, subtitles: i.subtitles, audio: [], parts: [], source_url: target, complete: true, worker: 3, expires: i.expires, fetched_at: i.fetched_at }, error: null }); }
+        catch (e) { return fail("Não consegui ler o Uqload: " + e.message); }
+      }
       try {
         const data = await cachedTracks(target, ctx, !!url.searchParams.get("nocache"));
         return json({ success: true, data, error: null });
@@ -403,6 +599,7 @@ export default {
     if (action === "mp4") {
       const target = cleanTarget(url.searchParams.get("url") || "");
       if (!target || !hostOk(target)) return fail("Link inválido ou domínio não autorizado.", 403);
+      if (isUq(target)) return uqMp4(request, url, target, cors, json, fail, ctx);
       const mode = url.searchParams.get("mode") || "m3u8";
       const lang = (url.searchParams.get("audio") || "").toLowerCase().split("-")[0];
       const nocache = !!url.searchParams.get("nocache");
@@ -447,10 +644,16 @@ export default {
     // playlists/segmentos via Worker (so se o CDN do site bloquear CORS: use &proxy=1)
     if (action === "seg") {
       const u = url.searchParams.get("url") || ""; let host = ""; try { host = new URL(u).hostname; } catch (e) {}
-      if (!u || !SUB_HOST_RE.test(host)) return fail("Domínio não autorizado.", 403);
-      const h = { "User-Agent": UA, Referer: new URL(u).origin + "/" }; const rg = request.headers.get("Range"); if (rg) h.Range = rg;
+      const uq = UQ_HOST_RE.test(host);
+      if (!u || !(SUB_HOST_RE.test(host) || uq)) return fail("Domínio não autorizado.", 403);
+      const h = uq ? { "User-Agent": UQ_UA, Referer: uqReferer(), Origin: uqReferer().replace(/\/$/, ""), Accept: "*/*" } : { "User-Agent": UA, Referer: new URL(u).origin + "/" };
+      const rg = request.headers.get("Range"); if (rg) h.Range = rg;
       const r = await fetch(u, { headers: h });
       const ct = r.headers.get("Content-Type") || "";
+      if (uq && (/mpegurl/i.test(ct) || /\.m3u8(\?|$)/i.test(u))) {
+        const self = new URL(request.url);
+        return new Response(absUq(await r.text(), r.url || u, self.origin + "/?action=seg&url="), { status: r.status, headers: { ...cors, "Content-Type": "application/vnd.apple.mpegurl", "Cache-Control": "no-store" } });
+      }
       if (/mpegurl/i.test(ct) || /\.m3u8(\?|$)/i.test(u)) {
         const tok = (u.match(/[?&]hdnts=([^&]+)/) || [])[1] || "";
         const self = new URL(request.url);
@@ -464,7 +667,7 @@ export default {
     if (action === "sub") {
       const u = cleanTarget(url.searchParams.get("url") || "");
       let host = ""; try { host = new URL(u).hostname; } catch (e) {}
-      if (!u || !SUB_HOST_RE.test(host)) return fail("Legenda de domínio não autorizado.", 403);
+      if (!u || !(SUB_HOST_RE.test(host) || UQ_HOST_RE.test(host))) return fail("Legenda de domínio não autorizado.", 403);
       try {
         const r = await fetch(u, { headers: { "User-Agent": UA } });
         if (!r.ok) return fail("HTTP " + r.status, 502);
