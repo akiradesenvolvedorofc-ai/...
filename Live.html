@@ -677,7 +677,8 @@ const CONFIG = {
   PROXY: 'https://wandering-lake-8698.desantosinouea.workers.dev/?action=live&url=',   // proxy ao vivo (playlist + segmentos)
   USAR_PROXY: true,
   MODO: 'auto',                         // auto | video | embed
-  TITULO: 'Canais ao Vivo'
+  TITULO: 'Canais ao Vivo',
+  CANAL_PADRAO: ''   // canal que abre de primeira (id ou nome, ex.: 'tv-brasil' ou 'Cartoon Network'). Vazio = primeiro da lista
 };
 
 const clamp = (n,a,b) => Math.min(b, Math.max(a, n));
@@ -811,12 +812,14 @@ async function loadCanais(){
   const cats = [...new Set(S.channels.map(c => c.category))];
   S.categories = cats.length ? cats : ['Geral'];
 
-  // restaura último canal
-  const last = LS.get('lastChannel', null);
-  if(last != null){
-    const i = S.channels.findIndex(c => c.id === last || c.name === last);
-    if(i >= 0) S.idx = i;
-  }
+  // qual canal abre: 1) link ?canal=id  2) último canal assistido  3) CONFIG.CANAL_PADRAO  4) primeiro da lista
+  const slug = t => String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const findCh = w => w ? S.channels.findIndex(c => c.id === w || c.name === w || slug(c.name) === slug(w)) : -1;
+  const qp = new URLSearchParams(location.search);
+  let i = findCh(qp.get('canal') || qp.get('c'));
+  if(i < 0) i = findCh(LS.get('lastChannel', null));
+  if(i < 0) i = findCh(CONFIG.CANAL_PADRAO);
+  if(i >= 0) S.idx = i;
   return S.channels.length > 0;
 }
 
