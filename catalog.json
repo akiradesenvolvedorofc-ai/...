@@ -3384,7 +3384,10 @@
       "ageRating": "10",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://uqload.vc/rxd8g6ak1uhs.html",
       "lastAutoUpdate": "2026-11-14T18:55:20.307Z",
-      "addedAt": 1795144745705
+      "addedAt": 1795144745705,
+      "subtitles": {
+        "en": "https://raw.githubusercontent.com/akiradesenvolvedorofc-ai/.../main/legendas/filme-1789741-en.srt"
+      }
     },
     "1797381": {
       "title": "Dutdot",
