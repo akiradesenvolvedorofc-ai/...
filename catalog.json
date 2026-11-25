@@ -1515,6 +1515,22 @@
       "ageRating": "12",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://video.playspelis.com/pt/detail/movie/trzjVPWEVG8UTvpOZKNYs-Captain-America-Civil-War"
     },
+    "272878": {
+      "title": "Max: O Cão Herói",
+      "overview": "O cachorro Max trabalha junto aos soldados americanos no Afeganistão, ajudando a detectar regiões com minas terrestres. Quando seu dono morre, o animal se torna feroz e não mantém contato com mais ninguém. A situação se transforma quando Justin, irmão do soldado falecido, decide se aproximar de Max e criar uma grande amizade.",
+      "poster": "https://image.tmdb.org/t/p/w500/30kFBE0I4sG9zum3Tv2wz9ulv8g.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/bxBpDzktYTDMpx7VrS6r6wNDeTk.jpg",
+      "year": "2015",
+      "rating": 7.184,
+      "genres": [
+        "Aventura",
+        "Drama",
+        "Família"
+      ],
+      "ageRating": "12",
+      "source": "",
+      "addedAt": 1795603394359
+    },
     "277834": {
       "title": "Moana: Um Mar de Aventuras",
       "overview": "Moana Waialiki é uma corajosa jovem, filha do chefe de uma tribo na Oceania, vinda de uma longa linhagem de navegadores. Querendo descobrir mais sobre seu passado e ajudar a família, ela resolve partir em busca de seus ancestrais, habitantes de uma ilha mítica que ninguém sabe onde é. Acompanhada pelo lendário semideus Maui, Moana começa sua jornada em mar aberto, onde enfrenta terríveis criaturas marinhas e descobre histórias do submundo.",
