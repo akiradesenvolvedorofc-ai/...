@@ -382,51 +382,43 @@ details summary{cursor:pointer;color:var(--mut);font-size:.8rem;padding:8px 4px}
 
 <script>
 // ============================================================
-// ⚙️ CONFIG — os valores de verdade ficam no arquivo .env
-// (precisa estar na MESMA pasta do admin.html, servido por http(s)://).
-// Se o .env não puder ser lido (ex: abrindo o admin.html direto do
-// computador, com file://), o painel usa estes valores em branco/padrão
-// e tudo continua configurável normalmente pelas abas do painel.
+// ⚙️ CONFIG — mexa SÓ AQUI pra configurar o painel inteiro
 // ============================================================
 const CONFIG = {
-  DONO_EMAILS: [],
-  MODERADOR_EMAILS: [],
-  GITHUB: { owner: "akiradesenvolvedorofc-ai", repo: "", token: "" },
-  SUPABASE: { url: "", anon: "", fn: "admin-users", adminKey: "" },
-  DISCORD: { webhook: "", username: "KiraFlix", avatar: "", autoAnnounce: true },
+  // Emails com cargo "Dono" (acesso total: apagar, mexer no GitHub, gerenciar usuários).
+  DONO_EMAILS: ["akiradosantos1@gmail.com"],
+  // Emails com cargo "Moderador". Quem não tiver email em nenhuma das duas listas vira "Suporte".
+  MODERADOR_EMAILS: [/* "moderador@email.com" */],
+
+  // GitHub: onde o catalog.json e as legendas são salvos.
+  // "owner" já vem preenchido. Preencha "repo" (nome do repositório) e "token"
+  // (um Personal Access Token com permissão de repo) pra já salvar funcionando
+  // sem precisar configurar pela aba Arquivos.
+  GITHUB: {
+    owner: "akiradesenvolvedorofc-ai",
+    repo: "...",
+    token: "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"
+  },
+
+  // Supabase: usado na aba Usuários (gerenciar contas do site).
+  SUPABASE: {
+    url: "https://ahtuhrzizlwcvrgbzivx.supabase.co",
+    anon: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFodHVocnppemx3Y3ZyZ2J6aXZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDY4NzMsImV4cCI6MjEwNzA4Mjg3M30.Wy2EfRP8UicZBi-ViUOVd_K6E19Peq1PIPVlVuEV7wI",
+    fn: "admin-users",
+    adminKey: atob("Akirazg22345@")
+  },
+
+  // Discord: webhook que recebe o aviso automático de "conteúdo adicionado".
+  DISCORD: {
+    webhook: "https://discord.com/api/webhooks/1572395457353617504/DCe17WSavLhog6xOxGrEBiEeH8OSYY7zUKuPOltTTuUO_nLewI39J4dt8tXMUUDtJGSn",
+    username: "KiraFlix",
+    avatar: "https://i.ibb.co/Ljk2cdc/Gemini-Generated-Image-jcex9ajcex9ajcex.jpg",
+    autoAnnounce: true
+  },
+
+  // API KiraFlix (scraper/automação de episódios) usada na aba Automatizar.
   API_BASE: "https://kiraflix-api.site.je/api.php?url="
 };
-(function loadConfigFromEnv() {
-  try {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", ".env", false); // false = leitura síncrona, roda antes do resto do painel
-    xhr.send(null);
-    if (xhr.status !== 200 && xhr.status !== 0) return;
-    const env = {};
-    String(xhr.responseText || "").split(/\r?\n/).forEach(line => {
-      line = line.trim();
-      if (!line || line[0] === "#") return;
-      const i = line.indexOf("=");
-      if (i < 0) return;
-      env[line.slice(0, i).trim()] = line.slice(i + 1).trim();
-    });
-    const list = v => String(v || "").split(",").map(s => s.trim()).filter(Boolean);
-    if (env.DONO_EMAILS) CONFIG.DONO_EMAILS = list(env.DONO_EMAILS);
-    if (env.MODERADOR_EMAILS) CONFIG.MODERADOR_EMAILS = list(env.MODERADOR_EMAILS);
-    if (env.GITHUB_OWNER) CONFIG.GITHUB.owner = env.GITHUB_OWNER;
-    if (env.GITHUB_REPO) CONFIG.GITHUB.repo = env.GITHUB_REPO;
-    if (env.GITHUB_TOKEN) CONFIG.GITHUB.token = env.GITHUB_TOKEN;
-    if (env.SUPABASE_URL) CONFIG.SUPABASE.url = env.SUPABASE_URL;
-    if (env.SUPABASE_ANON) CONFIG.SUPABASE.anon = env.SUPABASE_ANON;
-    if (env.SUPABASE_FN) CONFIG.SUPABASE.fn = env.SUPABASE_FN;
-    if (env.SUPABASE_ADMIN_KEY) CONFIG.SUPABASE.adminKey = env.SUPABASE_ADMIN_KEY;
-    if (env.DISCORD_WEBHOOK) CONFIG.DISCORD.webhook = env.DISCORD_WEBHOOK;
-    if (env.DISCORD_USERNAME) CONFIG.DISCORD.username = env.DISCORD_USERNAME;
-    if (env.DISCORD_AVATAR) CONFIG.DISCORD.avatar = env.DISCORD_AVATAR;
-    if (env.DISCORD_AUTO_ANNOUNCE) CONFIG.DISCORD.autoAnnounce = env.DISCORD_AUTO_ANNOUNCE.toLowerCase() !== "false";
-    if (env.API_BASE) CONFIG.API_BASE = env.API_BASE;
-  } catch (e) { /* .env não encontrado/bloqueado (ex: file://) — segue com os valores em branco acima */ }
-})();
 
 const DEFAULT_TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
 const LANG = "pt-BR";
