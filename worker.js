@@ -1,4 +1,4 @@
-// KiraFlix Worker v4.2 - tracks/mp4/play/seg/sub/live + UQLOAD + YOUTUBE (via youtube.php); demais acoes vao para o PHP
+// KiraFlix Worker v4.3 - tracks/mp4/play/seg/sub/live + UQLOAD + STREAMTAPE + YOUTUBE (via youtube.php); demais acoes vao para o PHP
 const API = "https://kiraflix-api.site.je/api.php";
 const ALLOWED = ["https://kiraflix.qd.je", "https://www.kiraflix.qd.je"];
 const UA = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36";
@@ -31,7 +31,7 @@ function cleanTarget(raw) {
   const u = v.match(/https?:\/\/[^\s"'<>]+/i);
   return u ? u[0] : "";
 }
-const hostOk = u => { try { const h = new URL(u).hostname.toLowerCase(); return HOSTS.includes(h) || UQ_HOST_RE.test(h); } catch (e) { return false; } };
+const hostOk = u => { try { const h = new URL(u).hostname.toLowerCase(); return HOSTS.includes(h) || UQ_HOST_RE.test(h) || ST_HOST_RE.test(h); } catch (e) { return false; } };
 
 function parseDetail(u) {
   const x = new URL(u);
@@ -431,6 +431,145 @@ async function uqMp4(request, url, target, cors, json, fail, ctx) {
     "X-Quality": q.label, "X-Expires": String(info.expires || 0), "Access-Control-Expose-Headers": "X-Quality, X-Expires" } });
 }
 
+
+/* ================= STREAMTAPE ================= */
+// A página monta o link com JavaScript:  '//streamtape.com/ge' + ('xcdt_video?id=..').substring(1).substring(2)
+// O Worker lê a página, refaz essa conta e entrega o MP4 por aqui mesmo (com Range), porque o link é amarrado ao IP de quem pediu.
+const ST_HOST_RE = /(^|\.)(streamtape|strtape|strtpe|stape|streamta|strcloud|tapeadsenjoyer|tapeblocker|tapewithadblock|shavetape|antiadtape|adblockstrtape|adblockstreamtape|streamadblocker|scloud)\.[a-z.]{2,}$/i;
+const ST_DOMAINS = ["streamtape.com"];                                // espelhos extras: adicione aqui
+const ST_API = "https://kiraflix-api.site.je/streamtape.php";        // PHP de reserva (varre a página e também faz proxy)
+const isSt = u => { try { return ST_HOST_RE.test(new URL(u).hostname); } catch (e) { return false; } };
+const stCode = u => { const m = String(u).match(/\/(?:v|e|d)\/([A-Za-z0-9_-]{8,})/); return m ? m[1] : ""; };
+function stHost(u) { try { const h = new URL(u).hostname.toLowerCase(); if (ST_HOST_RE.test(h)) return h.replace(/^www\./, ""); } catch (e) {} return ST_DOMAINS[0]; }
+
+function stEval(expr) {
+  const re = /'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)"|\.(?:substring|slice)\((\d+)\)/g, parts = []; let m;
+  while ((m = re.exec(expr))) {
+    if (m[3] !== undefined) { if (parts.length) parts[parts.length - 1] = parts[parts.length - 1].substring(+m[3]); }
+    else parts.push(m[1] !== undefined ? m[1] : m[2]);
+  }
+  return parts.join("").replace(/\\\//g, "/");
+}
+function stMeta(html, prop) {
+  const m = html.match(new RegExp("<meta[^>]+(?:property|name)=[\"']" + prop + "[\"'][^>]*content=[\"']([^\"']*)[\"']", "i"));
+  return m ? decodeEnt(m[1]) : "";
+}
+function stScan(html, base) {
+  const t = html.replace(/\\\//g, "/").replace(/&amp;/g, "&"), found = new Map(), ext = "mp4|m3u8|mpd|webm|mkv|m4v|mov|flv|vtt|srt|ass";
+  const abs = u => { try { return new URL(u, base).toString(); } catch (e) { return null; } };
+  let m;
+  const r1 = new RegExp("(?:https?:)?\\/\\/[^\\s\"'<>\\\\)]+?\\.(" + ext + ")(?:\\?[^\\s\"'<>\\\\)]*)?", "gi");
+  while ((m = r1.exec(t))) { const u = abs(m[0]); if (u) found.set(u, m[1].toLowerCase()); }
+  const r2 = new RegExp("[\"'](\\/[^\"'\\s<>]+?\\.(" + ext + ")(?:\\?[^\"'\\s<>]*)?)[\"']", "gi");
+  while ((m = r2.exec(t))) { const u = abs(m[1]); if (u) found.set(u, m[2].toLowerCase()); }
+  const r3 = /(?:https?:)?\/\/[^\s"'<>\\)]+\/get_video\?[^\s"'<>\\)]+/gi;
+  while ((m = r3.exec(t))) { const u = abs(m[0]); if (u) found.set(u, "get_video"); }
+  return [...found].filter(([u]) => !/\/(js|scss|css|assets|images)\//i.test(u))
+    .map(([url, type]) => ({ url, type, kind: /m3u8|mpd/.test(type) ? "stream" : /vtt|srt|ass/.test(type) ? "subtitle" : "video" }));
+}
+function stExtract(html, pageUrl) {
+  const c = {}, re = /getElementById\(\s*['"]([a-z0-9_]*link[a-z0-9_]*)['"]\s*\)\.innerHTML\s*=\s*([^;]+);/gi; let m;
+  while ((m = re.exec(html))) { const v = stEval(m[2]); if (v.includes("get_video?")) c[m[1].toLowerCase()] = v; }
+  let link = "";
+  for (const k of ["robotlink", "captchalink", "norobotlink", "botlink"]) if (c[k]) { link = c[k]; break; }
+  if (!link) link = Object.values(c)[0] || "";
+  if (!link) return null;
+  link = new URL(link.startsWith("//") ? "https:" + link : link, pageUrl).toString();
+  if (!/[?&]stream=1/.test(link)) link += "&stream=1";
+  let exp = 0; try { exp = parseInt(new URL(link).searchParams.get("expires") || "0", 10) || 0; } catch (e) {}
+  let title = stMeta(html, "og:title").replace(/\s+at Streamtape\.com$/i, "").trim();
+  if (!title) { m = html.match(/<title>\s*([^<]*)/i); if (m) title = clean(m[1]).replace(/\s+at Streamtape\.com$/i, ""); }
+  m = html.match(/class="subheading"[^>]*>\s*([^<]+)</i);
+  return { url: link, title, poster: stMeta(html, "og:image"), size: m ? m[1].trim() : "", expires: exp, sources: stScan(html, pageUrl) };
+}
+async function stGet(url, referer) {
+  const r = await fetch(url, { headers: { "User-Agent": UQ_UA, "Accept": "text/html,application/xhtml+xml,*/*;q=0.8", "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8", Referer: referer }, redirect: "follow" });
+  return { status: r.status, url: r.url || url, text: await r.text() };
+}
+async function stScrape(code, hostHint) {
+  const hosts = [...new Set([hostHint, ...ST_DOMAINS].filter(Boolean))], errs = [];
+  for (const h of hosts) {
+    for (const p of ["/e/" + code, "/v/" + code]) {
+      try {
+        const r = await stGet("https://" + h + p, "https://" + h + "/");
+        if (r.status >= 400 || !r.text) { errs.push(h + " " + r.status); continue; }
+        const info = stExtract(r.text, r.url);
+        if (info) return { ...info, id: code, host: h, page: "https://" + h + "/v/" + code, embed: "https://" + h + "/e/" + code };
+        if (/Video not found|Maybe it got deleted|has been removed/i.test(r.text)) { errs.push(h + ": vídeo removido"); break; }
+        errs.push(h + ": link não encontrado");
+      } catch (e) { errs.push(h + " " + e.message); }
+    }
+  }
+  throw new Error("não achei o link do vídeo (" + errs.slice(0, 4).join("; ") + ")");
+}
+async function stViaPhp(target) {
+  const t = new URL(ST_API); t.searchParams.set("mode", "json"); t.searchParams.set("nocache", "1"); t.searchParams.set("url", target);
+  const r = await callApi(t.toString()); const j = JSON.parse(r.text);
+  if (!j.success || !j.data) throw new Error(j.error || "PHP sem resposta");
+  return j.data;
+}
+async function stInfo(target, ctx, nocache) {
+  const code = stCode(target); if (!code) throw new Error("não achei o código do vídeo no link");
+  const key = new Request("https://kf-cache.local/st?c=" + code);
+  if (!nocache) {
+    const hit = await caches.default.match(key);
+    if (hit) { try { const d = await hit.json(); if (!(d.expires && d.expires - Date.now() / 1000 < 120)) return d; } catch (e) {} }
+  }
+  const info = await stScrape(code, stHost(target));
+  info.fetched_at = Math.floor(Date.now() / 1000);
+  const life = info.expires ? Math.min(300, Math.floor(info.expires - Date.now() / 1000 - 120)) : 300;
+  if (life > 0) ctx.waitUntil(caches.default.put(key, new Response(JSON.stringify(info), { headers: { "Cache-Control": "max-age=" + life } })));
+  return info;
+}
+const stFetchVideo = (info, range) => {
+  const h = { "User-Agent": UQ_UA, Referer: info.embed, Accept: "*/*" }; if (range) h.Range = range;
+  return fetch(info.url, { headers: h, redirect: "follow" });
+};
+const stOk = r => (r.ok || r.status === 206) && !/text\/html/i.test(r.headers.get("Content-Type") || "");
+function stReply(r, cors) {
+  const ct = r.headers.get("Content-Type") || "";
+  const hd = { ...cors, "Content-Type": ct && !/octet-stream/i.test(ct) ? ct : "video/mp4", "Accept-Ranges": "bytes", "Cache-Control": "no-store",
+    "Access-Control-Expose-Headers": "Content-Range, Content-Length, Accept-Ranges" };
+  for (const k of ["Content-Range", "Content-Length"]) { const v = r.headers.get(k); if (v) hd[k] = v; }
+  return new Response(r.body, { status: r.status === 206 ? 206 : 200, headers: hd });
+}
+
+// /?action=mp4&url=LINK_STREAMTAPE&proxy=1&x=.m3u8   -> toca direto (MP4 com Range). Outros modos: mode=json | redirect | nocache=1
+async function stMp4(request, url, target, cors, json, fail, ctx) {
+  const mode = url.searchParams.get("mode") || "stream", nocache = !!url.searchParams.get("nocache");
+  let info = null, err = "";
+  try { info = await stInfo(target, ctx, nocache); } catch (e) { err = e.message; }
+  if (mode === "json") {
+    if (!info) { try { info = await stViaPhp(target); } catch (e2) { return fail("Não consegui ler o Streamtape: " + err); } }
+    const self = new URL(request.url);
+    const play = self.origin + "/?action=mp4&proxy=1&x=.m3u8&url=" + encodeURIComponent(target);
+    return json({ success: true, data: { url: play, quality: "Auto", height: 0, title: info.title, poster: info.poster, size: info.size, duration: 0,
+      qualities: [{ label: "Auto", height: 0, url: play }], audios: [], subtitles: (info.sources || []).filter(s => s.kind === "subtitle").map(s => ({ language: "und", label: s.type, url: s.url })),
+      parts: [], sources: info.sources || [], direct: info.url, page: info.page, embed: info.embed, expires: info.expires,
+      expires_in: info.expires ? Math.max(0, info.expires - Math.floor(Date.now() / 1000)) : null, fetched_at: info.fetched_at }, error: null }, 200, { "Cache-Control": "no-store" });
+  }
+  if (mode === "redirect" && info) {
+    const r = await fetch(info.url, { headers: { "User-Agent": UQ_UA, Referer: info.embed, Range: "bytes=0-0" }, redirect: "manual" });
+    const loc = r.headers.get("Location");
+    return new Response(null, { status: 302, headers: { ...cors, Location: loc ? new URL(loc, info.url).toString() : info.url, "Cache-Control": "no-store" } });
+  }
+  const rg = request.headers.get("Range");
+  if (info) {
+    try {
+      let r = await stFetchVideo(info, rg);
+      if (!stOk(r) && !nocache) { info = await stInfo(target, ctx, true); r = await stFetchVideo(info, rg); }   // link vencido -> pega outro
+      if (stOk(r)) return stReply(r, cors);
+    } catch (e) { err = err || e.message; }
+  }
+  try {                                                                                                          // reserva: o PHP busca e repassa
+    const t = new URL(ST_API); t.searchParams.set("mode", "stream"); t.searchParams.set("url", target);
+    const h = { "User-Agent": UA }; if (rg) h.Range = rg;
+    const r = await fetch(t.toString(), { headers: h });
+    if (stOk(r)) return stReply(r, cors);
+  } catch (e) {}
+  return fail("Não consegui abrir o Streamtape" + (err ? ": " + err : " (o servidor do vídeo recusou)"), 502);
+}
+
 /* ---------- AES (verificação anti-robô do seu PHP) ---------- */
 const hex2 = h => new Uint8Array(h.match(/../g).map(x => parseInt(x, 16)));
 const toHex = u => [...u].map(x => x.toString(16).padStart(2, "0")).join("");
@@ -590,12 +729,17 @@ export default {
     const ytRaw = url.searchParams.get("url") || url.searchParams.get("link") || "";
     if (action === "ytseg" || action === "ytsub" || action === "diag" || ((action === "mp4" || action === "tracks" || !action) && ytRaw && isYtRaw(ytRaw))) return ytProxy(request, url, cors, fail);
 
-    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.2", sites: ["uqload", "youtube", "(filmes/series)"], actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "ytseg", "ytsub", "diag", "config", "(demais: repassa ao PHP)"] }, error: null });
+    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.3", sites: ["uqload", "streamtape", "youtube", "(filmes/series)"], actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "ytseg", "ytsub", "diag", "config", "(demais: repassa ao PHP)"] }, error: null });
 
     if (action === "tracks") {
       const target = cleanTarget(url.searchParams.get("url") || url.searchParams.get("link") || "");
       if (!target) return fail("Informe o link da página em url=", 400);
       if (!hostOk(target)) return fail("Domínio não autorizado: " + new URL(target).hostname, 403);
+      if (isSt(target)) {
+        try { const i = await stInfo(target, ctx, !!url.searchParams.get("nocache"));
+          return json({ success: true, data: { title: i.title, poster: i.poster, duration: 0, qualities: [{ label: "Auto", height: 0, url: new URL(request.url).origin + "/?action=mp4&proxy=1&x=.m3u8&url=" + encodeURIComponent(target) }], subtitles: (i.sources || []).filter(x => x.kind === "subtitle").map(x => ({ language: "und", label: x.type, url: x.url })), audio: [], parts: [], sources: i.sources, source_url: target, complete: true, worker: 3, expires: i.expires, fetched_at: i.fetched_at }, error: null }); }
+        catch (e) { return fail("Não consegui ler o Streamtape: " + e.message); }
+      }
       if (isUq(target)) {
         try { const i = await uqInfo(target, ctx, !!url.searchParams.get("nocache"));
           return json({ success: true, data: { title: i.title, poster: i.poster, duration: i.duration, qualities: i.qualities, subtitles: i.subtitles, audio: [], parts: [], source_url: target, complete: true, worker: 3, expires: i.expires, fetched_at: i.fetched_at }, error: null }); }
@@ -613,6 +757,10 @@ export default {
     // /?action=play&url=PAGINA&q=720&audio=pt  -> pagina SEM texto: so o player nativo do Chrome
     if (action === "play") {
       const base = url.origin + "/";
+      { const pt = cleanTarget(url.searchParams.get("url") || ""); if (isSt(pt)) {
+        const src = base + "?action=mp4&proxy=1&x=.m3u8&url=" + encodeURIComponent(pt);
+        return new Response('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KiraFlix</title><style>html,body{margin:0;height:100%;background:#000;overflow:hidden}video{width:100%;height:100%;background:#000;outline:0}</style></head><body><video controls autoplay playsinline preload="auto" src="' + src.replace(/&/g, "&amp;") + '"></video></body></html>', { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
+      } }
       const html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KiraFlix</title>'
         + '<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.8/hls.min.js"></script>'
         + '<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}video{width:100%;height:100%;background:#000;outline:0}</style></head><body>'
@@ -639,6 +787,7 @@ export default {
     if (action === "mp4") {
       const target = cleanTarget(url.searchParams.get("url") || "");
       if (!target || !hostOk(target)) return fail("Link inválido ou domínio não autorizado.", 403);
+      if (isSt(target)) return stMp4(request, url, target, cors, json, fail, ctx);
       if (isUq(target)) return uqMp4(request, url, target, cors, json, fail, ctx);
       const mode = url.searchParams.get("mode") || "m3u8";
       const lang = (url.searchParams.get("audio") || "").toLowerCase().split("-")[0];
@@ -736,6 +885,7 @@ export default {
     // compatível com o player ao vivo antigo: /?url=<link do canal>  (qualquer endereço que não seja dos sites de filmes)
     if (!action) {
       const raw = url.searchParams.get("url") || "";
+      { const t0 = cleanTarget(raw); if (t0 && isSt(t0)) return stMp4(request, url, t0, cors, json, fail, ctx); }
       if (/^https?:\/\//i.test(raw) && !hostOk(cleanTarget(raw)) && !/\/detail\//i.test(raw)) return liveProxy(request, url, cors, fail, ctx);
     }
 
