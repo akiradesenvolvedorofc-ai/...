@@ -3398,7 +3398,11 @@
       ],
       "ageRating": "",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://uqload.vc/ahnlmkph5gp5.html",
-      "addedAt": 1795556798240
+      "addedAt": 1795556798240,
+      "subtitles": {
+        "pt": "https://raw.githubusercontent.com/akiradesenvolvedorofc-ai/.../main/legendas/filme-1843135-pt.srt",
+        "en": "https://raw.githubusercontent.com/akiradesenvolvedorofc-ai/.../main/legendas/filme-1843135-en.srt"
+      }
     }
   },
   "series": {
