@@ -1,4 +1,4 @@
-// KiraFlix Worker v4.1 - tracks/mp4/play/seg/sub/live + UQLOAD (uqload.vc e espelhos); demais acoes vao para o PHP
+// KiraFlix Worker v4.2 - tracks/mp4/play/seg/sub/live + UQLOAD + YOUTUBE (via youtube.php); demais acoes vao para o PHP
 const API = "https://kiraflix-api.site.je/api.php";
 const ALLOWED = ["https://kiraflix.qd.je", "https://www.kiraflix.qd.je"];
 const UA = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36";
@@ -534,6 +534,42 @@ async function liveProxy(request, url, cors, fail, ctx) {
   return new Response(r.body, { status: r.status, headers: hd });
 }
 
+
+/* ================= YOUTUBE (repassa ao youtube.php: link direto, HLS video+audio, legendas, renova token) ================= */
+const YT_API = "https://kiraflix-api.site.je/youtube.php";
+const YT_HOST_RE = /^(?:https?:\/\/)?(?:[\w-]+\.)?(?:youtube\.com|youtube-nocookie\.com|youtu\.be)(?:[\/:?#]|$)/i;
+const YT_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+function isYtRaw(raw) {
+  let v = String(raw || "").trim();
+  for (let i = 0; i < 3; i++) { if (/%3A%2F%2F/i.test(v)) { try { v = decodeURIComponent(v); } catch (e) { break; } } }
+  return YT_HOST_RE.test(v) || YT_ID_RE.test(v);
+}
+let ytCookie = "";
+async function ytFetch(target, headers) {
+  const go = (c) => { const u = new URL(target); if (c) u.searchParams.set("i", "1"); return fetch(u.toString(), { headers: c ? { ...headers, Cookie: "__test=" + c } : headers, redirect: "manual" }); };
+  let r = await go(ytCookie);
+  const ct = r.headers.get("Content-Type") || "";
+  if (/text\/html/i.test(ct)) {                       // verificacao anti-robo da hospedagem
+    const t = await r.clone().text();
+    if (/aes\.js/.test(t) && /toNumbers/.test(t)) { ytCookie = await solveCookie(t); r = await go(ytCookie); }
+  }
+  return r;
+}
+async function ytProxy(request, url, cors, fail) {
+  const t = new URL(YT_API);
+  url.searchParams.forEach((v, k) => t.searchParams.set(k, v));
+  t.searchParams.set("base", new URL(request.url).origin);   // o PHP monta os links (m3u8/segmentos/legendas) apontando pra este worker
+  const h = { "User-Agent": UA, Accept: "*/*" };
+  const rg = request.headers.get("Range"); if (rg) h.Range = rg;
+  try {
+    const r = await ytFetch(t.toString(), h);
+    const hd = { ...cors, "Cache-Control": "no-store", "Access-Control-Expose-Headers": "Content-Range, Content-Length, Accept-Ranges, X-Expires, X-Quality" };
+    for (const k of ["Content-Type", "Content-Range", "Accept-Ranges", "Location", "X-Expires", "X-Quality"]) { const v = r.headers.get(k); if (v) hd[k] = v; }
+    if (!r.headers.get("Content-Encoding")) { const cl = r.headers.get("Content-Length"); if (cl) hd["Content-Length"] = cl; }
+    return new Response(r.body, { status: r.status, headers: hd });
+  } catch (e) { return fail("Worker não conseguiu falar com o youtube.php: " + e.message); }
+}
+
 export default {
   async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
@@ -550,7 +586,11 @@ export default {
     const url = new URL(request.url);
     const action = url.searchParams.get("action") || "";
 
-    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.1", sites: ["uqload", "(filmes/series)"], actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "config", "(demais: repassa ao PHP)"] }, error: null });
+    // ---- YOUTUBE: tudo que for link do YouTube (e os segmentos/legendas dele) vai pro youtube.php ----
+    const ytRaw = url.searchParams.get("url") || url.searchParams.get("link") || "";
+    if (action === "ytseg" || action === "ytsub" || action === "diag" || ((action === "mp4" || action === "tracks" || !action) && ytRaw && isYtRaw(ytRaw))) return ytProxy(request, url, cors, fail);
+
+    if (action === "config") return json({ success: true, data: { name: "KiraFlix Worker", version: "4.2", sites: ["uqload", "youtube", "(filmes/series)"], actions: ["tracks", "mp4", "play", "seg", "sub", "channels", "live", "ytseg", "ytsub", "diag", "config", "(demais: repassa ao PHP)"] }, error: null });
 
     if (action === "tracks") {
       const target = cleanTarget(url.searchParams.get("url") || url.searchParams.get("link") || "");
@@ -665,6 +705,7 @@ export default {
     }
 
     if (action === "sub") {
+      { const u0 = url.searchParams.get("url") || ""; if (/[?&]action=ytsub(&|$)/.test(u0)) { try { return ytProxy(request, new URL(u0), cors, fail); } catch (e) {} } }
       const u = cleanTarget(url.searchParams.get("url") || "");
       let host = ""; try { host = new URL(u).hostname; } catch (e) {}
       if (!u || !(SUB_HOST_RE.test(host) || UQ_HOST_RE.test(host))) return fail("Legenda de domínio não autorizado.", 403);
