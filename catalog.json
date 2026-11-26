@@ -2248,6 +2248,22 @@
       "ageRating": "12",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://flixlat.com/pt/detail/movie/2sf4SHEKgArihZ8Zg5nl9-Aquaman-and-the-Lost-Kingdom"
     },
+    "580489": {
+      "title": "Venom: Tempo de Carnificina",
+      "overview": "Em busca de seu próximo furo de reportagem, o jornalista Eddie Brock consegue uma entrevista exclusiva com Cletus Kasady, um assassino no corredor da morte, que descobre o segredo de Eddie e se torna o hospedeiro de Carnificina, um simbionte aterrorizante e ameaçador. Eddie e Venom precisam superar sua relação atribulada e trabalhar em conjunto para derrotar Carnificina.",
+      "poster": "https://image.tmdb.org/t/p/w500/h5UzYZquMwO9FVn15R2eK2itmHu.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/eENEf62tMXbhyVvdcXlnQz2wcuT.jpg",
+      "year": "2021",
+      "rating": 6.716,
+      "genres": [
+        "Ficção científica",
+        "Ação",
+        "Aventura"
+      ],
+      "ageRating": "14",
+      "source": "",
+      "addedAt": 1795654693180
+    },
     "603692": {
       "title": "John Wick 4: Baba Yaga",
       "overview": "Com o preço por sua cabeça cada vez maior, John Wick leva sua luta contra a alta mesa global enquanto procura os jogadores mais poderosos do submundo, de Nova York a Paris, de Osaka a Berlim.",
