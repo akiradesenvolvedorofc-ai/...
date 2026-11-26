@@ -396,8 +396,8 @@ const CONFIG = {
   // sem precisar configurar pela aba Arquivos.
   GITHUB: {
     owner: "akiradesenvolvedorofc-ai",
-    repo: "...",
-    token: "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"
+    repo: "", // <<< coloque aqui o nome exato do repositório (ex: "kiraflix")
+    token: "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"
   },
 
   // Supabase: usado na aba Usuários (gerenciar contas do site).
@@ -417,7 +417,7 @@ const CONFIG = {
   },
 
   // API KiraFlix (scraper/automação de episódios) usada na aba Automatizar.
-  API_BASE: "https://wandering-lake-8698.desantosinouea.workers.dev/?url="
+  API_BASE: "https://kiraflix-api.site.je/api.php?url="
 };
 
 const DEFAULT_TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWUwZDBjYTNlNGE3MzRhMzZmMTVkODgwMmE1Y2M0YiIsIm5iZiI6MTc5MTIzODAxOS4xMDMwMDAyLCJzdWIiOiI2YWM0MWY4M2ZhMGZiZGI1NGY5NWM0NDEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.djnlUPS5uJBMtKK_IIZC16YEzAQMDqLGcYj7P6VMdCM";
@@ -1410,6 +1410,92 @@ async function impAdd(id, kind, btn) {
 }
 
 // ============================================================
+// ADICIONAR PARTES DE FILME (continuações) — só para Filmes
+// ============================================================
+const PARTS_API_DEF = "https://wandering-lake-8698.desantosinouea.workers.dev/mp4.php?mode=json&url=";
+const getPartsApiBase = () => { try { return localStorage.getItem("kiraflix_parts_api") || PARTS_API_DEF; } catch (e) { return PARTS_API_DEF; } };
+function savePartsApiBase() {
+  const v = $("apPartsBase").value.trim();
+  if (v && !/^https:\/\/\S+$/i.test(v)) return toast("O endereço precisa começar com https://", true);
+  try { if (v && v !== PARTS_API_DEF) localStorage.setItem("kiraflix_parts_api", v); else localStorage.removeItem("kiraflix_parts_api"); } catch (e) {}
+  toast("✔ Endereço da API de partes salvo");
+}
+const partsPickUrl = d => (d && (d.url || (Array.isArray(d.qualities) && d.qualities[0] && d.qualities[0].url))) || "";
+async function partsFetchJson(pageUrl) {
+  const full = getPartsApiBase() + encodeURIComponent(pageUrl);
+  const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 30000);
+  try {
+    const res = await fetch(full, { headers: { Accept: "application/json" }, signal: ctl.signal });
+    const text = await res.text();
+    if (!res.ok) throw new Error("API de partes respondeu " + res.status);
+    let json; try { json = JSON.parse(text.replace(/^﻿/, "")); } catch (e) { throw new Error("A resposta da API de partes não é um JSON válido."); }
+    if (json && json.success === false) throw new Error(json.error || "A API de partes retornou erro.");
+    return (json && json.data) || json || {};
+  } catch (e) { if (e.name === "AbortError") throw new Error("A API de partes demorou demais e a consulta foi cancelada."); throw e; }
+  finally { clearTimeout(to); }
+}
+let partsData = null;
+function partsStatus(i, msg) { const el = $("apPartStatus" + i); if (el) el.textContent = msg; }
+function partsTmdbCell(i, msg) { const el = $("apPartTmdb" + i); if (el) el.textContent = msg; }
+function renderPartsPreview() {
+  const box = $("apPartsOut"); if (!box) return;
+  if (!partsData || !partsData.parts.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="tblwrap"><div class="tbl-scroll"><table><thead><tr><th>#</th><th>Nome (fonte)</th><th>TMDB</th><th>Status</th></tr></thead><tbody>${partsData.parts.map((p, i) => `<tr><td>${esc(p.n ?? i + 1)}</td><td>${esc(p.title || p.name || "")}</td><td id="apPartTmdb${i}">—</td><td id="apPartStatus${i}">Pendente</td></tr>`).join("")}</tbody></table></div></div>`;
+}
+async function autoPartsBuscar() {
+  const link = $("apPartsLink").value.trim(); if (!link) return toast("Cole o link do filme", true);
+  const btn = $("btnApPartsGo"); const old = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Buscando';
+  $("apPartsLog").innerHTML = ""; partsData = null; renderPartsPreview();
+  try {
+    const data = await partsFetchJson(link);
+    const firstUrl = partsPickUrl(data);
+    const rawParts = Array.isArray(data.parts) && data.parts.length ? data.parts : [{ n: 1, name: "Parte 1", title: data.title || "", page: link, current: true }];
+    partsData = { parts: rawParts.map(p => ({ ...p, url: p.current ? firstUrl : "" })) };
+    logTo("apPartsLog", `${partsData.parts.length} parte(s) encontrada(s)`, "info");
+    renderPartsPreview();
+  } catch (e) { toast("Erro: " + e.message, true); logTo("apPartsLog", "❌ " + e.message, "error"); }
+  finally { btn.disabled = false; btn.innerHTML = old; }
+}
+async function autoPartsRun() {
+  if (!partsData || !partsData.parts.length) return toast("Busque as partes primeiro", true);
+  const btn = $("btnApPartsRun"); const old = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Processando';
+  const pre = $("apPartsPfx").value;
+  let added = 0, skipped = 0, failed = 0;
+  for (let i = 0; i < partsData.parts.length; i++) {
+    const p = partsData.parts[i], q = (p.title || p.name || "").trim();
+    try {
+      if (!q) { partsStatus(i, "❗ Sem nome pra buscar"); failed++; continue; }
+      partsStatus(i, "Buscando no TMDB…");
+      const sr = await tmdb(`/search/movie?query=${encodeURIComponent(q)}&language=${LANG}&include_adult=false`);
+      const hit = (sr.results || [])[0];
+      if (!hit) { partsStatus(i, "❗ Não encontrado no TMDB"); failed++; continue; }
+      const tmdbId = String(hit.id);
+      partsTmdbCell(i, `${hit.title || hit.name || ""} (${(hit.release_date || "").slice(0, 4)}) #${tmdbId}`);
+      if (bucketOf(catalog, "movie")[tmdbId]) { partsStatus(i, "⚠ já existe — ignorado"); skipped++; continue; }
+      let url = p.url;
+      if (!url) {
+        partsStatus(i, "Buscando link do vídeo…");
+        const pageLink = p.page || "";
+        if (!pageLink) { partsStatus(i, "❗ Sem link pra essa parte"); failed++; continue; }
+        url = partsPickUrl(await partsFetchJson(pageLink));
+        if (!url) { partsStatus(i, "❗ Não consegui o link do vídeo"); failed++; continue; }
+      }
+      partsStatus(i, "Adicionando…");
+      const built = await buildFromTmdb("movie", tmdbId);
+      const finalUrl = buildFinalUrl(url, pre);
+      await commitCatalog(`Add ${built.base.title} (parte)`, cat => {
+        const bkt = bucketOf(cat, "movie");
+        if (!bkt[tmdbId]) bkt[tmdbId] = { ...built.base, source: finalUrl, subtitles: {}, addedAt: Date.now() };
+      });
+      autoAnnounce("movie", tmdbId, "save");
+      partsStatus(i, "✔ Adicionado"); added++;
+    } catch (e) { partsStatus(i, "❗ Erro: " + e.message); failed++; }
+  }
+  toast(`Partes: ${added} adicionada(s), ${skipped} já existia(m), ${failed} falharam`);
+  btn.disabled = false; btn.innerHTML = old;
+}
+
+// ============================================================
 // AUTOMATIZAR
 // ============================================================
 function renderAutomate() {
@@ -1418,6 +1504,14 @@ function renderAutomate() {
   $("p-automate").innerHTML = `
     <div class="ph"><div style="display:flex;gap:16px;align-items:center"><span class="icobox" style="width:56px;height:56px;border-radius:16px">${ic("spark", 28)}</span><div><h1>Automação de Episódios</h1><p>Gere os links de todas as temporadas de uma série Seekee/DramasFree e salve direto nos episódios.</p></div></div></div>
     <div class="row nofl" style="margin:-8px 0 22px"><button class="btn ghost" onclick="go('series')">${ic("tv", 17)} Ver Séries</button></div>
+
+    <div class="card" style="border-color:rgba(220,38,38,.35)"><div class="cardhead"><span class="icobox">${ic("film", 22)}</span><div style="flex:1"><h2>Adicionar Partes de Filme (Continuações)</h2><div class="muted" style="font-size:.8rem">Cole o link de UM filme com partes/continuações. O painel busca cada parte na sua API, procura o nome no TMDB e adiciona cada filme já com o link de vídeo — sozinho. Filme que já estiver no catálogo é ignorado automaticamente.</div></div></div>
+      <div class="field"><label>Link do filme</label><input id="apPartsLink" placeholder="https://ver.123pelicula.com/pt/detail/movie/ID-Nome/0" autocomplete="off"></div>
+      <div class="row"><div><label>Prefixo dos links</label><select id="apPartsPfx">${pfxOptions("")}</select></div></div>
+      <details style="margin-top:12px"><summary>Endereço da API de partes</summary><div class="row nofl mt"><input style="flex:1;min-width:0" id="apPartsBase" value="${esc(getPartsApiBase())}"><button class="btn ghost" onclick="savePartsApiBase()">Salvar</button></div></details>
+      <div class="row nofl mt"><button class="btn" id="btnApPartsGo" onclick="autoPartsBuscar()">${ic("search", 16)} Buscar partes</button><button class="btn green" id="btnApPartsRun" onclick="autoPartsRun()">${ic("plus", 16)} Adicionar todas</button></div>
+      <div id="apPartsOut" class="mt"></div>
+      <div class="log" id="apPartsLog"></div></div>
 
     <div class="card"><div class="cardhead"><span class="num">1</span><h2>Selecionar Série</h2><span class="muted" style="margin-left:auto;font-size:.78rem;text-align:right">Busca por Nome ou ID TMDB</span></div>
       <div class="search">${ic("search", 18)}<input id="aSearch" placeholder="Digite o Nome da série ou ID TMDB" autocomplete="off" oninput="aSuggest()"></div>
