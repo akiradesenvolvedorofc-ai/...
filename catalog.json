@@ -79,6 +79,23 @@
       "ageRating": "12",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://peliculaplay.com/pt/detail/movie/RACMgsEjPBb3mp724UxVR-Batman-The-Dark-Knight-Returns-Part-2"
     },
+    "218": {
+      "title": "O Exterminador do Futuro",
+      "overview": "Em um futuro próximo, a guerra entre humanos e máquinas foi iniciada. Com a tecnologia a seu dispor, um plano inusitado é arquitetado pelas máquinas ao enviar para o passado um andróide com a missão de matar a mãe daquele que viria a se transformar num líder e seu pior inimigo. Contudo, os humanos também conseguem enviar seu representante para proteger a mulher e tentar garantir o futuro da humanidade.",
+      "poster": "https://image.tmdb.org/t/p/w500/fo4SSoNT1ASI4JP7dOLrosWNWKa.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/ffdqHMWkh1h9MABwIfbfRJhgFW6.jpg",
+      "year": "1984",
+      "rating": 7.7,
+      "genres": [
+        "Ação",
+        "Thriller",
+        "Ficção científica"
+      ],
+      "ageRating": "14",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://video.playspelis.com/pt/detail/movie/QZSXWgtH9aHCpr5CwMBff-The-Terminator/0",
+      "subtitles": {},
+      "addedAt": 1795701093118
+    },
     "253": {
       "title": "Com 007 Viva e Deixe Morrer",
       "overview": "O tráfico de heroína e a morte de agentes secretos colocam frente a frente James Bond (Roger Moore) e Mr. Big (Yaphet Kotto), o chefão do crime em Nova York. Sua organização age impulsionada pelas visões de Solitaire (Jane Seymour), uma cartomante com poderes especiais. Quando conhece Bond, Solitaire perde os seus poderes e é condenada a morte em um ritual vudu.",
