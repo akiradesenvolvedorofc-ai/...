@@ -1721,6 +1721,24 @@
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://flixlat.com/pt/detail/movie/X1UqdtjOPeCIeuCHEZN33-Dragonball-Evolution",
       "addedAt": 1795536126049
     },
+    "14787": {
+      "title": "Tom e Jerry: O Anel Mágico",
+      "overview": "Produção inédita nos cinemas, mostra uma aventura da dupla mais famosa dos desenhos animados numa época distante, onde um poderoso anel mágico é a chave para um poder que pode ajudar o mundo e também colocá-lo à beira da destruição.",
+      "poster": "https://image.tmdb.org/t/p/w500/7w9htTCL9ikMzoduvAQfSm6bDIK.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/dS9wDDuVyiq5pQRD8ab4JcM6Doy.jpg",
+      "year": "2002",
+      "rating": 6.401,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Família",
+        "Fantasia"
+      ],
+      "ageRating": "",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://ww1.123flmsfree.com/pt/detail/movie/14yleTkoNZtqrs7R4L79x-Tom-and-Jerry-The-Magic-Ring/0",
+      "subtitles": {},
+      "addedAt": 1795661759623
+    },
     "14836": {
       "title": "Coraline e o Mundo Secreto",
       "overview": "Entediada em sua nova casa, a pequena Coraline descobre uma porta secreta que contém um mundo parecido com o dela, porém melhor em muitas maneiras. Coraline se encanta com a descoberta, mas logo descobre que há algo de errado quando seus pais alternativos tentam mantê-la eternamente nesse mundo paralelo.",
