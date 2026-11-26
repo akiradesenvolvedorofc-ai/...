@@ -1,4 +1,4 @@
-// KiraFlix Worker v4.3 - tracks/mp4/play/seg/sub/live + UQLOAD + STREAMTAPE + YOUTUBE (via youtube.php); demais acoes vao para o PHP
+// KiraFlix Worker v4.4 (aceita /mp4.php?mode=json&url=, igual ao PHP) - tracks/mp4/play/seg/sub/live + UQLOAD + STREAMTAPE + YOUTUBE (via youtube.php); demais acoes vao para o PHP
 const API = "https://kiraflix-api.site.je/api.php";
 const ALLOWED = ["https://kiraflix.qd.je", "https://www.kiraflix.qd.je"];
 const UA = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36";
@@ -723,7 +723,9 @@ export default {
     if (request.method !== "GET") return fail("Método não permitido.", 405);
 
     const url = new URL(request.url);
-    const action = url.searchParams.get("action") || "";
+    // aceita o mesmo formato do PHP:  /mp4.php?mode=json&url=LINK   (ou /mp4?...  ou  /?mode=json&url=LINK)
+    const implicitMp4 = /\/mp4(\.php)?\/?$/i.test(url.pathname) || (url.searchParams.has("mode") && hostOk(cleanTarget(url.searchParams.get("url") || "")));
+    const action = url.searchParams.get("action") || (implicitMp4 ? "mp4" : "");
 
     // ---- YOUTUBE: tudo que for link do YouTube (e os segmentos/legendas dele) vai pro youtube.php ----
     const ytRaw = url.searchParams.get("url") || url.searchParams.get("link") || "";
@@ -799,14 +801,16 @@ export default {
         const self = new URL(request.url);
         const common = "&url=" + encodeURIComponent(target) + (lang ? "&audio=" + lang : "") + (url.searchParams.get("proxy") ? "&proxy=1" : "");
         if (mode === "json") {
-          let subs = info.subtitles, audios = info.audios;
+          const ql = info.qualities.map(q => ({ label: q.label, height: q.height }));
+          const curIdx = info.audios.findIndex(a => info.audio ? a.language === info.audio : a.current);
+          let subs = info.subtitles, audios = info.audios.map((a, i) => ({ language: a.language, label: a.label, dubbed: a.dubbed, current: i === curIdx || (curIdx < 0 && a.current), qualities: i === curIdx ? ql : [] }));
           if (url.searchParams.get("full")) {
             const f = await cachedTracks(target, ctx, nocache);
-            subs = f.subtitles; audios = f.audio.map(a => ({ language: a.language, label: a.label, dubbed: a.dubbed, current: a.current, qualities: a.qualities }));
+            subs = f.subtitles; audios = f.audio.map(a => ({ language: a.language, label: a.label, dubbed: a.dubbed, current: a.current, qualities: (a.qualities || []).map(q => ({ label: q.label, height: q.height })) }));
             info = { ...info, parts: f.parts };
           }
           return json({ success: true, data: { ...st, qualities: info.qualities, audios, subtitles: subs, parts: info.parts, fetched_at: info.fetched_at,
-            master: self.origin + "/?action=mp4&mode=master" + common + "&x=.m3u8" }, error: null }, 200, { "Cache-Control": "no-store" });
+            master: self.origin + "/mp4.php?mode=master&x=.m3u8" + common }, error: null }, 200, { "Cache-Control": "no-store" });
         }
         if (mode === "redirect") return new Response(null, { status: 302, headers: { ...cors, Location: st.url, "Cache-Control": "no-store" } });
         if (mode === "master") {
