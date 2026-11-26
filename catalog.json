@@ -2520,6 +2520,23 @@
       "ageRating": "12",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://flixlat.com/pt/detail/movie/SkJWvSSAfbQKqruiElsUr-Spider-Man-Homecoming"
     },
+    "320288": {
+      "title": "X-Men: Fênix Negra",
+      "overview": "Ambientado em 1992, Charles Xavier está lidando com o fato dos mutantes serem considerados heróis nacionais. Com o orgulho a flor da pele, ele envia sua equipe para perigosas missões, mas a primeira tarefa dos X-Men no espaço gera uma explosão solar, que acende uma força malévola e faminta por poder dentro de Jean Grey.",
+      "poster": "https://image.tmdb.org/t/p/w500/w4mvEKtjawXdYaq1bORuodLX6ti.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/j9ZV0UOagjQ4seR8Hd5N6JfwdTP.jpg",
+      "year": "2019",
+      "rating": 6,
+      "genres": [
+        "Ficção científica",
+        "Ação",
+        "Aventura"
+      ],
+      "ageRating": "12",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://video.playspelis.com/pt/detail/movie/4rb6mlGUIw6q7rl7RcCzS-Dark-Phoenix/0",
+      "subtitles": {},
+      "addedAt": 1795660164672
+    },
     "324552": {
       "title": "John Wick: Um Novo Dia para Matar",
       "overview": "O lendário John Wick é forçado a deixar a aposentadoria em função de um criminoso que conspira para tomar o controle de um clã de assassinos internacionais. Por causa de um pacto de sangue, John Wick viaja para Roma, com o objetivo de ajudar um velho amigo a derrubar a organização internacional secreta, perigosa e mortal de assassinos procurados em todo o mundo.",
