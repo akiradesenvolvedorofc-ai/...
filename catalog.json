@@ -894,6 +894,23 @@
       "ageRating": "10",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://video.playspelis.com/pt/detail/movie/0OhPEikwjuzrKITqUlYXI-Superman-Returns"
     },
+    "1726": {
+      "title": "Homem de Ferro",
+      "overview": "Tony Stark é um industrial bilionário, que também é um brilhante inventor. Ao ser sequestrado ele é obrigado por terroristas a construir uma arma devastadora mas, ao invés disto, constrói uma armadura de alta tecnologia que permite que fuja de seu cativeiro. A partir de então ele passa a usá-la para combater o crime, sob o alter ego do Homem de Ferro.",
+      "poster": "https://image.tmdb.org/t/p/w500/mqN7RxojEiPoh3FTSTwOtwg7KAu.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/cKvDv2LpwVEqbdXWoQl4XgGN6le.jpg",
+      "year": "2008",
+      "rating": 7.669,
+      "genres": [
+        "Ação",
+        "Ficção científica",
+        "Aventura"
+      ],
+      "ageRating": "12",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://es.cuevana4br.com/pt/detail/movie/JWArnwwgCpJb6ofoJMovJ-Iron-Man/0",
+      "subtitles": {},
+      "addedAt": 1795663540861
+    },
     "1771": {
       "title": "Capitão América: O Primeiro Vingador",
       "overview": "Durante a Segunda Guerra Mundial, Steve Rogers é um homem doente, do Brooklyn, que se transforma no super soldado Capitão América para ajudar nos esforços de guerra. Rogers deve parar o Caveira Vermelha, o implacável chefe de armas de Adolf Hitler e líder de uma organização que pretende usar um misterioso mecanismo de incalculáveis poderes para dominar o mundo.",
