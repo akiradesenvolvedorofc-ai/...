@@ -1256,6 +1256,23 @@
       "ageRating": "L",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://flixlat.com/pt/detail/movie/S1WoYtXZwJwLPYB6jGT6A-Despicable-Me-2"
     },
+    "99861": {
+      "title": "Vingadores: Era de Ultron",
+      "overview": "Ao tentar proteger o planeta de ameaças, Tony Stark constrói um sistema de inteligência artificial que cuidaria da paz mundial. O projeto acaba dando errado e gera o nascimento do Ultron. Com o destino da Terra em jogo, os Vingadores terão que se unir para mais uma vez salvar a raça humana da extinção.",
+      "poster": "https://image.tmdb.org/t/p/w500/uvzqTsRmUzk9mJVzX8cMSWMyM5l.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/kIBK5SKwgqIIuRKhhWrJn3XkbPq.jpg",
+      "year": "2015",
+      "rating": 7.3,
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Ficção científica"
+      ],
+      "ageRating": "12",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://es.cuevana4br.com/pt/detail/movie/xNNiBJtsDkwzNAuvcpcpD-Avengers-Age-of-Ultron/0",
+      "subtitles": {},
+      "addedAt": 1795658810985
+    },
     "101299": {
       "title": "Jogos Vorazes: Em Chamas",
       "overview": "Após saírem vencedores da última edição dos Jogos Vorazes, as atitudes desafiadoras de Katniss e Peeta acabam inspirando uma rebelião contra a opressiva Capital. No entanto, os dois são obrigados a participarem de uma edição especial do torneio, o Massacre Quaternário, que acontece apenas a cada 25 anos, e reúne vencedores das edições anteriores.",
