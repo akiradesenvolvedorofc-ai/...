@@ -1513,11 +1513,10 @@ function renderAutomate() {
       <div class="field"><label>Link do episódio / série</label><input id="apiLink" placeholder="https://www3.dramasfree.com/pt/detail/drama/ID-Nome-Season-1/1" autocomplete="off"></div>
       <div class="row"><div><label>Prefixo dos links</label><select id="apiPfx" onchange="renderApiPreview()">${pfxOptions()}</select></div><div><label>Se o episódio já existir</label><select id="apiMode"><option value="update">Só preencher os sem link</option><option value="ignore">Ignorar os que já existem</option><option value="replace">Substituir os links existentes</option></select></div></div>
       <label class="switchrow"><input type="checkbox" id="apiSweep"><b style="font-size:.84rem">Varrer temporada por temporada (só se a API devolver uma temporada; o api.php novo já devolve todas numa chamada)</b></label>
-      <label class="switchrow"><input type="checkbox" id="apiSmart" checked><b style="font-size:.84rem">Divisão inteligente: distribuir os episódios nas temporadas do TMDB (quando a fonte tem tudo numa temporada só)</b></label>
+      <div class="hint" style="margin-top:8px">O painel sempre usa exatamente a quantidade de temporadas e episódios que o link trouxe — nunca a do TMDB (ex: One Piece numa fonte só com 1 temporada enorme continua 1 temporada enorme).</div>
       <details style="margin-top:12px"><summary>Endereço da API</summary><div class="row nofl mt"><input style="flex:1;min-width:0" id="apiBase" value="${esc(getApiBase())}"><button class="btn ghost" onclick="saveApiBase()">Salvar</button></div></details>
       <div class="row nofl mt"><button class="btn" id="btnApiGo" onclick="apiFetchSeasons()">${ic("search", 16)} Buscar temporadas</button><button class="btn ghost" id="btnApiTest" onclick="apiTest()">Testar API</button></div>
       <div class="progress hidden" id="apiProg"><b id="apiBar"></b></div>
-      <div id="apiSplit"></div>
       <div id="apiPrev" class="mt"></div>
       <div class="log" id="apiLog"></div>
       <details><summary>Ver resposta bruta da última consulta</summary><div class="previewbox" id="apiRawBox" style="color:var(--mut)">—</div></details></div>
@@ -1834,69 +1833,7 @@ function apiFail(e) {
   apiLog(`ℹ Detalhe técnico: tipo=${e.kind || "desconhecido"}${e.status ? ", status=" + e.status : ""}, API=${(() => { try { return new URL(getApiBase()).host; } catch (x) { return "?"; } })()}${e.body ? ", trecho da resposta: " + e.body : ""}`, "info");
   toast(msg.length > 140 ? msg.slice(0, 137) + "…" : msg, true);
 }
-// ---- Divisão inteligente por temporadas (fonte sem temporadas × TMDB com temporadas)
-let apiOrig = null, apiTm = null, apiCounts = [], apiSplitOn = false;
-async function apiTmSeasons() {
-  const sel = autoSel; if (!sel) return null;
-  const it = bucketOf(catalog, sel.kind)[sel.id];
-  const own = (it && it.seasons || []).filter(x => x.number > 0 && (x.episodes || []).length > 0).map(x => ({ number: x.number, count: x.episodes.length, from: "catálogo" }));
-  if (own.length >= 2) return own.sort((a, b) => a.number - b.number);
-  if (!/^\d+$/.test(String(sel.id))) return own.length ? own : null;
-  const d = await tmdb(`/tv/${sel.id}?language=${LANG}`);
-  const list = (d.seasons || []).filter(x => x.season_number > 0 && x.episode_count > 0).map(x => ({ number: x.season_number, count: x.episode_count, from: "TMDB" }));
-  return list.length ? list.sort((a, b) => a.number - b.number) : (own.length ? own : null);
-}
-function apiFlat(orig) {
-  const out = []; [...orig].sort((a, b) => a.number - b.number).forEach(s => [...s.eps].sort((a, b) => a.n - b.n).forEach(e => out.push({ ...e, apiSeason: s.number, apiEp: e.n })));
-  return out;
-}
-function apiDecideSplit() {
-  // A fonte (Seekee/DramasFree) manda. Só dividimos quando ela entrega tudo numa temporada só
-  // e o TMDB mostra que a série tem mais — nesse caso usamos as contagens do TMDB como referência
-  // para separar. Se a fonte já chegou separada em 2+ temporadas, a conta dela vale, mesmo que o
-  // número de temporadas ou de episódios seja diferente do TMDB (TMDB pode estar desatualizado,
-  // juntar specials, ou a fonte pode ter cortado/dividido diferente).
-  if (apiOrig.length >= 2) return { split: false, why: "a fonte já trouxe " + apiOrig.length + " temporada(s) separadas — mantendo como a fonte organizou" };
-  if (!apiTm || apiTm.length < 2) return { split: false, why: "a fonte trouxe 1 temporada e não há outra referência de temporadas" };
-  return { split: true, why: "a fonte trouxe tudo em 1 temporada e o TMDB indica " + apiTm.length };
-}
-async function apiSmartSplit(force) {
-  try { if (!apiTm) apiTm = await apiTmSeasons(); }
-  catch (e) { apiLog("⚠ Divisão inteligente: não consegui ler as temporadas (" + e.message + "). Mantive as da fonte.", "warn"); renderApiSplit(); return; }
-  if (!apiTm) { apiLog("ℹ Divisão inteligente: escolha no passo 1 uma série do catálogo para comparar com as temporadas do TMDB.", "info"); renderApiSplit(); return; }
-  if (!apiCounts.length || apiCounts.length !== apiTm.length) apiCounts = apiTm.map(t => t.count);
-  const d = apiDecideSplit();
-  if (force || d.split) apiApplyCounts(); else { apiLog("✔ Mantive as temporadas da fonte: " + d.why + ".", "success"); renderApiSplit(); }
-}
-function apiApplyCounts() {
-  const flat = apiFlat(apiOrig), out = []; let pos = 0;
-  apiTm.forEach((t, i) => {
-    const last = i === apiTm.length - 1; let n = Math.max(0, parseInt(apiCounts[i], 10) || 0);
-    if (last && pos + n < flat.length) n = flat.length - pos;
-    const chunk = flat.slice(pos, pos + n); pos += chunk.length; if (!chunk.length) return;
-    out.push({ number: t.number, name: "", first: 1, start: 1, open: out.length === 0, eps: chunk.map((e, k) => ({ n: k + 1, name: "", url: e.url, sel: true, apiEp: e.apiEp, apiSeason: e.apiSeason })) });
-  });
-  apiData = out; apiSplitOn = true;
-  const left = flat.length - pos;
-  apiLog(`✂ Divisão inteligente (${apiTm[0].from}): ` + out.map(s => `T${s.number}=${s.eps.length}`).join(", ") + ` — total ${flat.length} episódio(s).`, "success");
-  if (flat.length > apiTm.reduce((a, t, i) => a + (parseInt(apiCounts[i], 10) || 0), 0)) apiLog(`ℹ A fonte tem mais episódios do que as contagens: os extras ficaram na última temporada (T${out[out.length - 1].number}). Ajuste os números abaixo se precisar.`, "warn");
-  if (left > 0) apiLog(`⚠ Sobraram ${left} episódio(s) sem temporada.`, "warn");
-  if (flat.length < apiTm.reduce((a, t) => a + t.count, 0)) apiLog("ℹ A fonte tem menos episódios que o TMDB: as últimas temporadas ficaram parciais ou vazias.", "warn");
-  renderApiSplit(); renderApiPreview();
-}
-function apiRevertSplit() {
-  if (!apiOrig) return; apiData = JSON.parse(JSON.stringify(apiOrig)); apiSplitOn = false;
-  apiLog("↩ Voltei para as temporadas originais da fonte.", "info"); renderApiSplit(); renderApiPreview();
-}
-function renderApiSplit() {
-  const box = $("apiSplit"); if (!box) return;
-  if (!apiOrig || !apiTm) { box.innerHTML = apiOrig && $("apiSmart") && !$("apiSmart").checked ? `<div class="subbox"><h3>Divisão por temporadas</h3><div class="muted" style="font-size:.84rem">A divisão inteligente está desligada.</div><div class="row nofl mt"><button class="btn ghost sm" onclick="apiSmartSplit(true)">Dividir pelo TMDB</button></div></div>` : ""; return; }
-  const total = apiFlat(apiOrig).length;
-  box.innerHTML = `<div class="subbox"><h3>✂ Divisão por temporadas (${esc(apiTm[0].from)})</h3>
-    <div class="muted" style="font-size:.84rem;line-height:1.6">Fonte: ${apiOrig.length} temporada(s), ${total} episódio(s) · ${apiTm.length} temporadas na série. Os episódios são distribuídos em ordem; dentro de cada temporada a numeração recomeça em 1. ${apiSplitOn ? "<b style=\"color:#4ade80\">Divisão aplicada.</b>" : "<b style=\"color:#fbbf24\">Usando as temporadas originais da fonte.</b>"}</div>
-    <div class="row nofl mt" style="flex-wrap:wrap;gap:8px">${apiTm.map((t, i) => `<div style="width:92px"><label>T${t.number}</label><input type="number" min="0" value="${apiCounts[i] ?? t.count}" onchange="apiCounts[${i}]=parseInt(this.value,10)||0"></div>`).join("")}</div>
-    <div class="row nofl mt"><button class="btn sm" onclick="apiApplyCounts()">Aplicar divisão</button><button class="btn ghost sm" onclick="apiRevertSplit()">Voltar ao original da fonte</button><button class="btn ghost sm" onclick="apiCounts=apiTm.map(t=>t.count);apiApplyCounts()">Usar contagens do ${esc(apiTm[0].from)}</button></div></div>`;
-}
+// ---- Temporadas/episódios sempre exatamente como o link trouxe (nunca reorganizados pelo TMDB)
 function apiProgress(p) { const w = $("apiProg"); if (!w) return; w.classList.toggle("hidden", p === null); if (p !== null) $("apiBar").style.width = p + "%"; }
 async function apiTest() {
   const b = $("btnApiTest"), old = b.innerHTML; b.disabled = true; b.innerHTML = '<span class="spin"></span> Testando';
@@ -1912,7 +1849,7 @@ async function apiTest() {
 }
 async function apiFetchSeasons() {
   const link = rawOf((($("apiLink").value || "").match(/https?:\/\/[^\s"'`<>]+/i) || [""])[0]);
-  $("apiLog").innerHTML = ""; apiData = null; apiOrig = null; apiTm = null; renderApiPreview(); renderApiSplit();
+  $("apiLog").innerHTML = ""; apiData = null; renderApiPreview();
   if (!/^https?:\/\/[^\s]+$/i.test(link)) return apiFail(apiErr("link", "Link inválido. Cole o endereço completo (https://...) de um episódio da série."));
   const m = link.match(/(Season|Temporada)-(\d+)/i), sweep = $("apiSweep").checked && !!m;
   const btn = $("btnApiGo"), old = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Buscando'; apiProgress(4);
@@ -1954,9 +1891,7 @@ async function apiFetchSeasons() {
     if (!good.length) throw apiErr("empty", "As temporadas encontradas não têm episódios.");
     good.sort((a, b) => a.number - b.number);
     apiData = good.map((x, i) => { const first = Math.min(...x.eps.map(e => e.n)); return { number: x.number, name: x.name, first, start: first, open: i === 0, eps: x.eps.map(e => ({ n: e.n, name: e.name, url: e.url, sel: true })) }; });
-    apiOrig = JSON.parse(JSON.stringify(apiData));
-    apiLog(`A fonte trouxe ${apiData.length} temporada(s) e ${apiData.reduce((a, x) => a + x.eps.length, 0)} episódio(s).`, "info");
-    if ($("apiSmart").checked) await apiSmartSplit(false); else renderApiSplit();
+    apiLog(`A fonte trouxe ${apiData.length} temporada(s) e ${apiData.reduce((a, x) => a + x.eps.length, 0)} episódio(s). Vão ser salvos exatamente assim, do jeito que o link trouxe.`, "info");
     apiProgress(100); apiLog(`✅ ${apiData.length} temporada(s) e ${apiData.reduce((a, x) => a + x.eps.length, 0)} episódio(s) encontrados. Confira abaixo e clique em Importar.`, "success");
     renderApiPreview(); setTimeout(() => apiProgress(null), 900);
   } catch (e) { apiProgress(null); apiFail(e); }
