@@ -1420,7 +1420,6 @@ function savePartsApiBase() {
   try { if (v && v !== PARTS_API_DEF) localStorage.setItem("kiraflix_parts_api", v); else localStorage.removeItem("kiraflix_parts_api"); } catch (e) {}
   toast("✔ Endereço da API de partes salvo");
 }
-const partsPickUrl = d => (d && (d.url || (Array.isArray(d.qualities) && d.qualities[0] && d.qualities[0].url))) || "";
 async function partsFetchJson(pageUrl) {
   const full = getPartsApiBase() + encodeURIComponent(pageUrl);
   const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 30000);
@@ -1448,9 +1447,8 @@ async function autoPartsBuscar() {
   $("apPartsLog").innerHTML = ""; partsData = null; renderPartsPreview();
   try {
     const data = await partsFetchJson(link);
-    const firstUrl = partsPickUrl(data);
     const rawParts = Array.isArray(data.parts) && data.parts.length ? data.parts : [{ n: 1, name: "Parte 1", title: data.title || "", page: link, current: true }];
-    partsData = { parts: rawParts.map(p => ({ ...p, url: p.current ? firstUrl : "" })) };
+    partsData = { parts: rawParts };
     logTo("apPartsLog", `${partsData.parts.length} parte(s) encontrada(s)`, "info");
     renderPartsPreview();
   } catch (e) { toast("Erro: " + e.message, true); logTo("apPartsLog", "❌ " + e.message, "error"); }
@@ -1472,17 +1470,11 @@ async function autoPartsRun() {
       const tmdbId = String(hit.id);
       partsTmdbCell(i, `${hit.title || hit.name || ""} (${(hit.release_date || "").slice(0, 4)}) #${tmdbId}`);
       if (bucketOf(catalog, "movie")[tmdbId]) { partsStatus(i, "⚠ já existe — ignorado"); skipped++; continue; }
-      let url = p.url;
-      if (!url) {
-        partsStatus(i, "Buscando link do vídeo…");
-        const pageLink = p.page || "";
-        if (!pageLink) { partsStatus(i, "❗ Sem link pra essa parte"); failed++; continue; }
-        url = partsPickUrl(await partsFetchJson(pageLink));
-        if (!url) { partsStatus(i, "❗ Não consegui o link do vídeo"); failed++; continue; }
-      }
+      const pageLink = p.page || "";
+      if (!pageLink) { partsStatus(i, "❗ Sem link da página pra essa parte"); failed++; continue; }
       partsStatus(i, "Adicionando…");
       const built = await buildFromTmdb("movie", tmdbId);
-      const finalUrl = buildFinalUrl(url, pre);
+      const finalUrl = buildFinalUrl(pageLink, pre);
       await commitCatalog(`Add ${built.base.title} (parte)`, cat => {
         const bkt = bucketOf(cat, "movie");
         if (!bkt[tmdbId]) bkt[tmdbId] = { ...built.base, source: finalUrl, subtitles: {}, addedAt: Date.now() };
