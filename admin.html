@@ -1512,7 +1512,6 @@ function renderAutomate() {
     <div class="card" id="apiCard"><div class="cardhead"><span class="icobox">${ic("plug", 22)}</span><div style="flex:1"><h2>API KiraFlix — buscar temporadas e episódios</h2><div class="muted" style="font-size:.8rem">Cole o link de um episódio; a API devolve os links, você confere e edita antes de salvar na série escolhida no passo 1.</div></div></div>
       <div class="field"><label>Link do episódio / série</label><input id="apiLink" placeholder="https://www3.dramasfree.com/pt/detail/drama/ID-Nome-Season-1/1" autocomplete="off"></div>
       <div class="row"><div><label>Prefixo dos links</label><select id="apiPfx" onchange="renderApiPreview()">${pfxOptions()}</select></div><div><label>Se o episódio já existir</label><select id="apiMode"><option value="update">Só preencher os sem link</option><option value="ignore">Ignorar os que já existem</option><option value="replace">Substituir os links existentes</option></select></div></div>
-      <label class="switchrow"><input type="checkbox" id="apiSweep"><b style="font-size:.84rem">Varrer temporada por temporada (só se a API devolver uma temporada; o api.php novo já devolve todas numa chamada)</b></label>
       <div class="hint" style="margin-top:8px">O painel sempre usa exatamente a quantidade de temporadas e episódios que o link trouxe — nunca a do TMDB (ex: One Piece numa fonte só com 1 temporada enorme continua 1 temporada enorme).</div>
       <details style="margin-top:12px"><summary>Endereço da API</summary><div class="row nofl mt"><input style="flex:1;min-width:0" id="apiBase" value="${esc(getApiBase())}"><button class="btn ghost" onclick="saveApiBase()">Salvar</button></div></details>
       <div class="row nofl mt"><button class="btn" id="btnApiGo" onclick="apiFetchSeasons()">${ic("search", 16)} Buscar temporadas</button><button class="btn ghost" id="btnApiTest" onclick="apiTest()">Testar API</button></div>
@@ -1851,35 +1850,38 @@ async function apiFetchSeasons() {
   const link = rawOf((($("apiLink").value || "").match(/https?:\/\/[^\s"'`<>]+/i) || [""])[0]);
   $("apiLog").innerHTML = ""; apiData = null; renderApiPreview();
   if (!/^https?:\/\/[^\s]+$/i.test(link)) return apiFail(apiErr("link", "Link inválido. Cole o endereço completo (https://...) de um episódio da série."));
-  const m = link.match(/(Season|Temporada)-(\d+)/i), sweep = $("apiSweep").checked && !!m;
+  const m = link.match(/(Season|Temporada)-(\d+)/i);
   const btn = $("btnApiGo"), old = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Buscando'; apiProgress(4);
   apiLog("Consultando a API: " + shortLink(link, 90), "title");
   apiLog("URL chamada: " + getApiBase() + encodeURIComponent(link), "info");
   try {
     let found = [];
-    if (!sweep) {
-      const r = await apiCallSafe(link); apiLog(`✔ Resposta recebida (${r.bytes} bytes)`, "success");
-      found = parseApiSeasons(r.json, m ? parseInt(m[2], 10) : 1);
-      const d = r.json && r.json.data;
-      if (d && typeof d === "object") {
-        if (d.title) apiLog("Título na fonte: " + d.title, "info");
-        if (Array.isArray(d.failed_pages) && d.failed_pages.length) apiLog(`⚠ ${d.failed_pages.length} página(s) falharam na API: ` + d.failed_pages.slice(0, 3).map(f => (f.error || "erro") + " — " + shortLink(f.url || "", 50)).join(" | "), "warn");
-        if (d.complete === false) apiLog("⚠ A API marcou a busca como incompleta; confira as temporadas.", "warn");
-        if (Array.isArray(d.warnings)) d.warnings.forEach(w => apiLog("⚠ " + w, "warn"));
-      }
-    } else {
+    const r = await apiCallSafe(link); apiLog(`✔ Resposta recebida (${r.bytes} bytes)`, "success");
+    found = parseApiSeasons(r.json, m ? parseInt(m[2], 10) : 1);
+    const d = r.json && r.json.data;
+    if (d && typeof d === "object") {
+      if (d.title) apiLog("Título na fonte: " + d.title, "info");
+      if (Array.isArray(d.failed_pages) && d.failed_pages.length) apiLog(`⚠ ${d.failed_pages.length} página(s) falharam na API: ` + d.failed_pages.slice(0, 3).map(f => (f.error || "erro") + " — " + shortLink(f.url || "", 50)).join(" | "), "warn");
+      if (d.complete === false) apiLog("⚠ A API marcou a busca como incompleta; confira as temporadas.", "warn");
+      if (Array.isArray(d.warnings)) d.warnings.forEach(w => apiLog("⚠ " + w, "warn"));
+    }
+    // A chamada só trouxe 1 temporada (a do link) e o link tem um número de temporada nele —
+    // busca automaticamente as outras temporadas trocando esse número, sem precisar marcar nada.
+    if (m && found.filter(x => x.eps.length).length < 2) {
+      apiLog("A API devolveu só 1 temporada nessa chamada — procurando as outras temporadas do link automaticamente…", "info");
       let misses = 0;
-      for (let n = 1; n <= 40 && misses < 2; n++) {
-        const l = link.replace(/(Season|Temporada)-\d+/i, `$1-${n}`); apiProgress(Math.min(90, 6 + n * 9));
+      for (let n = 1; n <= 60 && misses < 3; n++) {
+        if (found.some(x => x.number === n && x.eps.length)) { misses = 0; continue; }
+        const l = link.replace(/(Season|Temporada)-\d+/i, `$1-${n}`); apiProgress(Math.min(90, 6 + n * 4));
         apiLog(`→ Temporada ${n}: consultando…`, "info");
         try {
-          const r = await apiCallSafe(l), parsed = parseApiSeasons(r.json, n), cnt = parsed.reduce((a, x) => a + x.eps.length, 0);
+          const r2 = await apiCallSafe(l), parsed = parseApiSeasons(r2.json, n), cnt = parsed.reduce((a, x) => a + x.eps.length, 0);
           if (!cnt) { misses++; apiLog(`Temporada ${n}: sem episódios`, "warn"); continue; }
           misses = 0; if (parsed.length === 1) parsed[0].number = n; found.push(...parsed);
           apiLog(`✔ Temporada ${n}: ${cnt} episódio(s)`, "success");
-          if (parsed.length > 1) { apiLog("A API já devolveu várias temporadas de uma vez — varredura encerrada.", "info"); break; }
+          if (parsed.length > 1) { apiLog("Essa chamada já devolveu várias temporadas de uma vez — varredura encerrada.", "info"); break; }
         } catch (e) {
-          if (!found.length || ["cors", "timeout", "php", "json"].includes(e.kind)) throw e;
+          if (["cors", "timeout", "php", "json"].includes(e.kind)) throw e;
           misses++; apiLog(`Temporada ${n}: ${e.message}`, "warn");
         }
         await sleep(300);
