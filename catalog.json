@@ -149,6 +149,23 @@
       "ageRating": "12",
       "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://peliculaplay.com/pt/detail/movie/dOEl2MKNrru1B0iZWOSlb-The-Matrix"
     },
+    "646": {
+      "title": "007 Contra o Satânico Dr. No",
+      "overview": "James Bond investiga o desaparecimento de um agente britânico. Em meio às suas investigações ele descobre o esconderijo do Dr. No, um gênio louco que pretende desviar o rumo dos foguetes americanos.",
+      "poster": "https://image.tmdb.org/t/p/w500/mVpOXBO3rJHcJmwmd531y1QhIvh.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/srgq7bzZsuDw7NoGXdazRXp7Hl6.jpg",
+      "year": "1962",
+      "rating": 6.984,
+      "genres": [
+        "Aventura",
+        "Ação",
+        "Thriller"
+      ],
+      "ageRating": "12",
+      "source": "https://wandering-lake-8698.desantosinouea.workers.dev/?action=mp4&proxy=1&x=.m3u8&url=https://play.cuevana19.com/pt/detail/movie/H4GOdGg2eqSZBd5qXFxUF-Dr-No/0",
+      "subtitles": {},
+      "addedAt": 1795658938961
+    },
     "671": {
       "title": "Harry Potter e a Pedra Filosofal",
       "overview": "Harry Potter é um garoto órfão que vive infeliz com seus tios, os Dursley. Em seu aniversário de 11 anos ele recebe uma carta que mudará sua vida: um convite para ingressar em Hogwarts, uma Escola de Magia e Bruxaria.",
