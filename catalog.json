@@ -78904,6 +78904,120 @@
         }
       ]
     },
+    "205308": {
+      "title": "Tomo-chan Is a Girl!",
+      "overview": "A colegial Tomo Aizawa (Tomo-chan) quer que seu amigo de infância Junichiro Kubota a veja como uma garota de verdade, mas todas as tentativas acabam em vão. Será que Junichiro perceberá os sentimentos românticos de Tomo em relação a ele?!",
+      "poster": "https://image.tmdb.org/t/p/w500/lG1lkL2V0PvXkJtwI0FoQTG8gnz.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/9pzMn0ZpzpZVgaTEwMnklp6MnOP.jpg",
+      "year": "2023",
+      "rating": 7.954,
+      "genres": [
+        "Animação",
+        "Comédia"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Quero ser vista como mulher! / Um desafio aterrorizante",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Tomo de saia / A idol da escola",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Segredo entre melhores amigos / Vamos a um encontro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O motivo para ela sorrir / Quero ser brincalhona como uma garota! / Heróis tropeçam muito",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "As mulheres da família Olston / Um sentimento do qual não abro mão / Coração disparado! Jogando de noite",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Presente de aniversário / Em chamas! Torneio de esportes com bola",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Junichiro e sua promessa / Quando a Tomo coloca um biquíni...",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "A noite do festival de verão / A distância entre os dois",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "A verdadeira face de um anjo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O fim da disputa / Para continuarmos como melhores amigos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Meu primeiro trabalho de meio período / O abandono de Cinderela",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Adeus, melhor amigo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Para ficar ao seu lado",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795805766567,
+      "isAnime": true
+    },
     "207332": {
       "title": "SAKAMOTO DAYS",
       "overview": "Taro Sakamoto já foi o maior assassino de aluguel de todos os tempos, mas largou tudo por amor. Agora, com o passado à espreita, ele vai ter que lutar como nunca.",
