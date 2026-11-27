@@ -82573,6 +82573,210 @@
       "addedAt": 1794969357480,
       "isAnime": true
     },
+    "261868": {
+      "title": "WITCH WATCH",
+      "overview": "Morihito Otogi, um colegial de uma linhagem de ogros, aproveita uma vida pacífica e comum até sua amiga de infância, Nico, se mudar e passar a morar com ele. Nico é uma bruxa em treinamento e escolhe Morihito como seu familiar. Enquanto Nico está empolgada em reencontrar seu velho amigo e paixão do passado, Morihito é encarregado com a perigosa tarefa de protegê-la de uma calamidade anunciada. Entre o caos imprevisível causado pela magia de Nico e o constrangimento de compartilhar uma casa, suas vidas vão se tornar um redemoinho de farras e ameaças sobrenaturais.",
+      "poster": "https://image.tmdb.org/t/p/w500/wkTfkFeREqsR65wZ4dt1WlYPGTz.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/lo4pthyEH69DzbfKNwAyaIqy2y.jpg",
+      "year": "2025",
+      "rating": 7.7,
+      "genres": [
+        "Animação",
+        "Comédia",
+        "Sci-Fi & Fantasy"
+      ],
+      "ageRating": "14",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Retorno da Bruxa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "A Novata Gigante / Vamos pro Restaurante / A Sala de Aula Voadora",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Moda Primavera-Visão / Serviço de Entregas da Nico / O Cão Abandonado e o Gotejar da Chuva",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Kanshi Kazamatsuri, o Tengu",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Minha Artista Favorita é Minha Aluna / Estou com Dor de Barriga / Gata Olheira",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Debaixo da Árvore do Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Canal do Kan & Nico / Cerimônia do Chá é Mamão com Açúcar",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Diários de Trampo do Kanshi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Querida Kara / Novo Amigo / Encontro com o Cavaleiro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O Conselho Estudantil Cheio de Clichês / As Bolhas de Prazer da Gata Vira-lata",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Cães e Gotas de Chuva - Parte 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Cães e Gotas de Chuva - Parte 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 13,
+              "label": "Episódio 13",
+              "title": "Keigo Magami, o Lobisomem / Tigre Gentil, Lobo Vaidoso / Temperos Apaixonantes",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 14,
+              "label": "Episódio 14",
+              "title": "Uron Mirage, Capítulo 119: A Caçada aos Phaseys, Parte 4 / Diário da Minha Artista Favorita",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 15,
+              "label": "Episódio 15",
+              "title": "Demônio do Verão",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 16,
+              "label": "Episódio 16",
+              "title": "Miharu Kiryu, o Vampiro / Sombrinha Perdida / Que Bom que Você Chegou",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 17,
+              "label": "Episódio 17",
+              "title": "Ficamos Presos em um Jogo Mortal que era Meia-boca / Long Long a Go Go",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 18,
+              "label": "Episódio 18",
+              "title": "Kara e Shiki / A Megafebre das Bolinhas de Gude / Esquadrão Especial Estouro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 19,
+              "label": "Episódio 19",
+              "title": "Uma Carta de uma Amiga",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 20,
+              "label": "Episódio 20",
+              "title": "O Lobo Perdido e a Gata Vira-Latas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 21,
+              "label": "Episódio 21",
+              "title": "Desejos Íntimos / O Jeitinho Despreocupado da Keiko / Jekyll Visita a Casa dos Otogi",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 22,
+              "label": "Episódio 22",
+              "title": "A Incrível Aventura Encolhida / Festival Outonal de Pão de Hamazaki / Aniversário de Sorte",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 23,
+              "label": "Episódio 23",
+              "title": "Nosso Primeiro Encontro Offline / Pico de Criatividade / Loucuras de Evento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 24,
+              "label": "Episódio 24",
+              "title": "Moi e sua Dedicação ao Jeans / Encontro com o Guia",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 25,
+              "label": "Episódio 25",
+              "title": "A Bruxa Novata e seus Familiares",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "Temporada 2",
+          "episodes": []
+        }
+      ],
+      "addedAt": 1795816915406,
+      "isAnime": true
+    },
     "271003": {
       "title": "Chotto dake Ai ga Omoi Dark Elf ga Isekai kara Oikakete Kita",
       "overview": "Hinata conseguiu. Ele reencarnou em outro mundo, assumiu o manto de Herói e derrotou o temido Lorde Demônio junto com seu grupo de companheiros aventureiros. Como recompensa, ele retornou à Terra para retomar uma vida normal. Ou seria, se não fosse pelo fato de sua companheira elfa negra, Mariabelle, ter decidido viajar para a Terra para morar com ele! Agora, ela usa seus talentos arcanos para afastar qualquer rival romântico em potencial e capturar a afeição de Hinata.",
