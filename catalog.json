@@ -46976,6 +46976,115 @@
       "addedAt": 1795717556577,
       "isAnime": true
     },
+    "56998": {
+      "title": "High School of the Dead",
+      "overview": "Numa manhã comum tudo acontecia normal como em qualquer outro dia. Do telhado, Komuro Takashi, observa um estranho acontecimento nos portões do colégio, um homem suspeito está causando confusão. Um dos professores acaba sendo mordido pelo homem suspeito e em meio a gritos de desespero dos outros professores ele se levanta, mas agora ele é um zumbi. Enquanto isso, Takashi corre de volta para dentro do colégio e junto com suas amigas Rei e Hisashi eles decidem fugir do colégio. Mas agora já é tarde demais, pois o colégio já está infestado de professores e outros colegiais zumbis. Assim começa a história de sobrevivência desses simples colegiais.",
+      "poster": "https://image.tmdb.org/t/p/w500/bKRK0jDz9jccNcqus2LP5mIhA24.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/ivWNDYPxDMjc82ajeSPuyq70hu9.jpg",
+      "year": "2010",
+      "rating": 8.146,
+      "genres": [
+        "Animação",
+        "Action & Adventure",
+        "Drama",
+        "Sci-Fi & Fantasy"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Primavera dos mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Fugindo dos mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Democracia sob os mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Encontrando-se com os mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Ruas dos mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Na calada da noite",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Lenda do Rucker",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Mortes em casa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "A espada e os mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "As regras da casa dos mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Tempestade dos mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Ataque de todos os mortos",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795817822260,
+      "isAnime": true
+    },
     "58566": {
       "title": "Chiquititas",
       "overview": "Fundado por um empresário com motivos misteriosos, o orfanato Raio de Luz é a casa de Mili e várias outras crianças que enfrentam juntas os desafios da vida.",
