@@ -81911,6 +81911,205 @@
         }
       ]
     },
+    "260823": {
+      "title": "De Caipira a Mestre Espadachim",
+      "overview": "Beryl Gardenant, um espadachim de meia-idade que cuida de um dojo numa cidadezinha remota, levava uma vida tranquila até que Allucia, antiga aluna e atual comandante da Ordem Real dos Cavaleiros, apareceu! Tudo está prestes a mudar! Vida na cidade, antigos pupilos, novos amigos e grandes inimigos... É muita coisa! Mas, após anos treinando, ele ficou conhecido como \"mestre espadachim do interior\".",
+      "poster": "https://image.tmdb.org/t/p/w500/eAYuBIJxifz8NRkjQ2n1atpFdHq.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/sEagMcuLL3beaHc3ToiZicMuYSb.jpg",
+      "year": "2025",
+      "rating": 7.3,
+      "genres": [
+        "Animação",
+        "Action & Adventure",
+        "Sci-Fi & Fantasy",
+        "Comédia"
+      ],
+      "ageRating": "16",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "De Caipira a Mestre Espadachim",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Caipira Vai para a Capital",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Caipira se Surpreende com uma Bruxa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O Caipira Sobrevive a um Ataque Brutal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O Caipira Enfrenta um Monstro",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O Caipira Fica Furioso com os Bandidos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O Caipira Enfrenta os Mortos",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O Caipira Encara os Desafios da Paternidade",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O Caipira é Atacado por uma Espada Rápida como um Raio",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O Caipira Volta à Caça Depois de Muito Tempo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O Caipira Protege uma Princesa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O Caipira Entra em um Combate Mortal",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O Caipira é Aclamado como Mestre Espadachim",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "label": "De Caipira a Mestre Espadachim II",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "O Caipira Assume um Novo Cargo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "O Caipira Vê os Alunos Crescerem",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "O caipira se vê como um homem velho",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "O caipira volta para casa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "O caipira solta um rugido",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "O caipira enfrenta seu pai",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "O caipira recebe um convite da nobreza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "O caipira recebe um pedido de casamento",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "O caipira vai para a cidade santa",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "O caipira comemora o Ano-Novo",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "O caipira fica furioso",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "O caipira volta para casa",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795804279215,
+      "isAnime": true
+    },
     "261333": {
       "title": "セックスが好きで好きで大好きなクラスメイトのあの娘",
       "overview": "",
