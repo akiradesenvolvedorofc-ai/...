@@ -81610,6 +81610,99 @@
       "addedAt": 1795183587951,
       "isAnime": true
     },
+    "238084": {
+      "title": "Gatilho",
+      "overview": "Depois que as armas ilegais se espalham pela Coreia do Sul, um policial determinado une forças com um misterioso parceiro para evitar que o caos domine o país.",
+      "poster": "https://image.tmdb.org/t/p/w500/tTKjMnwnOSXaiAbuvXLvCvY6Xp0.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/2jiEkTXR7oiQNDfdday8AM9J5qF.jpg",
+      "year": "2025",
+      "rating": 8.1,
+      "genres": [
+        "Action & Adventure",
+        "Drama",
+        "Crime"
+      ],
+      "ageRating": "18",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Minissérie",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Episódio 1",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Episódio 2",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Episódio 3",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Episódio 4",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Episódio 5",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Episódio 6",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Episódio 7",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Episódio 8",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Episódio 9",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Episódio 10",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795826143365
+    },
     "239385": {
       "title": "O Manipulado",
       "overview": "A vida de Taejoong vira de cabeça para baixo quando ele é preso injustamente por um crime brutal. Ao descobrir que tudo foi orquestrado por Yohan, ele busca vingança nessa trama cheia de ação.",
