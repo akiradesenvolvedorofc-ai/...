@@ -63795,6 +63795,114 @@
       ],
       "addedAt": 1795144560987
     },
+    "65614": {
+      "title": "Witch Craft Works",
+      "overview": "Takamiya Honoka é um aluno regular, cujo único problema parece ser que ele se senta ao lado de Kagari Ayaka, n º 1 da beleza da escola. Eles nunca falaram um com o outro antes e qualquer pequena interação entre eles resulta imediatamente em seu fã-clube querendo bater nele. No entanto, quando uma parte caindo do prédio da escola está prestes a mandá-lo para a vida após a morte, é Kagari que vem em seu socorro. Ela está vestida como uma bruxa, carregando-o nos braços e flutuando em uma vassoura! Kagari diz a ele que é a sua missão de protegê-lo e que agora ela finalmente pode protegê-lo abertamente, em vez de à paisana.",
+      "poster": "https://image.tmdb.org/t/p/w500/fYB6Tvhd1GnFKCtvyc626VmeWkc.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/original/6Dx6Cra1Ju06I4q62EOvLFwHaep.jpg",
+      "year": "2014",
+      "rating": 8,
+      "genres": [
+        "Animação",
+        "Action & Adventure",
+        "Sci-Fi & Fantasy"
+      ],
+      "ageRating": "",
+      "seasons": [
+        {
+          "number": 1,
+          "label": "Temporada 1",
+          "episodes": [
+            {
+              "number": 1,
+              "label": "Episódio 1",
+              "title": "Takamiya-kun e a Bruxa das Chamas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 2,
+              "label": "Episódio 2",
+              "title": "Takamiya-kun e o Motivo das Bruxas",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 3,
+              "label": "Episódio 3",
+              "title": "Takamiya-kun e a Armadilha de Chronoire",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 4,
+              "label": "Episódio 4",
+              "title": "Takamiya-kun e a Sua Irmãzinha Malvada",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 5,
+              "label": "Episódio 5",
+              "title": "Takamiya-kun e a Bruxa dos Olhos e Mãos de Pedra",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 6,
+              "label": "Episódio 6",
+              "title": "Takamiya-kun e a Prova de Amor",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 7,
+              "label": "Episódio 7",
+              "title": "Takamiya-kun e a Obrigação Com a Nobreza",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 8,
+              "label": "Episódio 8",
+              "title": "Takamiya-kun e a Ferida da Kagari-san",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 9,
+              "label": "Episódio 9",
+              "title": "Takamiya-kun e a Bruxa do Fim",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 10,
+              "label": "Episódio 10",
+              "title": "Takamiya-kun e a Weekend (Parte I)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 11,
+              "label": "Episódio 11",
+              "title": "Takamiya-kun e a Weekend (Parte II)",
+              "source": "",
+              "subtitles": {}
+            },
+            {
+              "number": 12,
+              "label": "Episódio 12",
+              "title": "Takamiya-kun e a Weekend (Parte III)",
+              "source": "",
+              "subtitles": {}
+            }
+          ]
+        }
+      ],
+      "addedAt": 1795825486047,
+      "isAnime": true
+    },
     "65930": {
       "title": "My Hero Academia",
       "overview": "Por toda a sua vida, Izuku sonhou ser um herói — um objetivo ambicioso para qualquer um, mas especialmente desafiador para um garoto sem superpoderes. Isso mesmo: em um mundo onde 80% da população tem algum tipo de Dom especial, Izuku teve a má sorte de nascer completamente normal. Mas isso não vai impedi-lo de se matricular em uma das academias de herois mais prestigiosas do mundo.",
